@@ -19,7 +19,7 @@ SESSION_CONFIGS = [
      dict(
         name='gender_norms',
         display_name="Gender norms of self-promotion",
-        num_demo_participants=1,
+        num_demo_participants=50,
         app_sequence=['gender_norms']
      ),
 ]
