@@ -1,0 +1,69 @@
+<style>
+	.serif { font-family: Georgia, serif; }
+</style>
+
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+	Situation description
+{% endblock %}
+
+{% block content %}
+
+<p>{{ player.name }} has applied for a job with a boutique consulting firm and has been invited for a day-long multi-stage interview at the company.</p>
+
+<p>Part of the interview process asks {{ player.name }} to complete a cognitive ability test on a computer. There are 20 questions in total, 4 questions each from the following 5 categories: General science, Arithmetic reasoning, Math knowledge, Mechanical comprehension, and Assembling objects.</p>
+
+<p>You can see a sample of the questions of the test {{ player.name }} takes below:</p>
+
+<br>
+
+<p><b>Cognitive ability test sample questions<sup>1</sup></b></p>
+
+<div class="serif">
+
+Question1. [General Science] NaCl is more commonly known as:
+<ol type="A">
+    <li>Nickel chlorine</li>
+    <li>Pepper</li>
+    <li>Salt</li>
+    <li>Sugar</li>
+</ol>
+
+Question 2. [Arithmetic reasoning] If the tire of a car rotates at a constant speed of 552 times in one minute, how many times will the tire rotate in half-an-hour?
+<ol type="A">
+    <li>276</li>
+    <li>5,520</li>
+    <li>8,280</li>
+    <li>16,560</li>
+</ol>
+
+Question 3. [Mathematics knowledge] If x + y = 2 and x − y = 1, then:
+<ol type="A">
+    <li>x = 1, y = 1</li>
+    <li>x = 2, y = 1</li>
+    <li>x = 3/2, y = 1/2</li>
+    <li>x = 0, y = 2</li>
+</ol>
+
+Question 4. [Assembling objects] Which figure best shows how the objects in the left box will appear if they are put together?
+<img src="{% static 'gender_norms/example_shapes.png' %}" alt="Which figure best shows how the objects in the left box will appear if they are put together?">
+<ol type="A">
+    <li>A</li>
+    <li>B</li>
+    <li>C</li>
+    <li>D</li>
+</ol>
+
+</div>
+
+<br>
+
+    {% next_button %}
+
+<br>
+
+<small><sup>1</sup>ASVAB sample questions, sources: https://www.todaysmilitary.com/joining-eligibility/asvab-test/asvab-sample-questions, https://www.officialasvab.com/samples_app.htm</small>
+
+{% endblock %}

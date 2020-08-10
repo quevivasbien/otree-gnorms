@@ -1,0 +1,2 @@
+otree>=X.X.X
+django-recaptcha

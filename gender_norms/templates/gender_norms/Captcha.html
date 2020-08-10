@@ -1,0 +1,19 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+	Captcha page
+{% endblock %}
+
+{% block content %}
+
+	<p>Thank you for participating in this study! It is important that you read all the instructions for
+this study.</p>
+ 
+	<p>Please complete the CAPTCHA to be taken to the consent form. Read the consent form carefully.</p>
+
+    {% formfield player.captcha %}
+    
+    {% next_button %}
+    
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+	Experiment Instructions (continued)
+{% endblock %}
+
+{% block content %}
+
+<p>On the next screens, you will read the description of a situation in which a person named {{ player.name }} must make a decision. You will read about the decisions {{ player.name }} faced and what actions {{ player.pronoun }} has to choose between.</p>
+
+<p>Your job is to rate {{ player.name }}’s decision based on whether you think the decision is</p>
+
+<center>
+<p>“<u>socially appropriate</u>”</p>
+<p>and</p>
+<p>“<u>consistent with what most people who are like you think that {{ player.name }} OUGHT to do</u>.”</p>
+</center>
+
+<p>By “<i>socially appropriate</i>”, we mean behavior that most people agree is “reasonable” or “correct,” and consistent with proper social behavior in that context; it is what {{ player.name }} “ought” to do in that context. Another way to think about what we mean is that if {{ player.name }} were to select a <i>socially inappropriate</i> choice, then someone might be angry at {{ player.pronoun_object }} or form a negative impression of {{ player.pronoun_object }} for doing so, thinking for example {{ player.name }} is inconsiderate, rude, arrogant, timid etc., depending on the situation.</p>
+
+<p>That sounds simple, but it is only half the story!</p>
+
+<p>You will only earn the bonus if your “social appropriateness” rating MATCHES the rating of
+another Mturker working on this HIT today who is like you (i.e., a US resident who has
+completed at least 100 tasks on MTurk with a 95% or better approval rating from prior
+MTurk employers). We will call this Mturker “your match.”</p>
+
+<p>We will match you with another Mturker who is like you. To increase the chances that you
+earn the bonus, you should try to imagine what your match, who is like you, would say.</p>
+
+<p>You will also answer what your personal opinion is about the appropriateness of {{ player.name }}’s
+decision.</p>
+
+<p>On the next screens, you will read about the situation that {{ player.name }} is in and the decisions that
+{{ player.pronoun }} makes. The description will include possible actions available to {{ player.name }}.</p>
+
+<p>Your task is to rate {{ player.name }}’s decision based on your guess of whether your MATCH, who is
+like you, would think the decision was “socially appropriate” and “consistent with what
+someone like you would think {{ player.name }} OUGHT to do.”</p>
+
+<p>Remember that you will only earn bonus if your “social appropriateness” rating is the same
+as your MATCH’s rating. For each rating that is the same, you will earn 20 cents (and so will
+your match).</p>
+
+<p>You will also answer what your personal opinion is about the appropriateness of {{ player.name }}’s
+decision. You DO NOT have to match your answer with a MATCH for this and will not get a
+bonus for this question.</p>
+
+<br>
+
+{% if player.name == 'Greg' %}
+	{% formfield player.understanding2 label="<b>Understanding Question</b>: You will be asked to rate how socially appropriate Greg’s decision is in a given situation. You will earn a bonus of 20 cents for each question if" %}
+	{% formfield player.understanding3 label="<b>Understanding Question</b>: You will be asked your PERSONAL OPINION about how appropriate Greg’s decision is in a given situation. Choose the correct option" %}
+{% else %}
+	{% formfield player.understanding2 label="<b>Understanding Question</b>: You will be asked to rate how socially appropriate Emily’s decision is in a given situation. You will earn a bonus of 20 cents for each question if" %}
+	{% formfield player.understanding3 label="<b>Understanding Question</b>: You will be asked your PERSONAL OPINION about how appropriate Emily’s decision is in a given situation. Choose the correct option" %}
+{% endif %}
+
+<br>
+
+    {% next_button %}
+
+{% endblock %}

@@ -1,0 +1,6 @@
+{
+"understanding1": ["For completing this study, I will receive $1 within 3 days after I complete the task, but I do not have a chance of receiving any additional bonus payment.", "For completing this study, I will receive $1 within 3 days after I complete the task, and I can also receive up to $1.20 as additional bonus payment."],
+"understanding2": ["your answer matches with the answer of your MATCH.", "your answer does not match with the answer of your MATCH", "you answer the question. It does not matter what your MATCH answers."],
+"understanding3": ["You will not earn a bonus for this question and will report your personal opinion on how appropriate Emily’s decision is in a given situation.", "You will earn a bonus of 20 cents for each question if your answer matches with the answer of your MATCH in the personal opinion question."],
+"appropriate_ratings": ["Very socially appropriate", "Socially appropriate", "Somewhat socially appropriate", "Somewhat socially inappropriate", "Very socially inappropriate."]
+}

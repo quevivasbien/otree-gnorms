@@ -1,0 +1,28 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+	Experiment Instructions
+{% endblock %}
+
+{% block content %}
+
+<p><b>Overview:</b> This is a study in decision-making and consists of one part and a short follow-up
+survey. Following certain instructions, you will be asked comprehension questions. You must
+answer these questions correctly in order to proceed to complete the study.</p>
+
+<p><b>Your payment:</b> You will be paid a $1 base pay for completing the study. In addition, you
+will have a chance to earn a bonus. Your bonus earnings will depend on the decisions you
+make and on the decisions that another worker you are paired with makes. You can earn up to
+$1.20 in bonus pay. You will be paid the base plus the bonus within 3 days after you
+complete this task.</p>
+
+<br>
+ 
+{% formfield player.understanding1 label="<b>Understanding Question:</b> Which of the following statements is true?"%}
+
+<br>
+
+    {% next_button %}
+
+{% endblock %}

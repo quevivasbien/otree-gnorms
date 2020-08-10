@@ -1,0 +1,44 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+	Decision Screen
+{% endblock %}
+
+{% block content %}
+
+<p>{{ player.name }} takes the cognitive ability test, and {{ player.pronoun }} is informed {{ player.pronoun }} answered 10 out of 20 questions correctly. {% if player.pronoun == 'he' %}He{% else %}She{% endif %} is also informed that among 100 prior interviewees, {{ player.pronoun_possessive }} performance was better than {{ player.ability }} of them and worse than {{ player.ability_comp }} of them.</p>
+
+<p>{{ player.name }} is then asked to self-assess {{ player.pronoun_possessive }} performance on the following scale.</p>
+<p>“My performance on the test was: a) terrible, b) very poor, c) neutral, d) good, e) very good, f) exceptional”</p>
+
+<p>{{ player.name }} submits {{ player.pronoun_possessive }} results to the test and {{ player.pronoun_possessive }} self-evaluation answers to be considered as part of {{ player.pronoun_possessive }} interview portfolio.<p>
+
+<p><b>Suppose {{ player.name }} chooses that {{ player.pronoun_possessive }} performance on the test was {{ player.eval_level }}.</b></p>
+
+<br>
+
+<p>TASK: Your task is to rate {{ player.name }}’s self-evaluation decision based on your guess of whether
+your <u>MATCH</u> would think that the decision is “socially appropriate” and “consistent with
+what someone who is like you would think {{ player.name }} OUGHT to do.”</p>
+
+<br>
+
+{% formfield player.match_guess label="I think my MATCH will rate this decision as" %}
+
+<br>
+
+<p>Please also tell us about your personal opinion. You do not have to match your answer with
+your MATCH for this.</p>
+
+{% if player.name == 'Greg' %}
+	{% formfield player.personal_opinion label="My personal opinion is that Greg's decision is" %}
+{% else %}
+	{% formfield player.personal_opinion label="My personal opinion is that Emily's decision is" %}
+{% endif %}
+
+
+
+    {% next_button %}
+
+{% endblock %}
