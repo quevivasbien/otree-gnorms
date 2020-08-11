@@ -76,3 +76,11 @@ class Player(BasePlayer):
     understanding3 = models.StringField(choices=qtext['understanding3'], widget=widgets.RadioSelect)
     match_guess = models.StringField(choices=qtext['appropriate_ratings'])
     personal_opinion = models.StringField(choices=qtext['appropriate_ratings'])
+    
+    def understanding1_error_message(self, value):
+        if value != qtext['understanding1'][1]:
+            return 'Sorry. Your answer is incorrect. Please choose the correct answer to proceed.'
+    
+    def understanding2_error_message(self, value):
+        if value != qtext['understanding2'][0]:
+            return 'Sorry. Your answer is incorrect. Please choose the correct answer to proceed.'

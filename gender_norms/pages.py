@@ -3,6 +3,11 @@ from ._builtin import Page
 from .models import Constants
 from captcha.fields import ReCaptchaField
 
+import json
+
+with open('_static/gender_norms/question_text.json', 'r') as fh:
+    qtext = json.load(fh)
+
 
 class Captcha(Page):
     form_model = 'player'
@@ -25,7 +30,7 @@ class ExperimentInstructions(Page):
 
 class ExperimentInstructionsContd(Page):
     form_model = 'player'
-    form_fields = ['understanding2', 'understanding3']
+    form_fields = ['understanding2']
     
 
 class SituationDescription(Page):

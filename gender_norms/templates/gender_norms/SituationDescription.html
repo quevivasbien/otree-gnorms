@@ -5,6 +5,23 @@
 {% extends "global/Page.html" %}
 {% load otree static %}
 
+{% block scripts %}
+
+<script>
+function show() {
+	var questions = document.getElementById('questions');
+	if (questions.style.display == 'none') {
+		questions.style.display = 'block';
+	}
+	var button = document.getElementById('button');
+	if (button.style.display == 'block') {
+		button.style.display = 'none';
+	}
+}
+</script>
+
+{% endblock %}
+
 {% block title %}
 	Situation description
 {% endblock %}
@@ -13,10 +30,13 @@
 
 <p>{{ player.name }} has applied for a job with a boutique consulting firm and has been invited for a day-long multi-stage interview at the company.</p>
 
-<p>Part of the interview process asks {{ player.name }} to complete a cognitive ability test on a computer. There are 20 questions in total, 4 questions each from the following 5 categories: General science, Arithmetic reasoning, Math knowledge, Mechanical comprehension, and Assembling objects.</p>
+<p>Part of the interview process asks {{ player.name }} to complete a cognitive ability test on a computer. On the test, {{ player.name }} was asked to answer up to 20 questions from the Armed Services Vocational Aptitude Battery (ASVAB). Each question tested aptitude in one of the following 5 categories: General science, Arithmetic reasoning, Math knowledge, Mechanical comprehension, and Assembling objects.</p>
 
 <p>You can see a sample of the questions of the test {{ player.name }} takes below:</p>
 
+<button type="button" class="btn-primary btn" id="button" onclick="show()" style="display:block">Show questions</button>
+
+<div id="questions" style="display:none">
 <br>
 
 <p><b>Cognitive ability test sample questions<sup>1</sup></b></p>
@@ -48,7 +68,8 @@ Question 3. [Mathematics knowledge] If x + y = 2 and x − y = 1, then:
 </ol>
 
 Question 4. [Assembling objects] Which figure best shows how the objects in the left box will appear if they are put together?
-<img src="{% static 'gender_norms/example_shapes.png' %}" alt="Which figure best shows how the objects in the left box will appear if they are put together?">
+<br>
+<img src="{% static 'gender_norms/example_shapes.png' %}" alt="Which figure best shows how the objects in the left box will appear if they are put together?" style="display: block; margin-left: auto; margin-right: auto">
 <ol type="A">
     <li>A</li>
     <li>B</li>
@@ -65,5 +86,7 @@ Question 4. [Assembling objects] Which figure best shows how the objects in the 
 <br>
 
 <small><sup>1</sup>ASVAB sample questions, sources: https://www.todaysmilitary.com/joining-eligibility/asvab-test/asvab-sample-questions, https://www.officialasvab.com/samples_app.htm</small>
+
+</div>
 
 {% endblock %}
