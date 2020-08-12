@@ -16,12 +16,12 @@
 {% endblock %}
 
 {% block title %}
-	Decision Screen -- Part 1
+	Decision Screen -- Part 2
 {% endblock %}
 
 {% block content %}
 
-<p>{{ player.name }} takes the cognitive ability test, and {{ player.pronoun }} is informed {{ player.pronoun }} answered <b>{{ player.ability_score }} out of 20</b> questions correctly. {% if player.pronoun == 'he' %}He{% else %}She{% endif %} is also informed that among 100 prior interviewees, {{ player.pronoun_possessive }} performance was <b>better than {{ player.ability }}</b> of them and <b>worse than {{ player.ability_comp }}</b> of them.</p>
+<p>Recall that {{ player.name }} takes the cognitive ability test, and {{ player.pronoun }} is informed {{ player.pronoun }} answered <b>{{ player.ability_score }} out of 20</b> questions correctly. {% if player.pronoun == 'he' %}He{% else %}She{% endif %} is also informed that among 100 prior interviewees, {{ player.pronoun_possessive }} performance was <b>better than {{ player.ability }}</b> of them and <b>worse than {{ player.ability_comp }}</b> of them.</p>
 
 <p>{{ player.name }} is then asked to self-assess {{ player.pronoun_possessive }} performance on the following scale.</p>
 <p>“My performance on the test was: a) terrible, b) very poor, c) neutral, d) good, e) very good, f) exceptional”</p>
@@ -32,8 +32,8 @@
 
 
 <p>TASK: Your task is to rate {{ player.name }}’s self-evaluation decision based on your guess of whether
-your <u>MATCH</u> would think that the decision is “socially appropriate” and “consistent with
-what someone who is like you would think {{ player.name }} OUGHT to do.”</p>
+<b>you think</b> would think that the decision is “appropriate” and “consistent with
+what you think {{ player.name }} OUGHT to do.”</p>
 
 <button type="button" class="btn-primary btn" id="button" onclick="show()" style="display:block">Continue to questions</button>
 
@@ -75,11 +75,11 @@ what someone who is like you would think {{ player.name }} OUGHT to do.”</p>
 
 <h3>Question 1 of 7</h3>
 
-Suppose {{ player.name }} indicated that her performance on the test was <b>terrible</b>.
+Suppose {{ player.name }} indicated that {{ player.pronoun_possessive }} performance on the test was <b>terrible</b>.
 
 <br>
 
-{% formfield player.match_guess_terrible label="I think my MATCH will rate this decision as" %}
+{% formfield player.personal_terrible label="I rate this decision as" %}
 
 <br>
 
@@ -92,11 +92,11 @@ Suppose {{ player.name }} indicated that her performance on the test was <b>terr
 
 <h3>Question 2 of 7</h3>
 
-Suppose {{ player.name }} indicated that her performance on the test was <b>very poor</b>.
+Suppose {{ player.name }} indicated that {{ player.pronoun_possessive }} performance on the test was <b>very poor</b>.
 
 <br>
 
-{% formfield player.match_guess_very_poor label="I think my MATCH will rate this decision as" %}
+{% formfield player.personal_very_poor label="I rate this decision as" %}
 
 <br>
 
@@ -110,11 +110,11 @@ Suppose {{ player.name }} indicated that her performance on the test was <b>very
 
 <h3>Question 3 of 7</h3>
 
-Suppose {{ player.name }} indicated that her performance on the test was <b>poor</b>.
+Suppose {{ player.name }} indicated that {{ player.pronoun_possessive }} performance on the test was <b>poor</b>.
 
 <br>
 
-{% formfield player.match_guess_poor label="I think my MATCH will rate this decision as" %}
+{% formfield player.personal_poor label="I rate this decision as" %}
 
 <br>
 
@@ -128,11 +128,11 @@ Suppose {{ player.name }} indicated that her performance on the test was <b>poor
 
 <h3>Question 4 of 7</h3>
 
-Suppose {{ player.name }} indicated that her performance on the test was <b>neutral</b>.
+Suppose {{ player.name }} indicated that {{ player.pronoun_possessive }} performance on the test was <b>neutral</b>.
 
 <br>
 
-{% formfield player.match_guess_neutral label="I think my MATCH will rate this decision as" %}
+{% formfield player.personal_neutral label="I rate this decision as" %}
 
 <br>
 
@@ -146,11 +146,11 @@ Suppose {{ player.name }} indicated that her performance on the test was <b>neut
 
 <h3>Question 5 of 7</h3>
 
-Suppose {{ player.name }} indicated that her performance on the test was <b>good</b>.
+Suppose {{ player.name }} indicated that {{ player.pronoun_possessive }} performance on the test was <b>good</b>.
 
 <br>
 
-{% formfield player.match_guess_good label="I think my MATCH will rate this decision as" %}
+{% formfield player.personal_good label="I rate this decision as" %}
 
 <br>
 
@@ -164,11 +164,11 @@ Suppose {{ player.name }} indicated that her performance on the test was <b>good
 
 <h3>Question 6 of 7</h3>
 
-Suppose {{ player.name }} indicated that her performance on the test was <b>very good</b>.
+Suppose {{ player.name }} indicated that {{ player.pronoun_possessive }} performance on the test was <b>very good</b>.
 
 <br>
 
-{% formfield player.match_guess_very_good label="I think my MATCH will rate this decision as" %}
+{% formfield player.personal_very_good label="I rate this decision as" %}
 
 <br>
 
@@ -182,11 +182,11 @@ Suppose {{ player.name }} indicated that her performance on the test was <b>very
 
 <h3>Question 7 of 7</h3>
 
-Suppose {{ player.name }} indicated that her performance on the test was <b>exceptional</b>.
+Suppose {{ player.name }} indicated that {{ player.pronoun_possessive }} performance on the test was <b>exceptional</b>.
 
 <br>
 
-{% formfield player.match_guess_exceptional label="I think my MATCH will rate this decision as" %}
+{% formfield player.personal_exceptional label="I rate this decision as" %}
 
 <br>
 

@@ -5,8 +5,8 @@ from otree.api import (
     BaseSubsession,
     BaseGroup,
     BasePlayer,
-    Currency as c,
-    currency_range,
+    # Currency as c,
+    # currency_range,
 )
 import json
 from random import shuffle
@@ -23,7 +23,7 @@ Gender norms of self-promotion
 
 
 class Constants(BaseConstants):
-    name_in_url = 'gender_norms'
+    name_in_url = 'gnorms_survey'
     players_per_group = None
     num_rounds = 1
 
@@ -34,12 +34,10 @@ class Subsession(BaseSubsession):
         names = ['Greg', 'Emily']
         shuffle(names)
         abilities = [25, 50, 75]
+        scores = {25: 6, 50: 10, 75: 12}
         shuffle(abilities)
-        eval_levels = ['terrible', 'very poor', 'neutral', 'good', 'very good', 'exceptional']
-        shuffle(eval_levels)
         i = 0
         j = 0
-        k = 0
         for p in self.get_players():
             name = names[i]
             p.name = name
@@ -48,13 +46,11 @@ class Subsession(BaseSubsession):
             p.pronoun_object = 'him' if name == 'Greg' else 'her'
             p.ability = abilities[j]
             p.ability_comp = 100 - abilities[j]
-            p.eval_level = eval_levels[k]
+            p.ability_score = scores[abilities[j]]
             # increment indices
-            k = (k + 1) % len(eval_levels)
-            if k == 0:
-                j = (j + 1) % len(abilities)
-                if j == 0:
-                    i = (i + 1) % len(names)
+            j = (j + 1) % len(abilities)
+            if j == 0:
+                i = (i + 1) % len(names)
                     
 
 
@@ -69,13 +65,25 @@ class Player(BasePlayer):
     pronoun_object = models.StringField()
     ability = models.IntegerField()
     ability_comp = models.IntegerField()
-    eval_level = models.StringField()
+    ability_score = models.IntegerField()
     captcha = models.CharField(blank=True)
     understanding1 = models.StringField(choices=qtext['understanding1'], widget=widgets.RadioSelect)
     understanding2 = models.StringField(choices=qtext['understanding2'], widget=widgets.RadioSelect)
     understanding3 = models.StringField(choices=qtext['understanding3'], widget=widgets.RadioSelect)
-    match_guess = models.StringField(choices=qtext['appropriate_ratings'])
-    personal_opinion = models.StringField(choices=qtext['appropriate_ratings'])
+    match_guess_terrible = models.StringField(choices=qtext['social_appropriate_ratings'])
+    match_guess_very_poor = models.StringField(choices=qtext['social_appropriate_ratings'])
+    match_guess_poor = models.StringField(choices=qtext['social_appropriate_ratings'])
+    match_guess_neutral = models.StringField(choices=qtext['social_appropriate_ratings'])
+    match_guess_good = models.StringField(choices=qtext['social_appropriate_ratings'])
+    match_guess_very_good = models.StringField(choices=qtext['social_appropriate_ratings'])
+    match_guess_exceptional = models.StringField(choices=qtext['social_appropriate_ratings'])
+    personal_terrible = models.StringField(choices=qtext['appropriate_ratings'])
+    personal_very_poor = models.StringField(choices=qtext['appropriate_ratings'])
+    personal_poor = models.StringField(choices=qtext['appropriate_ratings'])
+    personal_neutral = models.StringField(choices=qtext['appropriate_ratings'])
+    personal_good = models.StringField(choices=qtext['appropriate_ratings'])
+    personal_very_good = models.StringField(choices=qtext['appropriate_ratings'])
+    personal_exceptional = models.StringField(choices=qtext['appropriate_ratings'])
     
     def understanding1_error_message(self, value):
         if value != qtext['understanding1'][1]:
@@ -83,4 +91,8 @@ class Player(BasePlayer):
     
     def understanding2_error_message(self, value):
         if value != qtext['understanding2'][0]:
+            return 'Sorry. Your answer is incorrect. Please choose the correct answer to proceed.'
+        
+    def understanding3_error_message(self, value):
+        if value != qtext['understanding3'][0]:
             return 'Sorry. Your answer is incorrect. Please choose the correct answer to proceed.'

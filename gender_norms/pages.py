@@ -1,12 +1,7 @@
-from otree.api import Currency as c, currency_range
+# from otree.api import Currency as c, currency_range
 from ._builtin import Page
-from .models import Constants
+# from .models import Constants
 from captcha.fields import ReCaptchaField
-
-import json
-
-with open('_static/gender_norms/question_text.json', 'r') as fh:
-    qtext = json.load(fh)
 
 
 class Captcha(Page):
@@ -39,7 +34,19 @@ class SituationDescription(Page):
 
 class DecisionScreen(Page):
     form_model = 'player'
-    form_fields = ['match_guess', 'personal_opinion']
+    form_fields = ['match_guess_terrible', 'match_guess_very_poor', 'match_guess_poor', 'match_guess_neutral',
+                   'match_guess_good', 'match_guess_very_good', 'match_guess_exceptional']
+    
+
+class ExperimentInstructions2(Page):
+    form_model = 'player'
+    form_fields = ['understanding3']
+
+
+class DecisionScreen2(Page):
+    form_model = 'player'
+    form_fields = ['personal_terrible', 'personal_very_poor', 'personal_poor', 'personal_neutral',
+                   'personal_good', 'personal_very_good', 'personal_exceptional']
 
 
 class DemographicSurvey(Page):
@@ -47,4 +54,4 @@ class DemographicSurvey(Page):
 
 
 page_sequence = [Captcha, ConsentForm, ExperimentInstructions, ExperimentInstructionsContd,
-                 SituationDescription, DecisionScreen, DemographicSurvey]
+                 SituationDescription, DecisionScreen, ExperimentInstructions2, DecisionScreen2, DemographicSurvey]

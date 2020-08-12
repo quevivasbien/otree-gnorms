@@ -7,18 +7,7 @@
 
 {% block scripts %}
 
-<script>
-function show() {
-	var questions = document.getElementById('questions');
-	if (questions.style.display == 'none') {
-		questions.style.display = 'block';
-	}
-	var button = document.getElementById('button');
-	if (button.style.display == 'block') {
-		button.style.display = 'none';
-	}
-}
-</script>
+<script src="{% static 'gender_norms/js/show.js' %}"></script>
 
 {% endblock %}
 
@@ -36,7 +25,7 @@ function show() {
 
 <button type="button" class="btn-primary btn" id="button" onclick="show()" style="display:block">Show questions</button>
 
-<div id="questions" style="display:none">
+<div id="to_show" style="display:none">
 <br>
 
 <p><b>Cognitive ability test sample questions<sup>1</sup></b></p>

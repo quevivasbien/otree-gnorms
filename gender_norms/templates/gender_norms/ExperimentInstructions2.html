@@ -1,0 +1,24 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+	Experiment Instructions
+{% endblock %}
+
+{% block content %}
+
+<p>We are ready to start part two.</p>
+
+<p>For the same situation that {{ player.name }} is in, we want to know your <b>personal opinion</b> about how appropriate {{ player.name }}'s decision is in the situation. Please read carefully and tell us your true opinion. You <b>do not</b> have to match your answer with a MATCH for this and will not get a bonus for these questions.</p>
+
+<br>
+
+{% if player.name == 'Greg' %}
+	{% formfield player.understanding3 label="<b>Understanding Question</b>: You will be asked your PERSONAL OPINION about how appropriate Greg's decision is in a given situation. Choose the correct option" %}
+{% else %}
+	{% formfield player.understanding3 label="<b>Understanding Question</b>: You will be asked your PERSONAL OPINION about how appropriate Emily's decision is in a given situation. Choose the correct option" %}
+{% endif %}
+
+{% next_button %}
+
+{% endblock %}
