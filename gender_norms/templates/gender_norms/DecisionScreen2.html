@@ -1,14 +1,6 @@
 {% extends "global/Page.html" %}
 {% load otree static %}
 
-{% block scripts %}
-
-<script src="{% static 'gender_norms/js/prev_next_button.js' %}"></script>
-<script src="{% static 'gender_norms/js/show.js' %}"></script>
-<script src="{% static 'gender_norms/js/check_submit.js' %}"></script>
-
-{% endblock %}
-
 {% block styles %}
 
 <link href="{% static 'gender_norms/css/custom.css' %}" rel="stylesheet">
@@ -32,14 +24,14 @@
 
 
 <p>TASK: Your task is to rate {{ player.name }}’s self-evaluation decision based on your guess of whether
-<b>you think</b> would think that the decision is “appropriate” and “consistent with
+<b>you think</b> that the decision is “appropriate” and “consistent with
 what you think {{ player.name }} OUGHT to do.”</p>
 
 <button type="button" class="btn-primary btn" id="button" onclick="show()" style="display:block">Continue to questions</button>
 
 <!-- Tab navigation -->
 <ul class="nav nav-tabs fixed-top navbar-light bg-light justify-content-center " id="myTab" role="tablist">
-  
+
 
   <li class="nav-item" >
     <a class="nav-link active" id="part1-tab" data-toggle="tab" href="#part1" role="tab" aria-controls="part1" onclick="topFunction()">Tab 1</a>
@@ -59,9 +51,6 @@ what you think {{ player.name }} OUGHT to do.”</p>
   <li class="nav-item">
     <a class="nav-link" id="part6-tab" data-toggle="tab" href="#part6" role="tab" aria-controls="part6" onclick="topFunction()">Tab 6</a>
   </li>
-  <li class="nav-item">
-    <a class="nav-link" id="part7-tab" data-toggle="tab" href="#part7" role="tab" aria-controls="part7" onclick="topFunction()">Tab 7</a>
-  </li>
 
 </ul>
 
@@ -73,9 +62,9 @@ what you think {{ player.name }} OUGHT to do.”</p>
 
 <div class="tab-pane show active" id="part1" role="tabpanel" aria-labelledby="part1-tab">
 
-<h3>Question 1 of 7</h3>
+<h3>Question 1 of 6</h3>
 
-Suppose {{ player.name }} indicated that {{ player.pronoun_possessive }} performance on the test was <b>terrible</b>.
+Suppose {{ player.name }} indicated that {{ player.pronoun_possessive }} performance on the test was <b>terrible</b>. (Recall that {{ player.name }} knows that {{ player.pronoun }} correctly answered {{ player.ability_score }} out of 20 questions. Among 100 prior interviews, {{ player.pronoun_possessive }} performance was better than {{ player.ability }} of them and worse than {{ player.ability_comp }} of them.)
 
 <br>
 
@@ -90,9 +79,9 @@ Suppose {{ player.name }} indicated that {{ player.pronoun_possessive }} perform
 
 <div class="tab-pane" id="part2" role="tabpanel" aria-labelledby="part2-tab">
 
-<h3>Question 2 of 7</h3>
+<h3>Question 2 of 6</h3>
 
-Suppose {{ player.name }} indicated that {{ player.pronoun_possessive }} performance on the test was <b>very poor</b>.
+Suppose {{ player.name }} indicated that {{ player.pronoun_possessive }} performance on the test was <b>very poor</b>. (Recall that {{ player.name }} knows that {{ player.pronoun }} correctly answered {{ player.ability_score }} out of 20 questions. Among 100 prior interviews, {{ player.pronoun_possessive }} performance was better than {{ player.ability }} of them and worse than {{ player.ability_comp }} of them.)
 
 <br>
 
@@ -108,27 +97,9 @@ Suppose {{ player.name }} indicated that {{ player.pronoun_possessive }} perform
 
 <div class="tab-pane" id="part3" role="tabpanel" aria-labelledby="part3-tab">
 
-<h3>Question 3 of 7</h3>
+<h3>Question 3 of 6</h3>
 
-Suppose {{ player.name }} indicated that {{ player.pronoun_possessive }} performance on the test was <b>poor</b>.
-
-<br>
-
-{% formfield player.personal_poor label="I rate this decision as" %}
-
-<br>
-
-<br>
-<button onclick="topFunction()" type="button" class="prevtab btn-primary btn back">Back</button>
-<button type="button" class="nexttab btn-primary btn next">Next</button>
-
-</div>
-
-<div class="tab-pane" id="part4" role="tabpanel" aria-labelledby="part4-tab">
-
-<h3>Question 4 of 7</h3>
-
-Suppose {{ player.name }} indicated that {{ player.pronoun_possessive }} performance on the test was <b>neutral</b>.
+Suppose {{ player.name }} indicated that {{ player.pronoun_possessive }} performance on the test was <b>neutral</b>. (Recall that {{ player.name }} knows that {{ player.pronoun }} correctly answered {{ player.ability_score }} out of 20 questions. Among 100 prior interviews, {{ player.pronoun_possessive }} performance was better than {{ player.ability }} of them and worse than {{ player.ability_comp }} of them.)
 
 <br>
 
@@ -142,11 +113,11 @@ Suppose {{ player.name }} indicated that {{ player.pronoun_possessive }} perform
 
 </div>
 
-<div class="tab-pane" id="part5" role="tabpanel" aria-labelledby="part5-tab">
+<div class="tab-pane" id="part4" role="tabpanel" aria-labelledby="part4-tab">
 
-<h3>Question 5 of 7</h3>
+<h3>Question 4 of 6</h3>
 
-Suppose {{ player.name }} indicated that {{ player.pronoun_possessive }} performance on the test was <b>good</b>.
+Suppose {{ player.name }} indicated that {{ player.pronoun_possessive }} performance on the test was <b>good</b>. (Recall that {{ player.name }} knows that {{ player.pronoun }} correctly answered {{ player.ability_score }} out of 20 questions. Among 100 prior interviews, {{ player.pronoun_possessive }} performance was better than {{ player.ability }} of them and worse than {{ player.ability_comp }} of them.)
 
 <br>
 
@@ -160,11 +131,11 @@ Suppose {{ player.name }} indicated that {{ player.pronoun_possessive }} perform
 
 </div>
 
-<div class="tab-pane" id="part6" role="tabpanel" aria-labelledby="part6-tab">
+<div class="tab-pane" id="part5" role="tabpanel" aria-labelledby="part5-tab">
 
-<h3>Question 6 of 7</h3>
+<h3>Question 5 of 6</h3>
 
-Suppose {{ player.name }} indicated that {{ player.pronoun_possessive }} performance on the test was <b>very good</b>.
+Suppose {{ player.name }} indicated that {{ player.pronoun_possessive }} performance on the test was <b>very good</b>. (Recall that {{ player.name }} knows that {{ player.pronoun }} correctly answered {{ player.ability_score }} out of 20 questions. Among 100 prior interviews, {{ player.pronoun_possessive }} performance was better than {{ player.ability }} of them and worse than {{ player.ability_comp }} of them.)
 
 <br>
 
@@ -178,11 +149,11 @@ Suppose {{ player.name }} indicated that {{ player.pronoun_possessive }} perform
 
 </div>
 
-<div class="tab-pane" id="part7" role="tabpanel" aria-labelledby="part7-tab">
+<div class="tab-pane" id="part6" role="tabpanel" aria-labelledby="part6-tab">
 
-<h3>Question 7 of 7</h3>
+<h3>Question 6 of 6</h3>
 
-Suppose {{ player.name }} indicated that {{ player.pronoun_possessive }} performance on the test was <b>exceptional</b>.
+Suppose {{ player.name }} indicated that {{ player.pronoun_possessive }} performance on the test was <b>exceptional</b>. (Recall that {{ player.name }} knows that {{ player.pronoun }} correctly answered {{ player.ability_score }} out of 20 questions. Among 100 prior interviews, {{ player.pronoun_possessive }} performance was better than {{ player.ability }} of them and worse than {{ player.ability_comp }} of them.)
 
 <br>
 
@@ -192,12 +163,20 @@ Suppose {{ player.name }} indicated that {{ player.pronoun_possessive }} perform
 
 <br>
 <button onclick="topFunction()" type="button" class="prevtab btn-primary btn back">Back</button>
-<button onclick="checkSelectSubmit()" class="nexttab btn-primary btn next">Next</button>
+<button onclick="checkSubmit()" class="nexttab btn-primary btn next">Next</button>
 
 </div>
 
 </div>
 
 </div>
+
+{% endblock %}
+
+{% block scripts %}
+
+<script src="{% static 'gender_norms/js/prev_next_button.js' %}"></script>
+<script src="{% static 'gender_norms/js/show.js' %}"></script>
+<script src="{% static 'gender_norms/js/check-submit.js' %}"></script>
 
 {% endblock %}

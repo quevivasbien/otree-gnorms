@@ -29,7 +29,7 @@ class Constants(BaseConstants):
 
 
 class Subsession(BaseSubsession):
-    
+
     def creating_session(self):
         names = ['Greg', 'Emily']
         shuffle(names)
@@ -51,7 +51,7 @@ class Subsession(BaseSubsession):
             j = (j + 1) % len(abilities)
             if j == 0:
                 i = (i + 1) % len(names)
-                    
+
 
 
 class Group(BaseGroup):
@@ -67,32 +67,42 @@ class Player(BasePlayer):
     ability_comp = models.IntegerField()
     ability_score = models.IntegerField()
     captcha = models.CharField(blank=True)
-    understanding1 = models.StringField(choices=qtext['understanding1'], widget=widgets.RadioSelect)
+    understanding1a = models.StringField()
+    understanding1b = models.StringField()
+    understanding1c = models.StringField()
     understanding2 = models.StringField(choices=qtext['understanding2'], widget=widgets.RadioSelect)
-    understanding3 = models.StringField(choices=qtext['understanding3'], widget=widgets.RadioSelect)
-    match_guess_terrible = models.StringField(choices=qtext['social_appropriate_ratings'])
-    match_guess_very_poor = models.StringField(choices=qtext['social_appropriate_ratings'])
-    match_guess_poor = models.StringField(choices=qtext['social_appropriate_ratings'])
-    match_guess_neutral = models.StringField(choices=qtext['social_appropriate_ratings'])
-    match_guess_good = models.StringField(choices=qtext['social_appropriate_ratings'])
-    match_guess_very_good = models.StringField(choices=qtext['social_appropriate_ratings'])
-    match_guess_exceptional = models.StringField(choices=qtext['social_appropriate_ratings'])
-    personal_terrible = models.StringField(choices=qtext['appropriate_ratings'])
-    personal_very_poor = models.StringField(choices=qtext['appropriate_ratings'])
-    personal_poor = models.StringField(choices=qtext['appropriate_ratings'])
-    personal_neutral = models.StringField(choices=qtext['appropriate_ratings'])
-    personal_good = models.StringField(choices=qtext['appropriate_ratings'])
-    personal_very_good = models.StringField(choices=qtext['appropriate_ratings'])
-    personal_exceptional = models.StringField(choices=qtext['appropriate_ratings'])
-    
-    def understanding1_error_message(self, value):
-        if value != qtext['understanding1'][1]:
-            return 'Sorry. Your answer is incorrect. Please choose the correct answer to proceed.'
-    
+    understanding3 = models.StringField()
+    match_guess_terrible = models.StringField(choices=qtext['social_appropriate_ratings'], widget=widgets.RadioSelect)
+    match_guess_very_poor = models.StringField(choices=qtext['social_appropriate_ratings'], widget=widgets.RadioSelect)
+    # match_guess_poor = models.StringField(choices=qtext['social_appropriate_ratings'], widget=widgets.RadioSelect)
+    match_guess_neutral = models.StringField(choices=qtext['social_appropriate_ratings'], widget=widgets.RadioSelect)
+    match_guess_good = models.StringField(choices=qtext['social_appropriate_ratings'], widget=widgets.RadioSelect)
+    match_guess_very_good = models.StringField(choices=qtext['social_appropriate_ratings'], widget=widgets.RadioSelect)
+    match_guess_exceptional = models.StringField(choices=qtext['social_appropriate_ratings'], widget=widgets.RadioSelect)
+    personal_terrible = models.StringField(choices=qtext['appropriate_ratings'], widget=widgets.RadioSelect)
+    personal_very_poor = models.StringField(choices=qtext['appropriate_ratings'], widget=widgets.RadioSelect)
+    # personal_poor = models.StringField(choices=qtext['appropriate_ratings'], widget=widgets.RadioSelect)
+    personal_neutral = models.StringField(choices=qtext['appropriate_ratings'], widget=widgets.RadioSelect)
+    personal_good = models.StringField(choices=qtext['appropriate_ratings'], widget=widgets.RadioSelect)
+    personal_very_good = models.StringField(choices=qtext['appropriate_ratings'], widget=widgets.RadioSelect)
+    personal_exceptional = models.StringField(choices=qtext['appropriate_ratings'], widget=widgets.RadioSelect)
+
+    def understanding1a_error_message(self, value):
+        if value not in ['1.00', '1', '1.0', '1.000', 'one', '1,0', '1,00', '1.']:
+            return 'One of your answers was incorrect. Please choose the correct answers to proceed.'
+
+    def understanding1b_error_message(self, value):
+        if value not in ['3', 'three', '3.0']:
+            return 'One of your answers was incorrect. Please choose the correct answers to proceed.'
+
+    def understanding1c_error_message(self, value):
+        if value not in ['1.20', '1.2', '1,2', '1.200', '1,20']:
+            return 'One of your answers was incorrect. Please choose the correct answers to proceed.'
+
     def understanding2_error_message(self, value):
         if value != qtext['understanding2'][0]:
             return 'Sorry. Your answer is incorrect. Please choose the correct answer to proceed.'
-        
+
     def understanding3_error_message(self, value):
-        if value != qtext['understanding3'][0]:
+        if value.lower() != 'true':
             return 'Sorry. Your answer is incorrect. Please choose the correct answer to proceed.'

@@ -12,14 +12,14 @@
 {% endblock %}
 
 {% block title %}
-	Situation description
+	{{ player.name }}'s situation
 {% endblock %}
 
 {% block content %}
 
 <p>{{ player.name }} has applied for a job with a boutique consulting firm and has been invited for a day-long multi-stage interview at the company.</p>
 
-<p>Part of the interview process asks {{ player.name }} to complete a cognitive ability test on a computer. On the test, {{ player.name }} was asked to answer up to 20 questions from the Armed Services Vocational Aptitude Battery (ASVAB). Each question tested aptitude in one of the following 5 categories: General science, Arithmetic reasoning, Math knowledge, Mechanical comprehension, and Assembling objects.</p>
+<p>Part of the interview process asks {{ player.name }} to complete a cognitive ability test on a computer. On the test, {{ player.name }} was asked to answer up to 20 questions from the Armed Services Vocational Aptitude Battery (ASVAB). Each question tested aptitude in one of the following 5 categories: General science, Arithmetic reasoning, Math knowledge, Mechanical comprehension, and Assembling objects. In addition to being used by the military to determine which jobs armed service members are qualified for, performance on the ASVAB is often used as a measure of cognitive ability in non-military settings.</p>
 
 <p>You can see a sample of the questions of the test {{ player.name }} takes below:</p>
 
@@ -28,7 +28,7 @@
 <div id="to_show" style="display:none">
 <br>
 
-<p><b>Cognitive ability test sample questions<sup>1</sup></b></p>
+<p><b>Cognitive ability test sample questions</b></p>
 
 <div class="serif">
 
@@ -71,10 +71,6 @@ Question 4. [Assembling objects] Which figure best shows how the objects in the 
 <br>
 
     {% next_button %}
-
-<br>
-
-<small><sup>1</sup>ASVAB sample questions, sources: https://www.todaysmilitary.com/joining-eligibility/asvab-test/asvab-sample-questions, https://www.officialasvab.com/samples_app.htm</small>
 
 </div>
 

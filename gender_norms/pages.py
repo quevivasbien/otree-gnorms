@@ -7,7 +7,7 @@ from captcha.fields import ReCaptchaField
 class Captcha(Page):
     form_model = 'player'
     form_fields = ['captcha']
-    
+
     def get_form(self, data=None, files=None, **kwargs):
         frm = super().get_form(data, files, **kwargs)
         frm.fields['captcha'] = ReCaptchaField(label='')
@@ -20,13 +20,13 @@ class ConsentForm(Page):
 
 class ExperimentInstructions(Page):
     form_model = 'player'
-    form_fields = ['understanding1']
+    form_fields = ['understanding1a', 'understanding1b', 'understanding1c']
 
 
 class ExperimentInstructionsContd(Page):
     form_model = 'player'
     form_fields = ['understanding2']
-    
+
 
 class SituationDescription(Page):
     pass
@@ -34,9 +34,9 @@ class SituationDescription(Page):
 
 class DecisionScreen(Page):
     form_model = 'player'
-    form_fields = ['match_guess_terrible', 'match_guess_very_poor', 'match_guess_poor', 'match_guess_neutral',
+    form_fields = ['match_guess_terrible', 'match_guess_very_poor', 'match_guess_neutral',
                    'match_guess_good', 'match_guess_very_good', 'match_guess_exceptional']
-    
+
 
 class ExperimentInstructions2(Page):
     form_model = 'player'
@@ -45,7 +45,7 @@ class ExperimentInstructions2(Page):
 
 class DecisionScreen2(Page):
     form_model = 'player'
-    form_fields = ['personal_terrible', 'personal_very_poor', 'personal_poor', 'personal_neutral',
+    form_fields = ['personal_terrible', 'personal_very_poor', 'personal_neutral',
                    'personal_good', 'personal_very_good', 'personal_exceptional']
 
 

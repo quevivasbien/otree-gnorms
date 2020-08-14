@@ -1,6 +1,35 @@
 {% extends "global/Page.html" %}
 {% load otree static %}
 
+{% block styles %}
+<style>
+	.fill-blanks {
+		text-align: center;
+		background-color: #e1e1ea;
+		max-width: 550px;
+		margin: auto;
+		padding: 20px 0px;
+	}
+	label {
+		display: inline-block;
+	}
+	input.form-control {
+		width: 100px;
+		display: inline-block;
+		outline: 0; border: 0; padding: 0; margin: 0;
+		border-bottom: 1px solid white;
+		background-color: inherit;
+		text-align: center;
+	}
+	ul.errorlist {
+    list-style-type: none;
+	}
+	li {
+		color: red;
+	}
+</style>
+{% endblock %}
+
 {% block title %}
 	Experiment Instructions
 {% endblock %}
@@ -18,9 +47,24 @@ $1.20 in bonus pay. You will be paid the base plus the bonus within 3 days after
 complete this task.</p>
 
 <br>
- 
-{% formfield player.understanding1 label="<b>Understanding Question:</b> Which of the following statements is true?"%}
+	<p><b>Understanding question</b>: fill in the blanks.</p>
+	<div class="fill-blanks">
+		<p style>For completing this study, I will receive</p>
+		<label for="understanding1a">$</label>
+		<input type="text" name="understanding1a" maxlength="5" size="5" required id="id_understanding1a" class="form-control">
+		<p style="display: inline-block">within</p>
+		<input type="text" name="understanding1b" maxlength="5" size="5" required id="id_understanding1b" class="form-control">
+		<label for="understanding1b">day(s)</label>
+		<p>after I complete the task, and I can also receive up to</p>
+		<label for="understanding1c">$</label>
+		<input type="text" name="understanding1c" maxlength="5" size="5" required id="id_understanding1c" class="form-control">
+		<p style="display: inline-block">as bonus payment.</p>
+	</div>
 
+<br>
+	{{ form.understanding1a.errors }}
+	{{ form.understanding1b.errors }}
+	{{ form.understanding1c.errors }}
 <br>
 
 {% next_button %}

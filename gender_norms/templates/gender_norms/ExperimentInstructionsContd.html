@@ -1,12 +1,6 @@
 {% extends "global/Page.html" %}
 {% load otree static %}
 
-{% block scripts %}
-
-<script src="{% static 'gender_norms/js/prev_next_button.js' %}"></script>
-
-{% endblock %}
-
 {% block styles %}
 
 <link href="{% static 'gender_norms/css/custom.css' %}" rel="stylesheet">
@@ -19,27 +13,6 @@
 
 {% block content %}
 
-<!-- Tab navigation -->
-<ul class="nav nav-tabs fixed-top navbar-light bg-light justify-content-center " id="myTab" role="tablist">
-  
-
-  <li class="nav-item" >
-    <a class="nav-link active" id="part1-tab" data-toggle="tab" href="#part1" role="tab" aria-controls="part1" onclick="topFunction()">Tab 1
-</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" id="part2-tab" data-toggle="tab" href="#part2" role="tab" aria-controls="part2" onclick="topFunction()">Tab 2</a>
-  </li>
-
-</ul>
-<br>
-
-
-<!-- Tab content -->
-<div class="tab-content" id="myTabContent">
-
-
-<div class="tab-pane show active" id="part1" role="tabpanel" aria-labelledby="part1-tab">
 
 <p>On the next screens, you will read the description of a situation in which a person named {{ player.name }} must make a decision. You will read about the decisions {{ player.name }} faced and what actions {{ player.pronoun }} has to choose between.</p>
 
@@ -55,27 +28,32 @@
 
 <p>By “socially inappropriate,” we mean behavior that most people agree may make them form a negative impression of {{ player.name }}, thinking, for example, that {{ player.name }} is arrogant, timid, etc., depending on the situation.</p>
 
+<br>
+<button id="button1" onclick="show('show1', 'button1')" type="button" style="display:block" class="btn btn-primary">Next</button>
+
+<div id="show1" style="display:none">
+
 <p>That sounds simple, but it is only half the story!</p>
 
-<p>You will only earn the bonus <b>if</b> your “social appropriateness” rating MATCHES the rating of
+<p>You will only <b>earn the bonus if</b> your “social appropriateness” rating MATCHES the rating of
 another Mturker working on this HIT today. We will call this Mturker “your match.” Your match, who is like you, is a US resident who has completed at least 100 tasks on MTurk with a 95% or better approval rating from prior MTurk employers. To increase the chances that you earn the bonus, you should try to imagine what your match, who is like you, would say.</p>
 
 <br>
-<button onclick="topFunction()" type="button" class="nexttab btn-primary btn next">Next</button>
+<button id="button2" onclick="show('show2', 'button2')" type="button" style="display:block" class="btn btn-primary">Next</button>
 
 </div>
 
 
-<div class="tab-pane" id="part2" role="tabpanel" aria-labelledby="part2-tab">
+<div id="show2" style="display:none">
 
 <p>We are ready to start part one: This is where <b>you can earn a bonus</b>!</p>
 
 <p>On the next screens, you will read about the situation that {{ player.name }} is in and the decisions that
-{{ player.pronoun }} could makes. The description will include possible actions available to {{ player.name }}.<p>
+{{ player.pronoun }} could make. The description will include possible actions available to {{ player.name }}.<p>
 
 <p>Your task is to rate {{ player.name }}’s decision based on your guess of whether your MATCH, who is
 like you, would think the decision was “socially appropriate” and “consistent with what
-someone like you would think {{ player.name }} OUGHT to do.”</p>
+most people like you would think {{ player.name }} OUGHT to do.”</p>
 
 <p>Remember that you will only earn bonus if your “social appropriateness” rating is the same
 as your MATCH’s rating. For each rating that is the same, you will earn 20 cents (and so will
@@ -90,12 +68,26 @@ your match).</p>
 {% endif %}
 
 <br>
-<button onclick="topFunction()" type="button" class="prevtab btn-primary btn back">Back</button>
-<button class="nexttab btn-primary btn next">Next</button>
+{% next_button %}
 <br>
 
 </div>
-</div>
 
+
+{% endblock %}
+
+{% block scripts %}
+
+<script src="{% static 'gender_norms/js/show.js' %}"></script>
+<script>
+	// reveals all and scrolls to understanding question if incorrect attempt has already been made
+	var ans2 = document.getElementById('id_understanding2_1');
+	var ans3 = document.getElementById('id_understanding2_2');
+	if (ans2.checked || ans3.checked) {
+		document.getElementById('button1').style.display = 'none';
+		document.getElementById('show2').style.display = 'block';
+		window.location.hash = '#show2';
+	}
+</script>
 
 {% endblock %}
