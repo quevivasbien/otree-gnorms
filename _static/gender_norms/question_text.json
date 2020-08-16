@@ -1,6 +1,5 @@
 {
 "understanding2": ["your answer matches with the answer of your MATCH.", "your answer does not match with the answer of your MATCH.", "you answer the question. It does not matter what your MATCH answers."],
-"understanding3": ["You will not earn a bonus for this question and will report your personal opinion on how appropriate Emily’s decision is in a given situation.", "You will earn a bonus of 20 cents for each question if your answer matches with the answer of your MATCH in the personal opinion question."],
 "social_appropriate_ratings": ["Very socially appropriate", "Socially appropriate", "Somewhat socially appropriate", "Somewhat socially inappropriate", "Socially inappropriate", "Very socially inappropriate"],
 "appropriate_ratings": ["Very appropriate", "Appropriate", "Somewhat appropriate", "Somewhat inappropriate", "Inappropriate", "Very inappropriate"]
 }

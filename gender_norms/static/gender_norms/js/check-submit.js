@@ -1,9 +1,9 @@
 function checkSubmit() {
-	var controls = document.getElementsByClassName('controls');
-	for (let i = 0; i < controls.length; i++) {
-		var radios = controls[i].getElementsByTagName('li');
+	var forms = document.getElementsByClassName('form-group');
+	for (let i = 0; i < forms.length; i++) {
+		var radios = forms[i].getElementsByTagName('input');
 		for (var j = 0; j < radios.length; j++) {
-			if (radios[j].getElementsByTagName('input')[0].checked) {
+			if (radios[j].checked) {
 				break;
 			}
 		}
@@ -11,7 +11,7 @@ function checkSubmit() {
 			var navlinks = document.getElementsByClassName('nav-link');
 			var tabpanes = document.getElementsByClassName('tab-pane');
 			for (let k = 0; k < navlinks.length; k++) {
-				if (k === i - 1) {
+				if (k === i) {
 					$(navlinks[k]).addClass('active');
 					$(tabpanes[k]).addClass('show active');
 				}

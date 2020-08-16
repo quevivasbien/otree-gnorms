@@ -4,6 +4,17 @@
 {% block styles %}
 
 <link href="{% static 'gender_norms/css/custom.css' %}" rel="stylesheet">
+<style>
+	input[type=radio] {
+		display: block;
+		margin: 0 auto;
+	}
+	label {
+		display: inline-block;
+		text-align: center;
+		font-size: 11pt;
+	}
+</style>
 
 {% endblock %}
 
@@ -68,7 +79,38 @@ Suppose {{ player.name }} indicated that {{ player.pronoun_possessive }} perform
 
 <br>
 
-{% formfield player.personal_terrible label="I rate this decision as" %}
+<div class="form-group required">
+	<p>I rate this decision as:</p>
+	<div class="controls  field-personal_terrible">
+	  <div id="id_personal_terrible" class="form-row">
+
+			<label for="id_personal_terrible_0" class="col"><input type="radio" name="personal_terrible" value="Very inappropriate"
+			 required id="id_personal_terrible_0">
+			 Very inappropriate</label>
+
+			<label for="id_personal_terrible_1" class="col"><input type="radio" name="personal_terrible" value="Inappropriate"
+			 required id="id_personal_terrible_1">
+			 Inappropriate</label>
+
+			<label for="id_personal_terrible_2" class="col"><input type="radio" name="personal_terrible" value="Somewhat inappropriate"
+			 required id="id_personal_terrible_2">
+			 Somewhat inappropriate</label>
+
+			<label for="id_personal_terrible_3" class="col"><input type="radio" name="personal_terrible" value="Somewhat appropriate"
+			 required id="id_personal_terrible_3">
+			 Somewhat appropriate</label>
+
+			<label for="id_personal_terrible_4" class="col"><input type="radio" name="personal_terrible" value="Appropriate"
+			 required id="id_personal_terrible_4">
+			 Appropriate</label>
+
+			<label for="id_personal_terrible_5" class="col"><input type="radio" name="personal_terrible" value="Very appropriate"
+			 required id="id_personal_terrible_5">
+			 Very appropriate</label>
+
+		</div>
+	</div>
+</div>
 
 <br>
 
@@ -85,7 +127,38 @@ Suppose {{ player.name }} indicated that {{ player.pronoun_possessive }} perform
 
 <br>
 
-{% formfield player.personal_very_poor label="I rate this decision as" %}
+<div class="form-group required">
+	<p>I rate this decision as:</p>
+	<div class="controls  field-personal_very_poor">
+	  <div id="id_personal_very_poor" class="form-row">
+
+			<label for="id_personal_very_poor_0" class="col"><input type="radio" name="personal_very_poor" value="Very inappropriate"
+			 required id="id_personal_very_poor_0">
+			 Very inappropriate</label>
+
+			<label for="id_personal_very_poor_1" class="col"><input type="radio" name="personal_very_poor" value="Inappropriate"
+			 required id="id_personal_very_poor_1">
+			 Inappropriate</label>
+
+			<label for="id_personal_very_poor_2" class="col"><input type="radio" name="personal_very_poor" value="Somewhat inappropriate"
+			 required id="id_personal_very_poor_2">
+			 Somewhat inappropriate</label>
+
+			<label for="id_personal_very_poor_3" class="col"><input type="radio" name="personal_very_poor" value="Somewhat appropriate"
+			 required id="id_personal_very_poor_3">
+			 Somewhat appropriate</label>
+
+			<label for="id_personal_very_poor_4" class="col"><input type="radio" name="personal_very_poor" value="Appropriate"
+			 required id="id_personal_very_poor_4">
+			 Appropriate</label>
+
+			<label for="id_personal_very_poor_5" class="col"><input type="radio" name="personal_very_poor" value="Very appropriate"
+			 required id="id_personal_very_poor_5">
+			 Very appropriate</label>
+
+		</div>
+	</div>
+</div>
 
 <br>
 
@@ -103,7 +176,38 @@ Suppose {{ player.name }} indicated that {{ player.pronoun_possessive }} perform
 
 <br>
 
-{% formfield player.personal_neutral label="I rate this decision as" %}
+<div class="form-group required">
+	<p>I rate this decision as:</p>
+	<div class="controls  field-personal_neutral">
+	  <div id="id_personal_neutral" class="form-row">
+
+			<label for="id_personal_neutral_0" class="col"><input type="radio" name="personal_neutral" value="Very inappropriate"
+			 required id="id_personal_neutral_0">
+			 Very inappropriate</label>
+
+			<label for="id_personal_neutral_1" class="col"><input type="radio" name="personal_neutral" value="Inappropriate"
+			 required id="id_personal_neutral_1">
+			 Inappropriate</label>
+
+			<label for="id_personal_neutral_2" class="col"><input type="radio" name="personal_neutral" value="Somewhat inappropriate"
+			 required id="id_personal_neutral_2">
+			 Somewhat inappropriate</label>
+
+			<label for="id_personal_neutral_3" class="col"><input type="radio" name="personal_neutral" value="Somewhat appropriate"
+			 required id="id_personal_neutral_3">
+			 Somewhat appropriate</label>
+
+			<label for="id_personal_neutral_4" class="col"><input type="radio" name="personal_neutral" value="Appropriate"
+			 required id="id_personal_neutral_4">
+			 Appropriate</label>
+
+			<label for="id_personal_neutral_5" class="col"><input type="radio" name="personal_neutral" value="Very appropriate"
+			 required id="id_personal_neutral_5">
+			 Very appropriate</label>
+
+		</div>
+	</div>
+</div>
 
 <br>
 
@@ -121,7 +225,38 @@ Suppose {{ player.name }} indicated that {{ player.pronoun_possessive }} perform
 
 <br>
 
-{% formfield player.personal_good label="I rate this decision as" %}
+<div class="form-group required">
+	<p>I rate this decision as:</p>
+	<div class="controls  field-personal_good">
+	  <div id="id_personal_good" class="form-row">
+
+			<label for="id_personal_good_0" class="col"><input type="radio" name="personal_good" value="Very inappropriate"
+			 required id="id_personal_good_0">
+			 Very inappropriate</label>
+
+			<label for="id_personal_good_1" class="col"><input type="radio" name="personal_good" value="Inappropriate"
+			 required id="id_personal_good_1">
+			 Inappropriate</label>
+
+			<label for="id_personal_good_2" class="col"><input type="radio" name="personal_good" value="Somewhat inappropriate"
+			 required id="id_personal_good_2">
+			 Somewhat inappropriate</label>
+
+			<label for="id_personal_good_3" class="col"><input type="radio" name="personal_good" value="Somewhat appropriate"
+			 required id="id_personal_good_3">
+			 Somewhat appropriate</label>
+
+			<label for="id_personal_good_4" class="col"><input type="radio" name="personal_good" value="Appropriate"
+			 required id="id_personal_good_4">
+			 Appropriate</label>
+
+			<label for="id_personal_good_5" class="col"><input type="radio" name="personal_good" value="Very appropriate"
+			 required id="id_personal_good_5">
+			 Very appropriate</label>
+
+		</div>
+	</div>
+</div>
 
 <br>
 
@@ -139,7 +274,38 @@ Suppose {{ player.name }} indicated that {{ player.pronoun_possessive }} perform
 
 <br>
 
-{% formfield player.personal_very_good label="I rate this decision as" %}
+<div class="form-group required">
+	<p>I rate this decision as:</p>
+	<div class="controls  field-personal_very_good">
+	  <div id="id_personal_very_good" class="form-row">
+
+			<label for="id_personal_very_good_0" class="col"><input type="radio" name="personal_very_good" value="Very inappropriate"
+			 required id="id_personal_very_good_0">
+			 Very inappropriate</label>
+
+			<label for="id_personal_very_good_1" class="col"><input type="radio" name="personal_very_good" value="Inappropriate"
+			 required id="id_personal_very_good_1">
+			 Inappropriate</label>
+
+			<label for="id_personal_very_good_2" class="col"><input type="radio" name="personal_very_good" value="Somewhat inappropriate"
+			 required id="id_personal_very_good_2">
+			 Somewhat inappropriate</label>
+
+			<label for="id_personal_very_good_3" class="col"><input type="radio" name="personal_very_good" value="Somewhat appropriate"
+			 required id="id_personal_very_good_3">
+			 Somewhat appropriate</label>
+
+			<label for="id_personal_very_good_4" class="col"><input type="radio" name="personal_very_good" value="Appropriate"
+			 required id="id_personal_very_good_4">
+			 Appropriate</label>
+
+			<label for="id_personal_very_good_5" class="col"><input type="radio" name="personal_very_good" value="Very appropriate"
+			 required id="id_personal_very_good_5">
+			 Very appropriate</label>
+
+		</div>
+	</div>
+</div>
 
 <br>
 
@@ -157,7 +323,38 @@ Suppose {{ player.name }} indicated that {{ player.pronoun_possessive }} perform
 
 <br>
 
-{% formfield player.personal_exceptional label="I rate this decision as" %}
+<div class="form-group required">
+	<p>I rate this decision as:</p>
+	<div class="controls  field-personal_exceptional">
+	  <div id="id_personal_exceptional" class="form-row">
+
+			<label for="id_personal_exceptional_0" class="col"><input type="radio" name="personal_exceptional" value="Very inappropriate"
+			 required id="id_personal_exceptional_0">
+			 Very inappropriate</label>
+
+			<label for="id_personal_exceptional_1" class="col"><input type="radio" name="personal_exceptional" value="Inappropriate"
+			 required id="id_personal_exceptional_1">
+			 Inappropriate</label>
+
+			<label for="id_personal_exceptional_2" class="col"><input type="radio" name="personal_exceptional" value="Somewhat inappropriate"
+			 required id="id_personal_exceptional_2">
+			 Somewhat inappropriate</label>
+
+			<label for="id_personal_exceptional_3" class="col"><input type="radio" name="personal_exceptional" value="Somewhat appropriate"
+			 required id="id_personal_exceptional_3">
+			 Somewhat appropriate</label>
+
+			<label for="id_personal_exceptional_4" class="col"><input type="radio" name="personal_exceptional" value="Appropriate"
+			 required id="id_personal_exceptional_4">
+			 Appropriate</label>
+
+			<label for="id_personal_exceptional_5" class="col"><input type="radio" name="personal_exceptional" value="Very appropriate"
+			 required id="id_personal_exceptional_5">
+			 Very appropriate</label>
+
+		</div>
+	</div>
+</div>
 
 <br>
 
@@ -170,6 +367,13 @@ Suppose {{ player.name }} indicated that {{ player.pronoun_possessive }} perform
 </div>
 
 </div>
+
+{{ form.personal_terrible.errors }}
+{{ form.personal_very_poor.errors }}
+{{ form.personal_neutral.errors }}
+{{ form.personal_good.errors }}
+{{ form.personal_very_good.errors }}
+{{ form.personal_exceptional.errors }}
 
 {% endblock %}
 

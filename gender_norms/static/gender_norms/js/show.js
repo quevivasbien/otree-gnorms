@@ -1,8 +1,8 @@
-function show(to_show = 'to_show', my_id = 'button') {
-	var questions = document.getElementById(to_show);
-	if (questions.style.display == 'none') {
-		questions.style.display = 'block';
+function show(id_to_show = 'to_show', id_to_hide = 'button') {
+	var to_show = document.getElementById(id_to_show);
+	if (to_show.style.display == 'none') {
+		to_show.style.display = 'block';
 	}
-	var button = document.getElementById(my_id);
-	button.style.display = 'none';
+	var to_hide = document.getElementById(id_to_hide);
+	to_hide.style.display = 'none';
 }

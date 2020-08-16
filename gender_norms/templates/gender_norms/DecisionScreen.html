@@ -4,6 +4,17 @@
 {% block styles %}
 
 <link href="{% static 'gender_norms/css/custom.css' %}" rel="stylesheet">
+<style>
+	input[type=radio] {
+		display: block;
+		margin: 0 auto;
+	}
+	label {
+		display: inline-block;
+		text-align: center;
+		font-size: 11pt;
+	}
+</style>
 
 {% endblock %}
 
@@ -23,9 +34,10 @@
 <br>
 
 
-<p>TASK: Your task is to rate {{ player.name }}’s self-evaluation decision based on your guess of whet{{ player.pronoun_possessive }}
+<p>TASK: Your task is to rate {{ player.name }}’s self-evaluation decision based on your guess of whether
 your <u>MATCH</u> would think that the decision is “socially appropriate” and “consistent with
 what most people who are like you would think {{ player.name }} OUGHT to do.” If your rating is the same as your MATCH’s rating, you will earn a bonus of 20 cents.</p>
+
 
 <button type="button" class="btn-primary btn" id="button" onclick="show()" style="display:block">Continue to questions</button>
 
@@ -68,7 +80,38 @@ Suppose {{ player.name }} indicated that {{ player.pronoun_possessive }} perform
 
 <br>
 
-{% formfield player.match_guess_terrible label="I think my MATCH will rate this decision as" %}
+<div class="form-group required">
+	<p>I think my MATCH will rate this decision as:</p>
+	<div class="controls  field-match_guess_terrible">
+	  <div id="id_match_guess_terrible" class="form-row">
+
+			<label for="id_match_guess_terrible_0" class="col"><input type="radio" name="match_guess_terrible" value="Very socially inappropriate"
+			 required id="id_match_guess_terrible_0">
+			 Very socially inappropriate</label>
+
+			<label for="id_match_guess_terrible_1" class="col"><input type="radio" name="match_guess_terrible" value="Socially inappropriate"
+			 required id="id_match_guess_terrible_1">
+			 Socially inappropriate</label>
+
+			<label for="id_match_guess_terrible_2" class="col"><input type="radio" name="match_guess_terrible" value="Somewhat socially inappropriate"
+			 required id="id_match_guess_terrible_2">
+			 Somewhat socially inappropriate</label>
+
+			<label for="id_match_guess_terrible_3" class="col"><input type="radio" name="match_guess_terrible" value="Somewhat socially appropriate"
+			 required id="id_match_guess_terrible_3">
+			 Somewhat socially appropriate</label>
+
+			<label for="id_match_guess_terrible_4" class="col"><input type="radio" name="match_guess_terrible" value="Socially appropriate"
+			 required id="id_match_guess_terrible_4">
+			 Socially appropriate</label>
+
+			<label for="id_match_guess_terrible_5" class="col"><input type="radio" name="match_guess_terrible" value="Very socially appropriate"
+			 required id="id_match_guess_terrible_5">
+			 Very socially appropriate</label>
+
+		</div>
+	</div>
+</div>
 
 <br>
 
@@ -85,7 +128,38 @@ Suppose {{ player.name }} indicated that {{ player.pronoun_possessive }} perform
 
 <br>
 
-{% formfield player.match_guess_very_poor label="I think my MATCH will rate this decision as" %}
+<div class="form-group required">
+	<p>I think my MATCH will rate this decision as:</p>
+	<div class="controls  field-match_guess_very_poor">
+	  <div id="id_match_guess_very_poor" class="form-row">
+
+			<label for="id_match_guess_very_poor_0" class="col"><input type="radio" name="match_guess_very_poor" value="Very socially inappropriate"
+			 required id="id_match_guess_very_poor_0">
+			 Very socially inappropriate</label>
+
+			<label for="id_match_guess_very_poor_1" class="col"><input type="radio" name="match_guess_very_poor" value="Socially inappropriate"
+			 required id="id_match_guess_very_poor_1">
+			 Socially inappropriate</label>
+
+			<label for="id_match_guess_very_poor_2" class="col"><input type="radio" name="match_guess_very_poor" value="Somewhat socially inappropriate"
+			 required id="id_match_guess_very_poor_2">
+			 Somewhat socially inappropriate</label>
+
+			<label for="id_match_guess_very_poor_3" class="col"><input type="radio" name="match_guess_very_poor" value="Somewhat socially appropriate"
+			 required id="id_match_guess_very_poor_3">
+			 Somewhat socially appropriate</label>
+
+			<label for="id_match_guess_very_poor_4" class="col"><input type="radio" name="match_guess_very_poor" value="Socially appropriate"
+			 required id="id_match_guess_very_poor_4">
+			 Socially appropriate</label>
+
+			<label for="id_match_guess_very_poor_5" class="col"><input type="radio" name="match_guess_very_poor" value="Very socially appropriate"
+			 required id="id_match_guess_very_poor_5">
+			 Very socially appropriate</label>
+
+		</div>
+	</div>
+</div>
 
 <br>
 
@@ -103,7 +177,38 @@ Suppose {{ player.name }} indicated that {{ player.pronoun_possessive }} perform
 
 <br>
 
-{% formfield player.match_guess_neutral label="I think my MATCH will rate this decision as" %}
+<div class="form-group required">
+	<p>I think my MATCH will rate this decision as:</p>
+	<div class="controls  field-match_guess_neutral">
+	  <div id="id_match_guess_neutral" class="form-row">
+
+			<label for="id_match_guess_neutral_0" class="col"><input type="radio" name="match_guess_neutral" value="Very socially inappropriate"
+			 required id="id_match_guess_neutral_0">
+			 Very socially inappropriate</label>
+
+			<label for="id_match_guess_neutral_1" class="col"><input type="radio" name="match_guess_neutral" value="Socially inappropriate"
+			 required id="id_match_guess_neutral_1">
+			 Socially inappropriate</label>
+
+			<label for="id_match_guess_neutral_2" class="col"><input type="radio" name="match_guess_neutral" value="Somewhat socially inappropriate"
+			 required id="id_match_guess_neutral_2">
+			 Somewhat socially inappropriate</label>
+
+			<label for="id_match_guess_neutral_3" class="col"><input type="radio" name="match_guess_neutral" value="Somewhat socially appropriate"
+			 required id="id_match_guess_neutral_3">
+			 Somewhat socially appropriate</label>
+
+			<label for="id_match_guess_neutral_4" class="col"><input type="radio" name="match_guess_neutral" value="Socially appropriate"
+			 required id="id_match_guess_neutral_4">
+			 Socially appropriate</label>
+
+			<label for="id_match_guess_neutral_5" class="col"><input type="radio" name="match_guess_neutral" value="Very socially appropriate"
+			 required id="id_match_guess_neutral_5">
+			 Very socially appropriate</label>
+
+		</div>
+	</div>
+</div>
 
 <br>
 
@@ -121,7 +226,38 @@ Suppose {{ player.name }} indicated that {{ player.pronoun_possessive }} perform
 
 <br>
 
-{% formfield player.match_guess_good label="I think my MATCH will rate this decision as" %}
+<div class="form-group required">
+	<p>I think my MATCH will rate this decision as:</p>
+	<div class="controls  field-match_guess_good">
+	  <div id="id_match_guess_good" class="form-row">
+
+			<label for="id_match_guess_good_0" class="col"><input type="radio" name="match_guess_good" value="Very socially inappropriate"
+			 required id="id_match_guess_good_0">
+			 Very socially inappropriate</label>
+
+			<label for="id_match_guess_good_1" class="col"><input type="radio" name="match_guess_good" value="Socially inappropriate"
+			 required id="id_match_guess_good_1">
+			 Socially inappropriate</label>
+
+			<label for="id_match_guess_good_2" class="col"><input type="radio" name="match_guess_good" value="Somewhat socially inappropriate"
+			 required id="id_match_guess_good_2">
+			 Somewhat socially inappropriate</label>
+
+			<label for="id_match_guess_good_3" class="col"><input type="radio" name="match_guess_good" value="Somewhat socially appropriate"
+			 required id="id_match_guess_good_3">
+			 Somewhat socially appropriate</label>
+
+			<label for="id_match_guess_good_4" class="col"><input type="radio" name="match_guess_good" value="Socially appropriate"
+			 required id="id_match_guess_good_4">
+			 Socially appropriate</label>
+
+			<label for="id_match_guess_good_5" class="col"><input type="radio" name="match_guess_good" value="Very socially appropriate"
+			 required id="id_match_guess_good_5">
+			 Very socially appropriate</label>
+
+		</div>
+	</div>
+</div>
 
 <br>
 
@@ -139,7 +275,38 @@ Suppose {{ player.name }} indicated that {{ player.pronoun_possessive }} perform
 
 <br>
 
-{% formfield player.match_guess_very_good label="I think my MATCH will rate this decision as" %}
+<div class="form-group required">
+	<p>I think my MATCH will rate this decision as:</p>
+	<div class="controls  field-match_guess_very_good">
+	  <div id="id_match_guess_very_good" class="form-row">
+
+			<label for="id_match_guess_very_good_0" class="col"><input type="radio" name="match_guess_very_good" value="Very socially inappropriate"
+			 required id="id_match_guess_very_good_0">
+			 Very socially inappropriate</label>
+
+			<label for="id_match_guess_very_good_1" class="col"><input type="radio" name="match_guess_very_good" value="Socially inappropriate"
+			 required id="id_match_guess_very_good_1">
+			 Socially inappropriate</label>
+
+			<label for="id_match_guess_very_good_2" class="col"><input type="radio" name="match_guess_very_good" value="Somewhat socially inappropriate"
+			 required id="id_match_guess_very_good_2">
+			 Somewhat socially inappropriate</label>
+
+			<label for="id_match_guess_very_good_3" class="col"><input type="radio" name="match_guess_very_good" value="Somewhat socially appropriate"
+			 required id="id_match_guess_very_good_3">
+			 Somewhat socially appropriate</label>
+
+			<label for="id_match_guess_very_good_4" class="col"><input type="radio" name="match_guess_very_good" value="Socially appropriate"
+			 required id="id_match_guess_very_good_4">
+			 Socially appropriate</label>
+
+			<label for="id_match_guess_very_good_5" class="col"><input type="radio" name="match_guess_very_good" value="Very socially appropriate"
+			 required id="id_match_guess_very_good_5">
+			 Very socially appropriate</label>
+
+		</div>
+	</div>
+</div>
 
 <br>
 
@@ -157,19 +324,57 @@ Suppose {{ player.name }} indicated that {{ player.pronoun_possessive }} perform
 
 <br>
 
-{% formfield player.match_guess_exceptional label="I think my MATCH will rate this decision as" %}
+<div class="form-group required">
+	<p>I think my MATCH will rate this decision as:</p>
+	<div class="controls  field-match_guess_exceptional">
+	  <div id="id_match_guess_exceptional" class="form-row">
+
+			<label for="id_match_guess_exceptional_0" class="col"><input type="radio" name="match_guess_exceptional" value="Very socially inappropriate"
+			 required id="id_match_guess_exceptional_0">
+			 Very socially inappropriate</label>
+
+			<label for="id_match_guess_exceptional_1" class="col"><input type="radio" name="match_guess_exceptional" value="Socially inappropriate"
+			 required id="id_match_guess_exceptional_1">
+			 Socially inappropriate</label>
+
+			<label for="id_match_guess_exceptional_2" class="col"><input type="radio" name="match_guess_exceptional" value="Somewhat socially inappropriate"
+			 required id="id_match_guess_exceptional_2">
+			 Somewhat socially inappropriate</label>
+
+			<label for="id_match_guess_exceptional_3" class="col"><input type="radio" name="match_guess_exceptional" value="Somewhat socially appropriate"
+			 required id="id_match_guess_exceptional_3">
+			 Somewhat socially appropriate</label>
+
+			<label for="id_match_guess_exceptional_4" class="col"><input type="radio" name="match_guess_exceptional" value="Socially appropriate"
+			 required id="id_match_guess_exceptional_4">
+			 Socially appropriate</label>
+
+			<label for="id_match_guess_exceptional_5" class="col"><input type="radio" name="match_guess_exceptional" value="Very socially appropriate"
+			 required id="id_match_guess_exceptional_5">
+			 Very socially appropriate</label>
+
+		</div>
+	</div>
+</div>
 
 <br>
 
 <br>
 <button onclick="topFunction()" type="button" class="prevtab btn-primary btn back">Back</button>
-<button onclick="checkSubmit()" class="nexttab btn-primary btn next">Next</button>
+<button onclick="checkSubmit()" class="btn-primary btn next">Next</button>
 
 </div>
 
 </div>
 
 </div>
+
+{{ form.match_guess_terrible.errors }}
+{{ form.match_guess_very_poor.errors }}
+{{ form.match_guess_neutral.errors }}
+{{ form.match_guess_good.errors }}
+{{ form.match_guess_very_good.errors }}
+{{ form.match_guess_exceptional.errors }}
 
 {% endblock %}
 
