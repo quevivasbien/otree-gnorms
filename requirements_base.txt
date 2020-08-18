@@ -1,2 +1,2 @@
-otree>=3.0.5
+otree[mturk]>=3.0.5
 django-recaptcha

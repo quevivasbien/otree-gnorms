@@ -52,6 +52,9 @@ class DecisionScreen2(Page):
 class DemographicSurvey(Page):
     pass
 
+class CompletionCode(Page):
+    pass
 
-page_sequence = [Captcha, ConsentForm, ExperimentInstructions, ExperimentInstructionsContd,
-                 SituationDescription, DecisionScreen, ExperimentInstructions2, DecisionScreen2, DemographicSurvey]
+
+page_sequence = [Captcha, ConsentForm, ExperimentInstructions, ExperimentInstructionsContd, SituationDescription,
+                 DecisionScreen, ExperimentInstructions2, DecisionScreen2, DemographicSurvey, CompletionCode]

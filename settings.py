@@ -6,7 +6,43 @@ from os import environ
 # e.g. self.session.config['participation_fee']
 
 SESSION_CONFIG_DEFAULTS = dict(
-    real_world_currency_per_point=1.00, participation_fee=0.00, doc=""
+    real_world_currency_per_point=1.00, participation_fee=0.00, doc="",
+    mturk_hit_settings = dict(
+        keywords='bonus, study, decisions',
+        title='Decision-making study',
+        description='Academic experiment on decision making from University of Utah and Aix-Marseille University',
+        frame_height=500,
+        template='global/mturk_template.html',
+        minutes_allotted_per_assignment=60,
+        expiration_hours=7 * 24,
+        qualification_requirements=[
+            # Completed at least 100 HITs
+            {
+                'QualificationTypeId': '00000000000000000040',
+                'Comparator': 'GreaterThanOrEqualTo',
+                'IntegerValues': [100]
+            },
+            # Has approval rate >= 95%
+            {
+                'QualificationTypeId': '000000000000000000L0',
+                'Comparator': 'GreaterThanOrEqualTo',
+                'IntegerValues': [95]
+            }
+            # Is in US
+            {
+                'QualificationTypeId': '00000000000000000071',
+                'Comparator': 'EqualTo',
+              	'LocaleValues': [{'Country': 'US'}]
+            }
+            # Has not already taken survey
+            {
+                'QualificationTypeId': '303SJT1CWE1SIJV6J0XUXHLQB1Q4F7',
+                'Comparator': 'DoesNotExist'
+            }
+        ]
+        grant_qualification_id='303SJT1CWE1SIJV6J0XUXHLQB1Q4F7' # to prevent retakes
+        # TODO: Change qualifcation ID to an id controlled by Pavitra's account
+    )
 )
 
 SESSION_CONFIGS = [
