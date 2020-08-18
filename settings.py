@@ -27,19 +27,19 @@ SESSION_CONFIG_DEFAULTS = dict(
                 'QualificationTypeId': '000000000000000000L0',
                 'Comparator': 'GreaterThanOrEqualTo',
                 'IntegerValues': [95]
-            }
+            },
             # Is in US
             {
                 'QualificationTypeId': '00000000000000000071',
                 'Comparator': 'EqualTo',
               	'LocaleValues': [{'Country': 'US'}]
-            }
+            },
             # Has not already taken survey
             {
                 'QualificationTypeId': '303SJT1CWE1SIJV6J0XUXHLQB1Q4F7',
                 'Comparator': 'DoesNotExist'
             }
-        ]
+        ],
         grant_qualification_id='303SJT1CWE1SIJV6J0XUXHLQB1Q4F7' # to prevent retakes
         # TODO: Change qualifcation ID to an id controlled by Pavitra's account
     )
