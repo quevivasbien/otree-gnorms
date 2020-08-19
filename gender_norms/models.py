@@ -87,17 +87,7 @@ class Player(BasePlayer):
     personal_very_good = models.StringField(choices=qtext['appropriate_ratings'], widget=widgets.RadioSelect)
     personal_exceptional = models.StringField(choices=qtext['appropriate_ratings'], widget=widgets.RadioSelect)
 
-    def understanding1a_error_message(self, value):
-        if value not in ['1.00', '1', '1.0', '1.000', 'one', '1,0', '1,00', '1.']:
-            return 'One of your answers was incorrect. Please choose the correct answers to proceed.'
-
-    def understanding1b_error_message(self, value):
-        if value not in ['3', 'three', '3.0']:
-            return 'One of your answers was incorrect. Please choose the correct answers to proceed.'
-
-    def understanding1c_error_message(self, value):
-        if value not in ['1.20', '1.2', '1,2', '1.200', '1,20']:
-            return 'One of your answers was incorrect. Please choose the correct answers to proceed.'
+    # error messages for understanding 1x are on the page class
 
     def understanding2_error_message(self, value):
         if value != qtext['understanding2'][0]:

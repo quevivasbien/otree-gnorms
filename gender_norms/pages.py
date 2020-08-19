@@ -22,6 +22,21 @@ class ExperimentInstructions(Page):
     form_model = 'player'
     form_fields = ['understanding1a', 'understanding1b', 'understanding1c']
 
+    def error_message(self, values):
+        """This is redundant! Form validation is now handled in JS <script> in ExperimentInstructions.html
+        """
+        incorrect = 0
+        if values['understanding1a'] not in ['1.00', '1', '1.0', '1.000', 'one', '1,0', '1,00', '1.']:
+            incorrect += 1
+        if values['understanding1b'] not in ['1', 'one', '1.0', 'One', 'ONE']:
+            incorrect += 1
+        if values['understanding1c'] not in ['1.20', '1.2', '1,2', '1.200', '1,20']:
+            incorrect += 1
+        if incorrect > 0:
+            num = 'One' if incorrect == 1 else 'Two' if incorrect == 2 else 'All'
+            verb = 'is' if incorrect == 1 else 'are'
+            return f'{num} of your answers {verb} incorrect. Please choose the correct answers to proceed.'
+
 
 class ExperimentInstructionsContd(Page):
     form_model = 'player'
