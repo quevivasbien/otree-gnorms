@@ -109,7 +109,17 @@ class MTurkHandler:
                             'neutral': row['match_guess_neutral'],
                             'good': row['match_guess_good'],
                             'very_good': row['match_guess_very_good'],
-                            'exceptional': row['match_guess_exceptional']
+                            'exceptional': row['match_guess_exceptional'],
+                            'perform5': row['match_guess_perform5'],
+                            'perform25': row['match_guess_perform25'],
+                            'perform55': row['match_guess_perform55'],
+                            'perform75': row['match_guess_perform75'],
+                            'perform95': row['match_guess_perform95'],
+                            'succeed5': row['match_guess_succeed5'],
+                            'succeed25': row['match_guess_succeed25'],
+                            'succeed55': row['match_guess_succeed55'],
+                            'succeed75': row['match_guess_succeed75'],
+                            'succeed95': row['match_guess_succeed95']
                         }
                     else:
                         matching_responses = [
@@ -118,7 +128,17 @@ class MTurkHandler:
                             row['match_guess_neutral'] == last_resp.get('neutral'),
                             row['match_guess_good'] == last_resp.get('good'),
                             row['match_guess_very_good'] == last_resp.get('very_good'),
-                            row['match_guess_exceptional'] == last_resp.get('exceptional')
+                            row['match_guess_exceptional'] == last_resp.get('exceptional'),
+                            row['match_guess_perform5'] == last_resp.get('perform5'),
+                            row['match_guess_perform25'] == last_resp.get('perform25'),
+                            row['match_guess_perform55'] == last_resp.get('perform55'),
+                            row['match_guess_perform75'] == last_resp.get('perform75'),
+                            row['match_guess_perform95'] == last_resp.get('perform95'),
+                            row['match_guess_succeed5'] == last_resp.get('succeed5'),
+                            row['match_guess_succeed25'] == last_resp.get('succeed25'),
+                            row['match_guess_succeed55'] == last_resp.get('succeed55'),
+                            row['match_guess_succeed75'] == last_resp.get('succeed75'),
+                            row['match_guess_succeed95'] == last_resp.get('succeed95')
                         ]
                         bonus = 0.2 * sum(matching_responses)
                         bonuses.append((last_idx, bonus))
@@ -154,8 +174,8 @@ class MTurkHandler:
         # Check for unpaired responses about to expire
         unapproved = df[df['hit_approved'] == 0]
         now = time.time()
-        # mark as "close-dated" any responses that were submitted more than 18 hours ago
-        close_dated = unapproved[unapproved['time_fetched'].apply(lambda x: now - x > 18 * 60 * 60)]
+        # mark as "close-dated" any responses that were submitted more than 20 hours ago
+        close_dated = unapproved[unapproved['time_fetched'].apply(lambda x: now - x > 20 * 60 * 60)]
         bonuses = []
         for i, row in close_dated.iterrows():
             # Find the most recent person who got the same treatment
@@ -169,7 +189,17 @@ class MTurkHandler:
                 row['match_guess_neutral'] == comp['match_guess_neutral'],
                 row['match_guess_good'] == comp['match_guess_good'],
                 row['match_guess_very_good'] == comp['match_guess_very_good'],
-                row['match_guess_exceptional'] == comp['match_guess_exceptional']
+                row['match_guess_exceptional'] == comp['match_guess_exceptional'],
+                row['match_guess_perform5'] == comp['match_guess_perform5'],
+                row['match_guess_perform25'] == comp['match_guess_perform25'],
+                row['match_guess_perform55'] == comp['match_guess_perform55'],
+                row['match_guess_perform75'] == comp['match_guess_perform75'],
+                row['match_guess_perform95'] == comp['match_guess_perform95'],
+                row['match_guess_succeed5'] == comp['match_guess_succeed5'],
+                row['match_guess_succeed25'] == comp['match_guess_succeed25'],
+                row['match_guess_succeed55'] == comp['match_guess_succeed55'],
+                row['match_guess_succeed75'] == comp['match_guess_succeed75'],
+                row['match_guess_succeed95'] == comp['match_guess_succeed95']
             ]
             bonus = 0.2 * sum(matching_responses)
             bonuses.append((i, bonus))

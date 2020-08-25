@@ -48,15 +48,15 @@ SESSION_CONFIG_DEFAULTS = dict(
 SESSION_CONFIGS = [
      dict(
         name='prefsranker',
-        display_name="Preferences Ranker",
-        num_demo_participants=1,
-        app_sequence=['prefsranker']
-     ),
-     dict(
-        name='gender_norms',
         display_name="Gender norms of self-promotion",
         num_demo_participants=50,
         app_sequence=['gender_norms']
+     ),
+     dict(
+        name='gender_norms',
+        display_name="Gender norms of self-promotion, with extra questions",
+        num_demo_participants=50,
+        app_sequence=['gender_norms_v2']
      ),
 ]
 

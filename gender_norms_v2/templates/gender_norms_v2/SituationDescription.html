@@ -1,0 +1,77 @@
+<style>
+	.serif { font-family: Georgia, serif; }
+</style>
+
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block scripts %}
+
+<script src="{% static 'gender_norms/js/show.js' %}"></script>
+
+{% endblock %}
+
+{% block title %}
+	{{ player.name }}'s situation
+{% endblock %}
+
+{% block content %}
+
+<p>{{ player.name }} has applied for a job with a boutique consulting firm and has been invited for a day-long multi-stage interview at the company.</p>
+
+<p>Part of the interview process asks {{ player.name }} to complete a cognitive ability test on a computer. On the test, {{ player.name }} was asked to answer up to 20 questions from the Armed Services Vocational Aptitude Battery (ASVAB). Each question tested aptitude in one of the following 5 categories: General science, Arithmetic reasoning, Math knowledge, Mechanical comprehension, and Assembling objects. In addition to being used by the military to determine which jobs armed service members are qualified for, performance on the ASVAB is often used as a measure of cognitive ability in non-military settings.</p>
+
+<p>You can see a sample of the questions of the test {{ player.name }} takes below:</p>
+
+<button type="button" class="btn-primary btn" id="button" onclick="show()" style="display:block">Show questions</button>
+
+<div id="to_show" style="display:none">
+<br>
+
+<p><b>Cognitive ability test sample questions</b></p>
+
+<div class="serif">
+
+Question1. [General Science] NaCl is more commonly known as:
+<ol type="A">
+    <li>Nickel chlorine</li>
+    <li>Pepper</li>
+    <li>Salt</li>
+    <li>Sugar</li>
+</ol>
+
+Question 2. [Arithmetic reasoning] If the tire of a car rotates at a constant speed of 552 times in one minute, how many times will the tire rotate in half-an-hour?
+<ol type="A">
+    <li>276</li>
+    <li>5,520</li>
+    <li>8,280</li>
+    <li>16,560</li>
+</ol>
+
+Question 3. [Mathematics knowledge] If x + y = 2 and x − y = 1, then:
+<ol type="A">
+    <li>x = 1, y = 1</li>
+    <li>x = 2, y = 1</li>
+    <li>x = 3/2, y = 1/2</li>
+    <li>x = 0, y = 2</li>
+</ol>
+
+Question 4. [Assembling objects] Which figure best shows how the objects in the left box will appear if they are put together?
+<br>
+<img src="{% static 'gender_norms/example_shapes.png' %}" alt="Which figure best shows how the objects in the left box will appear if they are put together?" style="display: block; margin-left: auto; margin-right: auto">
+<ol type="A">
+    <li>A</li>
+    <li>B</li>
+    <li>C</li>
+    <li>D</li>
+</ol>
+
+</div>
+
+<br>
+
+    {% next_button %}
+
+</div>
+
+{% endblock %}

@@ -22,14 +22,14 @@
 {% endblock %}
 
 {% block title %}
-	Decision Screen -- Part 2
+	Decision Screen 2a
 {% endblock %}
 
 {% block content %}
 
 <p>Recall that {{ player.name }} takes the cognitive ability test, and {{ player.pronoun }} is informed {{ player.pronoun }} answered <b>{{ player.ability_score }} out of 20</b> questions correctly. {% if player.pronoun == 'he' %}He{% else %}She{% endif %} is also informed that among 100 prior interviewees, {{ player.pronoun_possessive }} performance was <b>better than {{ player.ability }}</b> of them and <b>worse than {{ player.ability_comp }}</b> of them.</p>
 
-<p>{{ player.name }} is then asked to self-assess {{ player.pronoun_possessive }} performance on the following scale.</p>
+<p>{{ player.name }} is asked to self-assess {{ player.pronoun_possessive }} performance on the following scale.</p>
 <p>“My performance on the test was: a) terrible, b) very poor, c) neutral, d) good, e) very good, f) exceptional”</p>
 
 <p>{{ player.name }} submits {{ player.pronoun_possessive }} self-evaluation answers to be considered as part of {{ player.pronoun_possessive }} interview portfolio.<p>
