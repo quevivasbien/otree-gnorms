@@ -77,7 +77,7 @@ ADMIN_PASSWORD = environ.get('OTREE_ADMIN_PASSWORD')
 
 DEMO_PAGE_INTRO_HTML = """ """
 
-SECRET_KEY = '2066etnf4@egr9t8yfyg7*5zg+2it3du@k0c82vwh8jri1+_hu'
+SECRET_KEY = environ.get('DJANGO_SECRET_KEY')
 
 # if an app is included in SESSION_CONFIGS, you don't need to list it here
 INSTALLED_APPS = ['otree']
@@ -86,5 +86,5 @@ EXTENSION_APPS = [
     'captcha',
 ]
 
-RECAPTCHA_PUBLIC_KEY = '6LcvN7wZAAAAACrkDlIMQl1sMCQhFF1fc8GkV43T'
-RECAPTCHA_PRIVATE_KEY = '6LcvN7wZAAAAAHG3R9BRlH_s5dtznelvRYiSMPo8'
+RECAPTCHA_PUBLIC_KEY = '6LdWJsMZAAAAAAeXmwaUt1Whil_vaRJgXZ_Z9lZu'
+RECAPTCHA_PRIVATE_KEY = environ.get('RECAPTCHA_PRIVATE_KEY')
