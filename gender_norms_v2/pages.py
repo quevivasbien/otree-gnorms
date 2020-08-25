@@ -75,7 +75,7 @@ class DemographicSurvey(Page):
 class CompletionCode(Page):
     pass
 
-# TOOD: Reinsert Captcha
-page_sequence = [ConsentForm, ExperimentInstructions, ExperimentInstructionsContd, SituationDescription,
+
+page_sequence = [Captcha, ConsentForm, ExperimentInstructions, ExperimentInstructionsContd, SituationDescription,
                  DecisionScreen1a, DecisionScreen1b, DecisionScreen1c, ExperimentInstructions2,
                  DecisionScreen2a, DecisionScreen2b, DecisionScreen2c, DemographicSurvey, CompletionCode]
