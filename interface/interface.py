@@ -47,7 +47,7 @@ class MTurkHandler:
         except NoSuchElementException:
             self.login()
             session_config = Select(self.browser.find_element_by_name('session_config'))
-        session_config.select_by_visible_text('Gender norms of self-promotion, with extra questions')
+        session_config.select_by_visible_text('Gender norms of self-promotion')
         num_workers = self.browser.find_element_by_name('num_participants')
         num_workers.send_keys(str(EXPERIMENT_SIZE))
         create_button = self.browser.find_element_by_id('btn-create-session')
@@ -68,13 +68,18 @@ class MTurkHandler:
             static_df = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'mturk_status_data.csv')
         # get rid of all the junk on the beginning of the column names
         df.rename(columns=lambda x: re.search(r'[^.]+$', x).group(), inplace=True)
+        # drop problematic columns
+        df.drop(columns=['label', 'payoff'], inplace=True)
+        # drop empty rows
         df.dropna(subset=['mturk_assignment_id'], inplace=True)
+        # add new columns for determining payoffs
         df['time_fetched'] = time.time()
         df['hit_approved'] = 0
+        df['bonus'] = 0
         if os.path.isfile(static_df):
-            df = pd.concat(
-                    (pd.read_csv(static_df, index_col=0), df)
-            ).drop_duplicates(subset=['code'], keep='first').reset_index(drop=True)
+            df = pd.concat((pd.read_csv(static_df, index_col=0), df))
+            df.sort_values(by=['time_started'], ascending=True, inplace=True)
+            df = df[~df.index.duplicated(keep='first')]
         # check for participants who did not complete the survey but submitted the HIT
         dont_approve = df[(df['hit_approved'] == 0) & (df['_index_in_pages'] != df['_max_page_index']) \
             & (pd.notna(df['mturk_assignment_id']))]
@@ -109,17 +114,7 @@ class MTurkHandler:
                             'neutral': row['match_guess_neutral'],
                             'good': row['match_guess_good'],
                             'very_good': row['match_guess_very_good'],
-                            'exceptional': row['match_guess_exceptional'],
-                            'perform5': row['match_guess_perform5'],
-                            'perform25': row['match_guess_perform25'],
-                            'perform55': row['match_guess_perform55'],
-                            'perform75': row['match_guess_perform75'],
-                            'perform95': row['match_guess_perform95'],
-                            'succeed5': row['match_guess_succeed5'],
-                            'succeed25': row['match_guess_succeed25'],
-                            'succeed55': row['match_guess_succeed55'],
-                            'succeed75': row['match_guess_succeed75'],
-                            'succeed95': row['match_guess_succeed95']
+                            'exceptional': row['match_guess_exceptional']
                         }
                     else:
                         matching_responses = [
@@ -128,17 +123,7 @@ class MTurkHandler:
                             row['match_guess_neutral'] == last_resp.get('neutral'),
                             row['match_guess_good'] == last_resp.get('good'),
                             row['match_guess_very_good'] == last_resp.get('very_good'),
-                            row['match_guess_exceptional'] == last_resp.get('exceptional'),
-                            row['match_guess_perform5'] == last_resp.get('perform5'),
-                            row['match_guess_perform25'] == last_resp.get('perform25'),
-                            row['match_guess_perform55'] == last_resp.get('perform55'),
-                            row['match_guess_perform75'] == last_resp.get('perform75'),
-                            row['match_guess_perform95'] == last_resp.get('perform95'),
-                            row['match_guess_succeed5'] == last_resp.get('succeed5'),
-                            row['match_guess_succeed25'] == last_resp.get('succeed25'),
-                            row['match_guess_succeed55'] == last_resp.get('succeed55'),
-                            row['match_guess_succeed75'] == last_resp.get('succeed75'),
-                            row['match_guess_succeed95'] == last_resp.get('succeed95')
+                            row['match_guess_exceptional'] == last_resp.get('exceptional')
                         ]
                         bonus = 0.2 * sum(matching_responses)
                         bonuses.append((last_idx, bonus))
@@ -171,11 +156,12 @@ class MTurkHandler:
                         Reason=f'Bonus for answering {int(bonus / 0.2)} questions the same as your match.'
                     )
             df.loc[i, 'hit_approved'] = 1
+            df.loc[i, 'bonus'] = bonus
         # Check for unpaired responses about to expire
         unapproved = df[df['hit_approved'] == 0]
         now = time.time()
-        # mark as "close-dated" any responses that were submitted more than 20 hours ago
-        close_dated = unapproved[unapproved['time_fetched'].apply(lambda x: now - x > 20 * 60 * 60)]
+        # mark as "close-dated" any responses that were submitted more than 18 hours ago
+        close_dated = unapproved[unapproved['time_fetched'].apply(lambda x: now - x > 18 * 60 * 60)]
         bonuses = []
         for i, row in close_dated.iterrows():
             # Find the most recent person who got the same treatment
@@ -189,17 +175,7 @@ class MTurkHandler:
                 row['match_guess_neutral'] == comp['match_guess_neutral'],
                 row['match_guess_good'] == comp['match_guess_good'],
                 row['match_guess_very_good'] == comp['match_guess_very_good'],
-                row['match_guess_exceptional'] == comp['match_guess_exceptional'],
-                row['match_guess_perform5'] == comp['match_guess_perform5'],
-                row['match_guess_perform25'] == comp['match_guess_perform25'],
-                row['match_guess_perform55'] == comp['match_guess_perform55'],
-                row['match_guess_perform75'] == comp['match_guess_perform75'],
-                row['match_guess_perform95'] == comp['match_guess_perform95'],
-                row['match_guess_succeed5'] == comp['match_guess_succeed5'],
-                row['match_guess_succeed25'] == comp['match_guess_succeed25'],
-                row['match_guess_succeed55'] == comp['match_guess_succeed55'],
-                row['match_guess_succeed75'] == comp['match_guess_succeed75'],
-                row['match_guess_succeed95'] == comp['match_guess_succeed95']
+                row['match_guess_exceptional'] == comp['match_guess_exceptional']
             ]
             bonus = 0.2 * sum(matching_responses)
             bonuses.append((i, bonus))
@@ -230,6 +206,7 @@ class MTurkHandler:
                         Reason=f'Bonus for answering {int(bonus / 0.2)} questions the same as your match.'
                     )
             df.loc[i, 'hit_approved'] = 1
+            df.loc[i, 'bonus'] = bonus
         df.to_csv(static_df)
 
 
@@ -238,7 +215,7 @@ class MTurkHandler:
         if not candidate_files:
             return False
         filename = os.path.join(downloads_dir, candidate_files[0])
-        df = pd.read_csv(filename)
+        df = pd.read_csv(filename, index_col='participant.code')
         self.process_df(df)
         os.remove(filename)
         return True
@@ -253,7 +230,7 @@ class MTurkHandler:
 
 
 
-def main(wait_interval=600, max_checks=100):
+def main(wait_interval=600, max_checks=1000):
     mTurkHandler = MTurkHandler(start=True)  # starts experiment upon init
     # make periodic checks to update data and approve tasks
     for _ in range(max_checks):
@@ -274,4 +251,4 @@ if __name__ == '__main__':
     elif len(args) == 3:
         main(int(args[1]), int(args[2]))
     else:
-        print('Syntax is "python aws.py [wait_interval] [max_checks]"')
+        print('Syntax is "python interface.py [wait_interval] [max_checks]"')

@@ -6,7 +6,7 @@ from os import environ
 # e.g. self.session.config['participation_fee']
 
 SESSION_CONFIG_DEFAULTS = dict(
-    real_world_currency_per_point=1.00, participation_fee=1.00, doc="",
+    real_world_currency_per_point=1.00, participation_fee=2.00, doc="",
     mturk_hit_settings = dict(
         keywords='bonus, study, decisions',
         title='Decision-making study',
@@ -47,13 +47,13 @@ SESSION_CONFIG_DEFAULTS = dict(
 
 SESSION_CONFIGS = [
      dict(
-        name='prefsranker',
+        name='gender_norms',
         display_name="Gender norms of self-promotion",
         num_demo_participants=50,
         app_sequence=['gender_norms']
      ),
      dict(
-        name='gender_norms',
+        name='gender_norms_v2',
         display_name="Gender norms of self-promotion, with extra questions",
         num_demo_participants=50,
         app_sequence=['gender_norms_v2']

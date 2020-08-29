@@ -11,8 +11,10 @@ from otree.api import (
 import json
 from random import shuffle
 
+# load question text
 with open('_static/gender_norms/question_text.json', 'r') as fh:
     qtext = json.load(fh)
+
 
 
 author = 'Mckay D Jensen'
