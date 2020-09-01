@@ -8,3 +8,4 @@ Add demographics page?
 change ENDPOINT and EXPERIMENT_SIZE in aws.py
 
 Temporarily upgrade Heroku server
+Make sure to be logged into the right AWS locally before launching interface.py

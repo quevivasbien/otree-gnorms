@@ -190,7 +190,7 @@ class MTurkHandler:
                             & (df['ability'] == row['ability'])]
             comp = same_tt.iloc[-1]
             matching_responses = [
-                row['match_guess_terrible'] == comp['match_gues_terrible'],
+                row['match_guess_terrible'] == comp['match_guess_terrible'],
                 row['match_guess_very_poor'] == comp['match_guess_very_poor'],
                 row['match_guess_neutral'] == comp['match_guess_neutral'],
                 row['match_guess_good'] == comp['match_guess_good'],
