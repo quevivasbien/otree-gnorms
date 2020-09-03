@@ -11,14 +11,14 @@ I've included a basic description of where everything is and what it does below 
 * `_static` Contains files that are used by both the apps, e.g., the image in the example ASFAB questions
 * `_templates` Contains a `Page.html` document that the other templates in the project are based on, as well as an `mturk_template.html` document, which is displayed to workers on MTurk before they are directed to the survey.
 * `gender_norms`
- * `static` Contains JavaScript and CSS files that are referenced in the HTML documents in `templates` and are used to change how the pages of the app look and behave in the web browser.
- * `templates` Contains HTML documents that tell the web browser how to display each page. There is a document for each page, labeled by their names given in `pages.py`. This is where the real meat of the app is -- these files define what you actually see on screen. Most of the HTML documents contain Javascript code that gives the pages additional interactivity that isn't built into oTree.
- * `models.py` Defines all the variables associated with each participant and assigns participants to treatment groups.
- * `pages.py` Defines the pages in the experiment, including the variables (e.g., question responses) that are accessible on those pages, and tells oTree what order to display the pages in.
+  * `static` Contains JavaScript and CSS files that are referenced in the HTML documents in `templates` and are used to change how the pages of the app look and behave in the web browser.
+  * `templates` Contains HTML documents that tell the web browser how to display each page. There is a document for each page, labeled by their names given in `pages.py`. This is where the real meat of the app is -- these files define what you actually see on screen. Most of the HTML documents contain Javascript code that gives the pages additional interactivity that isn't built into oTree.
+  * `models.py` Defines all the variables associated with each participant and assigns participants to treatment groups.
+  * `pages.py` Defines the pages in the experiment, including the variables (e.g., question responses) that are accessible on those pages, and tells oTree what order to display the pages in.
 * `gender_norms_v2` Structured the same as `gender_norms`, but has more pages and more variables
 * `interface` Contains Python code for automatically running the experiment on the Heroku server, approving HITs, and sending payments. These are meant to be executed locally: although they interact with the server, they do not run *on* the server.
- * `interface.py` Automatically runs an experiment with the `gender_norms` version of the app.
- * `interface.py` Does the same thing as `interface.py`, but with the `gender_norms_v2` version of the app.
+  * `interface.py` Automatically runs an experiment with the `gender_norms` version of the app.
+  * `interface.py` Does the same thing as `interface.py`, but with the `gender_norms_v2` version of the app.
 * `requirements_base.txt` Tells the server which Python packages are needed to run the app properly.
 * `settings.py` Contains settings, including the experiment's participation fee and the qualification requirements for MTurk workers meant to take the survey.
 
