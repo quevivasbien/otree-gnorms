@@ -1,0 +1,121 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block styles %}
+<style>
+	.fill-blanks {
+		text-align: center;
+		background-color: #e1e1ea;
+		max-width: 550px;
+		margin: auto;
+		padding: 20px 0px;
+	}
+	label {
+		display: inline-block;
+	}
+	input.form-control {
+		width: 100px;
+		display: inline-block;
+		outline: 0; border: 0; padding: 0; margin: 0;
+		border-bottom: 1px solid white;
+		background-color: inherit;
+		text-align: center;
+	}
+	ul.errorlist {
+    list-style-type: none;
+	}
+	li {
+		color: red;
+	}
+</style>
+{% endblock %}
+
+{% block title %}
+	Experiment Instructions
+{% endblock %}
+
+{% block content %}
+
+<p><b>Overview:</b> This is a study in decision-making and consists of <b>two parts and a short follow-up
+survey</b>. Following certain instructions, you will be asked comprehension questions. You must
+answer these questions correctly in order to proceed to complete the study.</p>
+
+<p><b>Your payment:</b> You will be paid a $2 base pay for completing the study. In addition, you
+will have a chance to earn a bonus. Your bonus earnings will depend on the decisions you
+make and on the decisions that another worker you are paired with makes. You can earn up to
+$3.20 in bonus pay. You will be paid the base plus the bonus within 1 day after you
+complete this task.</p>
+
+<br>
+	<p><b>Understanding question</b>: fill in the blanks.</p>
+	<div class="fill-blanks">
+		<p style>For completing this study, I will receive</p>
+		<label for="understanding1a">$</label>
+		<input type="text" name="understanding1a" maxlength="5" size="5" required id="id_understanding1a" class="form-control">
+		<p style="display: inline-block">within</p>
+		<input type="text" name="understanding1b" maxlength="5" size="5" required id="id_understanding1b" class="form-control">
+		<label for="understanding1b">day(s)</label>
+		<p>after I complete the task, and I can also receive up to</p>
+		<label for="understanding1c">$</label>
+		<input type="text" name="understanding1c" maxlength="5" size="5" required id="id_understanding1c" class="form-control">
+		<p style="display: inline-block">as bonus payment.</p>
+	</div>
+
+<br>
+	{{ form.understanding1a.errors }}
+	{{ form.understanding1b.errors }}
+	{{ form.understanding1c.errors }}
+	<div id="error-message" style="color: red"></div>
+<br>
+
+<button id="submit-button" type="button" onclick="validateBeforeSubmit()" class="btn-primary btn">Next</button>
+
+{% endblock %}
+
+
+{% block scripts %}
+
+<script>
+
+function validateBeforeSubmit() {
+	// does a custom form field validation; if correct, submits
+	input1 = document.getElementById('id_understanding1a');
+	input2 = document.getElementById('id_understanding1b');
+	input3 = document.getElementById('id_understanding1c');
+	var incorrect = 0;
+	if (!['2.00', '2', '2.0', '2.000', 'two', '2,0', '2,00', '2.'].includes(input1.value)) {
+		incorrect++;
+	}
+	if (!['1', 'one', '1.0', 'One', 'ONE'].includes(input2.value)) {
+		incorrect++;
+	}
+	if (!['3.20', '3.2', '3,2', '3.200', '3,20'].includes(input3.value)) {
+		incorrect++;
+	}
+	if (incorrect == 0) {
+		$('#form').submit();
+	}
+	else if (incorrect == 1) {
+		document.getElementById('error-message').innerHTML = 'One of your answers is incorrect. Please choose the correct answers to proceed.';
+	}
+	else if (incorrect == 2) {
+		document.getElementById('error-message').innerHTML = 'Two of your answers are incorrect. Please choose the correct answers to proceed.';
+	}
+	else if (incorrect == 3) {
+		document.getElementById('error-message').innerHTML = 'Your answers are incorrect. Please choose the correct answers to proceed.';
+	}
+}
+
+// Listen for enter press in final field
+var input = document.getElementById('id_understanding1c');
+input.addEventListener('keyup', function(event) {
+  // Number 13 is the "Enter" key on the keyboard
+  if (event.keyCode === 13) {
+    event.preventDefault();
+    document.getElementById('submit-button').click();
+  }
+});
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,337 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block styles %}
+
+<link href="{% static 'gender_norms/css/custom.css' %}" rel="stylesheet">
+<style>
+	input[type=radio] {
+		display: block;
+		margin: 0 auto;
+	}
+	label {
+		display: inline-block;
+		text-align: center;
+		font-size: 11pt;
+	}
+	em {
+		color: purple;
+	}
+</style>
+
+{% endblock %}
+
+{% block title %}
+	Decision Screen 1c
+{% endblock %}
+
+{% block content %}
+
+<p>{{ player.name }} is then asked to answer a question in which {{ player.pronoun }} indicated the extent to which {{ player.pronoun }} agreed, on a scale from 0 (entirely disagree) to 100 (entirely agree), with the following statement: “<i>I would succeed in a job that required me to perform well on the test I
+took</i>.”</p>
+
+<p>{{ player.name }} submits {{ player.pronoun_possessive }} answer to be considered as part of {{ player.pronoun_possessive }} interview portfolio.<p>
+
+<p>Recall that {{ player.name }} knows that {{ player.pronoun }} answered <b>{{ player.ability_score }} out of 20</b> questions correctly, and that among 100 prior interviews, {{ player.pronoun_possessive }} performance was <b>better than {{ player.ability }}</b> of them and <b>worse than {{ player.ability_comp }}</b> of them.</p>
+
+<br>
+
+
+<p>TASK: Your task is to rate {{ player.name }}’s self-evaluation decision based on your guess of whether
+your <u>MATCH</u> would think that the decision is “socially appropriate” and “consistent with
+what most people who are like you would think {{ player.name }} OUGHT to do.” <u>If your rating is the same as your MATCH’s rating, you will earn a bonus of 20 cents</u>.</p>
+
+
+<button type="button" class="btn-primary btn" id="button" onclick="show()" style="display:block">Continue to questions</button>
+
+<!-- Tab navigation -->
+<ul class="nav nav-tabs fixed-top navbar-light bg-light justify-content-center " id="myTab" role="tablist">
+
+
+  <li class="nav-item" >
+    <a class="nav-link active" id="part1-tab" data-toggle="tab" href="#part1" role="tab" aria-controls="part1" onclick="topFunction()">Tab 1</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="part2-tab" data-toggle="tab" href="#part2" role="tab" aria-controls="part2" onclick="topFunction()">Tab 2</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="part3-tab" data-toggle="tab" href="#part3" role="tab" aria-controls="part3" onclick="topFunction()">Tab 3</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="part4-tab" data-toggle="tab" href="#part4" role="tab" aria-controls="part4" onclick="topFunction()">Tab 4</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="part5-tab" data-toggle="tab" href="#part5" role="tab" aria-controls="part5" onclick="topFunction()">Tab 5</a>
+  </li>
+
+</ul>
+
+<!-- Tab content -->
+<div id="to_show" style="display:none">
+<div class="tab-content" id="myTabContent">
+
+<br>
+
+<div class="tab-pane show active" id="part1" role="tabpanel" aria-labelledby="part1-tab">
+
+<h3>Question 1 of 5</h3>
+
+Suppose that on a scale from 0 (entirely disagree) to 100 (entirely agree), {{ player.name }} <em>chose 5, indicating strong disagreement</em> with the statement, “I would succeed in a job that required me to perform well on the test I took.” (Recall that {{ player.name }} knows that {{ player.pronoun }} correctly answered {{ player.ability_score }} out of 20 questions. Among 100 prior interviews, {{ player.pronoun_possessive }} performance was better than {{ player.ability }} of them and worse than {{ player.ability_comp }} of them.)
+
+<br>
+
+<div class="form-group required">
+	<p>I think my MATCH will rate this decision as:</p>
+	<div class="controls  field-match_guess_succeed5">
+	  <div id="id_match_guess_succeed5" class="form-row">
+
+			<label for="id_match_guess_succeed5_0" class="col"><input type="radio" name="match_guess_succeed5" value="Very socially inappropriate"
+			 required id="id_match_guess_succeed5_0">
+			 Very socially inappropriate</label>
+
+			<label for="id_match_guess_succeed5_1" class="col"><input type="radio" name="match_guess_succeed5" value="Socially inappropriate"
+			 required id="id_match_guess_succeed5_1">
+			 Socially inappropriate</label>
+
+			<label for="id_match_guess_succeed5_2" class="col"><input type="radio" name="match_guess_succeed5" value="Somewhat socially inappropriate"
+			 required id="id_match_guess_succeed5_2">
+			 Somewhat socially inappropriate</label>
+
+			<label for="id_match_guess_succeed5_3" class="col"><input type="radio" name="match_guess_succeed5" value="Somewhat socially appropriate"
+			 required id="id_match_guess_succeed5_3">
+			 Somewhat socially appropriate</label>
+
+			<label for="id_match_guess_succeed5_4" class="col"><input type="radio" name="match_guess_succeed5" value="Socially appropriate"
+			 required id="id_match_guess_succeed5_4">
+			 Socially appropriate</label>
+
+			<label for="id_match_guess_succeed5_5" class="col"><input type="radio" name="match_guess_succeed5" value="Very socially appropriate"
+			 required id="id_match_guess_succeed5_5">
+			 Very socially appropriate</label>
+
+		</div>
+	</div>
+</div>
+
+<br>
+
+<br>
+<button onclick="topFunction()" type="button" class="nexttab btn-primary btn next">Next</button>
+
+</div>
+
+<div class="tab-pane" id="part2" role="tabpanel" aria-labelledby="part3-tab">
+
+<h3>Question 2 of 5</h3>
+
+Suppose that on a scale from 0 (entirely disagree) to 100 (entirely agree), {{ player.name }} <em>chose 25, indicating disagreement</em> with the statement, “I would succeed in a job that required me to perform well on the test I took.” (Recall that {{ player.name }} knows that {{ player.pronoun }} correctly answered {{ player.ability_score }} out of 20 questions. Among 100 prior interviews, {{ player.pronoun_possessive }} performance was better than {{ player.ability }} of them and worse than {{ player.ability_comp }} of them.)
+
+<br>
+
+<div class="form-group required">
+	<p>I think my MATCH will rate this decision as:</p>
+	<div class="controls  field-match_guess_succeed25">
+	  <div id="id_match_guess_succeed25" class="form-row">
+
+			<label for="id_match_guess_succeed25_0" class="col"><input type="radio" name="match_guess_succeed25" value="Very socially inappropriate"
+			 required id="id_match_guess_succeed25_0">
+			 Very socially inappropriate</label>
+
+			<label for="id_match_guess_succeed25_1" class="col"><input type="radio" name="match_guess_succeed25" value="Socially inappropriate"
+			 required id="id_match_guess_succeed25_1">
+			 Socially inappropriate</label>
+
+			<label for="id_match_guess_succeed25_2" class="col"><input type="radio" name="match_guess_succeed25" value="Somewhat socially inappropriate"
+			 required id="id_match_guess_succeed25_2">
+			 Somewhat socially inappropriate</label>
+
+			<label for="id_match_guess_succeed25_3" class="col"><input type="radio" name="match_guess_succeed25" value="Somewhat socially appropriate"
+			 required id="id_match_guess_succeed25_3">
+			 Somewhat socially appropriate</label>
+
+			<label for="id_match_guess_succeed25_4" class="col"><input type="radio" name="match_guess_succeed25" value="Socially appropriate"
+			 required id="id_match_guess_succeed25_4">
+			 Socially appropriate</label>
+
+			<label for="id_match_guess_succeed25_5" class="col"><input type="radio" name="match_guess_succeed25" value="Very socially appropriate"
+			 required id="id_match_guess_succeed25_5">
+			 Very socially appropriate</label>
+
+		</div>
+	</div>
+</div>
+
+<br>
+
+<br>
+<button onclick="topFunction()" type="button" class="prevtab btn-primary btn back">Back</button>
+<button type="button" class="nexttab btn-primary btn next">Next</button>
+
+</div>
+
+<div class="tab-pane" id="part3" role="tabpanel" aria-labelledby="part3-tab">
+
+<h3>Question 3 of 5</h3>
+
+Suppose that on a scale from 0 (entirely disagree) to 100 (entirely agree), {{ player.name }} <em>chose 55, indicating neither much agreement nor disagreement</em> with the statement, “I would succeed in a job that required me to perform well on the test I took.” (Recall that {{ player.name }} knows that {{ player.pronoun }} correctly answered {{ player.ability_score }} out of 20 questions. Among 100 prior interviews, {{ player.pronoun_possessive }} performance was better than {{ player.ability }} of them and worse than {{ player.ability_comp }} of them.)
+
+<br>
+
+<div class="form-group required">
+	<p>I think my MATCH will rate this decision as:</p>
+	<div class="controls  field-match_guess_succeed55">
+	  <div id="id_match_guess_succeed55" class="form-row">
+
+			<label for="id_match_guess_succeed55_0" class="col"><input type="radio" name="match_guess_succeed55" value="Very socially inappropriate"
+			 required id="id_match_guess_succeed55_0">
+			 Very socially inappropriate</label>
+
+			<label for="id_match_guess_succeed55_1" class="col"><input type="radio" name="match_guess_succeed55" value="Socially inappropriate"
+			 required id="id_match_guess_succeed55_1">
+			 Socially inappropriate</label>
+
+			<label for="id_match_guess_succeed55_2" class="col"><input type="radio" name="match_guess_succeed55" value="Somewhat socially inappropriate"
+			 required id="id_match_guess_succeed55_2">
+			 Somewhat socially inappropriate</label>
+
+			<label for="id_match_guess_succeed55_3" class="col"><input type="radio" name="match_guess_succeed55" value="Somewhat socially appropriate"
+			 required id="id_match_guess_succeed55_3">
+			 Somewhat socially appropriate</label>
+
+			<label for="id_match_guess_succeed55_4" class="col"><input type="radio" name="match_guess_succeed55" value="Socially appropriate"
+			 required id="id_match_guess_succeed55_4">
+			 Socially appropriate</label>
+
+			<label for="id_match_guess_succeed55_5" class="col"><input type="radio" name="match_guess_succeed55" value="Very socially appropriate"
+			 required id="id_match_guess_succeed55_5">
+			 Very socially appropriate</label>
+
+		</div>
+	</div>
+</div>
+
+<br>
+
+<br>
+<button onclick="topFunction()" type="button" class="prevtab btn-primary btn back">Back</button>
+<button type="button" class="nexttab btn-primary btn next">Next</button>
+
+</div>
+
+<div class="tab-pane" id="part4" role="tabpanel" aria-labelledby="part4-tab">
+
+<h3>Question 4 of 5</h3>
+
+Suppose that on a scale from 0 (entirely disagree) to 100 (entirely agree), {{ player.name }} <em>chose 75, indicating strong agreement</em> with the statement, “I would succeed in a job that required me to perform well on the test I took.” (Recall that {{ player.name }} knows that {{ player.pronoun }} correctly answered {{ player.ability_score }} out of 20 questions. Among 100 prior interviews, {{ player.pronoun_possessive }} performance was better than {{ player.ability }} of them and worse than {{ player.ability_comp }} of them.)
+
+<br>
+
+<div class="form-group required">
+	<p>I think my MATCH will rate this decision as:</p>
+	<div class="controls  field-match_guess_succeed75">
+	  <div id="id_match_guess_succeed75" class="form-row">
+
+			<label for="id_match_guess_succeed75_0" class="col"><input type="radio" name="match_guess_succeed75" value="Very socially inappropriate"
+			 required id="id_match_guess_succeed75_0">
+			 Very socially inappropriate</label>
+
+			<label for="id_match_guess_succeed75_1" class="col"><input type="radio" name="match_guess_succeed75" value="Socially inappropriate"
+			 required id="id_match_guess_succeed75_1">
+			 Socially inappropriate</label>
+
+			<label for="id_match_guess_succeed75_2" class="col"><input type="radio" name="match_guess_succeed75" value="Somewhat socially inappropriate"
+			 required id="id_match_guess_succeed75_2">
+			 Somewhat socially inappropriate</label>
+
+			<label for="id_match_guess_succeed75_3" class="col"><input type="radio" name="match_guess_succeed75" value="Somewhat socially appropriate"
+			 required id="id_match_guess_succeed75_3">
+			 Somewhat socially appropriate</label>
+
+			<label for="id_match_guess_succeed75_4" class="col"><input type="radio" name="match_guess_succeed75" value="Socially appropriate"
+			 required id="id_match_guess_succeed75_4">
+			 Socially appropriate</label>
+
+			<label for="id_match_guess_succeed75_5" class="col"><input type="radio" name="match_guess_succeed75" value="Very socially appropriate"
+			 required id="id_match_guess_succeed75_5">
+			 Very socially appropriate</label>
+
+		</div>
+	</div>
+</div>
+
+<br>
+
+<br>
+<button onclick="topFunction()" type="button" class="prevtab btn-primary btn back">Back</button>
+<button type="button" class="nexttab btn-primary btn next">Next</button>
+
+</div>
+
+<div class="tab-pane" id="part5" role="tabpanel" aria-labelledby="part5-tab">
+
+<h3>Question 5 of 5</h3>
+
+Suppose that on a scale from 0 (entirely disagree) to 100 (entirely agree), {{ player.name }} <em>chose 95, indicating strong agreement</em> with the statement, “I would succeed in a job that required me to perform well on the test I took.” (Recall that {{ player.name }} knows that {{ player.pronoun }} correctly answered {{ player.ability_score }} out of 20 questions. Among 100 prior interviews, {{ player.pronoun_possessive }} performance was better than {{ player.ability }} of them and worse than {{ player.ability_comp }} of them.)
+
+<br>
+
+<div class="form-group required">
+	<p>I think my MATCH will rate this decision as:</p>
+	<div class="controls  field-match_guess_succeed95">
+	  <div id="id_match_guess_succeed95" class="form-row">
+
+			<label for="id_match_guess_succeed95_0" class="col"><input type="radio" name="match_guess_succeed95" value="Very socially inappropriate"
+			 required id="id_match_guess_succeed95_0">
+			 Very socially inappropriate</label>
+
+			<label for="id_match_guess_succeed95_1" class="col"><input type="radio" name="match_guess_succeed95" value="Socially inappropriate"
+			 required id="id_match_guess_succeed95_1">
+			 Socially inappropriate</label>
+
+			<label for="id_match_guess_succeed95_2" class="col"><input type="radio" name="match_guess_succeed95" value="Somewhat socially inappropriate"
+			 required id="id_match_guess_succeed95_2">
+			 Somewhat socially inappropriate</label>
+
+			<label for="id_match_guess_succeed95_3" class="col"><input type="radio" name="match_guess_succeed95" value="Somewhat socially appropriate"
+			 required id="id_match_guess_succeed95_3">
+			 Somewhat socially appropriate</label>
+
+			<label for="id_match_guess_succeed95_4" class="col"><input type="radio" name="match_guess_succeed95" value="Socially appropriate"
+			 required id="id_match_guess_succeed95_4">
+			 Socially appropriate</label>
+
+			<label for="id_match_guess_succeed95_5" class="col"><input type="radio" name="match_guess_succeed95" value="Very socially appropriate"
+			 required id="id_match_guess_succeed95_5">
+			 Very socially appropriate</label>
+
+		</div>
+	</div>
+</div>
+
+<br>
+
+<br>
+<button onclick="topFunction()" type="button" class="prevtab btn-primary btn back">Back</button>
+<button onclick="checkSubmit()" class="btn-primary btn next">Next</button>
+
+</div>
+
+</div>
+
+</div>
+
+{{ form.match_guess_succeed5.errors }}
+{{ form.match_guess_succeed25.errors }}
+{{ form.match_guess_succeed55.errors }}
+{{ form.match_guess_succeed75.errors }}
+{{ form.match_guess_succeed95.errors }}
+
+{% endblock %}
+
+{% block scripts %}
+
+<script src="{% static 'gender_norms/js/prev_next_button.js' %}"></script>
+<script src="{% static 'gender_norms/js/show.js' %}"></script>
+<script src="{% static 'gender_norms/js/check-submit.js' %}"></script>
+
+{% endblock %}
