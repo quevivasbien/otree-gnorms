@@ -58,6 +58,12 @@ SESSION_CONFIGS = [
         num_demo_participants=50,
         app_sequence=['gender_norms_v2']
      ),
+     dict(
+        name='applicant',
+        display_name="Applicant side of part 2",
+        num_demo_participants=50,
+        app_sequence=['applicant']
+    )
 ]
 
 
@@ -88,4 +94,3 @@ EXTENSION_APPS = [
 
 RECAPTCHA_PUBLIC_KEY = '6LdWJsMZAAAAAAeXmwaUt1Whil_vaRJgXZ_Z9lZu'
 RECAPTCHA_PRIVATE_KEY = environ.get('RECAPTCHA_PRIVATE_KEY')
-print(type(RECAPTCHA_PUBLIC_KEY), type(RECAPTCHA_PRIVATE_KEY))

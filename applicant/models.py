@@ -11,8 +11,9 @@ from otree.api import (
 import json
 from random import shuffle
 
+
 # load question text
-with open('_static/gender_norms/question_text.json', 'r') as fh:
+with open('applicant/static/applicant/question_text.json', 'r') as fh:
     qtext = json.load(fh)
 
 
@@ -25,7 +26,7 @@ Gender norms of self-promotion
 
 
 class Constants(BaseConstants):
-    name_in_url = 'gnorms_survey_v2'
+    name_in_url = 'applicant'
     players_per_group = None
     num_rounds = 1
 
@@ -33,26 +34,15 @@ class Constants(BaseConstants):
 class Subsession(BaseSubsession):
 
     def creating_session(self):
-        names = ['Greg', 'Emily']
-        shuffle(names)
-        abilities = [25, 50, 75]
-        scores = {25: 6, 50: 10, 75: 12}
-        shuffle(abilities)
         i = 0
-        j = 0
         for p in self.get_players():
-            name = names[i]
-            p.name = name
-            p.pronoun = 'he' if name == 'Greg' else 'she'
-            p.pronoun_possessive = 'his' if name == 'Greg' else 'her'
-            p.pronoun_object = 'him' if name == 'Greg' else 'her'
-            p.ability = abilities[j]
-            p.ability_comp = 100 - abilities[j]
-            p.ability_score = scores[abilities[j]]
-            # increment indices
-            j = (j + 1) % len(abilities)
-            if j == 0:
-                i = (i + 1) % len(names)
+            p.treatment = i
+            question_order = list(range(1, 21))
+            shuffle(question_order)
+            p.question_order = '-'.join([str(x) for x in question_order])
+            i = (i + 1) % 3
+            # TODO: Add assignment of asvab questions and which will be eval questions
+
 
 
 
@@ -61,60 +51,26 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-    name = models.StringField()
-    pronoun = models.StringField()
-    pronoun_possessive = models.StringField()
-    pronoun_object = models.StringField()
-    ability = models.IntegerField()
-    ability_comp = models.IntegerField()
-    ability_score = models.IntegerField()
+    treatment = models.IntegerField()
+    question_order = models.StringField()
     captcha = models.CharField(blank=True)
-    understanding1a = models.StringField()
-    understanding1b = models.StringField()
-    understanding1c = models.StringField()
+    understanding1 = models.StringField(choices=qtext['understanding1'], widget=widgets.RadioSelect)
+    age = models.IntegerField(min=0, max=120)
+    gender = models.StringField(choices=['male', 'female'])
     understanding2 = models.StringField(choices=qtext['understanding2'], widget=widgets.RadioSelect)
-    understanding3 = models.StringField()
-    match_guess_terrible = models.StringField(choices=qtext['social_appropriate_ratings'], widget=widgets.RadioSelect)
-    match_guess_very_poor = models.StringField(choices=qtext['social_appropriate_ratings'], widget=widgets.RadioSelect)
-    # match_guess_poor = models.StringField(choices=qtext['social_appropriate_ratings'], widget=widgets.RadioSelect)
-    match_guess_neutral = models.StringField(choices=qtext['social_appropriate_ratings'], widget=widgets.RadioSelect)
-    match_guess_good = models.StringField(choices=qtext['social_appropriate_ratings'], widget=widgets.RadioSelect)
-    match_guess_very_good = models.StringField(choices=qtext['social_appropriate_ratings'], widget=widgets.RadioSelect)
-    match_guess_exceptional = models.StringField(choices=qtext['social_appropriate_ratings'], widget=widgets.RadioSelect)
-    match_guess_perform5 = models.StringField(choices=qtext['social_appropriate_ratings'], widget=widgets.RadioSelect)
-    match_guess_perform25 = models.StringField(choices=qtext['social_appropriate_ratings'], widget=widgets.RadioSelect)
-    match_guess_perform55 = models.StringField(choices=qtext['social_appropriate_ratings'], widget=widgets.RadioSelect)
-    match_guess_perform75 = models.StringField(choices=qtext['social_appropriate_ratings'], widget=widgets.RadioSelect)
-    match_guess_perform95 = models.StringField(choices=qtext['social_appropriate_ratings'], widget=widgets.RadioSelect)
-    match_guess_succeed5 = models.StringField(choices=qtext['social_appropriate_ratings'], widget=widgets.RadioSelect)
-    match_guess_succeed25 = models.StringField(choices=qtext['social_appropriate_ratings'], widget=widgets.RadioSelect)
-    match_guess_succeed55 = models.StringField(choices=qtext['social_appropriate_ratings'], widget=widgets.RadioSelect)
-    match_guess_succeed75 = models.StringField(choices=qtext['social_appropriate_ratings'], widget=widgets.RadioSelect)
-    match_guess_succeed95 = models.StringField(choices=qtext['social_appropriate_ratings'], widget=widgets.RadioSelect)
-    personal_terrible = models.StringField(choices=qtext['appropriate_ratings'], widget=widgets.RadioSelect)
-    personal_very_poor = models.StringField(choices=qtext['appropriate_ratings'], widget=widgets.RadioSelect)
-    # personal_poor = models.StringField(choices=qtext['appropriate_ratings'], widget=widgets.RadioSelect)
-    personal_neutral = models.StringField(choices=qtext['appropriate_ratings'], widget=widgets.RadioSelect)
-    personal_good = models.StringField(choices=qtext['appropriate_ratings'], widget=widgets.RadioSelect)
-    personal_very_good = models.StringField(choices=qtext['appropriate_ratings'], widget=widgets.RadioSelect)
-    personal_exceptional = models.StringField(choices=qtext['appropriate_ratings'], widget=widgets.RadioSelect)
-    personal_perform5 = models.StringField(choices=qtext['appropriate_ratings'], widget=widgets.RadioSelect)
-    personal_perform25 = models.StringField(choices=qtext['appropriate_ratings'], widget=widgets.RadioSelect)
-    personal_perform55 = models.StringField(choices=qtext['appropriate_ratings'], widget=widgets.RadioSelect)
-    personal_perform75 = models.StringField(choices=qtext['appropriate_ratings'], widget=widgets.RadioSelect)
-    personal_perform95 = models.StringField(choices=qtext['appropriate_ratings'], widget=widgets.RadioSelect)
-    personal_succeed5 = models.StringField(choices=qtext['appropriate_ratings'], widget=widgets.RadioSelect)
-    personal_succeed25 = models.StringField(choices=qtext['appropriate_ratings'], widget=widgets.RadioSelect)
-    personal_succeed55 = models.StringField(choices=qtext['appropriate_ratings'], widget=widgets.RadioSelect)
-    personal_succeed75 = models.StringField(choices=qtext['appropriate_ratings'], widget=widgets.RadioSelect)
-    personal_succeed95 = models.StringField(choices=qtext['appropriate_ratings'], widget=widgets.RadioSelect)
+    eval_correct = models.IntegerField()
+    rest_correct = models.IntegerField()
+    understanding3 = models.StringField(choices=qtext['understanding3'], widget=widgets.RadioSelect)
+    self_eval = models.StringField(choices=qtext['self_eval'], widget=widgets.RadioSelect)
+    wage_guess = models.IntegerField()  # is a slider, managed via html&js
 
-    # error messages for understanding 1x are on the page class
+    q1_ans = models.StringField()
 
-    def understanding2_error_message(self, value):
-        if value != qtext['understanding2'][0]:
+
+    def understanding1_error_message(self, value):
+        if value != qtext['understanding1'][1]:
             return 'Sorry. Your answer is incorrect. Please choose the correct answer to proceed.'
 
-    def understanding3_error_message(self, value):
-        if value.lower() != 'true':
+    def understanding2_error_message(self, value):
+        if value != qtext['understanding2'][1]:
             return 'Sorry. Your answer is incorrect. Please choose the correct answer to proceed.'

@@ -1,0 +1,32 @@
+.next {
+    float: right;
+    margin: 40px auto;
+    }
+
+.back {
+    float: left;
+    margin: 40px auto;
+    }
+
+
+.nav {
+    visibility: hidden;
+}
+.fill-blanks {
+  text-align: center;
+  background-color: #e1e1ea;
+  max-width: 550px;
+  margin: auto;
+  padding: 20px 0px;
+}
+label {
+  display: inline-block;
+}
+input.form-control {
+  width: 100px;
+  display: inline-block;
+  outline: 0; border: 0; padding: 0; margin: 0;
+  border-bottom: 1px solid white;
+  background-color: inherit;
+  text-align: center;
+}

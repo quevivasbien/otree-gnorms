@@ -1,0 +1,13 @@
+{
+"understanding1": ["For completing this study, I will receive $X within 24 hours and will not have a chance to receive any bonus payment.",
+"For completing this study, I will receive $X within 24 hours, plus a bonus payment from one of the three stages.",
+"For completing this study, I will receive $X within 24 hours, plus a bonus payment from all of the three stages."],
+"understanding2": ["does not depend on how many ASVAB questions you answer correctly in this stage.",
+"will be higher if you correctly answer more ASVAB questions in this stage.",
+"will only be paid if you correctly answer more than half of the ASVAB questions in this stage."
+],
+"understanding3": ["The information provided in this stage will determine a wage offer for my work, and there is a chance that I will receive that wage as a bonus payment.",
+"The information provided in this stage will determine a wage offer for my work, but I cannot receive that wage as a bonus payment.",
+"The wage I am offered for my work in the next stage is not based on the answers I provide here."],
+"self_eval": ["terrible", "very poor", "neutral", "good", "very good", "excellent"]
+}

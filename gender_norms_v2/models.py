@@ -25,7 +25,7 @@ Gender norms of self-promotion
 
 
 class Constants(BaseConstants):
-    name_in_url = 'gnorms_survey_v2'
+    name_in_url = 'gn_survey_v2'
     players_per_group = None
     num_rounds = 1
 

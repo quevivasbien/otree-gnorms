@@ -1,0 +1,35 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block styles %}
+
+{% endblock %}
+
+{% block title %}
+	Overview
+{% endblock %}
+
+{% block content %}
+
+<p>This study will have three stages, meant to simulate a job interview process, plus a short follow-up survey. In stage 1, you will take a cognitive ability test consisting of 20 questions as part of the job interview process; in stage 2, you apply to the job. Based on your responses in stage 2, an employer will choose a wage to pay you for your work in stage 1. In stage 3, you will make a guess about what wage the employers will offer you. Stage 1 is the longest stage -- the other two stages should go quickly.</p>
+
+<p>By completing this study, you will receive a guaranteed payment of $X within 24 hours. You will also receive a bonus payment based on your performance in a randomly-selected stage out of one of the three stages. This bonus payment will be up to $X.</p>
+
+<p><b>Your payment:</b> You will be paid a $2 base pay for completing the study. In addition, you
+will have a chance to earn a bonus. Your bonus earnings will depend on the decisions you
+make and on the decisions that another worker you are paired with makes. You can earn up to
+$3.20 in bonus pay. You will be paid the base plus the bonus within 1 day after you
+complete this task.</p>
+
+<br>
+	<p>Answer the following question to check your understanding:</p>
+	{% formfield player.understanding1 label="Which of the following is true?" %}
+
+{% next_button %}
+
+{% endblock %}
+
+
+{% block scripts %}
+
+{% endblock %}
