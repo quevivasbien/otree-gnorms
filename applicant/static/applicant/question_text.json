@@ -9,5 +9,9 @@
 "understanding3": ["The information provided in this stage will determine a wage offer for my work, and there is a chance that I will receive that wage as a bonus payment.",
 "The information provided in this stage will determine a wage offer for my work, but I cannot receive that wage as a bonus payment.",
 "The wage I am offered for my work in the next stage is not based on the answers I provide here."],
-"self_eval": ["terrible", "very poor", "neutral", "good", "very good", "excellent"]
+"self_eval": ["terrible", "very poor", "neutral", "good", "very good", "excellent"],
+"q1": ["it is lighter.", "its molecules are farther apart.", "its molecules are closer together.", "it moves more quickly and easily."],
+"q2": ["32° F.","100° F.","200° F.","212° F."],
+"q3": ["dissolves in water to form an acid.","chemically destroys the water molecules.","lowers the temperature at which water freezes.","is attracted to concrete sidewalks below the ice."],
+"q4": ["argon.", "neon.", "nitrogen", "oxygen."]
 }

@@ -1,0 +1,33 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block styles %}
+
+<link href="{% static 'gender_norms/css/custom.css' %}" rel="stylesheet">
+
+{% endblock %}
+
+{% block title %}
+	Stage 2
+{% endblock %}
+
+{% block content %}
+
+<div id="page1">
+<p>In the previous stage, you correctly answered {{ participant.vars.eval_correct }} out of the 10 evaluation questions.</p>
+
+<p>Note that the information below is the only information that potential employers will see.{% if player.treatment != 2 %} They will not see how many questions you answered correctly.{% endif %}</p>
+<p>Please answer the following question, which potential employers will see as part of your application.</p>
+{% formfield player.self_eval label="My performance in the cognitive ability test is" %}
+
+<p>{% if player.treatment != 0 %} Potential employers will also see the gender your indicated in the demographic survey {% if player.treatment == 2 %} and your score on the evaluation questions ({{ participant.vars.eval_correct }} out of 10){% endif %}.{% endif %}</p>
+
+{% next_button %}
+
+{% endblock %}
+
+{% block scripts %}
+
+<script src="{% static 'applicant/js/show.js' %}"></script>
+
+{% endblock %}

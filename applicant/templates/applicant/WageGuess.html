@@ -1,0 +1,42 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block styles %}
+
+<link href="{% static 'applicant/css/custom.css' %}" rel="stylesheet">
+
+{% endblock %}
+
+{% block title %}
+	Stage 3
+{% endblock %}
+
+{% block content %}
+
+<div id="page1">
+<p>This is the last stage of the experiment -- you are almost done!</p>
+
+<p>Remember that the employer who hires you will see only the information you provided in the previous stage and will receive 10 cents for every ASVAB question you correctly answered, out of 10 randomly selected questions.</p>
+<p>To determine your wage, ten employers will see your profile and will bid on the maximum amount they are willing to pay to get that payoff from your work in the next stage; whoever bids the highest will be your employer, and the wage you get will be their bid.</p>
+
+<p>Use the slider below to estimate what the highest bid for your work (the amount you get as a wage) will be. If your guess is within 10 cents of the actual value and this stage is selected for your bonus payment, then you will get a bonus payment of 20 cents.</p>
+
+<label class="col-form-label">
+	I estimate that the highest bid for my wage will be:
+</label>
+
+<div class="slider-container">
+    <input id="rangeInput" type="range" name="wage_guess" min="0.0" max="1.0" step="0.05" class="slider" oninput="amount.value=rangeInput.value"/>
+		$<input id="amount" type="number" value="0.50" min="0.0" max="1.0" step="0.01" oninput="rangeInput.value=amount.value" style="width: 60px;"/>
+</div>
+{{ form.wage_guess.errors }}
+
+{% next_button %}
+
+{% endblock %}
+
+{% block scripts %}
+
+<script src="{% static 'applicant/js/show.js' %}"></script>
+
+{% endblock %}

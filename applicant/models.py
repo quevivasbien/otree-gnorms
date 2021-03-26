@@ -9,7 +9,7 @@ from otree.api import (
     # currency_range,
 )
 import json
-from random import shuffle
+from random import shuffle, sample
 
 
 # load question text
@@ -40,6 +40,10 @@ class Subsession(BaseSubsession):
             question_order = list(range(1, 21))
             shuffle(question_order)
             p.question_order = '-'.join([str(x) for x in question_order])
+            eval_qs = sample(question_order, 10)
+            noneval_qs = [i for i in question_order if i not in eval_qs]
+            p.participant.vars['eval_qs'] = eval_qs
+            p.participant.vars['noneval_qs'] = noneval_qs
             i = (i + 1) % 3
             # TODO: Add assignment of asvab questions and which will be eval questions
 
@@ -58,13 +62,13 @@ class Player(BasePlayer):
     age = models.IntegerField(min=0, max=120)
     gender = models.StringField(choices=['male', 'female'])
     understanding2 = models.StringField(choices=qtext['understanding2'], widget=widgets.RadioSelect)
-    eval_correct = models.IntegerField()
-    rest_correct = models.IntegerField()
+    q1 = models.StringField(choices=qtext['q1'], widget=widgets.RadioSelect)
+    q2 = models.StringField(choices=qtext['q2'], widget=widgets.RadioSelect)
+    q3 = models.StringField(choices=qtext['q3'], widget=widgets.RadioSelect)
+    q4 = models.StringField(choices=qtext['q4'], widget=widgets.RadioSelect)
     understanding3 = models.StringField(choices=qtext['understanding3'], widget=widgets.RadioSelect)
     self_eval = models.StringField(choices=qtext['self_eval'], widget=widgets.RadioSelect)
-    wage_guess = models.IntegerField()  # is a slider, managed via html&js
-
-    q1_ans = models.StringField()
+    wage_guess = models.FloatField()  # is a slider, managed via html&js
 
 
     def understanding1_error_message(self, value):
@@ -73,4 +77,8 @@ class Player(BasePlayer):
 
     def understanding2_error_message(self, value):
         if value != qtext['understanding2'][1]:
+            return 'Sorry. Your answer is incorrect. Please choose the correct answer to proceed.'
+
+    def understanding3_error_message(self, value):
+        if value != qtext['understanding3'][0]:
             return 'Sorry. Your answer is incorrect. Please choose the correct answer to proceed.'

@@ -20,130 +20,134 @@
   {{ player.question_order }}
 </div>
 
+<h3 id="question-indicator"> Question <div id="question-number" style="display:inline">1</div> of 20:</h5>
+
 <div id="1" style="display:none">
-<h3>Question 1</h3>
+{% formfield player.q1 label="Air is less dense than water because" %}
 <br>
 <button type="button" class="btn-primary btn" onclick="nextQuestion('1')">Next</button>
 </div>
 
 <div id="2" style="display:none">
-<h3>Question 2</h3>
+{% formfield player.q2 label="100° C is equal to" %}
 <br>
 <button type="button" class="btn-primary btn" onclick="nextQuestion('2')">Next</button>
 </div>
 
 <div id="3" style="display:none">
-<h3>Question 3</h3>
+{% formfield player.q3 label="Salt helps to melt ice because it" %}
 <br>
 <button type="button" class="btn-primary btn" onclick="nextQuestion('3')">Next</button>
 </div>
 
 <div id="4" style="display:none">
-<h3>Question 4</h3>
+{% formfield player.q4 label="The principal gas in the Earth's atmosphere is" %}
 <br>
 <button type="button" class="btn-primary btn" onclick="nextQuestion('4')">Next</button>
 </div>
 
 <div id="5" style="display:none">
-<h3>Question 5</h3>
+<h5>Question 5</h5>
 <br>
 <button type="button" class="btn-primary btn" onclick="nextQuestion('5')">Next</button>
 </div>
 
 <div id="6" style="display:none">
-<h3>Question 6</h3>
+<h5>Question 6</h5>
 <br>
 <button type="button" class="btn-primary btn" onclick="nextQuestion('6')">Next</button>
 </div>
 
 <div id="7" style="display:none">
-<h3>Question 7</h3>
+<h5>Question 7</h5>
 <br>
 <button type="button" class="btn-primary btn" onclick="nextQuestion('7')">Next</button>
 </div>
 
 <div id="8" style="display:none">
-<h3>Question 8</h3>
+<h5>Question 8</h5>
 <br>
 <button type="button" class="btn-primary btn" onclick="nextQuestion('8')">Next</button>
 </div>
 
 <div id="9" style="display:none">
-<h3>Question 9</h3>
+<h5>Question 9</h5>
 <br>
 <button type="button" class="btn-primary btn" onclick="nextQuestion('9')">Next</button>
 </div>
 
 <div id="10" style="display:none">
-<h3>Question 10</h3>
+<h5>Question 10</h5>
 <br>
 <button type="button" class="btn-primary btn" onclick="nextQuestion('10')">Next</button>
 </div>
 
 <div id="11" style="display:none">
-<h3>Question 11</h3>
+<h5>Question 11</h5>
 <br>
 <button type="button" class="btn-primary btn" onclick="nextQuestion('11')">Next</button>
 </div>
 
 <div id="12" style="display:none">
-<h3>Question 12</h3>
+<h5>Question 12</h5>
 <br>
 <button type="button" class="btn-primary btn" onclick="nextQuestion('12')">Next</button>
 </div>
 
 <div id="13" style="display:none">
-<h3>Question 13</h3>
+<h5>Question 13</h5>
 <br>
 <button type="button" class="btn-primary btn" onclick="nextQuestion('13')">Next</button>
 </div>
 
 <div id="14" style="display:none">
-<h3>Question 14</h3>
+<h5>Question 14</h5>
 <br>
 <button type="button" class="btn-primary btn" onclick="nextQuestion('14')">Next</button>
 </div>
 
 <div id="15" style="display:none">
-<h3>Question 15</h3>
+<h5>Question 15</h5>
 <br>
 <button type="button" class="btn-primary btn" onclick="nextQuestion('15')">Next</button>
 </div>
 
 <div id="16" style="display:none">
-<h3>Question 16</h3>
+<h5>Question 16</h5>
 <br>
 <button type="button" class="btn-primary btn" onclick="nextQuestion('16')">Next</button>
 </div>
 
 <div id="17" style="display:none">
-<h3>Question 17</h3>
+<h5>Question 17</h5>
 <br>
 <button type="button" class="btn-primary btn" onclick="nextQuestion('17')">Next</button>
 </div>
 
 <div id="18" style="display:none">
-<h3>Question 18</h3>
+<h5>Question 18</h5>
 <br>
 <button type="button" class="btn-primary btn" onclick="nextQuestion('18')">Next</button>
 </div>
 
 <div id="19" style="display:none">
-<h3>Question 19</h3>
+<h5>Question 19</h5>
 <br>
 <button type="button" class="btn-primary btn" onclick="nextQuestion('19')">Next</button>
 </div>
 
 <div id="20" style="display:none">
-<h3>Question 20</h3>
+<h5>Question 20</h5>
 <br>
 <button type="button" class="btn-primary btn" onclick="nextQuestion('20')">Next</button>
 </div>
 
 <div id="done" style="display:none">
-<h3>Complete!</h3>
+<h5>Complete!</h5>
 {% next_button %}
 </div>
+
+<p id="not-complete-error" style="color:red; display:none">Select one of the choices to continue.</p>
 
 {% endblock %}
 

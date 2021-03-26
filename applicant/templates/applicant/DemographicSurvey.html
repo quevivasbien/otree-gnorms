@@ -2,12 +2,16 @@
 {% load otree static %}
 
 {% block title %}
-    Demographic survey goes here?
+    Demographic survey
 {% endblock %}
 
 {% block content %}
 
+    <p>Before we begin, please answer the following demographic questions.</p>
+
+    {% formfield player.age label="What is your age (in years)?" %}
+
+    {% formfield player.gender label="What gender do you most identify with?" %}
+
     {% next_button %}
 {% endblock %}
-
-

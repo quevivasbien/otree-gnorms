@@ -22,6 +22,7 @@ I've included a basic description of where everything is and what it does below 
 * `requirements_base.txt` Tells the server which Python packages are needed to run the app properly.
 * `settings.py` Contains settings, including the experiment's participation fee and the qualification requirements for MTurk workers meant to take the survey.
 
+## How to test the app
 
 To run the app, you need to have installed the latest version of oTree on your computer. If you already have Python, you can install oTree via pip with `pip install otree`.
 
