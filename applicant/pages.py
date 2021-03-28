@@ -63,8 +63,8 @@ class ASVABQuestions(Page):
             eval_correct += 1
         elif player.q4 == qtext['q4'][2]:
             noneval_correct += 1
-        player.participant.vars['eval_correct'] = eval_correct
-        player.participant.vars['noneval_correct'] = noneval_correct
+        player.eval_correct = eval_correct
+        player.noneval_correct = noneval_correct
 
 
 class ApplicationInstructions(Page):

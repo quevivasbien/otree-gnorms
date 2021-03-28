@@ -16,9 +16,9 @@ I've included a basic description of where everything is and what it does below 
   * `models.py` Defines all the variables associated with each participant and assigns participants to treatment groups.
   * `pages.py` Defines the pages in the experiment, including the variables (e.g., question responses) that are accessible on those pages, and tells oTree what order to display the pages in.
 * `gender_norms_v2` Structured the same as `gender_norms`, but has more pages and more variables
-* `interface` Contains Python code for automatically running the experiment on the Heroku server, approving HITs, and sending payments. These are meant to be executed locally: although they interact with the server, they do not run *on* the server.
+* `interface` Contains Python code for automatically running the experiment on the Heroku server, approving HITs, and sending payments. These are meant to be executed locally: although they interact with the server, they do not run *on* the server. In order to use this, you need to have selenium with a version of the chromedriver compatible with whatever version of Chrome you have on your computer. The chromedriver should be on your PATH. Google how to get selenium set up with a chromedriver if you don't know what this means.
   * `interface.py` Automatically runs an experiment with the `gender_norms` version of the app.
-  * `interface.py` Does the same thing as `interface.py`, but with the `gender_norms_v2` version of the app.
+  * `interface_v2.py` Does the same thing as `interface.py`, but with the `gender_norms_v2` version of the app.
 * `requirements_base.txt` Tells the server which Python packages are needed to run the app properly.
 * `settings.py` Contains settings, including the experiment's participation fee and the qualification requirements for MTurk workers meant to take the survey.
 

@@ -7,6 +7,7 @@ Author: Mckay Jensen
 
 import os
 import sys
+import json
 import pandas as pd
 import time
 import boto3
@@ -17,51 +18,23 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support.ui import Select, WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+with open('config.json', 'r') as fh:
+    config = json.load(fh)
+
 # TODO: Change endpoint to None before deploying
-ENDPOINT = 'https://mturk-requester-sandbox.us-east-1.amazonaws.com'
-# TODO: Change this to the correct experiment size before deploying
-EXPERIMENT_SIZE = 10
+ENDPOINT = config['endpoint']
+# TODO: Set this as the correct experiment size
+EXPERIMENT_SIZE = config['experiment_size']
+# TODO: Set this as the local downloads directory
+DOWNLOAD_FOLDER = config['downloads']
 
-DOWNLOAD_FOLDER = '/home/mckay/Descargas/'
+from interface import MTurkHandler
 
 
-class MTurkHandler:
-
-    def __init__(self, endpoint_url=ENDPOINT, start=False):
-        self.client = boto3.client('mturk', endpoint_url=endpoint_url)
-        self.browser = webdriver.Chrome()
-        if start:
-            self.start_experiment()
-
-    def login(self):
-        username = self.browser.find_element_by_name('username')
-        username.send_keys('admin')
-        password = self.browser.find_element_by_name('password')
-        password.send_keys('gendernorms271828')
-        password.submit()
+class MTurkHandler_v2(MTurkHandler):
 
     def start_experiment(self):
-        self.browser.get('https://otree-uofu.herokuapp.com/create_session/?is_mturk=1')
-        try:
-            session_config = Select(self.browser.find_element_by_name('session_config'))
-        except NoSuchElementException:
-            self.login()
-            session_config = Select(self.browser.find_element_by_name('session_config'))
-        session_config.select_by_visible_text('Gender norms of self-promotion, with extra questions')
-        num_workers = self.browser.find_element_by_name('num_participants')
-        num_workers.send_keys(str(EXPERIMENT_SIZE))
-        create_button = self.browser.find_element_by_id('btn-create-session')
-        create_button.click()
-        if ENDPOINT is None:
-            use_sandbox = self.browser.find_element_by_name('use_sandbox')
-            use_sandbox.click()
-        WebDriverWait(self.browser, 1)
-        publish_button = WebDriverWait(self.browser, 10).until(
-            EC.presence_of_element_located((By.ID, 'btn-publish-hit'))
-        )
-        publish_button.click()
-        self.session_code = self.browser.find_element_by_tag_name('code').text
-        print(f'Started session {self.session_code}')
+        self.start_experiment_('Gender norms of self-promotion, with extra questions')
 
     def process_df(self, df, static_df=None):
         if static_df is None:
@@ -240,28 +213,9 @@ class MTurkHandler:
         df.to_csv(static_df)
 
 
-    def get_and_process_df(self, downloads_dir=DOWNLOAD_FOLDER):
-        candidate_files = [f for f in os.listdir(downloads_dir) if 'all apps' in f.lower()]
-        if not candidate_files:
-            return False
-        filename = os.path.join(downloads_dir, candidate_files[0])
-        df = pd.read_csv(filename, index_col='participant.code')
-        self.process_df(df)
-        os.remove(filename)
-        return True
-
-    def check_progress(self):
-        self.browser.get('https://otree-uofu.herokuapp.com/ExportSessionWide/{}/'.format(self.session_code))
-        time.sleep(3)  # wait a few seconds to allow the file to download
-        while not self.get_and_process_df():
-            self.login()
-            self.browser.get('https://otree-uofu.herokuapp.com/ExportSessionWide/{}/'.format(self.session_code))
-            time.sleep(3)
-
-
 
 def main(wait_interval=600, max_checks=1000):
-    mTurkHandler = MTurkHandler(start=True)  # starts experiment upon init
+    mTurkHandler = MTurkHandler_v2(start=True)  # starts experiment upon init
     # make periodic checks to update data and approve tasks
     for _ in range(max_checks):
         print(f'Sleeping for {wait_interval} seconds...')

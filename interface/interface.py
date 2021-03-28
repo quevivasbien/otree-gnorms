@@ -7,9 +7,11 @@ Author: Mckay Jensen
 
 import os
 import sys
+import json
 import pandas as pd
 import time
 import boto3
+from botocore.exceptions import ClientError
 import re
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -17,18 +19,21 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support.ui import Select, WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-# TODO: Change endpoint to None before deploying
-ENDPOINT = 'https://mturk-requester-sandbox.us-east-1.amazonaws.com'
-# TODO: Change this to the correct experiment size before deploying
-EXPERIMENT_SIZE = 10
+with open('config.json', 'r') as fh:
+    config = json.load(fh)
 
-DOWNLOAD_FOLDER = '/home/mckay/Descargas/'
+# TODO: Change endpoint to None before deploying
+ENDPOINT = config['endpoint']
+# TODO: Set this as the correct experiment size
+EXPERIMENT_SIZE = config['experiment_size']
+# TODO: Set this as the local downloads directory
+DOWNLOAD_FOLDER = config['downloads']
 
 
 class MTurkHandler:
 
     def __init__(self, endpoint_url=ENDPOINT, start=False):
-        self.client = boto3.client('mturk', endpoint_url=endpoint_url)
+        self.client = boto3.client('mturk', endpoint_url=endpoint_url, region_name='us-east-1')
         self.browser = webdriver.Chrome()
         if start:
             self.start_experiment()
@@ -40,14 +45,14 @@ class MTurkHandler:
         password.send_keys('gendernorms271828')
         password.submit()
 
-    def start_experiment(self):
+    def start_experiment_(self, experiment_name):
         self.browser.get('https://otree-uofu.herokuapp.com/create_session/?is_mturk=1')
         try:
             session_config = Select(self.browser.find_element_by_name('session_config'))
         except NoSuchElementException:
             self.login()
             session_config = Select(self.browser.find_element_by_name('session_config'))
-        session_config.select_by_visible_text('Gender norms of self-promotion')
+        session_config.select_by_visible_text(experiment_name)
         num_workers = self.browser.find_element_by_name('num_participants')
         num_workers.send_keys(str(EXPERIMENT_SIZE))
         create_button = self.browser.find_element_by_id('btn-create-session')
@@ -56,16 +61,19 @@ class MTurkHandler:
             use_sandbox = self.browser.find_element_by_name('use_sandbox')
             use_sandbox.click()
         WebDriverWait(self.browser, 1)
-        publish_button = WebDriverWait(self.browser, 10).until(
+        publish_button = WebDriverWait(self.browser, 20).until(
             EC.presence_of_element_located((By.ID, 'btn-publish-hit'))
         )
         publish_button.click()
         self.session_code = self.browser.find_element_by_tag_name('code').text
         print(f'Started session {self.session_code}')
 
+    def start_experiment(self):
+        self.start_experiment_('Gender norms of self-promotion')
+
     def process_df(self, df, static_df=None):
         if static_df is None:
-            static_df = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'mturk_status_data.csv')
+            static_df = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'gnorms_data.csv')
         # get rid of all the junk on the beginning of the column names
         df.rename(columns=lambda x: re.search(r'[^.]+$', x).group(), inplace=True)
         # drop problematic columns
@@ -139,6 +147,8 @@ class MTurkHandler:
                 self.client.approve_assignment(
                     AssignmentId=df.loc[i, 'mturk_assignment_id']
                 )
+            except ClientError:
+                continue  # retry on next round
             if bonus > 0:
                 try:
                     self.client.send_bonus(
@@ -155,6 +165,8 @@ class MTurkHandler:
                         AssignmentId=df.loc[i, 'mturk_assignment_id'],
                         Reason=f'Bonus for answering {int(bonus / 0.2)} questions the same as your match.'
                     )
+                except ClientError:
+                    continue
             df.loc[i, 'hit_approved'] = 1
             df.loc[i, 'bonus'] = bonus
         # Check for unpaired responses about to expire
@@ -211,7 +223,7 @@ class MTurkHandler:
 
 
     def get_and_process_df(self, downloads_dir=DOWNLOAD_FOLDER):
-        candidate_files = [f for f in os.listdir(downloads_dir) if 'all apps' in f.lower()]
+        candidate_files = [f for f in os.listdir(downloads_dir) if 'all_apps_wide' in f.lower()]
         if not candidate_files:
             return False
         filename = os.path.join(downloads_dir, candidate_files[0])

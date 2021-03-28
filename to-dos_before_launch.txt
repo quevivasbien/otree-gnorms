@@ -5,7 +5,9 @@ Change AWS access keys on Heroku to Pavitra's AWS credentials
 Set OTREE_PRODUCTION variable to 1
 Create credential with Pavitra's account for preventing retakes (or just use the previously created one?)
 Add demographics page?
-change ENDPOINT and EXPERIMENT_SIZE in aws.py
+change ENDPOINT and EXPERIMENT_SIZE in config.json
+
+test that the code works properly when survey is completed but hit is not submitted (catches ClientError)
 
 Temporarily upgrade Heroku server
 Make sure to be logged into the right AWS locally before launching interface.py

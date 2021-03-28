@@ -66,6 +66,8 @@ class Player(BasePlayer):
     q2 = models.StringField(choices=qtext['q2'], widget=widgets.RadioSelect)
     q3 = models.StringField(choices=qtext['q3'], widget=widgets.RadioSelect)
     q4 = models.StringField(choices=qtext['q4'], widget=widgets.RadioSelect)
+    eval_correct = models.IntegerField()
+    noneval_correct = models.IntegerField()
     understanding3 = models.StringField(choices=qtext['understanding3'], widget=widgets.RadioSelect)
     self_eval = models.StringField(choices=qtext['self_eval'], widget=widgets.RadioSelect)
     wage_guess = models.FloatField()  # is a slider, managed via html&js
