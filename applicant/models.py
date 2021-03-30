@@ -45,7 +45,6 @@ class Subsession(BaseSubsession):
             p.participant.vars['eval_qs'] = eval_qs
             p.participant.vars['noneval_qs'] = noneval_qs
             i = (i + 1) % 3
-            # TODO: Add assignment of asvab questions and which will be eval questions
 
 
 
@@ -67,6 +66,7 @@ class Player(BasePlayer):
     q3 = models.StringField(choices=qtext['q3'], widget=widgets.RadioSelect)
     q4 = models.StringField(choices=qtext['q4'], widget=widgets.RadioSelect)
     eval_correct = models.IntegerField()
+    # TODO: Figure out why these don't show up!
     noneval_correct = models.IntegerField()
     understanding3 = models.StringField(choices=qtext['understanding3'], widget=widgets.RadioSelect)
     self_eval = models.StringField(choices=qtext['self_eval'], widget=widgets.RadioSelect)

@@ -1,0 +1,57 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block styles %}
+
+<link href="{% static 'employer/css/custom.css' %}" rel="stylesheet">
+
+{% endblock %}
+
+{% block title %}
+	Instructions
+{% endblock %}
+
+{% block content %}
+
+<div id="participant-gender" style="display: none">{{ participant.vars.gender }}</div>
+<div id="participant-eval-correct" style="display: none">{{ participant.vars.eval_correct }}</div>
+<div id="participant-self-eval" style="display: none">{{ participant.vars.self_eval }}</div>
+
+<div id="intro">
+
+	<p>We're now ready to start making wage bids on the applicants.</p>
+
+	<p>Remember that you will only successfully hire an applicant if the offer you make is higher than the other employers who also review the applicant. Your payoff for a given employee will be $1 if you do <em>not</em> hire them and will depend on their performance otherwise.</p>
+
+	<p>To help you make informed offers, we've included average performance information on the next page, where you will make your bids.</p>
+
+	<br>
+	<button type="button" class="btn-primary btn" onclick="forward()">Next</button>
+</div>
+
+<div id="questions" style="display:none">
+
+	<h3 id="question-indicator"> Applicant <div id="question-number" style="display:inline">1</div> of {{ num_applicants }}:</h3>
+
+	<p>[Average performance information goes here.]</p>
+
+	<p>The applicant rated their self-performance as <div id="self-eval" style="display:inline"></div>.{% if player.treatment != 0 %} They self-identified as <div id="gender"></div>.{% endif %}{% if player.treatment == 2 %} Their performance on the evaluation questions was <div id="eval-correct"></div> out of 10.{% endif %}</p>
+
+	<p>Use the slider below to make a wage bid for this applicant:</p>
+	<div class="slider-container">
+	    <input id="rangeInput" type="range" min="0.0" max="1.0" step="0.05" class="slider" oninput="amount.value=rangeInput.value"/>
+			$<input id="amount" type="number" value="0.50" min="0.0" max="1.0" step="0.01" oninput="rangeInput.value=amount.value" style="width: 60px;"/>
+	</div>
+
+	<br>
+	<button type="button" class="btn-primary btn back" onclick="back()">Back</button>
+	<button type="button" class="btn-primary btn next" onclick="forward()">Next</button>
+</div>
+{% endblock %}
+
+
+{% block scripts %}
+
+<script src="{% static 'employer/js/bidding.js' %}"></script>
+
+{% endblock %}

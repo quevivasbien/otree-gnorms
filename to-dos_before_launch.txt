@@ -8,6 +8,10 @@ Add demographics page?
 change ENDPOINT and EXPERIMENT_SIZE in config.json
 
 test that the code works properly when survey is completed but hit is not submitted (catches ClientError)
+ ^ That is all messed up. I need to think more carefully about that.
+
+add understanding question 3 on applicant
+
 
 Temporarily upgrade Heroku server
 Make sure to be logged into the right AWS locally before launching interface.py

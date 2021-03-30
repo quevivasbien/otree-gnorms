@@ -11,12 +11,8 @@ import json
 import pandas as pd
 import time
 import boto3
+from botocore.exceptions import ClientError
 import re
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.common.exceptions import NoSuchElementException
-from selenium.webdriver.support.ui import Select, WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 
 with open('config.json', 'r') as fh:
     config = json.load(fh)
@@ -71,7 +67,7 @@ class MTurkHandler_v2(MTurkHandler):
         dont_approve['hit_approved'] = -1
         # review completed but unapproved assignments
         bonuses = []
-        to_review = df[df['hit_approved'] == 0]
+        to_review = df[(df['hit_approved'] == 0) & (pd.notna(df['mturk_assignment_id']))]
         for name in to_review['name'].unique():
             for ability in to_review['ability'].unique():
                 pair = 0
@@ -132,6 +128,8 @@ class MTurkHandler_v2(MTurkHandler):
                 self.client.approve_assignment(
                     AssignmentId=df.loc[i, 'mturk_assignment_id']
                 )
+            except ClientError:
+                continue
             if bonus > 0:
                 try:
                     self.client.send_bonus(
@@ -148,6 +146,8 @@ class MTurkHandler_v2(MTurkHandler):
                         AssignmentId=df.loc[i, 'mturk_assignment_id'],
                         Reason=f'Bonus for answering {int(bonus / 0.2)} questions the same as your match.'
                     )
+                except ClientError:
+                    continue
             df.loc[i, 'hit_approved'] = 1
             df.loc[i, 'bonus'] = bonus
         # Check for unpaired responses about to expire
@@ -192,6 +192,8 @@ class MTurkHandler_v2(MTurkHandler):
                 self.client.approve_assignment(
                     AssignmentId=df.loc[i, 'mturk_assignment_id']
                 )
+            except ClientError:
+                continue
             if bonus > 0:
                 try:
                     self.client.send_bonus(
@@ -208,6 +210,8 @@ class MTurkHandler_v2(MTurkHandler):
                         AssignmentId=df.loc[i, 'mturk_assignment_id'],
                         Reason=f'Bonus for answering {int(bonus / 0.2)} questions the same as your match.'
                     )
+                except ClientError:
+                    continue
             df.loc[i, 'hit_approved'] = 1
             df.loc[i, 'bonus'] = bonus
         df.to_csv(static_df)

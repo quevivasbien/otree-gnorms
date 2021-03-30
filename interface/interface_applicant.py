@@ -13,11 +13,6 @@ import time
 import boto3
 from botocore.exceptions import ClientError
 import re
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.common.exceptions import NoSuchElementException
-from selenium.webdriver.support.ui import Select, WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 
 with open('config.json', 'r') as fh:
     config = json.load(fh)
@@ -37,6 +32,19 @@ class ApplicantHandler(MTurkHandler):
     def start_experiment(self):
         self.start_experiment_('Applicant side of part 2')
 
+    def create_json(self, df):
+        print(df.columns)
+        dict_ = df[[
+                'treatment',
+                'gender',
+                'eval_correct',
+                'wage_guess',
+                'self_eval',
+                'mturk_assignment_id'
+            ]].transpose().to_dict()
+        with open('applicant_data.json', 'w') as fh:
+            json.dump(dict_, fh)
+
     def process_df(self, df, static_df=None):
         if static_df is None:
             static_df = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'applicant_data.csv')
@@ -49,7 +57,6 @@ class ApplicantHandler(MTurkHandler):
         # add new columns for determining payoffs
         df['time_fetched'] = time.time()
         df['hit_approved'] = 0
-        df['bonus'] = 0
         if os.path.isfile(static_df):
             df = pd.concat((pd.read_csv(static_df, index_col=0), df))
             df.sort_values(by=['time_started'], ascending=True, inplace=True)
@@ -71,7 +78,7 @@ class ApplicantHandler(MTurkHandler):
                 )
         dont_approve['hit_approved'] = -1
         # approve completed but unapproved assignments
-        to_review = df[df['hit_approved'] == 0]
+        to_review = df[(df['hit_approved'] == 0) & (pd.notna(df['mturk_assignment_id']))]
         for i, row in to_review.iterrows():
             try:
                 self.client.approve_assignment(
@@ -84,11 +91,12 @@ class ApplicantHandler(MTurkHandler):
                     AssignmentId=df.loc[i, 'mturk_assignment_id'],
                     RequesterFeedback='Your bonus payment will be sent soon.'
                 )
-            except ClientError:  # worker has not yet submitted HIT
+            except ClientError:  # try again in next round
                 continue
             df.loc[i, 'hit_approved'] = 1
         # bonuses will be sent out later
         df.to_csv(static_df)
+        self.create_json(df[df['hit_approved'] == 1])
 
 
 
@@ -101,16 +109,16 @@ def main(wait_interval=600, max_checks=1000):
         mTurkHandler.check_progress()
 
 
-# handler = MTurkHandler()
-# handler.get_and_process_df()
+handler = ApplicantHandler()
+handler.get_and_process_df()
 
-if __name__ == '__main__':
-    args = sys.argv
-    if len(args) == 1:
-        main()
-    elif len(args) == 2:
-        main(int(args[1]))
-    elif len(args) == 3:
-        main(int(args[1]), int(args[2]))
-    else:
-        print('Syntax is "python interface_applicant.py [wait_interval] [max_checks]"')
+# if __name__ == '__main__':
+#     args = sys.argv
+#     if len(args) == 1:
+#         main()
+#     elif len(args) == 2:
+#         main(int(args[1]))
+#     elif len(args) == 3:
+#         main(int(args[1]), int(args[2]))
+#     else:
+#         print('Syntax is "python interface_applicant.py [wait_interval] [max_checks]"')

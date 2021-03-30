@@ -1,0 +1,117 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block styles %}
+
+<link href="{% static 'employer/css/custom.css' %}" rel="stylesheet">
+
+{% endblock %}
+
+{% block title %}
+	Instructions
+{% endblock %}
+
+{% block content %}
+
+<div id="tab1">
+	<p>In this study, you will play the role of an employer evaluating applicants for a job in a boutique consulting firm.</p>
+
+	<p>You will review the profiles of {{ num_applicants }} applicants and determine the wage you would be willing to pay them for their work.</p>
+
+	<p>By completing this study, you will receive a guaranteed payment of $X within 24 hours. You will also receive a bonus payment based on the wages you choose and the performance of a randomly-selected subset of the applicants you evaluate. This bonus payment will be up to $X.</p>
+
+	<br>
+	<button type="button" class="btn-primary btn" onclick="show('tab2', 'tab1')">Next</button>
+</div>
+
+<div id="tab2" style="display: none">
+	<p>The applicants you review are MTurk workers who have completed a set of 20 questions from the Armed Services Vocational Aptitude Battery (ASVAB), which has questions from each of the following five categories: general science, arithmetic reasoning, math knowledge, mechanical comprehension, and assembling objects.</p>
+
+	<p>After seeing their performance on 10 randomly-selected questions out of the 20 (the “evaluation questions”), they give an evaluation of their performance on those questions, which you will see in their profile.</p>
+
+	<br>
+	<button type="button" class="btn-primary btn back" onclick="show('tab1', 'tab2')">Back</button>
+	<button type="button" class="btn-primary btn next" onclick="show('tab3', 'tab2')">Next</button>
+</div>
+
+<div id="tab3" style="display: none">
+	<p>For each applicant profile you see, you will choose a wage, up to $1, that you would be willing to pay that applicant. You will be one of about 10 potential employers (all MTurk workers like you) who see that applicant’s profile. The other employers will all choose a wage as well, and if the wage you offer is the highest, you will successfully hire that applicant.</p>
+
+	<p>Your payoff for that applicant will be equal to $1 if you do not choose the highest wage for the applicant, and otherwise your payoff will be based on the applicants performance on the 10 non-evaluation ASVAB questions. Specifically, you payoff will be calculated as:</p>
+
+	<p style="text-align: center">$1 <em>minus</em> the wage you choose <em>plus</em> 10 cents times the number of non-evaluation questions that the applicant correctly answered</p>
+
+	<p>For example, suppose that you choose a wage of 50 cents for a candidate, and that wage is the highest of all those chosen by the other employers. If the applicant correctly answered 7 out of the 10 non-evaluation questions, then your payoff will be</p>
+
+	<p style="text-align: center">$1 - $0.50 + $0.70 = $1.20.</p>
+
+	<p>The bonus payment you receive after the study will be the average of your payoffs across all applicants.</p>
+
+	<br>
+	<button type="button" class="btn-primary btn back" onclick="show('tab2', 'tab3')">Back</button>
+	<button type="button" class="btn-primary btn next" onclick="show('tab4', 'tab3')">Next</button>
+</div>
+
+<div id="tab4" style="display: none">
+	<p>Answer the following question to check your understanding:</p>
+
+	<div class="fill-blanks">
+		<p>Fill in the blanks:</p>
+		<p style>If I offer the highest wage, my payoff will be $1 minus the wage I offer plus</p>
+		<label for="understanding1a">$</label>
+		<input type="text" name="understanding1a" maxlength="5" size="5" required id="id_understanding1a" class="form-control">
+		<p style="display: inline-block">cents times the number of non-evaluation questions they correctly answer. If I do not offer the highest wage, my payoff will be</p>
+		<input type="text" name="understanding1b" maxlength="5" size="5" required id="id_understanding1b" class="form-control">
+		<label for="understanding1b">.</label>
+	</div>
+
+	<br>
+	{{ form.understanding1a.errors }}
+	{{ form.understanding1b.errors }}
+	<div id="error-message" style="color: red"></div>
+	<button type="button" class="btn-primary btn back" onclick="show('tab3', 'tab4')">Back</button>
+	<button id="submit-button" type="button" onclick="validateBeforeSubmit()" class="btn-primary btn next">Next</button>
+{% endblock %}
+
+
+{% block scripts %}
+
+<script src="{% static 'employer/js/show.js' %}"></script>
+
+<script>
+
+function validateBeforeSubmit() {
+	// does a custom form field validation; if correct, submits
+	input1 = document.getElementById('id_understanding1a');
+	input2 = document.getElementById('id_understanding1b');
+	var incorrect = 0;
+	if (!['ten', '10', '10.0', 'TEN'].includes(input1.value)) {
+		incorrect++;
+	}
+	if (!['1', 'one', '1.0', 'One', 'ONE'].includes(input2.value)) {
+		incorrect++;
+	}
+	if (incorrect == 0) {
+		$('#form').submit();
+	}
+	else if (incorrect == 1) {
+		document.getElementById('error-message').innerHTML = 'One of your answers is incorrect. Please choose the correct answers to proceed.';
+	}
+	else if (incorrect == 2) {
+		document.getElementById('error-message').innerHTML = 'Your answers are incorrect. Please choose the correct answers to proceed.';
+	}
+}
+
+// Listen for enter press in final field
+var input = document.getElementById('id_understanding1b');
+input.addEventListener('keyup', function(event) {
+  // Number 13 is the "Enter" key on the keyboard
+  if (event.keyCode === 13) {
+    event.preventDefault();
+    document.getElementById('submit-button').click();
+  }
+});
+
+</script>
+
+{% endblock %}

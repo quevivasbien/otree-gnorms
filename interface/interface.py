@@ -106,7 +106,7 @@ class MTurkHandler:
         dont_approve['hit_approved'] = -1
         # review completed but unapproved assignments
         bonuses = []
-        to_review = df[df['hit_approved'] == 0]
+        to_review = df[(df['hit_approved'] == 0) & (pd.notna(df['mturk_assignment_id']))]
         for name in to_review['name'].unique():
             for ability in to_review['ability'].unique():
                 pair = 0
@@ -201,6 +201,8 @@ class MTurkHandler:
                 self.client.approve_assignment(
                     AssignmentId=df.loc[i, 'mturk_assignment_id']
                 )
+            except ClientError:
+                continue
             if bonus > 0:
                 try:
                     self.client.send_bonus(
@@ -217,6 +219,8 @@ class MTurkHandler:
                         AssignmentId=df.loc[i, 'mturk_assignment_id'],
                         Reason=f'Bonus for answering {int(bonus / 0.2)} questions the same as your match.'
                     )
+                except ClientError:
+                    continue
             df.loc[i, 'hit_approved'] = 1
             df.loc[i, 'bonus'] = bonus
         df.to_csv(static_df)
