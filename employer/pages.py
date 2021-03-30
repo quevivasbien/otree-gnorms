@@ -6,7 +6,7 @@ from captcha.fields import ReCaptchaField
 import json
 
 # load question text
-with open('applicant/static/employer/question_text.json', 'r') as fh:
+with open('employer/static/employer/question_text.json', 'r') as fh:
     qtext = json.load(fh)
 
 

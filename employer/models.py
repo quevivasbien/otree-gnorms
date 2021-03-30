@@ -13,10 +13,10 @@ from random import shuffle, sample
 
 
 # load question text
-with open('applicant/static/applicant/question_text.json', 'r') as fh:
+with open('employer/static/employer/question_text.json', 'r') as fh:
     qtext = json.load(fh)
 # load applicant data
-with open('interface/interface_applicant.json', 'r') as fh:
+with open('interface/applicant_data.json', 'r') as fh:
     applicant_data = json.load(fh)
 
 
@@ -33,7 +33,7 @@ NUM_BIDDERS = 20
 
 
 class Constants(BaseConstants):
-    name_in_url = 'applicant'
+    name_in_url = 'employer'
     players_per_group = None
     num_rounds = 1
 
@@ -72,7 +72,7 @@ class Subsession(BaseSubsession):
             p.applicant_ids = '-'.join(applicant_data[a]['mturk_assignment_id'] for a in applicant_assignments[j])
             p.participant.vars['gender'] = '-'.join(applicant_data[a]['gender'] for a in applicant_assignments[j])
             p.participant.vars['eval_correct'] = '-'.join(
-                    applicant_data[a]['eval_correct'] for a in applicant_assignments[j
+                    applicant_data[a]['eval_correct'] for a in applicant_assignments[j]
                 )
             p.participant.vars['self_eval'] = '-'.join(applicant_data[a]['self_eval'] for a in applicant_assignments[j])
             p.bids = '-'.join(['0.0']*len(applicant_assignments[j]))
