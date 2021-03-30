@@ -2,34 +2,51 @@ var currentTab = 0;
 
 function getEvalCorrect() {
   let string = document.getElementById('participant-eval-correct').innerHTML.replace(/\s+/g, '');
-  return string.split("-")[currentTab];
+  return string.split("-")[currentTab-1];
 }
 
 function getGender() {
 	let string = document.getElementById('participant-gender').innerHTML.replace(/\s+/g, '');
-  return string.split("-")[currentTab];
+  return string.split("-")[currentTab-1];
 }
 
 function getSelfEval() {
 	let string = document.getElementById('participant-self-eval').innerHTML.replace(/\s+/g, '');
-  return string.split("-")[currentTab];
+  return string.split("-")[currentTab-1];
+}
+
+function getBid() {
+	let string = document.getElementById('player-bids').innerHTML.replace(/\s+/g, '');
+  return string.split("-")[currentTab-1];
 }
 
 function numQs() {
-	return document.getElementById('participant-self-eval').innerHTML.replace(/\s+/g, '').split("-").length
+	return document.getElementById('player-bids').innerHTML.replace(/\s+/g, '').split("-").length
 }
 
 function updateDisplay() {
 	document.getElementById('question-number').innerHTML = currentTab;
 	document.getElementById('self-eval').innerHTML = getSelfEval();
-	document.getElementById('gender').innerHTML = getGender();
-	document.getElementById('eval-correct').innerHTML = getEvalCorrect();
-	document.getElementById('range-input').value = 0.5;
+	let gender = document.getElementById('gender');
+	if (gender) {
+		gender.innerHTML = getGender();
+	}
+	let evalCorrect = document.getElementById('eval-correct')
+	if (evalCorrect) {
+		evalCorrect.innerHTML = getEvalCorrect();
+	}
+	let rangeInput = document.getElementById('rangeInput');
+	rangeInput.value = getBid();
+	document.getElementById('amount').value = rangeInput.value;
 }
 
 function sendEntry() {
-	let bid = document.getElementById('range-input').value;
-	liveSend({"currentTab": currentTab, "bid": bid});
+	let playerBids = document.getElementById('player-bids');
+	let bids = playerBids.innerHTML.replace(/\s+/g, '').split("-");
+	let new_bid = document.getElementById('rangeInput').value;
+	bids[currentTab-1] = new_bid;
+	liveSend(bids);
+	playerBids.innerHTML = bids.join("-");
 }
 
 function forward() {
@@ -39,10 +56,11 @@ function forward() {
 		currentTab++;
 		updateDisplay();
 	}
-	else if (currentTab == numQs() - 1) {
+	else if (currentTab == numQs()) {
 		sendEntry();
-		// TODO: validate that the user really wants to submit
-		$('#form').submit();
+		currentTab++;
+		document.getElementById('questions').style.display = 'none';
+		document.getElementById('finished').style.display = 'block';
 	}
 	else {
 		sendEntry();
@@ -52,11 +70,17 @@ function forward() {
 }
 
 function back() {
-	sendEntry();
+	if (currentTab <= numQs()) {
+		sendEntry();
+	}
 	currentTab--;
 	if (currentTab == 0) {
 		document.getElementById('intro').style.display = 'block';
 		document.getElementById('questions').style.display = 'none';
+	}
+	else if (currentTab == numQs()) {
+		document.getElementById('questions').style.display = 'block';
+		document.getElementById('finished').style.display = 'none';
 	}
 	else {
 		updateDisplay();

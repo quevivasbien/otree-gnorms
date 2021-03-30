@@ -27,8 +27,6 @@ class ConsentForm(Page):
 class Overview(Page):
     form_model = 'player'
     form_fields = ['understanding1a', 'understanding1b']
-    def vars_for_template(self):
-        return dict(num_applicants=len(self.player.participant.vars['applicants']))
 
 
 class DemographicSurvey(Page):
@@ -38,8 +36,6 @@ class DemographicSurvey(Page):
 class BiddingPage(Page):
     form_model = 'player'
     live_method = 'live_bid'
-    def vars_for_template(self):
-        return dict(num_applicants=len(self.player.participant.vars['applicants']))
 
 class CompletionCode(Page):
     pass

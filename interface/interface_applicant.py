@@ -109,16 +109,16 @@ def main(wait_interval=600, max_checks=1000):
         mTurkHandler.check_progress()
 
 
-handler = ApplicantHandler()
-handler.get_and_process_df()
+# handler = ApplicantHandler()
+# handler.get_and_process_df()
 
-# if __name__ == '__main__':
-#     args = sys.argv
-#     if len(args) == 1:
-#         main()
-#     elif len(args) == 2:
-#         main(int(args[1]))
-#     elif len(args) == 3:
-#         main(int(args[1]), int(args[2]))
-#     else:
-#         print('Syntax is "python interface_applicant.py [wait_interval] [max_checks]"')
+if __name__ == '__main__':
+    args = sys.argv
+    if len(args) == 1:
+        main()
+    elif len(args) == 2:
+        main(int(args[1]))
+    elif len(args) == 3:
+        main(int(args[1]), int(args[2]))
+    else:
+        print('Syntax is "python interface_applicant.py [wait_interval] [max_checks]"')

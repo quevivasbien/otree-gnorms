@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block title %}
-	Instructions
+	Bidding Page
 {% endblock %}
 
 {% block content %}
@@ -16,6 +16,7 @@
 <div id="participant-gender" style="display: none">{{ participant.vars.gender }}</div>
 <div id="participant-eval-correct" style="display: none">{{ participant.vars.eval_correct }}</div>
 <div id="participant-self-eval" style="display: none">{{ participant.vars.self_eval }}</div>
+<div id="player-bids" style="display: none">{{ player.bids }}</div>
 
 <div id="intro">
 
@@ -31,11 +32,11 @@
 
 <div id="questions" style="display:none">
 
-	<h3 id="question-indicator"> Applicant <div id="question-number" style="display:inline">1</div> of {{ num_applicants }}:</h3>
+	<h3 id="question-indicator"> Applicant <div id="question-number" style="display:inline">1</div> of {{ participant.vars.num_applicants }}:</h3>
 
 	<p>[Average performance information goes here.]</p>
 
-	<p>The applicant rated their self-performance as <div id="self-eval" style="display:inline"></div>.{% if player.treatment != 0 %} They self-identified as <div id="gender"></div>.{% endif %}{% if player.treatment == 2 %} Their performance on the evaluation questions was <div id="eval-correct"></div> out of 10.{% endif %}</p>
+	<div>The applicant rated their self-performance as <em><div id="self-eval" style="display:inline"></div></em>.{% if player.treatment != 0 %} They self-identified as <div id="gender"></div>.{% endif %}{% if player.treatment == 2 %} Their performance on the evaluation questions was <div id="eval-correct"></div> out of 10.{% endif %}</div>
 
 	<p>Use the slider below to make a wage bid for this applicant:</p>
 	<div class="slider-container">
@@ -46,6 +47,14 @@
 	<br>
 	<button type="button" class="btn-primary btn back" onclick="back()">Back</button>
 	<button type="button" class="btn-primary btn next" onclick="forward()">Next</button>
+</div>
+
+<div id="finished" style="display:none">
+	<p>That's all the evaluation questions! Click Next to submit your responses, or click Back if you want to change your answers.</p>
+
+	<br>
+	<button type="button" class="btn-primary btn back" onclick="back()">Back</button>
+	<button class="btn-primary btn next">Next</button>
 </div>
 {% endblock %}
 

@@ -16,7 +16,7 @@
 <div id="tab1">
 	<p>In this study, you will play the role of an employer evaluating applicants for a job in a boutique consulting firm.</p>
 
-	<p>You will review the profiles of {{ num_applicants }} applicants and determine the wage you would be willing to pay them for their work.</p>
+	<p>You will review the profiles of {{ participant.vars.num_applicants }} applicants and determine the wage you would be willing to pay them for their work.</p>
 
 	<p>By completing this study, you will receive a guaranteed payment of $X within 24 hours. You will also receive a bonus payment based on the wages you choose and the performance of a randomly-selected subset of the applicants you evaluate. This bonus payment will be up to $X.</p>
 
@@ -58,9 +58,10 @@
 	<div class="fill-blanks">
 		<p>Fill in the blanks:</p>
 		<p style>If I offer the highest wage, my payoff will be $1 minus the wage I offer plus</p>
-		<label for="understanding1a">$</label>
 		<input type="text" name="understanding1a" maxlength="5" size="5" required id="id_understanding1a" class="form-control">
-		<p style="display: inline-block">cents times the number of non-evaluation questions they correctly answer. If I do not offer the highest wage, my payoff will be</p>
+		<label for="understanding1a">cents</label>
+		<p style="display: inline-block">times the number of non-evaluation questions they correctly answer. If I do not offer the highest wage, my payoff will be</p>
+		<label for="understanding1b">$</label>
 		<input type="text" name="understanding1b" maxlength="5" size="5" required id="id_understanding1b" class="form-control">
 		<label for="understanding1b">.</label>
 	</div>

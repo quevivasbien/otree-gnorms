@@ -69,13 +69,13 @@ class Subsession(BaseSubsession):
             p.treatment = i
             i = (i + 1) % 3
             p.applicants = '-'.join(map(str, applicant_assignments[j]))
-            p.applicant_ids = '-'.join(applicant_data[a]['mturk_assignment_id'] for a in applicant_assignments[j])
             p.participant.vars['gender'] = '-'.join(applicant_data[a]['gender'] for a in applicant_assignments[j])
             p.participant.vars['eval_correct'] = '-'.join(
-                    applicant_data[a]['eval_correct'] for a in applicant_assignments[j]
+                    str(applicant_data[a]['eval_correct']) for a in applicant_assignments[j]
                 )
             p.participant.vars['self_eval'] = '-'.join(applicant_data[a]['self_eval'] for a in applicant_assignments[j])
-            p.bids = '-'.join(['0.0']*len(applicant_assignments[j]))
+            p.participant.vars['num_applicants'] = len(applicant_assignments[j])
+            p.bids = '-'.join(['0.5']*p.participant.vars['num_applicants'])
 
 
 class Group(BaseGroup):
@@ -96,5 +96,5 @@ class Player(BasePlayer):
         current_tab = int(data['currentTab'])
         bid = str(data['bid'])
         bids_list = self.bids.split('-')
-        bids_list[currentTab - 1] = bid
+        bids_list[current_tab - 1] = bid
         self.bids = '-'.join(bids_list)
