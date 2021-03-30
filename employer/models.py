@@ -44,7 +44,7 @@ class Subsession(BaseSubsession):
         players = self.get_players()
         num_players = len(players)
         employer_indices = list(range(num_players))
-        applicant_assignments = {j: [], for j in employer_indices}
+        applicant_assignments = {j: [] for j in employer_indices}
 
         # helper function for assigning applicants to employers
         def add_applicant(applicant, employers):
