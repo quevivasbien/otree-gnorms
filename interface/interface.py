@@ -11,7 +11,7 @@ import json
 import pandas as pd
 import time
 import boto3
-from botocore.exceptions import ClientError
+# from botocore.exceptions import ClientError
 import re
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -35,6 +35,7 @@ class MTurkHandler:
     def __init__(self, endpoint_url=ENDPOINT, start=False):
         self.client = boto3.client('mturk', endpoint_url=endpoint_url, region_name='us-east-1')
         self.browser = webdriver.Chrome()
+        self.hit_id = None
         if start:
             self.start_experiment()
 
@@ -42,10 +43,11 @@ class MTurkHandler:
         username = self.browser.find_element_by_name('username')
         username.send_keys('admin')
         password = self.browser.find_element_by_name('password')
-        password.send_keys('gendernorms271828')
+        password.send_keys(os.environ.get('OTREE_ADMIN_PASSWORD'))
         password.submit()
 
     def start_experiment_(self, experiment_name):
+        hits_before = [x['HITId'] for x in self.client.list_hits()['HITs']]
         self.browser.get('https://otree-uofu.herokuapp.com/create_session/?is_mturk=1')
         try:
             session_config = Select(self.browser.find_element_by_name('session_config'))
@@ -67,9 +69,71 @@ class MTurkHandler:
         publish_button.click()
         self.session_code = self.browser.find_element_by_tag_name('code').text
         print(f'Started session {self.session_code}')
+        # Hacky way to get HIT ID of just-created HIT
+        # (Let's be real, so much of this project is hacky...))
+        hits_after = [x['HITId'] for x in self.client.list_hits()['HITs']]
+        hits_diff = [x for x in hits_after if x not in hits_before]
+        assert len(hits_diff) == 1
+        self.hit_id = hits_diff[0]
 
     def start_experiment(self):
         self.start_experiment_('Gender norms of self-promotion')
+
+    def get_assignments_to_review(self):
+        response = self.client.list_assignments_for_hit(
+            HITId=self.hit_id,
+            AssignmentStatuses=['Submitted']
+        )
+        assignments = response['Assignments']
+        while response.get('NextToken'):
+            response = self.client.list_assignments_for_hit(
+                NextToken=response['NextToken'],
+                HITId=self.hit_id,
+                AssignmentStatuses=['Submitted']
+            )
+            assignments += response['Assignments']
+        return assignments
+
+    def reject_hit(self, assignment_id, feedback='', max_retry=1):
+        try:
+            self.client.reject_assignment(
+                AssignmentId=assignment_id,
+                RequesterFeedback=feedback
+            )
+        except self.client.exceptions.ServiceFault:
+            print(f'ServiceFault when attempting to reject {assignment_id}')
+            if max_retry > 0:
+                print('Retrying in 5s...')
+                time.wait(5)
+                self.reject_hit(assignment_id, feedback, max_retry-1)
+
+    def approve_hit(self, assignment_id, feedback='Thanks for participating!', max_retry=1):
+        try:
+            self.client.approve_assignment(
+                AssignmentId=assignment_id,
+                RequesterFeedback=feedback
+            )
+        except self.client.exceptions.ServiceFault:
+            print(f'ServiceFault when attempting to approve {assignment_id}')
+            if max_retry > 0:
+                print('Retrying in 5s...')
+                time.wait(5)
+                self.approve_hit(assignment_id, feedback, max_retry-1)
+
+    def send_bonus(self, worker_id, amount, assignment_id, reason='', max_retry=1):
+        try:
+            self.client.send_bonus(
+                WorkerId=worker_id,
+                BonusAmount=f'{amount:.2f}',
+                AssignmentId=assignment_id,
+                Reason=reason
+            )
+        except self.client.exceptions.ServiceFault:
+            print(f'ServiceFault when attempting to send bonus for {assignment_id}')
+            if max_retry > 0:
+                print('Retrying in 5s...')
+                time.wait(5)
+                self.send_bonus(worker_id, amount, assignment_id, reason, max_retry-1)
 
     def process_df(self, df, static_df=None):
         if static_df is None:
@@ -88,25 +152,17 @@ class MTurkHandler:
             df = pd.concat((pd.read_csv(static_df, index_col=0), df))
             df.sort_values(by=['time_started'], ascending=True, inplace=True)
             df = df[~df.index.duplicated(keep='first')]
+        # get list of submitted assignments ready for review
+        assignment_ids = [x['AssignmentId'] for x in self.get_assignments_to_review()]
+        to_review = df[df['mturk_assignment_id'].isin(assignment_ids)]
         # check for participants who did not complete the survey but submitted the HIT
-        dont_approve = df[(df['hit_approved'] == 0) & (df['_index_in_pages'] != df['_max_page_index']) \
-            & (pd.notna(df['mturk_assignment_id']))]
+        dont_approve = to_review[to_review['_index_in_pages'] != to_review['_max_page_index']]
         for i, row in dont_approve.iterrows():
-            try:
-                self.client.reject_assignment(
-                    AssignmentId=row['mturk_assignment_id'],
-                    RequesterFeedback='Did not complete.'
-                )
-            except self.client.exceptions.ServiceFault:
-                time.wait(5)
-                self.client.reject_assignment(
-                    AssignmentId=row['mturk_assignment_id'],
-                    RequesterFeedback='Did not complete.'
-                )
+            self.reject_hit(row['mturk_assignment_id'], 'Did not complete.')
         dont_approve['hit_approved'] = -1
         # review completed but unapproved assignments
         bonuses = []
-        to_review = df[(df['hit_approved'] == 0) & (pd.notna(df['mturk_assignment_id']))]
+        to_review = df[to_review['hit_approved'] == 0]
         for name in to_review['name'].unique():
             for ability in to_review['ability'].unique():
                 pair = 0
@@ -138,35 +194,14 @@ class MTurkHandler:
                         bonuses.append((i, bonus))
                     pair = (pair + 1) % 2
         for i, bonus in bonuses:
-            try:
-                self.client.approve_assignment(
-                    AssignmentId=df.loc[i, 'mturk_assignment_id']
-                )
-            except self.client.exceptions.ServiceFault:
-                time.wait(5)
-                self.client.approve_assignment(
-                    AssignmentId=df.loc[i, 'mturk_assignment_id']
-                )
-            except ClientError:
-                continue  # retry on next round
+            self.approve_hit(df.loc[i, 'mturk_assignment_id'])
             if bonus > 0:
-                try:
-                    self.client.send_bonus(
-                        WorkerId=df.loc[i, 'mturk_worker_id'],
-                        BonusAmount=f'{bonus:.2f}',
-                        AssignmentId=df.loc[i, 'mturk_assignment_id'],
-                        Reason=f'Bonus for answering {int(bonus / 0.2)} questions the same as your match.'
-                    )
-                except self.client.exceptions.ServiceFault:
-                    time.wait(5)
-                    self.client.send_bonus(
-                        WorkerId=df.loc[i, 'mturk_worker_id'],
-                        BonusAmount=f'{bonus:.2f}',
-                        AssignmentId=df.loc[i, 'mturk_assignment_id'],
-                        Reason=f'Bonus for answering {int(bonus / 0.2)} questions the same as your match.'
-                    )
-                except ClientError:
-                    continue
+                self.send_bonus(
+                    df.loc[i, 'mturk_worker_id'],
+                    bonus,
+                    df.loc[i, 'mturk_assignment_id'],
+                    f'Bonus for answering {int(bonus / 0.2)} questions the same as your match.'
+                )
             df.loc[i, 'hit_approved'] = 1
             df.loc[i, 'bonus'] = bonus
         # Check for unpaired responses about to expire
@@ -192,35 +227,14 @@ class MTurkHandler:
             bonus = 0.2 * sum(matching_responses)
             bonuses.append((i, bonus))
         for i, bonus in bonuses:
-            try:
-                self.client.approve_assignment(
-                    AssignmentId=df.loc[i, 'mturk_assignment_id']
-                )
-            except self.client.exceptions.ServiceFault:
-                time.wait(5)
-                self.client.approve_assignment(
-                    AssignmentId=df.loc[i, 'mturk_assignment_id']
-                )
-            except ClientError:
-                continue
+            self.approve_hit(df.loc[i, 'mturk_assignment_id'])
             if bonus > 0:
-                try:
-                    self.client.send_bonus(
-                        WorkerId=df.loc[i, 'mturk_worker_id'],
-                        BonusAmount=f'{bonus:.2f}',
-                        AssignmentId=df.loc[i, 'mturk_assignment_id'],
-                        Reason=f'Bonus for answering {int(bonus / 0.2)} questions the same as your match.'
-                    )
-                except self.client.exceptions.ServiceFault:
-                    time.wait(5)
-                    self.client.send_bonus(
-                        WorkerId=df.loc[i, 'mturk_worker_id'],
-                        BonusAmount=f'{bonus:.2f}',
-                        AssignmentId=df.loc[i, 'mturk_assignment_id'],
-                        Reason=f'Bonus for answering {int(bonus / 0.2)} questions the same as your match.'
-                    )
-                except ClientError:
-                    continue
+                self.send_bonus(
+                    df.loc[i, 'mturk_worker_id'],
+                    bonus,
+                    df.loc[i, 'mturk_assignment_id'],
+                    f'Bonus for answering {int(bonus / 0.2)} questions the same as your match.'
+                )
             df.loc[i, 'hit_approved'] = 1
             df.loc[i, 'bonus'] = bonus
         df.to_csv(static_df)

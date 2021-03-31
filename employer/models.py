@@ -93,8 +93,4 @@ class Player(BasePlayer):
     gender = models.StringField(choices=['male', 'female'])
 
     def live_bid(self, data):
-        current_tab = int(data['currentTab'])
-        bid = str(data['bid'])
-        bids_list = self.bids.split('-')
-        bids_list[current_tab - 1] = bid
-        self.bids = '-'.join(bids_list)
+        self.bids = data

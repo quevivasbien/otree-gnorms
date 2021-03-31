@@ -61,38 +61,19 @@ class ApplicantHandler(MTurkHandler):
             df = pd.concat((pd.read_csv(static_df, index_col=0), df))
             df.sort_values(by=['time_started'], ascending=True, inplace=True)
             df = df[~df.index.duplicated(keep='first')]
+        # get list of submitted assignments ready for review
+        assignment_ids = [x['AssignmentId'] for x in self.get_assignments_to_review()]
+        to_review = df[df['mturk_assignment_id'].isin(assignment_ids)]
         # check for participants who did not complete the survey but submitted the HIT
-        dont_approve = df[(df['hit_approved'] == 0) & (df['_index_in_pages'] != df['_max_page_index']) \
-            & (pd.notna(df['mturk_assignment_id']))]
+        dont_approve = to_review[to_review['_index_in_pages'] != to_review['_max_page_index']]
         for i, row in dont_approve.iterrows():
-            try:
-                self.client.reject_assignment(
-                    AssignmentId=row['mturk_assignment_id'],
-                    RequesterFeedback='Did not complete.'
-                )
-            except self.client.exceptions.ServiceFault:
-                time.wait(5)
-                self.client.reject_assignment(
-                    AssignmentId=row['mturk_assignment_id'],
-                    RequesterFeedback='Did not complete.'
-                )
+            self.reject_hit(row['mturk_assignment_id'], 'Did not complete.')
         dont_approve['hit_approved'] = -1
-        # approve completed but unapproved assignments
-        to_review = df[(df['hit_approved'] == 0) & (pd.notna(df['mturk_assignment_id']))]
+        # review completed but unapproved assignments
+        bonuses = []
+        to_review = df[to_review['hit_approved'] == 0]
         for i, row in to_review.iterrows():
-            try:
-                self.client.approve_assignment(
-                    AssignmentId=df.loc[i, 'mturk_assignment_id'],
-                    RequesterFeedback='Your bonus payment will be sent soon.'
-                )
-            except self.client.exceptions.ServiceFault:
-                time.wait(5)
-                self.client.approve_assignment(
-                    AssignmentId=df.loc[i, 'mturk_assignment_id'],
-                    RequesterFeedback='Your bonus payment will be sent soon.'
-                )
-            except ClientError:  # try again in next round
-                continue
+            self.approve_hit(df.loc[i, 'mturk_assignment_id'], 'Your bonus payment will be sent soon.')
             df.loc[i, 'hit_approved'] = 1
         # bonuses will be sent out later
         df.to_csv(static_df)
