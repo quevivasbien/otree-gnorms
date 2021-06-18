@@ -6,7 +6,7 @@ from captcha.fields import ReCaptchaField
 import json
 
 # load question text
-with open('applicant/static/applicant/question_text.json', 'r') as fh:
+with open('applicant/static/applicant/question_text.json', 'r', encoding='utf-8') as fh:
     qtext = json.load(fh)
 
 
@@ -31,7 +31,10 @@ class Overview(Page):
 
 class DemographicSurvey(Page):
     form_model = 'player'
-    form_fields = ['age', 'gender']
+    form_fields = [
+        'age', 'gender', 'ethnicity', 'education', 'household_income',
+        'home_state', 'married', 'employed', 'religion', 'politics'
+    ]
 
 
 class ASVABInstructions(Page):
@@ -41,28 +44,30 @@ class ASVABInstructions(Page):
 
 class ASVABQuestions(Page):
     form_model = 'player'
-    form_fields = ['q1', 'q2', 'q3', 'q4']
+    form_fields = [f'q{i+1}' for i in range(20)]
     def before_next_page(self):
         player = self.player
+        correct_answers = [
+            2, 3, 0, 0,
+            2, 3, 1, 2,
+            0, 3, 3, 2,
+            0, 3, 2, 2,
+            3, 1, 0, 0
+        ]
         eval_correct = 0
         noneval_correct = 0
         evqs = player.participant.vars['eval_qs']
-        if 1 in evqs and player.q1 == qtext['q1'][1]:
-            eval_correct += 1
-        elif player.q1 == qtext['q1'][1]:
-            noneval_correct += 1
-        if 2 in evqs and player.q2 == qtext['q2'][3]:
-            eval_correct += 1
-        elif player.q2 == qtext['q2'][3]:
-            noneval_correct += 1
-        if 3 in evqs and player.q3 == qtext['q3'][2]:
-            eval_correct += 1
-        elif player.q3 == qtext['q3'][2]:
-            noneval_correct += 1
-        if 4 in evqs and player.q4 == qtext['q4'][2]:
-            eval_correct += 1
-        elif player.q4 == qtext['q4'][2]:
-            noneval_correct += 1
+        for i, q in enumerate([
+            player.q1, player.q2, player.q3, player.q4,
+            player.q5, player.q6, player.q7, player.q8,
+            player.q9, player.q10, player.q11, player.q12,
+            player.q13, player.q14, player.q15, player.q16,
+            player.q17, player.q18, player.q19, player.q20
+        ]):
+            if i + 1 in evqs and q == qtext[f'q{i+1}'][correct_answers[i]]:
+                eval_correct += 1
+            elif q == qtext[f'q{i+1}'][correct_answers[i]]:
+                noneval_correct += 1
         player.eval_correct = eval_correct
         player.noneval_correct = noneval_correct
 
@@ -70,19 +75,37 @@ class ASVABQuestions(Page):
 class ApplicationInstructions(Page):
     form_model = 'player'
     form_fields = ['understanding3']
+    def vars_for_template(self):
+        player = self.player
+        stage1_bonus = f'{player.eval_correct * 10} cents' if player.eval_correct < 10 else '$1.00'
+        return dict(stage1_bonus=stage1_bonus)
 
 
 class Application(Page):
     form_model = 'player'
-    form_fields = ['self_eval']
+    form_fields = ['avatar', 'self_eval', 'self_eval_relative', 'self_eval_usual']
+    def vars_for_template(self):
+        # get the real performance pdf from the prelim questions we do
+        # it's just a filler right now
+        perform_cdf = [0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.]
+        better_than = int(perform_cdf[self.player.eval_correct]*100)
+        worse_than = 100 - better_than
+        return dict(better_than=better_than, worse_than=worse_than)
+
+
+class WageGuessInstructions(Page):
+    form_model = 'player'
+    form_fields = ['understanding4']
+
 
 class WageGuess(Page):
     form_model = 'player'
-    form_fields = ['wage_guess']
+    form_fields = ['wage_guess', 'wage_guess2', 'wage_guess3', 'wage_guess_other']
 
 class CompletionCode(Page):
     pass
 
 
-page_sequence = [Captcha, ConsentForm, Overview, DemographicSurvey, ASVABInstructions,
-                    ASVABQuestions, Application, WageGuess, CompletionCode]
+page_sequence = [Captcha, ConsentForm, DemographicSurvey, Overview, ASVABInstructions,
+                    ASVABQuestions, ApplicationInstructions, Application,
+                    WageGuessInstructions, WageGuess, CompletionCode]

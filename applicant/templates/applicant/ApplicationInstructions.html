@@ -14,18 +14,28 @@
 {% block content %}
 
 <div id="page1">
-<p>In this stage of the experiment, you will apply to a job based on your ability in answering ASVAB questions.</p>
+	<p>In the stage you just completed (Stage 1), you correctly answered {{ player.eval_correct }} out of the 10 evaluation questions, so if Stage 1 is chosen for payment, you will receive a bonus of {{ stage1_bonus }}.</p>
+	<p>Now it's time to continue to the next stage, where you will prepare a job application portfolio.</p>
+	<button type="button" class="btn-primary btn" onclick="show('page2', 'page1')" style="display:block">Next</button>
+</div>
 
-<p>Recall that, in stage 1, we randomly selected 10 of the 20 ASVAB questions for your bonus payment -- we’ll call these 10 questions your “evaluation questions.” Potential employers, who will be MTurkers similar to you, will offer you a wage based on their assessment of the profile you submit here. The employer that hires you will get a bonus based on your answers to 10 of the questions you answered (the ones not included in your evaluation questions), so they will be willing to pay you a higher wage if they think you are better at answering the ASVAB questions. If this stage is selected for the bonus payment, you will receive that wage (up to $1) as your bonus payment.</p>
-<p>We will randomly select 10 out of the 20 questions you answer, and if this stage is the stage selected for your bonus payment, you will receive a bonus payment of 10 cents times the number of those questions that you answer correctly, in addition to your base payment of $X.</p>
+<div id="page2" style="display:none">
+	<p>In this part, you will be asked several questions related to your performance on the test you completed in part 1. One of your answers to these questions will be added to your job application portfolio.</p>
+	<p>Your application portfolio will be received by “potential employers,” who are MTurkers similar to you and complete a different version of this study. They will look at your portfolio and offer how much they would like to pay you. The employer with the highest offer gets to buy your performance in the ten “job performance” questions that were <em>not</em> selected for bonus payment in Part 1. The wage offered by this employer will be your bonus for part 2.</p>
+	<p>If this part is the selected part for your bonus payment, the bonus given to you and your employer will be determined as follows:</p>
+	<p><em>Your bonus will equal the highest wage offered to you among all the employer offers</em>. The employer with the highest wage offer will get a bonus of (i) $1.00 minus the wage offered to you plus (ii) 10 cents times the number of questions you answered correctly in the ten “job performance” questions. The potential employers who did not make the highest wage offer will get a bonus of $1.00.</p>
+	<button type="button" class="btn-primary btn back" onclick="show('page1', 'page2')" style="display:block">Back</button>
+	<button type="button" class="btn-primary btn next" onclick="show('page3', 'page2')" style="display:block">Next</button>
+</div>
 
-<p>In the next stage, you will answer more questions for your “employer.”</p>
+<div id="page3" style="display:none">
+	<p>Please answer the following question to check your understanding:</p>
 
-<p>Please answer the following question to check your understanding:</p>
+	{% formfield player.understanding3 label="Which of the following is true?" %}
 
-{% formfield player.understanding3 label="Which of the following is true?" %}
-
-{% next_button %}
+	<button type="button" class="btn-primary btn back" onclick="show('page2', 'page3')" style="display:block">Back</button>
+	<button class="btn-primary btn next" style="display:block">Next</button>
+</div>
 
 {% endblock %}
 

@@ -1,0 +1,41 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block styles %}
+
+<link href="{% static 'applicant/css/custom.css' %}" rel="stylesheet">
+
+{% endblock %}
+
+{% block title %}
+	Stage 3
+{% endblock %}
+
+{% block content %}
+
+<div id="page1">
+<p>This is the last stage of the experiment!</p>
+
+<p>In this part you answer questions in which you will</p>
+<ul>
+	<li>guess the highest wage <em>you</em> would be offered for your portfolio by the employers.</li>
+	<li>guess the highest wage <em>other</em> MTurkers would be offered for their portfolios by the employers.</li>
+</ul>
+
+<p>One of these questions will be randomly chosen, and if your guess in that question is within 5 cents of the actual highest wage offer, then your bonus payment for this part will be $1.00.</p>
+<p>This is how your waged will be determined: five employers will see your portfolio and will bid on the maximum wage they are willing to pay for your “job performance” questions; whoever bids the highest will be your employer, and the wage you get will be their bid. The employers can bid between 0 and 100 cents.</p>
+<p>Remember that the employer who hires you will see only the information in your portfolio and will receive 10 cents for every “job performance” question you correctly answered.</p>
+
+<br>
+<p>Answer the following question to check your understanding:</p>
+{% formfield player.understanding4 label="If this stage is selected for payment, I will receive a bonus payment of $1.00 for one of the following wage guesses"%}
+
+{% next_button %}
+
+{% endblock %}
+
+{% block scripts %}
+
+<script src="{% static 'applicant/js/show.js' %}"></script>
+
+{% endblock %}

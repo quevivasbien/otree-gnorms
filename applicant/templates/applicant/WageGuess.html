@@ -4,7 +4,22 @@
 {% block styles %}
 
 <link href="{% static 'applicant/css/custom.css' %}" rel="stylesheet">
+<style>
+	img {
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+		width: 50%;
+		max-width: 200px;
+	}
 
+	.profile {
+		background-color: #e1e1ea;
+		margin: 10px 30px 10px 20px;
+		padding: 20px 20px;
+		text-align: center;
+	}
+</style>
 {% endblock %}
 
 {% block title %}
@@ -14,29 +29,145 @@
 {% block content %}
 
 <div id="page1">
-<p>This is the last stage of the experiment -- you are almost done!</p>
 
-<p>Remember that the employer who hires you will see only the information you provided in the previous stage and will receive 10 cents for every ASVAB question you correctly answered, out of 10 randomly selected questions.</p>
-<p>To determine your wage, ten employers will see your profile and will bid on the maximum amount they are willing to pay to get that payoff from your work in the next stage; whoever bids the highest will be your employer, and the wage you get will be their bid.</p>
-
-<p>Use the slider below to estimate what the highest bid for your work (the amount you get as a wage) will be. If your guess is within 10 cents of the actual value and this stage is selected for your bonus payment, then you will get a bonus payment of 20 cents.</p>
-
-<label class="col-form-label">
-	I estimate that the highest bid for my wage will be:
-</label>
-
-<div class="slider-container">
-    <input id="rangeInput" type="range" name="wage_guess" min="0.0" max="1.0" step="0.05" class="slider" oninput="amount.value=rangeInput.value"/>
-		$<input id="amount" type="number" value="0.50" min="0.0" max="1.0" step="0.01" oninput="rangeInput.value=amount.value" style="width: 60px;"/>
+	<p>The following profiles are profiles that employers will see based on your responses in the application. For each version, select your guess of the wage you expect to receive from employers that see that profile. Remember that one of these questions will be randomly chosen, and if your guess in that question is within 5 cents of the actual highest wage offer, then your bonus payment for this part will be $1.00.</p>
+	<p>To help you make accurate guesses, remember that the employer who hires you will receive 10 cents for every “job performance” question you correctly answered.</p>
+	<br>
+	<button type="button" class="btn-primary btn" onclick="show('page2', 'page1')">Next</button>
 </div>
-{{ form.wage_guess.errors }}
 
-{% next_button %}
+<div id="page2" style="display:none">
+
+	<h5>Potential profile 1</h5>
+	<div class="profile">
+		{% if player.treatment != 0 %}<img src="/static/applicant/{{ player.avatar }}" alt="Your avatar"><br>{% endif %}
+		{% if player.treatment == 2 %}<p>The applicant correctly answered {{ player.eval_correct }} out of 10 evaluation questions.</p>{% endif %}
+		<p>The applicant rated {% if player.treatment == 0 %}their{% elif player.gender == "Male"%}his{% elif player.gender == "Female" %}her{% else %}their{% endif %} performance as {{ player.self_eval }}.</p>
+	</div>
+
+	<label class="col-form-label">
+		For potential employers that see this version of my profile, I estimate that the highest bid for my wage will be:
+	</label>
+
+	<div class="slider-container">
+	    <input id="rangeInput" type="range" name="wage_guess" min="0.0" max="1.0" step="0.05" class="slider" oninput="amount.value=rangeInput.value"/>
+			$<input id="amount" type="number" value="0.50" min="0.0" max="1.0" step="0.01" oninput="rangeInput.value=amount.value" style="width: 60px;"/>
+	</div>
+	{{ form.wage_guess.errors }}
+
+	<button type="button" class="btn-primary btn back" onclick="show('page1', 'page2')">Back</button>
+	<button type="button" class="btn-primary btn next" onclick="show('page3', 'page2')">Next</button>
+
+</div>
+
+<div id="page3" style="display:none">
+
+	<h5>Potential profile 2</h5>
+	<div class="profile">
+		{% if player.treatment != 0 %}<img src="/static/applicant/{{ player.avatar }}" alt="Your avatar"><br>{% endif %}
+		{% if player.treatment == 2 %}<p>The applicant correctly answered {{ player.eval_correct }} out of 10 evaluation questions.</p>{% endif %}
+		<p>When asked to assess {% if player.treatment == 0 %}their{% elif player.gender == "Male"%}his{% elif player.gender == "Female" %}her{% else %}their{% endif %} performance, the applicant stated, "I would say my performance here is {{ player.self_eval_relative }}"</p>
+	</div>
+
+	<label class="col-form-label">
+		For potential employers that see this version of my profile, I estimate that the highest bid for my wage will be:
+	</label>
+
+	<div class="slider-container">
+	    <input id="rangeInput2" type="range" name="wage_guess2" min="0.0" max="1.0" step="0.05" class="slider" oninput="amount2.value=rangeInput2.value"/>
+			$<input id="amount2" type="number" value="0.50" min="0.0" max="1.0" step="0.01" oninput="rangeInput2.value=amount2.value" style="width: 60px;"/>
+	</div>
+	{{ form.wage_guess2.errors }}
+
+	<button type="button" class="btn-primary btn back" onclick="show('page2', 'page3')">Back</button>
+	<button type="button" class="btn-primary btn next" onclick="show('page4', 'page3')">Next</button>
+
+</div>
+
+<div id="page4" style="display:none">
+
+	<h5>Potential profile 3</h5>
+	<div class="profile">
+		{% if player.treatment != 0 %}<img src="/static/applicant/{{ player.avatar }}" alt="Your avatar"><br>{% endif %}
+		{% if player.treatment == 2 %}<p>The applicant correctly answered {{ player.eval_correct }} out of 10 evaluation questions.</p>{% endif %}
+		{% if player.self_eval_usual != "I prefer not to include either of these statements in my application."%}<p>The applicant chose the following statement to accompany {% if player.treatment == 0 %}their{% elif player.gender == "Male"%}his{% elif player.gender == "Female" %}her{% else %}their{% endif %} application:</p>
+		<p>{{ player.self_eval_usual }}</p>
+		{% else %}<p>The applicant chose to not include any statement with {% if player.treatment == 0 %}their{% elif player.gender == "Male"%}his{% elif player.gender == "Female" %}her{% else %}their{% endif %} application.</p>{% endif %}
+	</div>
+
+	<label class="col-form-label">
+		For potential employers that see this version of my profile, I estimate that the highest bid for my wage will be:
+	</label>
+
+	<div class="slider-container">
+	    <input id="rangeInput3" type="range" name="wage_guess3" min="0.0" max="1.0" step="0.05" class="slider" oninput="amount3.value=rangeInput3.value"/>
+			$<input id="amount3" type="number" value="0.50" min="0.0" max="1.0" step="0.01" oninput="rangeInput3.value=amount3.value" style="width: 60px;"/>
+	</div>
+	{{ form.wage_guess3.errors }}
+
+	<button type="button" class="btn-primary btn back" onclick="show('page3', 'page4')">Back</button>
+	<button type="button" class="btn-primary btn next" onclick="show('page5', 'page4')">Next</button>
+
+</div>
+
+<div id="page5" style="display:none">
+	<p>Great! Now for some final questions about <em>other people's</em> application profiles.</p>
+
+	<p>In the next few screens, you'll see some profiles of other MTurkers and be asked to guess how the wages <em>they</em> will be offered based on their profiles. Remember that one of these questions will be randomly chosen, and if your guess in that question is within 5 cents of the actual highest wage offer, then your bonus payment for this part will be $1.00.</p>
+	<p>To help you make accurate guesses, remember that the employer who hires each applicant will receive 10 cents for every “job performance” question that applicant correctly answered.</p>
+
+	<button type="button" class="btn-primary btn back" onclick="show('page4', 'page5')">Back</button>
+	<button type="button" class="btn-primary btn next" onclick="show('page6', 'page5')">Next</button>
+</div>
+
+<div style="display:none">
+	<!-- These values will not be displayed and are simply for sending parameters from the server to be used by the js code on this page -->
+	<div id="wg-treatment">{{ player.wage_guess_treatment }}</div>
+	<div id="wg-gender">{{ player.wage_guess_gender }}</div>
+	<div id="wg-image">{{ player.wage_guess_image }}</div>
+	<div id="wg-perform">{{ player.wage_guess_perform }}</div>
+	<div id="wg-promote-type">{{ player.wage_guess_promote_type }}</div>
+	<div id="wg-promote1">{{ player.wage_guess_promote1 }}</div>
+	<div id="wg-promote2">{{ player.wage_guess_promote2 }}</div>
+	<div id="wg-promote3">{{ player.wage_guess_promote3 }}</div>
+</div>
+
+<div id="page6" style="display:none">
+
+	<div class="profile">
+		<img id="app-avatar" src="" alt="Applicant avatar">
+		<p id="app-performance"></p>
+		<div id="app-self-eval"></div>
+	</div>
+
+	<label class="col-form-label">
+		For potential employers that see this profile, I estimate that the highest wage bid will be:
+	</label>
+
+	<div class="slider-container">
+	    <input id="rangeInput4" type="range" name="wage_guess4" min="0.0" max="1.0" step="0.05" class="slider" oninput="amount4.value=rangeInput4.value"/>
+			$<input id="amount4" type="number" value="0.50" min="0.0" max="1.0" step="0.01" oninput="rangeInput4.value=amount4.value" style="width: 60px;"/>
+	</div>
+	<input id="hidden-input" type="hidden" name="wage_guess_other">
+	{{ form.wage_guess_other.errors }}
+
+	<button type="button" class="btn-primary btn back" onclick="backQuestion()">Back</button>
+	<button type="button" class="btn-primary btn next" onclick="nextQuestion()">Next</button>
+</div>
+
+<div id="page7" style="display:none">
+	<p>That's it! Click "Back" to edit your responses, or click "Next" to finish the experiment.</p>
+
+	<button type="button" class="btn-primary btn back" onclick="show('page6', 'page7')">Back</button>
+	<button class="btn-primary btn next">Next</button>
+</div>
+
 
 {% endblock %}
 
 {% block scripts %}
 
 <script src="{% static 'applicant/js/show.js' %}"></script>
+<script src="{% static 'applicant/js/wageGuessOther.js' %}"></script>
 
 {% endblock %}

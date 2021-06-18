@@ -5,6 +5,28 @@
 
 <link href="{% static 'gender_norms/css/custom.css' %}" rel="stylesheet">
 
+<style>
+	img {
+		width: 75%;
+		max-width: 150px;
+	}
+	.input-hidden {
+		position: absolute;
+		left: -9999px;
+	}
+	input[type=radio]:checked + label>img {
+		border: 1px solid blue;
+		box-shadow: 0 0 3px 3px #3366ff;
+	}
+
+	.profile {
+		background-color: #e1e1ea;
+		margin: 10px 30px 10px 20px;
+		padding: 20px 20px;
+		text-align: center;
+	}
+</style>
+
 {% endblock %}
 
 {% block title %}
@@ -13,21 +35,115 @@
 
 {% block content %}
 
+<div id="treatment" style="display:none">{{ player.treatment }}</div>
+
 <div id="page1">
-<p>In the previous stage, you correctly answered {{ player.eval_correct }} out of the 10 evaluation questions.</p>
+<p>In the previous stage, you correctly answered {{ player.eval_correct }} out of the 10 evaluation questions. Among 100 prior MTurkers who took the ASVAB test, your performance on the 10 evaluation questions is as good as or better than {{ better_than }} of them and worse than {{ worse_than }} of them.</p>
 
-<p>Note that the information below is the only information that potential employers will see.{% if player.treatment != 2 %} They will not see how many questions you answered correctly.{% endif %}</p>
-<p>Please answer the following question, which potential employers will see as part of your application.</p>
-{% formfield player.self_eval label="My performance in the cognitive ability test is" %}
+<p>Note that the information you provide below{% if player.treatment == 2 %}, plus your performance on the evaluation questions,{% endif %} is the <em>only</em> information that potential employers will see.{% if player.treatment != 2 %} They will <em>not</em> see how many questions you actually answered correctly.{% endif %}</p>
 
-<p>{% if player.treatment != 0 %} Potential employers will also see the gender your indicated in the demographic survey {% if player.treatment == 2 %} and your score on the evaluation questions ({{ player.eval_correct }} out of 10){% endif %}.{% endif %}</p>
+<p>Below is an example of what an application may look like to employers. (Yours will look different depending on your responses.)</p>
 
-{% next_button %}
+<div class="profile">
+	{% if player.treatment != 0 %}<img src="/static/applicant/male1.jpg" alt="Example avatar" style="display:block; margin-left: auto; margin-right: auto; width: 50%;">
+	<br>{% endif %}
+	{% if player.treatment == 2 %}<p>The applicant correctly answered 1 out of 10 evaluation questions.</p>{% endif %}
+	<p>The applicant rated {% if player.treatment == 0 %}their{% else %}his{% endif %} performance as <b>poor</b>.</p>
+</div>
+
+<p>Click next to continue to the application questions.</p>
+<button type="button" class="btn-primary btn" onclick="initiate()">Next</button>
+</div>
+
+<div id="page2" style="display:none">
+	<div class="form-group">
+    <label class="col-form-label" for="id_avatar_0">Choose an avatar to show to potential employers with your application:</label>
+    <div class="controls  field-avatar">
+        <ul id="id_avatar">
+
+			   {% if player.gender != "Female" %}<li>
+			<input type="radio" name="avatar" value="male1.jpg" required="" id="id_avatar_0" class="input-hidden">
+			<label for="id_avatar_0">
+			 <img src="{% static 'applicant/male1.jpg' alt="Avatar option"%}"></label>
+
+			</li>{% endif %}
+			    {% if player.gender != "Male" %}<li>
+			<input type="radio" name="avatar" value="female1.jpg" required="" id="id_avatar_1" class="input-hidden">
+			<label for="id_avatar_1">
+			 <img src="{% static 'applicant/female1.jpg' alt="Avatar option"%}"></label>
+
+			</li>{% endif %}
+			    {% if player.gender != "Female" %}<li>
+			<input type="radio" name="avatar" value="male2.jpg" required="" id="id_avatar_2" class="input-hidden">
+			<label for="id_avatar_2">
+			 <img src="{% static 'applicant/male2.jpg' alt="Avatar option"%}"></label>
+
+			</li>{% endif %}
+			    {% if player.gender != "Male" %}<li>
+			<input type="radio" name="avatar" value="female2.jpg" required="" id="id_avatar_3" class="input-hidden">
+			<label for="id_avatar_3">
+			 <img src="{% static 'applicant/female2.jpg' alt="Avatar option"%}"></label>
+
+			</li>{% endif %}
+			    {% if player.gender != "Female" %}<li>
+			<input type="radio" name="avatar" value="male3.jpg" required="" id="id_avatar_4" class="input-hidden">
+			<label for="id_avatar_4">
+			 <img src="{% static 'applicant/male3.jpg' alt="Avatar option"%}"></label>
+
+			</li>{% endif %}
+			    {% if player.gender != "Male" %}<li>
+			<input type="radio" name="avatar" value="female3.jpg" required="" id="id_avatar_5" class="input-hidden">
+			<label for="id_avatar_5">
+			 <img src="{% static 'applicant/female3.jpg' alt="Avatar option"%}"></label>
+
+		 </li>{% endif %}
+				{% if player.gender != "Female" %}<li>
+			<input type="radio" name="avatar" value="male4.jpg" required="" id="id_avatar_6" class="input-hidden">
+			<label for="id_avatar_6">
+			 <img src="{% static 'applicant/male4.jpg' alt="Avatar option"%}"></label>
+
+		 </li>{% endif %}
+				 {% if player.gender != "Male" %}<li>
+		 <input type="radio" name="avatar" value="female4.jpg" required="" id="id_avatar_7" class="input-hidden">
+		 <label for="id_avatar_7">
+			<img src="{% static 'applicant/female4.jpg' alt="Avatar option"%}"></label>
+
+			</li>{% endif %}
+			</ul>
+
+		  </div>
+		</div>
+		<button type="button" class="btn-primary btn back" onclick="show('page1', 'page2')">Back</button>
+		<button type="button" class="btn-primary btn next" onclick="nextQuestion()">Next</button>
+</div>
+
+<div id="page3" style="display:none">
+
+	{% formfield player.self_eval label="Based on the information you received about other applicants' performance on the task, please indicate how well you think you performed on the cognitive ability test:" %}
+	{% formfield player.self_eval_relative label="I would say my performance here is" %}
+	{% formfield player.self_eval_usual label="My performance in the cognitive ability test is" %}
+
+	<button type="button" class="btn-primary btn back" onclick="backQuestion()">Back</button>
+	<button type="button" class="btn-primary btn next" onclick="seeProfile()">Next</button>
+
+</div>
+
+<div id="page4" style="display:none">
+
+	<p>Great! That's all the information needed for your application.</p>
+	<p>Click "Next" to go to the next stage or "Back" to go back and edit your responses.</p>
+	<button type="button" class="btn-primary btn back" onclick="show('page3', 'page4')">Back</button>
+	<button class="btn-primary btn next" onclick="seeProfile()">Next</button>
+
+</div>
+
+<p id="not-complete-error" style="color:red; display:none">Select one of the choices to continue.</p>
 
 {% endblock %}
 
 {% block scripts %}
 
 <script src="{% static 'applicant/js/show.js' %}"></script>
+<script src="{% static 'applicant/js/applicationQuestions.js' %}"></script>
 
 {% endblock %}

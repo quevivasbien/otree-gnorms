@@ -9,11 +9,11 @@ from otree.api import (
     # currency_range,
 )
 import json
-from random import shuffle, sample
+from random import shuffle, sample, choices
 
 
 # load question text
-with open('applicant/static/applicant/question_text.json', 'r') as fh:
+with open('applicant/static/applicant/question_text.json', 'r',  encoding='utf-8') as fh:
     qtext = json.load(fh)
 
 
@@ -36,16 +36,36 @@ class Subsession(BaseSubsession):
     def creating_session(self):
         i = 0
         for p in self.get_players():
+            # assign treatment
             p.treatment = i
+            i = (i + 1) % 3
+            # assign question order
             question_order = list(range(1, 21))
             shuffle(question_order)
             p.question_order = '-'.join([str(x) for x in question_order])
+            # assign evaluation and non-evaluation questions
             eval_qs = sample(question_order, 10)
-            noneval_qs = [i for i in question_order if i not in eval_qs]
+            noneval_qs = [j for j in question_order if j not in eval_qs]
             p.participant.vars['eval_qs'] = eval_qs
             p.participant.vars['noneval_qs'] = noneval_qs
-            i = (i + 1) % 3
-
+            # assign wage guess orderings
+            num_wg = 5  # change this to whatever we decide
+            wg_treatment = choices(list(range(3)), k=num_wg)
+            p.wage_guess_treatment = '-'.join(map(str, wg_treatment))
+            wg_gender = choices(["Male", "Female"], k=num_wg)
+            p.wage_guess_gender = '-'.join(map(str, wg_gender))
+            wg_image = choices(list(range(4)), k=num_wg)
+            p.wage_guess_image = '-'.join(map(str, wg_image))
+            wg_perform = choices(list(range(11)), k=num_wg)
+            p.wage_guess_perform = '-'.join(map(str, wg_perform))
+            wg_promote_type = choices(list(range(3)), k=num_wg)
+            p.wage_guess_promote_type = '-'.join(map(str, wg_promote_type))
+            wg_promote1 = choices(list(range(6)), k=num_wg)
+            p.wage_guess_promote1 = '-'.join(map(str, wg_promote1))
+            wg_promote2 = choices(list(range(3)), k=num_wg)
+            p.wage_guess_promote2 = '-'.join(map(str, wg_promote2))
+            wg_promote3 = choices(list(range(3)), k=num_wg)
+            p.wage_guess_promote3 = '-'.join(map(str, wg_promote3))
 
 
 
@@ -56,21 +76,60 @@ class Group(BaseGroup):
 class Player(BasePlayer):
     treatment = models.IntegerField()
     question_order = models.StringField()
+    wage_guess_treatment = models.StringField()
+    wage_guess_gender = models.StringField()
+    wage_guess_image = models.StringField()
+    wage_guess_perform = models.StringField()
+    wage_guess_promote_type = models.StringField()
+    wage_guess_promote1 = models.StringField()
+    wage_guess_promote2 = models.StringField()
+    wage_guess_promote3 = models.StringField()
     captcha = models.CharField(blank=True)
     understanding1 = models.StringField(choices=qtext['understanding1'], widget=widgets.RadioSelect)
-    age = models.IntegerField(min=0, max=120)
-    gender = models.StringField(choices=['male', 'female'])
+    age = models.StringField(choices=qtext['age'])
+    gender = models.StringField(choices=qtext['gender'])
+    gender = models.StringField(choices=qtext['gender'])
+    ethnicity = models.StringField(choices=qtext['ethnicity'])
+    home_state = models.StringField(choices=qtext['home_state'])
+    education = models.StringField(choices=qtext['education'])
+    married = models.StringField(choices=qtext['married'])
+    household_income = models.StringField(choices=qtext['household_income'])
+    employed = models.StringField(choices=qtext['employed'])
+    religion = models.StringField(choices=qtext['religion'])
+    politics = models.StringField(choices=qtext['politics'])
     understanding2 = models.StringField(choices=qtext['understanding2'], widget=widgets.RadioSelect)
     q1 = models.StringField(choices=qtext['q1'], widget=widgets.RadioSelect)
     q2 = models.StringField(choices=qtext['q2'], widget=widgets.RadioSelect)
     q3 = models.StringField(choices=qtext['q3'], widget=widgets.RadioSelect)
     q4 = models.StringField(choices=qtext['q4'], widget=widgets.RadioSelect)
+    q5 = models.StringField(choices=qtext['q5'], widget=widgets.RadioSelect)
+    q6 = models.StringField(choices=qtext['q6'], widget=widgets.RadioSelect)
+    q7 = models.StringField(choices=qtext['q7'], widget=widgets.RadioSelect)
+    q8 = models.StringField(choices=qtext['q8'], widget=widgets.RadioSelect)
+    q9 = models.StringField(choices=qtext['q9'], widget=widgets.RadioSelect)
+    q10 = models.StringField(choices=qtext['q10'], widget=widgets.RadioSelect)
+    q11 = models.StringField(choices=qtext['q11'], widget=widgets.RadioSelect)
+    q12 = models.StringField(choices=qtext['q12'], widget=widgets.RadioSelect)
+    q13 = models.StringField(choices=qtext['q13'], widget=widgets.RadioSelect)
+    q14 = models.StringField(choices=qtext['q14'], widget=widgets.RadioSelect)
+    q15 = models.StringField(choices=qtext['q15'], widget=widgets.RadioSelect)
+    q16 = models.StringField(choices=qtext['q16'], widget=widgets.RadioSelect)
+    q17 = models.StringField(choices=qtext['q17'], widget=widgets.RadioSelect)
+    q18 = models.StringField(choices=qtext['q18'], widget=widgets.RadioSelect)
+    q19 = models.StringField(choices=qtext['q19'], widget=widgets.RadioSelect)
+    q20 = models.StringField(choices=qtext['q20'], widget=widgets.RadioSelect)
     eval_correct = models.IntegerField()
-    # TODO: Figure out why these don't show up!
     noneval_correct = models.IntegerField()
     understanding3 = models.StringField(choices=qtext['understanding3'], widget=widgets.RadioSelect)
+    avatar = models.StringField()
     self_eval = models.StringField(choices=qtext['self_eval'], widget=widgets.RadioSelect)
+    self_eval_relative = models.StringField(choices=qtext['self_eval_relative'], widget=widgets.RadioSelect)
+    self_eval_usual = models.StringField(choices=qtext['self_eval_usual'], widget=widgets.RadioSelect)
+    understanding4 = models.StringField(choices=qtext['understanding4'], widget=widgets.RadioSelect)
     wage_guess = models.FloatField()  # is a slider, managed via html&js
+    wage_guess2 = models.FloatField()  # is a slider, managed via html&js
+    wage_guess3 = models.FloatField()  # is a slider, managed via html&js
+    wage_guess_other = models.StringField()
 
 
     def understanding1_error_message(self, value):
@@ -83,4 +142,8 @@ class Player(BasePlayer):
 
     def understanding3_error_message(self, value):
         if value != qtext['understanding3'][0]:
+            return 'Sorry. Your answer is incorrect. Please choose the correct answer to proceed.'
+
+    def understanding4_error_message(self, value):
+        if value != qtext['understanding4'][0]:
             return 'Sorry. Your answer is incorrect. Please choose the correct answer to proceed.'
