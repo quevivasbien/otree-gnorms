@@ -5,6 +5,8 @@ function getTreatment() {
 
 function initiate() {
   if (getTreatment() == 0) {
+    // set default value for avatar so otree will let us advance
+    document.getElementById("id_avatar_0").checked = true;
     show('page3', 'page1');
   }
   else {

@@ -81,14 +81,31 @@ function displayQuestion(n) {
       message.innerHTML = '<p>The applicant chose to not include any statement with ' + pronoun + ' application.</p>';
     }
   }
+  // display the correct value in the bidding bar
+  let wg_other = document.getElementById('hidden-input').value.split('-');
+  let rangeInput = document.getElementById('rangeInput4');
+  let amountInput = document.getElementById('amount4');
+  if (wg_other.length < currentQuestion + 1 || !wg_other[0]) {
+    rangeInput.value = 0.5;
+    amountInput.value = 0.5;
+  }
+  else {
+    let value = parseFloat(wg_other[currentQuestion]);
+    rangeInput.value = value;
+    amountInput.value = value;
+  }
   // signal that we've completed successfully
   return true;
 }
 
-function nextQuestion() {
-  // update output for wage_guess_other
-  let hidden_input = document.getElementById('hidden-input').value;
-  let wg_other = hidden_input.split('-');
+function startOther() {
+  displayQuestion(0);
+  show('page6', 'page5');
+}
+
+function updateHiddenInput() {
+  let hidden_input = document.getElementById('hidden-input');
+  let wg_other = hidden_input.value.split('-');
   let rangeInputValue = document.getElementById('rangeInput4').value;
   if (wg_other.length < currentQuestion + 1) {
     wg_other.push(rangeInputValue);
@@ -96,7 +113,12 @@ function nextQuestion() {
   else {
     wg_other[currentQuestion] = rangeInputValue;
   }
-  hidden_input = wg_other.join('-');
+  hidden_input.value = wg_other.join('-');
+}
+
+function nextQuestion() {
+  // update output for wage_guess_other
+  updateHiddenInput();
   // advance question
   currentQuestion++;
   if (!displayQuestion(currentQuestion)) {
@@ -107,6 +129,7 @@ function nextQuestion() {
 }
 
 function backQuestion() {
+  updateHiddenInput();
   currentQuestion--;
   if (currentQuestion < 0) {
     show("page5", "page6");
