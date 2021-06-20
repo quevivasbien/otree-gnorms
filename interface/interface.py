@@ -71,9 +71,16 @@ class MTurkHandler:
         print(f'Started session {self.session_code}')
         # Hacky way to get HIT ID of just-created HIT
         # (Let's be real, so much of this project is hacky...))
+        time.sleep(1)  # wait a bit so the HIT has time to be posted
         hits_after = [x['HITId'] for x in self.client.list_hits()['HITs']]
         hits_diff = [x for x in hits_after if x not in hits_before]
-        assert len(hits_diff) == 1
+        try:
+            assert len(hits_diff) == 1
+        except AssertionError:
+            # wait a bit more and try again
+            time.sleep(1)
+            hits_after = [x['HITId'] for x in self.client.list_hits()['HITs']]
+            hits_diff = [x for x in hits_after if x not in hits_before]
         self.hit_id = hits_diff[0]
 
     def start_experiment(self):
@@ -240,13 +247,13 @@ class MTurkHandler:
         df.to_csv(static_df)
 
 
-    def get_and_process_df(self, downloads_dir=DOWNLOAD_FOLDER):
+    def get_and_process_df(self, downloads_dir=DOWNLOAD_FOLDER, static_df=None):
         candidate_files = [f for f in os.listdir(downloads_dir) if 'all_apps_wide' in f.lower()]
         if not candidate_files:
             return False
         filename = os.path.join(downloads_dir, candidate_files[0])
         df = pd.read_csv(filename, index_col='participant.code')
-        self.process_df(df)
+        self.process_df(df, static_df)
         os.remove(filename)
         return True
 

@@ -5,8 +5,13 @@ function getTreatment() {
 
 function initiate() {
   if (getTreatment() == 0) {
+    // TODO: Fix the bug here
     // set default value for avatar so otree will let us advance
-    document.getElementById("id_avatar_0").checked = true;
+    let default_avatar = document.getElementById("id_avatar_0")
+    if (default_avatar == null) {
+      default_avatar = document.getElementById("id_avatar_1");
+    }
+    default_avatar.checked = true;
     show('page3', 'page1');
   }
   else {

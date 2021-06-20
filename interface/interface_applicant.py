@@ -10,8 +10,6 @@ import sys
 import json
 import pandas as pd
 import time
-import boto3
-from botocore.exceptions import ClientError
 import re
 
 with open('config.json', 'r') as fh:
@@ -37,9 +35,13 @@ class ApplicantHandler(MTurkHandler):
         dict_ = df[[
                 'treatment',
                 'gender',
+                'avatar',
                 'eval_correct',
+                'noneval_correct',
                 'wage_guess',
                 'self_eval',
+                'self_eval_relative',
+                'self_eval_usual',
                 'mturk_assignment_id'
             ]].transpose().to_dict()
         with open('applicant_data.json', 'w') as fh:
@@ -70,7 +72,6 @@ class ApplicantHandler(MTurkHandler):
             self.reject_hit(row['mturk_assignment_id'], 'Did not complete.')
         dont_approve['hit_approved'] = -1
         # review completed but unapproved assignments
-        bonuses = []
         to_review = df[to_review['hit_approved'] == 0]
         for i, row in to_review.iterrows():
             self.approve_hit(df.loc[i, 'mturk_assignment_id'], 'Your bonus payment will be sent soon.')
