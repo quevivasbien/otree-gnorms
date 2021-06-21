@@ -1,1 +1,4 @@
-{"gjjqeb3m": {"treatment": 0, "gender": "Female", "avatar": "female1.jpg", "eval_correct": 8.0, "noneval_correct": 6.0, "wage_guess": 0.35, "self_eval": "good", "self_eval_relative": "too low compared to my ability; I expect to do better in general.", "self_eval_usual": "I prefer not to include either of these statements in my application.", "mturk_assignment_id": "3TR2532VIQSW24X2J304S5NEN6TJ6R"}}
+{
+  "gjjqeb3m": {"treatment": 0, "gender": "Female", "avatar": "female1.jpg", "eval_correct": 8.0, "noneval_correct": 6.0, "wage_guess": 0.35, "self_eval": "good", "self_eval_relative": "too low compared to my ability; I expect to do better in general.", "self_eval_usual": "I prefer not to include either of these statements in my application.", "mturk_assignment_id": "3TR2532VIQSW24X2J304S5NEN6TJ6R"},
+  "gjjqeb3_": {"treatment": 2, "gender": "Male", "avatar": "male2.jpg", "eval_correct": 8.0, "noneval_correct": 6.0, "wage_guess": 0.35, "self_eval": "good", "self_eval_relative": "too low compared to my ability; I expect to do better in general.", "self_eval_usual": "“Usually I am the best at what I do.”", "mturk_assignment_id": "3TR2532VIQSW24X2J304S5NEN6TJ6_"}
+}

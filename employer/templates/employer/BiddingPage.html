@@ -8,35 +8,91 @@
 {% endblock %}
 
 {% block title %}
-	Bidding Page
+	Bidding
 {% endblock %}
 
 {% block content %}
 
+<div id="participant-treatment" style="display: none">{{ participant.vars.treatment }}</div>
 <div id="participant-gender" style="display: none">{{ participant.vars.gender }}</div>
+<div id="participant-avatar" style="display: none">{{ participant.vars.avatar }}</div>
 <div id="participant-eval-correct" style="display: none">{{ participant.vars.eval_correct }}</div>
 <div id="participant-self-eval" style="display: none">{{ participant.vars.self_eval }}</div>
-<div id="player-bids" style="display: none">{{ player.bids }}</div>
+<div id="participant-self-eval-rel" style="display: none">{{ participant.vars.self_eval_relative }}</div>
+<div id="participant-self-eval-usu" style="display: none">{{ participant.vars.self_eval_usual }}</div>
+<input id="player-bids" type="hidden" name="bids">
+{{ form.bids.errors }}
 
 <div id="intro">
 
 	<p>We're now ready to start making wage bids on the applicants.</p>
 
-	<p>Remember that you will only successfully hire an applicant if the offer you make is higher than the other employers who also review the applicant. Your payoff for a given employee will be $1 if you do <em>not</em> hire them and will depend on their performance otherwise.</p>
+	<p>There will be three parts in this section, with ten applicant profiles per part. In each part, the self-evaluation information that the applicants provide will be different.</p>
+
+	<p>Remember that you will only successfully hire an applicant if the offer you make is higher than the other employers who also review the applicant. Your payoff for a given employee will be $1.00 if you do <em>not</em> hire them and will depend on their performance otherwise.</p>
 
 	<p>To help you make informed offers, we've included average performance information on the next page, where you will make your bids.</p>
 
 	<br>
-	<button type="button" class="btn-primary btn" onclick="forward()">Next</button>
+	<button type="button" class="btn-primary btn" onclick="show('part1explain', 'intro')">Next</button>
+</div>
+
+<div id="part1explain" style="display: none">
+	<p>For the first 10 profiles you see, you will learn how the applicant in that decision answered a question in which they indicated whether they thought that their performance on the test relative to others was <em>terrible, not good, neutral, good, very good, or exceptional</em>.</p>
+
+	<br>
+	<button type="button" class="btn-primary btn back" onclick="show('intro', 'part1explain')">Back</button>
+	<button type="button" class="btn-primary btn next" onclick="startPart1()">Next</button>
+</div>
+
+<div id="part2explain" style="display: none">
+	<p>In the next 10 profiles you see, you will learn how the applicant in that decision answered the following question about their performance:</p>
+	<div class="form-group">
+		<p>I would say my performance is</p>
+		<ul>
+			<li>representative of my ability at the task.</li>
+			<li>too low compared to my ability; I expect to do better in general.</li>
+			<li>too high compared to my ability; I expect to do worse in general.</li>
+		</ul>
+	</div>
+
+	<br>
+	<button type="button" class="btn-primary btn back" onclick="backToPart1()">Back</button>
+	<button type="button" class="btn-primary btn next" onclick="startPart2()">Next</button>
+</div>
+
+<div id="part3explain" style="display: none">
+	<p>For the next 10 profiles you see, you will learn how the applicant in that decision answered the following question about their performance:</p>
+	<div class="form-group">
+		<p>Please choose one of the following statements to accompany your application:</p>
+		<ul>
+			<li>Usually I am the best at what I do.</li>
+			<li>I conduct all tasks assigned to me, no matter how small, with the needed attention.</li>
+			<li>I prefer not to include either of these statements in my application.</li>
+		</ul>
+	</div>
+
+	<br>
+	<button type="button" class="btn-primary btn back" onclick="backToPart2()">Back</button>
+	<button type="button" class="btn-primary btn next" onclick="startPart3()">Next</button>
 </div>
 
 <div id="questions" style="display:none">
 
-	<h3 id="question-indicator"> Applicant <div id="question-number" style="display:inline">1</div> of {{ participant.vars.num_applicants }}:</h3>
+	<h3 id="question-indicator">Applicant <div id="question-number" style="display:inline">1</div> of {{ participant.vars.num_applicants }}:</h3>
 
 	<p>[Average performance information goes here.]</p>
 
-	<div>The applicant rated their self-performance as <em><div id="self-eval" style="display:inline"></div></em>.{% if player.treatment != 0 %} They self-identified as <div id="gender"></div>.{% endif %}{% if player.treatment == 2 %} Their performance on the evaluation questions was <div id="eval-correct"></div> out of 10.{% endif %}</div>
+	<div class="form-group" style="text-align:center">
+		<img id="avatar" src="" alt="Applicant avatar" style="display:block; margin-left: auto; margin-right: auto; width: 50%; max-width: 200px;">
+
+		<div id="display-eval-correct">The applicant correctly answered <div id="eval-correct" style="display:inline"></div> out of 10 evaluation questions.</div>
+
+		<div id="self-eval"></div>
+		<div id="self-eval-relative"></div>
+		<div id="self-eval-usual"></div>
+
+	</div>
 
 	<p>Use the slider below to make a wage bid for this applicant:</p>
 	<div class="slider-container">
@@ -50,7 +106,7 @@
 </div>
 
 <div id="finished" style="display:none">
-	<p>That's all the evaluation questions! Click Next to submit your responses, or click Back if you want to change your answers.</p>
+	<p>That's all the questions! Click "Next" to submit your responses, or click "Back" if you want to change your answers.</p>
 
 	<br>
 	<button type="button" class="btn-primary btn back" onclick="back()">Back</button>
@@ -61,6 +117,7 @@
 
 {% block scripts %}
 
+<script src="{% static 'employer/js/show.js' %}"></script>
 <script src="{% static 'employer/js/bidding.js' %}"></script>
 
 {% endblock %}

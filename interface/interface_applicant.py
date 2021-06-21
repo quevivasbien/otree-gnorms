@@ -44,7 +44,7 @@ class ApplicantHandler(MTurkHandler):
                 'self_eval_usual',
                 'mturk_assignment_id'
             ]].transpose().to_dict()
-        with open('applicant_data.json', 'w') as fh:
+        with open('applicant_data.json', 'w', encoding='utf-8') as fh:
             json.dump(dict_, fh)
 
     def process_df(self, df, static_df=None):

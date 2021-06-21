@@ -13,10 +13,10 @@ from random import shuffle, sample
 
 
 # load question text
-with open('employer/static/employer/question_text.json', 'r') as fh:
+with open('applicant/static/applicant/question_text.json', 'r', encoding='utf-8') as fh:
     qtext = json.load(fh)
 # load applicant data
-with open('interface/applicant_data.json', 'r') as fh:
+with open('interface/applicant_data.json', 'r', encoding='utf-8') as fh:
     applicant_data = json.load(fh)
 
 
@@ -27,9 +27,13 @@ doc = """
 Gender norms of self-promotion
 """
 
-# The number of employers to bid on each applicant
-# This is double what we actually want since oTree automatically doubles things for mTurk studies
-NUM_BIDDERS = 20
+"""How to assign applicants to employers:
+Want each employer to bid on 10*3 applicants,
+so when assigning applicants to employers, can just loop through
+applicant_data.json and assign 30 applicants to employer
+"""
+
+APPS_PER_EMP = 10*3
 
 
 class Constants(BaseConstants):
@@ -46,36 +50,27 @@ class Subsession(BaseSubsession):
         employer_indices = list(range(num_players))
         applicant_assignments = {j: [] for j in employer_indices}
 
-        # helper function for assigning applicants to employers
-        def add_applicant(applicant, employers):
-            for j in employers:
-                applicant_assignments[j].append(applicant)
-
-        # Assign applicants to employers
-        layer = 0
-        for applicant in applicant_data:
-            available_employers = [j for j in employer_indices if len(applicant_assignments[j]) == layer]
-            if len(available_employers) < NUM_BIDDERS:
-                num_first_assign = len(available_employers)
-                add_applicant(applicant, available_employers)
-                layer += 1
-                add_applicant(applicant, sample(employer_indices, NUM_BIDDERS - num_first_assign))
-            else:
-                add_applicant(applicant, sample(employer_indices, NUM_BIDDERS))
-        print([len(a) for a in applicant_assignments.values()])
-
+        # assign applicants to employers
         i = 0
+        applicant_ids = list(applicant_data.keys())
+        for j in employer_indices:
+            for _ in range(APPS_PER_EMP):
+                applicant_assignments[j].append(applicant_ids[i])
+                i = (i + 1) % len(applicant_ids)
+        print(applicant_assignments)
+
         for j, p in zip(employer_indices, players):
-            p.treatment = i
-            i = (i + 1) % 3
             p.applicants = '-'.join(map(str, applicant_assignments[j]))
+            p.participant.vars['treatment'] = '-'.join(str(applicant_data[a]['treatment']) for a in applicant_assignments[j])
             p.participant.vars['gender'] = '-'.join(applicant_data[a]['gender'] for a in applicant_assignments[j])
+            p.participant.vars['avatar'] = '-'.join(applicant_data[a]['avatar'] for a in applicant_assignments[j])
             p.participant.vars['eval_correct'] = '-'.join(
                     str(applicant_data[a]['eval_correct']) for a in applicant_assignments[j]
                 )
             p.participant.vars['self_eval'] = '-'.join(applicant_data[a]['self_eval'] for a in applicant_assignments[j])
-            p.participant.vars['num_applicants'] = len(applicant_assignments[j])
-            p.bids = '-'.join(['0.5']*p.participant.vars['num_applicants'])
+            p.participant.vars['self_eval_relative'] = '-'.join(applicant_data[a]['self_eval_relative'] for a in applicant_assignments[j])
+            p.participant.vars['self_eval_usual'] = '-'.join(applicant_data[a]['self_eval_usual'] for a in applicant_assignments[j])
+            p.participant.vars['num_applicants'] = APPS_PER_EMP
 
 
 class Group(BaseGroup):
@@ -83,14 +78,19 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-    treatment = models.IntegerField()
     applicants = models.StringField()
     bids = models.StringField()
     captcha = models.CharField(blank=True)
     understanding1a = models.StringField()
     understanding1b = models.StringField()
-    age = models.IntegerField(min=0, max=120)
-    gender = models.StringField(choices=['male', 'female'])
-
-    def live_bid(self, data):
-        self.bids = data
+    age = models.StringField(choices=qtext['age'])
+    gender = models.StringField(choices=qtext['gender'])
+    gender = models.StringField(choices=qtext['gender'])
+    ethnicity = models.StringField(choices=qtext['ethnicity'])
+    home_state = models.StringField(choices=qtext['home_state'])
+    education = models.StringField(choices=qtext['education'])
+    married = models.StringField(choices=qtext['married'])
+    household_income = models.StringField(choices=qtext['household_income'])
+    employed = models.StringField(choices=qtext['employed'])
+    religion = models.StringField(choices=qtext['religion'])
+    politics = models.StringField(choices=qtext['politics'])

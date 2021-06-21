@@ -1,7 +1,7 @@
 Do a more thorough test of the auto-payment code!
 
 Change _templates/global/mturk_template.html to reflect correct payment amount ALSO change settings.py to have correct payoff
-Change AWS access keys on Heroku to Pavitra's AWS credentials
+Change AWS access keys on Heroku and on personal computer(s) to Pavitra's AWS credentials
 Set OTREE_PRODUCTION variable to 1
 Create credential with Pavitra's account for preventing retakes (or just use the previously created one?)
 Add demographics page?

@@ -6,7 +6,7 @@ from captcha.fields import ReCaptchaField
 import json
 
 # load question text
-with open('employer/static/employer/question_text.json', 'r') as fh:
+with open('applicant/static/applicant/question_text.json', 'r', encoding='utf-8') as fh:
     qtext = json.load(fh)
 
 
@@ -31,14 +31,18 @@ class Overview(Page):
 
 class DemographicSurvey(Page):
     form_model = 'player'
-    form_fields = ['age', 'gender']
+    form_fields = [
+        'age', 'gender', 'ethnicity', 'education', 'household_income',
+        'home_state', 'married', 'employed', 'religion', 'politics'
+    ]
 
 class BiddingPage(Page):
     form_model = 'player'
     live_method = 'live_bid'
+    form_fields = ['bids']
 
 class CompletionCode(Page):
     pass
 
 
-page_sequence = [Captcha, ConsentForm, Overview, DemographicSurvey, BiddingPage, CompletionCode]
+page_sequence = [Captcha, ConsentForm, DemographicSurvey, Overview, BiddingPage, CompletionCode]
