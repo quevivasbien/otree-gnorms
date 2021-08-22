@@ -1,0 +1,42 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block styles %}
+
+<link href="{% static 'gender_norms/css/custom.css' %}" rel="stylesheet">
+
+{% endblock %}
+
+{% block title %}
+	Stage 1
+{% endblock %}
+
+{% block content %}
+
+<div id="page1">
+<p>In this study, you will complete a test made up of 20 questions from the Armed Services Vocational Aptitude Battery (ASVAB), with four questions from each of the following five categories: general science, arithmetic reasoning, math knowledge, mechanical comprehension, and assembling objects.</p>
+
+<p>You will be shown the questions one at a time and cannot go back to questions that you have already answered.</p>
+<p>We will randomly select 10 out of the 20 questions you answer. Let’s call these 10 questions “evaluation questions”. You will receive a payment of 10 cents times the number of evaluation questions that you answer correctly, in addition to your base payment of $X.</p>
+
+<button type="button" class="btn-primary btn" onclick="show('page2', 'page1')" style="display:block">Next</button>
+
+</div>
+
+
+<div id="page2" style="display:none">
+<p>Answer the following question to check your understanding:</p>
+{% formfield player.understanding2 label="Your bonus payment" %}
+<button type="button" class="btn-primary btn back" onclick="show('page1', 'page2')" style="display:block">Back</button>
+<button class="btn-primary btn next" style="display:block">Next</button>
+
+<p>Once you correctly answer this question, you can continue to the ASVAB questions.</p>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+
+<script src="{% static 'applicant/js/show.js' %}"></script>
+
+{% endblock %}

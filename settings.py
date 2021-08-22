@@ -7,10 +7,11 @@ from os import environ
 
 SESSION_CONFIG_DEFAULTS = dict(
     real_world_currency_per_point=1.00, participation_fee=2.00, doc="",
-    mturk_hit_settings = dict(
+    mturk_hit_settings=dict(
         keywords='bonus, study, decisions',
         title='Decision-making study',
-        description='Academic experiment on decision making from University of Utah and Aix-Marseille University',
+        description='Academic experiment on decision making from Aix-Marseille University,'
+                    'the University of Chicago, and the University of Utah',
         frame_height=500,
         template='global/mturk_template.html',
         minutes_allotted_per_assignment=60,
@@ -40,7 +41,7 @@ SESSION_CONFIG_DEFAULTS = dict(
                 'Comparator': 'DoesNotExist'
             }
         ],
-        grant_qualification_id='303SJT1CWE1SIJV6J0XUXHLQB1Q4F7' # to prevent retakes
+        grant_qualification_id='303SJT1CWE1SIJV6J0XUXHLQB1Q4F7'  # to prevent retakes
         # TODO: Change qualifcation ID to an id controlled by Pavitra's account
     )
 )
@@ -59,17 +60,23 @@ SESSION_CONFIGS = [
         app_sequence=['gender_norms_v2']
      ),
      dict(
+        name='test',
+        display_name='Test to establish performance distribution',
+        num_demo_participants=50,
+        app_sequence=['test']
+         ),
+     dict(
         name='applicant',
         display_name="Applicant side of part 2",
         num_demo_participants=50,
         app_sequence=['applicant']
-    ),
-    dict(
-       name='employer',
-       display_name="Employer side of part 2",
-       num_demo_participants=50,
-       app_sequence=['employer']
-   )
+         ),
+     dict(
+        name='employer',
+        display_name="Employer side of part 2",
+        num_demo_participants=50,
+        app_sequence=['employer']
+         )
 ]
 
 
