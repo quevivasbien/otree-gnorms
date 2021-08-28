@@ -45,6 +45,7 @@ class ASVABInstructions(Page):
 class ASVABQuestions(Page):
     form_model = 'player'
     form_fields = [f'q{i+1}' for i in range(20)]
+
     def before_next_page(self):
         player = self.player
         correct_answers = [
@@ -75,6 +76,7 @@ class ASVABQuestions(Page):
 class ApplicationInstructions(Page):
     form_model = 'player'
     form_fields = ['understanding3']
+
     def vars_for_template(self):
         player = self.player
         stage1_bonus = f'{player.eval_correct * 10} cents' if player.eval_correct < 10 else '$1.00'
@@ -83,7 +85,10 @@ class ApplicationInstructions(Page):
 
 class Application(Page):
     form_model = 'player'
-    form_fields = ['avatar', 'self_eval', 'self_eval_relative', 'self_eval_usual']
+    form_fields = ['avatar', 'self_eval',
+                   'self_eval_agree0', 'self_eval_agree1', 'self_eval_agree2',
+                   'self_eval_statement']
+
     def vars_for_template(self):
         # get the real performance pdf from the prelim questions we do
         # it's just a filler right now
@@ -102,10 +107,11 @@ class WageGuess(Page):
     form_model = 'player'
     form_fields = ['wage_guess', 'wage_guess2', 'wage_guess3', 'wage_guess_other']
 
+
 class CompletionCode(Page):
     pass
 
 
 page_sequence = [Captcha, ConsentForm, DemographicSurvey, Overview, ASVABInstructions,
-                    ASVABQuestions, ApplicationInstructions, Application,
-                    WageGuessInstructions, WageGuess, CompletionCode]
+                 ASVABQuestions, ApplicationInstructions, Application,
+                 WageGuessInstructions, WageGuess, CompletionCode]

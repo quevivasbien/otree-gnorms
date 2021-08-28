@@ -5,6 +5,7 @@ Check on hit status, send custom bonuses, etc.
 Author: Mckay Jensen
 """
 
+from interface import MTurkHandler
 import os
 import sys
 import json
@@ -22,8 +23,6 @@ EXPERIMENT_SIZE = config['experiment_size']
 # TODO: Set this as the local downloads directory
 DOWNLOAD_FOLDER = config['downloads']
 
-from interface import MTurkHandler
-
 
 class ApplicantHandler(MTurkHandler):
 
@@ -40,8 +39,10 @@ class ApplicantHandler(MTurkHandler):
                 'noneval_correct',
                 'wage_guess',
                 'self_eval',
-                'self_eval_relative',
-                'self_eval_usual',
+                'self_eval_agree0',
+                'self_eval_agree1',
+                'self_eval_agree2'
+                'self_eval_statement',
                 'mturk_assignment_id'
             ]].transpose().to_dict()
         with open('applicant_data.json', 'w', encoding='utf-8') as fh:
@@ -79,7 +80,6 @@ class ApplicantHandler(MTurkHandler):
         # bonuses will be sent out later
         df.to_csv(static_df)
         self.create_json(df[df['hit_approved'] == 1])
-
 
 
 def main(wait_interval=600, max_checks=1000):

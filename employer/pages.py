@@ -36,10 +36,12 @@ class DemographicSurvey(Page):
         'home_state', 'married', 'employed', 'religion', 'politics'
     ]
 
+
 class BiddingPage(Page):
     form_model = 'player'
     live_method = 'live_bid'
     form_fields = ['bids']
+
 
 class CompletionCode(Page):
     pass

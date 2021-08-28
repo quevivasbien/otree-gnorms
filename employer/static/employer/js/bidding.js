@@ -33,15 +33,19 @@ function setSelfEval(self_eval) {
                     + ' performance as <em>' + self_eval + '</em>.</p>';
 }
 
-function setSelfEvalRelative(self_eval) {
-  let div = document.getElementById('self-eval-relative');
+function setSelfEvalAgree(agree0, agree1, agree2) {
+  let div = document.getElementById('self-eval-agree');
+  div.innerHTML = '<p>When asked to rate ' + getPronoun() + ' level of agreement with the following questions on a scale from 0 (entirely disagree) to 100 (entirely agree), the applicant gave the following answers:</p>'
+      + '<p>"I performed well on the test I took in part 1." <b>' + agree0 + ' out of 100</b></p>'
+      + '<p>"Usually I am the best at what I do." <b>' + agree1 + ' out of 100</b></p>'
+      + '<p>"I conduct all tasks assigned to me, no matter how small, with the needed attention." <b>' + agree2 + ' out of 100</b></p>';
   div.innerHTML = '<p>When asked to assess ' + getPronoun()
                     + ' performance, the applicant stated, "I would say my performance here is '
                     + self_eval + '"</p>';
 }
 
-function setSelfEvalUsual(self_eval) {
-  let div = document.getElementById('self-eval-usual');
+function setSelfEvalStatement(self_eval) {
+  let div = document.getElementById('self-eval-statement');
   if (self_eval.startsWith("I prefer")) {
     div.innerHTML = '<p>The applicant chose to not include any statement with '
                       + getPronoun() + ' application.</p>';
@@ -70,23 +74,25 @@ function updateDisplay() {
   if (currentPart == 1) {
     let self_eval = getVar('participant-self-eval');
     document.getElementById('self-eval').style.display = 'block';
-    document.getElementById('self-eval-relative').style.display = 'none';
-    document.getElementById('self-eval-usual').style.display = 'none';
+    document.getElementById('self-eval-agree').style.display = 'none';
+    document.getElementById('self-eval-statement').style.display = 'none';
   	setSelfEval(self_eval);
   }
   else if (currentPart == 2) {
-    let self_eval = getVar('participant-self-eval-rel');
+    let agree0 = getVar('participant-self-eval-agree0');
+    let agree1 = getVar('participant-self-eval-agree1');
+    let agree2 = getVar('participant-self-eval-agree2');
     document.getElementById('self-eval').style.display = 'none';
-    document.getElementById('self-eval-relative').style.display = 'block';
-    document.getElementById('self-eval-usual').style.display = 'none';
-  	setSelfEvalRelative(self_eval);
+    document.getElementById('self-eval-agree').style.display = 'block';
+    document.getElementById('self-eval-statement').style.display = 'none';
+  	setSelfEvalAgree(agree0, agree1, agree2);
   }
   else {
     let self_eval = getVar('participant-self-eval-usu');
     document.getElementById('self-eval').style.display = 'none';
-    document.getElementById('self-eval-relative').style.display = 'none';
-    document.getElementById('self-eval-usual').style.display = 'block';
-  	setSelfEvalUsual(self_eval);
+    document.getElementById('self-eval-agree').style.display = 'none';
+    document.getElementById('self-eval-statement').style.display = 'block';
+  	setSelfEvalStatement(self_eval);
   }
   // set up performance
   if (treatment == 2) {

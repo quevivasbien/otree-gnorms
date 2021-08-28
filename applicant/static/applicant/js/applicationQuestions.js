@@ -65,8 +65,8 @@ function backQuestion() {
 }
 
 function seeProfile() {
-  if (checkForAnswer('id_self_eval') && checkForAnswer('id_self_eval_relative')
-        && checkForAnswer('id_self_eval_usual')) {
+  if (checkForAnswer('id_self_eval')
+        && checkForAnswer('id_self_eval_statement')) {
     // switch to profile screen
     show("page4", "page3");
     document.getElementById('not-complete-error').style.display = 'none';

@@ -3,7 +3,7 @@
 
 {% block styles %}
 
-<link href="{% static 'gender_norms/css/custom.css' %}" rel="stylesheet">
+<link href="{% static 'applicant/css/custom.css' %}" rel="stylesheet">
 
 <style>
 	img {
@@ -120,8 +120,33 @@
 <div id="page3" style="display:none">
 
 	{% formfield player.self_eval label="Based on the information you received about other applicants' performance on the task, please indicate how well you think you performed on the cognitive ability test:" %}
-	{% formfield player.self_eval_relative label="I would say my performance here is" %}
-	{% formfield player.self_eval_usual label="My performance in the cognitive ability test is" %}
+	<br>
+	<div class="form-group required">
+		<p>On a scale from 0 (entirely disagree) to 100 (entirely agree), please indicate the extent to which you agree with each of the following three statements:</p>
+		<p>I performed well on the test I took in part 1.</p>
+		<div class="slider-container">
+			<input id="agree0" type="hidden" name="self_eval_agree0">
+		    <input id="rangeInput0" type="range" min="0" max="100" step="1" class="slider" oninput="amount0.value=rangeInput0.value; agree0.value=rangeInput0.value;"/>
+				<input id="amount0" type="number" value="50" min="0" max="100" step="1" oninput="rangeInput0.value=amount0.value; agree0.value=amount0.value;" style="width: 60px;"/>
+		</div>
+		{{ form.self_eval_agree0.errors }}
+		<p>Usually I am the best at what I do.</p>
+		<div class="slider-container">
+			<input id="agree1" type="hidden" name="self_eval_agree1">
+		    <input id="rangeInput1" type="range" min="0" max="100" step="1" class="slider" oninput="amount1.value=rangeInput1.value; agree1.value=rangeInput1.value;"/>
+				<input id="amount1" type="number" value="50" min="0" max="100" step="1" oninput="rangeInput1.value=amount1.value; agree1.value=amount1.value;" style="width: 60px;"/>
+		</div>
+		{{ form.self_eval_agree1.errors }}
+		<p>I conduct all tasks assigned to me, no matter how small, with the needed attention.</p>
+		<div class="slider-container">
+			<input id="agree2" type="hidden" name="self_eval_agree2">
+		    <input id="rangeInput2" type="range" min="0" max="100" step="1" class="slider" oninput="amount2.value=rangeInput2.value; agree2.value=rangeInput2.value;"/>
+				<input id="amount2" type="number" value="50" min="0" max="100" step="1" oninput="rangeInput2.value=amount2.value; agree2.value=amount2.value;" style="width: 62px;"/>
+		</div>
+		{{ form.self_eval_agree2.errors }}
+	</div>
+	<br>
+	{% formfield player.self_eval_statement label="Please choose one of the following statements to accompany your application:" %}
 
 	<button type="button" class="btn-primary btn back" onclick="backQuestion()">Back</button>
 	<button type="button" class="btn-primary btn next" onclick="seeProfile()">Next</button>

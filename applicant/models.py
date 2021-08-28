@@ -61,8 +61,12 @@ class Subsession(BaseSubsession):
             p.wage_guess_promote_type = '-'.join(map(str, wg_promote_type))
             wg_promote1 = choices(list(range(6)), k=num_wg)
             p.wage_guess_promote1 = '-'.join(map(str, wg_promote1))
-            wg_promote2 = choices(list(range(3)), k=num_wg)
-            p.wage_guess_promote2 = '-'.join(map(str, wg_promote2))
+            wg_promote2a = choices(list(range(101)), k=num_wg)
+            p.wage_guess_promote2a = '-'.join(map(str, wg_promote2a))
+            wg_promote2b = choices(list(range(101)), k=num_wg)
+            p.wage_guess_promote2b = '-'.join(map(str, wg_promote2b))
+            wg_promote2c = choices(list(range(101)), k=num_wg)
+            p.wage_guess_promote2c = '-'.join(map(str, wg_promote2c))
             wg_promote3 = choices(list(range(3)), k=num_wg)
             p.wage_guess_promote3 = '-'.join(map(str, wg_promote3))
 
@@ -80,7 +84,9 @@ class Player(BasePlayer):
     wage_guess_perform = models.StringField()
     wage_guess_promote_type = models.StringField()
     wage_guess_promote1 = models.StringField()
-    wage_guess_promote2 = models.StringField()
+    wage_guess_promote2a = models.StringField()
+    wage_guess_promote2b = models.StringField()
+    wage_guess_promote2c = models.StringField()
     wage_guess_promote3 = models.StringField()
     captcha = models.CharField(blank=True)
     understanding1 = models.StringField(choices=qtext['understanding1'], widget=widgets.RadioSelect)
@@ -120,8 +126,10 @@ class Player(BasePlayer):
     understanding3 = models.StringField(choices=qtext['understanding3'], widget=widgets.RadioSelect)
     avatar = models.StringField()
     self_eval = models.StringField(choices=qtext['self_eval'], widget=widgets.RadioSelect)
-    self_eval_relative = models.StringField(choices=qtext['self_eval_relative'], widget=widgets.RadioSelect)
-    self_eval_usual = models.StringField(choices=qtext['self_eval_usual'], widget=widgets.RadioSelect)
+    self_eval_agree0 = models.IntegerField()  # slider
+    self_eval_agree1 = models.IntegerField()  # slider
+    self_eval_agree2 = models.IntegerField()  # slider
+    self_eval_statement = models.StringField(choices=qtext['self_eval_statement'], widget=widgets.RadioSelect)
     understanding4 = models.StringField(choices=qtext['understanding4'], widget=widgets.RadioSelect)
     wage_guess = models.FloatField()  # is a slider, managed via html&js
     wage_guess2 = models.FloatField()  # is a slider, managed via html&js

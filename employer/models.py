@@ -9,7 +9,6 @@ from otree.api import (
     # currency_range,
 )
 import json
-from random import shuffle, sample
 
 
 # load question text
@@ -18,7 +17,6 @@ with open('applicant/static/applicant/question_text.json', 'r', encoding='utf-8'
 # load applicant data
 with open('interface/applicant_data.json', 'r', encoding='utf-8') as fh:
     applicant_data = json.load(fh)
-
 
 
 author = 'Mckay D Jensen'
@@ -61,15 +59,23 @@ class Subsession(BaseSubsession):
 
         for j, p in zip(employer_indices, players):
             p.applicants = '-'.join(map(str, applicant_assignments[j]))
-            p.participant.vars['treatment'] = '-'.join(str(applicant_data[a]['treatment']) for a in applicant_assignments[j])
+            p.participant.vars['treatment'] = '-'.join(str(applicant_data[a]['treatment'])
+                                                       for a in applicant_assignments[j])
             p.participant.vars['gender'] = '-'.join(applicant_data[a]['gender'] for a in applicant_assignments[j])
             p.participant.vars['avatar'] = '-'.join(applicant_data[a]['avatar'] for a in applicant_assignments[j])
             p.participant.vars['eval_correct'] = '-'.join(
                     str(applicant_data[a]['eval_correct']) for a in applicant_assignments[j]
                 )
-            p.participant.vars['self_eval'] = '-'.join(applicant_data[a]['self_eval'] for a in applicant_assignments[j])
-            p.participant.vars['self_eval_relative'] = '-'.join(applicant_data[a]['self_eval_relative'] for a in applicant_assignments[j])
-            p.participant.vars['self_eval_usual'] = '-'.join(applicant_data[a]['self_eval_usual'] for a in applicant_assignments[j])
+            p.participant.vars['self_eval'] = '-'.join(applicant_data[a]['self_eval']
+                                                       for a in applicant_assignments[j])
+            p.participant.vars['self_eval_agree0'] = '-'.join(applicant_data[a]['self_eval_agree0']
+                                                              for a in applicant_assignments[j])
+            p.participant.vars['self_eval_agree1'] = '-'.join(applicant_data[a]['self_eval_agree1']
+                                                              for a in applicant_assignments[j])
+            p.participant.vars['self_eval_agree2'] = '-'.join(applicant_data[a]['self_eval_agree2']
+                                                              for a in applicant_assignments[j])
+            p.participant.vars['self_eval_statement'] = '-'.join(applicant_data[a]['self_eval_statement']
+                                                                 for a in applicant_assignments[j])
             p.participant.vars['num_applicants'] = APPS_PER_EMP
 
 

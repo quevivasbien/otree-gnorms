@@ -1,6 +1,6 @@
 var currentQuestion = 0;
 
-var promote1_dict = {
+const promote1_dict = {
   '0': 'terrible',
   '1': 'not good',
   '2': 'neutral',
@@ -9,15 +9,9 @@ var promote1_dict = {
   '5': 'excellent'
 }
 
-var promote2_dict = {
-  '0': 'representative of my ability at the task.',
-  '1': 'too low compared to my ability; I expect to do better in general.',
-  '2': 'too high compared to my ability; I expect to do worse in general.'
-}
-
-var promote3_dict = {
-  '0': '“Usually I am the best at what I do.”',
-  '1': '“I conduct all tasks assigned to me, no matter how small, with the needed attention.”'
+const promote3_dict = {
+  '0': '“Usually I am the best at what I do, and I would succeed in a job that required me to perform well in the test I took in part 1.”',
+  '1': '“I conduct all tasks assigned to me, no matter how small, with the needed attention, and I would work hard in a job that required me to perform well in the test I took in part 1.”'
 }
 
 function getVals(id) {
@@ -69,8 +63,13 @@ function displayQuestion(n) {
     message.innerHTML = '<p>The applicant rated ' + pronoun + ' performance as ' + promote1_dict[promote1] + '.</p>';
   }
   else if (promote_type == '1') {
-    let promote2 = getVals('wg-promote2')[n];
-    message.innerHTML = '<p>When asked to assess ' + pronoun + ' performance, the applicant stated, "I would say my performance here is ' + promote2_dict[promote2] + '"</p>';
+    let promote2a = getVals('wg-promote2a')[n];
+    let promote2b = getVals('wg-promote2b')[n];
+    let promote2c = getVals('wg-promote2c')[n];
+    message.innerHTML = '<p>When asked to rate ' + pronoun + ' level of agreement with the following questions on a scale from 0 (entirely disagree) to 100 (entirely agree), the applicant gave the following answers:</p>'
+        + '<p>"I performed well on the test I took in part 1." <b>' + promote2a + ' out of 100</b></p>'
+        + '<p>"Usually I am the best at what I do." <b>' + promote2b + ' out of 100</b></p>'
+        + '<p>"I conduct all tasks assigned to me, no matter how small, with the needed attention." <b>' + promote2c + ' out of 100</b></p>';
   }
   else {
     let promote3 = getVals('wg-promote3')[n];

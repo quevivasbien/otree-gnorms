@@ -33,7 +33,7 @@ SESSION_CONFIG_DEFAULTS = dict(
             {
                 'QualificationTypeId': '00000000000000000071',
                 'Comparator': 'EqualTo',
-              	'LocaleValues': [{'Country': 'US'}]
+                'LocaleValues': [{'Country': 'US'}]
             },
             # Has not already taken survey
             {
