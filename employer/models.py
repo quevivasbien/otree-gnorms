@@ -1,6 +1,6 @@
 from otree.api import (
     models,
-    widgets,
+    # widgets,
     BaseConstants,
     BaseSubsession,
     BaseGroup,

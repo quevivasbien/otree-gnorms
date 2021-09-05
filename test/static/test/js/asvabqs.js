@@ -14,7 +14,7 @@ function nextQuestion(currentQuestion) {
     var buttons = document.getElementById('id_q' + currentQuestion
                             ).getElementsByClassName('form-check-input');
     var checked = false;
-    for (i=0; i<buttons.length; i++) {
+    for (let i=0; i<buttons.length; i++) {
       if (buttons[i].checked) {
         checked = true;
         break;
@@ -33,10 +33,10 @@ function nextQuestion(currentQuestion) {
   var order = getOrder();
   if (currentQuestion == order[order.length - 1]) {
     document.getElementById('done').style.display = 'block';
-    document.getElementById('question-indicator') = 'none';
+    document.getElementById('question-indicator').style.display = 'none';
   }
   else {
-    for (i = 0; i < order.length - 1; i++) {
+    for (let i = 0; i < order.length - 1; i++) {
       if (order[i] == currentQuestion) {
         document.getElementById(order[i+1]).style.display = 'block';
         break;

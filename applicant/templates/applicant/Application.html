@@ -30,7 +30,7 @@
 {% endblock %}
 
 {% block title %}
-	Stage 2
+	Part 2 of 3 - Application
 {% endblock %}
 
 {% block content %}
@@ -40,9 +40,7 @@
 <div id="page1">
 <p>In the previous stage, you correctly answered {{ player.eval_correct }} out of the 10 evaluation questions. Among 100 prior MTurkers who took the ASVAB test, your performance on the 10 evaluation questions is as good as or better than {{ better_than }} of them and worse than {{ worse_than }} of them.</p>
 
-<p>Note that the information you provide below{% if player.treatment == 2 %}, plus your performance on the evaluation questions,{% endif %} is the <em>only</em> information that potential employers will see.{% if player.treatment != 2 %} They will <em>not</em> see how many questions you actually answered correctly.{% endif %}</p>
-
-<p>Below is an example of what an application may look like to employers. (Yours will look different depending on your responses.)</p>
+<p>We're now ready to fill out your application. Below is an example of what an application may look like to employers. (Yours will look different depending on your responses.)</p>
 
 <div class="profile">
 	{% if player.treatment != 0 %}<img src="/static/applicant/male1.jpg" alt="Example avatar" style="display:block; margin-left: auto; margin-right: auto; width: 50%;">
@@ -50,6 +48,8 @@
 	{% if player.treatment == 2 %}<p>The applicant correctly answered 1 out of 10 evaluation questions.</p>{% endif %}
 	<p>The applicant rated {% if player.treatment == 0 %}their{% else %}his{% endif %} performance as <b>poor</b>.</p>
 </div>
+
+<p>Note that the information you provide below{% if player.treatment == 2 %}, plus your performance on the evaluation questions,{% endif %} is the <em>only</em> information that potential employers will see.{% if player.treatment != 2 %} They will <em>not</em> see how many questions you actually answered correctly.{% endif %}</p>
 
 <p>Click next to continue to the application questions.</p>
 <button type="button" class="btn-primary btn" onclick="initiate()">Next</button>
@@ -119,27 +119,29 @@
 
 <div id="page3" style="display:none">
 
+	<p>Answer the following questions, which will be shown to employers as part of your application:</p>
+
 	{% formfield player.self_eval label="Based on the information you received about other applicants' performance on the task, please indicate how well you think you performed on the cognitive ability test:" %}
 	<br>
 	<div class="form-group required">
 		<p>On a scale from 0 (entirely disagree) to 100 (entirely agree), please indicate the extent to which you agree with each of the following three statements:</p>
 		<p>I performed well on the test I took in part 1.</p>
 		<div class="slider-container">
-			<input id="agree0" type="hidden" name="self_eval_agree0">
+			<input id="agree0" type="hidden" name="self_eval_agree0" value="50">
 		    <input id="rangeInput0" type="range" min="0" max="100" step="1" class="slider" oninput="amount0.value=rangeInput0.value; agree0.value=rangeInput0.value;"/>
 				<input id="amount0" type="number" value="50" min="0" max="100" step="1" oninput="rangeInput0.value=amount0.value; agree0.value=amount0.value;" style="width: 60px;"/>
 		</div>
 		{{ form.self_eval_agree0.errors }}
 		<p>Usually I am the best at what I do.</p>
 		<div class="slider-container">
-			<input id="agree1" type="hidden" name="self_eval_agree1">
+			<input id="agree1" type="hidden" name="self_eval_agree1" value="50">
 		    <input id="rangeInput1" type="range" min="0" max="100" step="1" class="slider" oninput="amount1.value=rangeInput1.value; agree1.value=rangeInput1.value;"/>
 				<input id="amount1" type="number" value="50" min="0" max="100" step="1" oninput="rangeInput1.value=amount1.value; agree1.value=amount1.value;" style="width: 60px;"/>
 		</div>
 		{{ form.self_eval_agree1.errors }}
 		<p>I conduct all tasks assigned to me, no matter how small, with the needed attention.</p>
 		<div class="slider-container">
-			<input id="agree2" type="hidden" name="self_eval_agree2">
+			<input id="agree2" type="hidden" name="self_eval_agree2" value="50">
 		    <input id="rangeInput2" type="range" min="0" max="100" step="1" class="slider" oninput="amount2.value=rangeInput2.value; agree2.value=rangeInput2.value;"/>
 				<input id="amount2" type="number" value="50" min="0" max="100" step="1" oninput="rangeInput2.value=amount2.value; agree2.value=amount2.value;" style="width: 62px;"/>
 		</div>

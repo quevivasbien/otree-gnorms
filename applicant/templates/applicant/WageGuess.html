@@ -23,14 +23,14 @@
 {% endblock %}
 
 {% block title %}
-	Stage 3
+	Part 3 of 3 - Wage Guesses
 {% endblock %}
 
 {% block content %}
 
 <div id="page1">
 
-	<p>The following profiles are profiles that employers will see based on your responses in the application. For each version, select your guess of the wage you expect to receive from employers that see that profile. Remember that one of these questions will be randomly chosen, and if your guess in that question is within 5 cents of the actual highest wage offer, then your bonus payment for this part will be $1.00.</p>
+	<p>The following profiles are profiles that employers will see based on <em>your responses</em> in the application. For each version, select the wage you expect to receive from employers that see that profile. Keep in mind that you can receive a bonus payment for guessing accurately.</p>
 	<p>To help you make accurate guesses, remember that the employer who hires you will receive 10 cents for every “job performance” question you correctly answered.</p>
 	<br>
 	<button type="button" class="btn-primary btn" onclick="show('page2', 'page1')">Next</button>
@@ -67,7 +67,7 @@
 		{% if player.treatment != 0 %}<img src="/static/applicant/{{ player.avatar }}" alt="Your avatar"><br>{% endif %}
 		{% if player.treatment == 2 %}<p>The applicant correctly answered {{ player.eval_correct }} out of 10 evaluation questions.</p>{% endif %}
 		<p>When asked to rate {% if player.treatment == 0 %}their{% elif player.gender == "Male"%}his{% elif player.gender == "Female" %}her{% else %}their{% endif %} level of agreement with the following questions on a scale from 0 (entirely disagree) to 100 (entirely agree), the applicant gave the following answers:</p>
-		<p>"I performed well on the test I took in part 1." <b>{{ player.self_eval_agree0 }} out of 100</b></p>
+		<p>"I performed well on the test I took in Part 1." <b>{{ player.self_eval_agree0 }} out of 100</b></p>
 		<p>"Usually I am the best at what I do." <b>{{ player.self_eval_agree1 }} out of 100</b></p>
 		<p>"I conduct all tasks assigned to me, no matter how small, with the needed attention." <b>{{ player.self_eval_agree2 }} out of 100</b></p>
 	</div>
@@ -116,7 +116,7 @@
 <div id="page5" style="display:none">
 	<p>Great! Now for some final questions about <em>other people's</em> application profiles.</p>
 
-	<p>In the next few screens, you'll see some profiles of other MTurkers and be asked to guess how the wages <em>they</em> will be offered based on their profiles. Remember that one of these questions will be randomly chosen, and if your guess in that question is within 5 cents of the actual highest wage offer, then your bonus payment for this part will be $1.00.</p>
+	<p>In the next few screens, you'll see some profiles of other MTurkers and be asked to guess the wages <em>they</em> will be offered based on their profiles. Keep in mind that you can receive a bonus payment for guessing accurately.</p>
 	<p>To help you make accurate guesses, remember that the employer who hires each applicant will receive 10 cents for every “job performance” question that applicant correctly answered.</p>
 
 	<button type="button" class="btn-primary btn back" onclick="show('page4', 'page5')">Back</button>

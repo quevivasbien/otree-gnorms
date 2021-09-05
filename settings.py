@@ -67,13 +67,13 @@ SESSION_CONFIGS = [
          ),
      dict(
         name='applicant',
-        display_name="Applicant side of part 2",
+        display_name="Applicant",
         num_demo_participants=50,
         app_sequence=['applicant']
          ),
      dict(
         name='employer',
-        display_name="Employer side of part 2",
+        display_name="Employer",
         num_demo_participants=50,
         app_sequence=['employer']
          )

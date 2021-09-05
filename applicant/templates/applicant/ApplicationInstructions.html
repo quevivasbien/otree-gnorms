@@ -8,20 +8,20 @@
 {% endblock %}
 
 {% block title %}
-	Stage 2
+	Part 2 of 3 - Instructions for the Application
 {% endblock %}
 
 {% block content %}
 
 <div id="page1">
-	<p>In the stage you just completed (Stage 1), you correctly answered {{ player.eval_correct }} out of the 10 evaluation questions, so if Stage 1 is chosen for payment, you will receive a bonus of {{ stage1_bonus }}.</p>
+	<p>In the stage you just completed (Part 1), you correctly answered {{ player.eval_correct }} out of the 10 evaluation questions, so if Part 1 is chosen for payment, you will receive a bonus of {{ stage1_bonus }}.</p>
 	<p>Now it's time to continue to the next stage, where you will prepare a job application portfolio.</p>
 	<button type="button" class="btn-primary btn" onclick="show('page2', 'page1')" style="display:block">Next</button>
 </div>
 
 <div id="page2" style="display:none">
-	<p>In this part, you will be asked several questions related to your performance on the test you completed in part 1. One of your answers to these questions will be added to your job application portfolio.</p>
-	<p>Your application portfolio will be received by “potential employers,” who are MTurkers similar to you and complete a different version of this study. They will look at your portfolio and offer how much they would like to pay you. The employer with the highest offer gets to buy your performance in the ten “job performance” questions that were <em>not</em> selected for bonus payment in Part 1. The wage offered by this employer will be your bonus for part 2.</p>
+	<p>In this part, you will be asked several questions related to your performance on the test you completed in Part 1. One of your answers to these questions will be added to your job application portfolio.</p>
+	<p>Your application portfolio will be received by “potential employers,” who are MTurkers similar to you and complete a different version of this study. They will look at your portfolio and offer how much they would like to pay you. The employer with the highest offer gets to buy your performance in the ten “job performance” questions that were <em>not</em> selected for bonus payment in Part 1. The wage offered by this employer will be your bonus for Part 2.</p>
 	<p>If this part is the selected part for your bonus payment, the bonus given to you and your employer will be determined as follows:</p>
 	<p><em>Your bonus will equal the highest wage offered to you among all the employer offers</em>. The employer with the highest wage offer will get a bonus of (i) $1.00 minus the wage offered to you plus (ii) 10 cents times the number of questions you answered correctly in the ten “job performance” questions. The potential employers who did not make the highest wage offer will get a bonus of $1.00.</p>
 	<button type="button" class="btn-primary btn back" onclick="show('page1', 'page2')" style="display:block">Back</button>
@@ -42,5 +42,6 @@
 {% block scripts %}
 
 <script src="{% static 'applicant/js/show.js' %}"></script>
+<script src="{% static 'applicant/js/applicationInstructions.js' %}"></script>
 
 {% endblock %}
