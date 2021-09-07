@@ -29,7 +29,7 @@
 
 	<p>After the applicants see their performance on 10 out of the 20 questions, which we will call the “evaluation” questions, they evaluate their performance on those 10 questions. We will call the other 10 questions for which the applicants do not see their performance as “job performance” questions and these will be relevant for your payoff in this study.</p>
 
-	<p>The applicant profile consists of the applicant's evaluation of their performance. Some applicant profiles will also include an avatar representing them, and some others will also include their performance on the 10 “evaluation” questions.</p>
+	<p>The applicant profile consists of the applicant's evaluation of their performance. Some applicant profiles will also include an avatar representing them, and some others will also include their performance on the 10 “evaluation” questions. You will <em>not</em> see how well they did on their “job performance” questions; instead you'll need to guess their performance on those questions in order to choose appropriate wages for the applicants.</p>
 
 	<br>
 	<button type="button" class="btn-primary btn back" onclick="show('tab1', 'tab2')">Back</button>
@@ -47,6 +47,8 @@
 	<p>For example, suppose that you choose a wage of 50 cents for an applicant, and that wage is higher than the wages chosen by the other four employers. If the applicant correctly answered 7 out of the 10 non-evaluation questions, then your payoff will be</p>
 
 	<p style="text-align: center">$1 - $0.50 + $0.70 = $1.20.</p>
+
+	<p>In general, you should keep in mind that you pay the wages of the applicants you successfully hire, but you also get paid depending on how well those applicants perform on the “job performance” questions, so <b>you want to choose wages based on how well you think the applicants will perform on the “job performance” questions</b>, based on the portfolios you see.</p>
 
 	<p>After you complete the study, we'll randomly select one of the applicants you saw, and you will be sent your payoff for that applicant as a bonus payment for participating in this study.</p>
 
@@ -91,10 +93,10 @@ function validateBeforeSubmit() {
 	input1 = document.getElementById('id_understanding1a');
 	input2 = document.getElementById('id_understanding1b');
 	var incorrect = 0;
-	if (!['ten', '10', '10.0', 'TEN'].includes(input1.value)) {
+	if (!['ten', '10', '10.0', 'TEN', 'Ten'].includes(input1.value)) {
 		incorrect++;
 	}
-	if (!['1', 'one', '1.0', 'One', 'ONE'].includes(input2.value)) {
+	if (!['1', '1.00', 'one', '1.0', 'One', 'ONE'].includes(input2.value)) {
 		incorrect++;
 	}
 	if (incorrect == 0) {

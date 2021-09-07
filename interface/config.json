@@ -1,5 +1,5 @@
 {
   "endpoint": "https://mturk-requester-sandbox.us-east-1.amazonaws.com",
-  "downloads": "C:/Users/silve/Downloads",
+  "downloads": "/home/mckay/Downloads",
   "experiment_size": 10
 }

@@ -42,6 +42,9 @@
 {% block scripts %}
 
 <script src="{% static 'applicant/js/show.js' %}"></script>
-<script src="{% static 'applicant/js/applicationInstructions.js' %}"></script>
+<script src="{% static 'applicant/js/checkUnderstanding.js' %}"></script>
+<script type="text/javascript">
+	checkUnderstanding('id_understanding3', 'page3', 'page1')
+</script>
 
 {% endblock %}

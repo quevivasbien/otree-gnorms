@@ -27,10 +27,9 @@ DOWNLOAD_FOLDER = config['downloads']
 class ApplicantHandler(MTurkHandler):
 
     def start_experiment(self):
-        self.start_experiment_('Applicant side of part 2')
+        self.start_experiment_('Applicant')
 
     def create_json(self, df):
-        print(df.columns)
         dict_ = df[[
                 'treatment',
                 'gender',
@@ -41,7 +40,7 @@ class ApplicantHandler(MTurkHandler):
                 'self_eval',
                 'self_eval_agree0',
                 'self_eval_agree1',
-                'self_eval_agree2'
+                'self_eval_agree2',
                 'self_eval_statement',
                 'mturk_assignment_id'
             ]].transpose().to_dict()
@@ -66,17 +65,18 @@ class ApplicantHandler(MTurkHandler):
             df = df[~df.index.duplicated(keep='first')]
         # get list of submitted assignments ready for review
         assignment_ids = [x['AssignmentId'] for x in self.get_assignments_to_review()]
-        to_review = df[df['mturk_assignment_id'].isin(assignment_ids)]
-        # check for participants who did not complete the survey but submitted the HIT
-        dont_approve = to_review[to_review['_index_in_pages'] != to_review['_max_page_index']]
-        for i, row in dont_approve.iterrows():
-            self.reject_hit(row['mturk_assignment_id'], 'Did not complete.')
-        dont_approve['hit_approved'] = -1
+        to_review = df.index[df['mturk_assignment_id'].isin(assignment_ids)]
+        # check for participants who did not complete the survey but submitted the HIT, reject them
+        dont_approve = to_review[df.loc[to_review, '_index_in_pages'] != df.loc[to_review, '_max_page_index']]
+        for i in dont_approve:
+            self.reject_hit(df.at[i, 'mturk_assignment_id'], 'Did not complete.')
+        df.loc[dont_approve, 'hit_approved'] = -1  # -1 indicates hit was rejected
         # review completed but unapproved assignments
-        to_review = df[to_review['hit_approved'] == 0]
-        for i, row in to_review.iterrows():
-            self.approve_hit(df.loc[i, 'mturk_assignment_id'], 'Your bonus payment will be sent soon.')
-            df.loc[i, 'hit_approved'] = 1
+        not_approved = df.index[df['hit_approved'] == 0]
+        to_review = to_review.intersection(not_approved)
+        for i in to_review:
+            self.approve_hit(df.at[i, 'mturk_assignment_id'], 'Your bonus payment will be sent soon.')
+        df.loc[to_review, 'hit_approved'] = 1
         # bonuses will be sent out later
         df.to_csv(static_df)
         self.create_json(df[df['hit_approved'] == 1])

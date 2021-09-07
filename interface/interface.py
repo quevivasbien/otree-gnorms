@@ -74,9 +74,7 @@ class MTurkHandler:
         time.sleep(1)  # wait a bit so the HIT has time to be posted
         hits_after = [x['HITId'] for x in self.client.list_hits()['HITs']]
         hits_diff = [x for x in hits_after if x not in hits_before]
-        try:
-            assert len(hits_diff) == 1
-        except AssertionError:
+        while len(hits_diff) != 1:
             # wait a bit more and try again
             time.sleep(1)
             hits_after = [x['HITId'] for x in self.client.list_hits()['HITs']]
@@ -175,7 +173,7 @@ class MTurkHandler:
                 pair = 0
                 last_idx = None
                 last_resp = {}
-                for i, row in to_review[(to_review['name'] == name) \
+                for i, row in to_review[(to_review['name'] == name)
                                         & (to_review['ability'] == ability)].iterrows():
                     if pair == 0:
                         last_idx = i
@@ -219,9 +217,9 @@ class MTurkHandler:
         bonuses = []
         for i, row in close_dated.iterrows():
             # Find the most recent person who got the same treatment
-            same_tt = df[(df['hit_approved'] == 1) \
-                            & (df['name'] == row['name']) \
-                            & (df['ability'] == row['ability'])]
+            same_tt = df[(df['hit_approved'] == 1)
+                         & (df['name'] == row['name'])
+                         & (df['ability'] == row['ability'])]
             comp = same_tt.iloc[-1]
             matching_responses = [
                 row['match_guess_terrible'] == comp['match_guess_terrible'],
@@ -246,7 +244,6 @@ class MTurkHandler:
             df.loc[i, 'bonus'] = bonus
         df.to_csv(static_df)
 
-
     def get_and_process_df(self, downloads_dir=DOWNLOAD_FOLDER, static_df=None):
         candidate_files = [f for f in os.listdir(downloads_dir) if 'all_apps_wide' in f.lower()]
         if not candidate_files:
@@ -264,7 +261,6 @@ class MTurkHandler:
             self.login()
             self.browser.get('https://otree-uofu.herokuapp.com/ExportSessionWide/{}/'.format(self.session_code))
             time.sleep(3)
-
 
 
 def main(wait_interval=600, max_checks=1000):

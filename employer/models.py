@@ -10,6 +10,8 @@ from otree.api import (
 )
 import json
 
+from random import shuffle
+
 
 # load question text
 with open('applicant/static/applicant/question_text.json', 'r', encoding='utf-8') as fh:
@@ -53,9 +55,10 @@ class Subsession(BaseSubsession):
         applicant_ids = list(applicant_data.keys())
         for j in employer_indices:
             for _ in range(APPS_PER_EMP):
+                if i == 0:
+                    shuffle(applicant_ids)  # sample without replacement until all applicants exhausted, then resample
                 applicant_assignments[j].append(applicant_ids[i])
                 i = (i + 1) % len(applicant_ids)
-        print(applicant_assignments)
 
         for j, p in zip(employer_indices, players):
             p.applicants = '-'.join(map(str, applicant_assignments[j]))
@@ -68,11 +71,11 @@ class Subsession(BaseSubsession):
                 )
             p.participant.vars['self_eval'] = '-'.join(applicant_data[a]['self_eval']
                                                        for a in applicant_assignments[j])
-            p.participant.vars['self_eval_agree0'] = '-'.join(applicant_data[a]['self_eval_agree0']
+            p.participant.vars['self_eval_agree0'] = '-'.join(str(applicant_data[a]['self_eval_agree0'])
                                                               for a in applicant_assignments[j])
-            p.participant.vars['self_eval_agree1'] = '-'.join(applicant_data[a]['self_eval_agree1']
+            p.participant.vars['self_eval_agree1'] = '-'.join(str(applicant_data[a]['self_eval_agree1'])
                                                               for a in applicant_assignments[j])
-            p.participant.vars['self_eval_agree2'] = '-'.join(applicant_data[a]['self_eval_agree2']
+            p.participant.vars['self_eval_agree2'] = '-'.join(str(applicant_data[a]['self_eval_agree2'])
                                                               for a in applicant_assignments[j])
             p.participant.vars['self_eval_statement'] = '-'.join(applicant_data[a]['self_eval_statement']
                                                                  for a in applicant_assignments[j])
