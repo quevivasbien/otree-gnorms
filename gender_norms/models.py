@@ -16,7 +16,6 @@ with open('_static/gender_norms/question_text.json', 'r') as fh:
     qtext = json.load(fh)
 
 
-
 author = 'Mckay D Jensen'
 
 doc = """
@@ -55,7 +54,6 @@ class Subsession(BaseSubsession):
                 i = (i + 1) % len(names)
 
 
-
 class Group(BaseGroup):
     pass
 
@@ -80,7 +78,8 @@ class Player(BasePlayer):
     match_guess_neutral = models.StringField(choices=qtext['social_appropriate_ratings'], widget=widgets.RadioSelect)
     match_guess_good = models.StringField(choices=qtext['social_appropriate_ratings'], widget=widgets.RadioSelect)
     match_guess_very_good = models.StringField(choices=qtext['social_appropriate_ratings'], widget=widgets.RadioSelect)
-    match_guess_exceptional = models.StringField(choices=qtext['social_appropriate_ratings'], widget=widgets.RadioSelect)
+    match_guess_exceptional = models.StringField(
+        choices=qtext['social_appropriate_ratings'], widget=widgets.RadioSelect)
     personal_terrible = models.StringField(choices=qtext['appropriate_ratings'], widget=widgets.RadioSelect)
     personal_very_poor = models.StringField(choices=qtext['appropriate_ratings'], widget=widgets.RadioSelect)
     # personal_poor = models.StringField(choices=qtext['appropriate_ratings'], widget=widgets.RadioSelect)

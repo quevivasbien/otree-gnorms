@@ -10,9 +10,11 @@ import sys
 import json
 import pandas as pd
 import time
-import boto3
 # from botocore.exceptions import ClientError
 import re
+
+from interface import MTurkHandler
+
 
 with open('config.json', 'r') as fh:
     config = json.load(fh)
@@ -23,8 +25,6 @@ ENDPOINT = config['endpoint']
 EXPERIMENT_SIZE = config['experiment_size']
 # TODO: Set this as the local downloads directory
 DOWNLOAD_FOLDER = config['downloads']
-
-from interface import MTurkHandler
 
 
 class MTurkHandler_v2(MTurkHandler):
@@ -65,7 +65,7 @@ class MTurkHandler_v2(MTurkHandler):
                 pair = 0
                 last_idx = None
                 last_resp = {}
-                for i, row in to_review[(to_review['name'] == name) \
+                for i, row in to_review[(to_review['name'] == name)
                                         & (to_review['ability'] == ability)].iterrows():
                     if pair == 0:
                         last_idx = i
@@ -129,9 +129,9 @@ class MTurkHandler_v2(MTurkHandler):
         bonuses = []
         for i, row in close_dated.iterrows():
             # Find the most recent person who got the same treatment
-            same_tt = df[(df['hit_approved'] == 1) \
-                            & (df['name'] == row['name']) \
-                            & (df['ability'] == row['ability'])]
+            same_tt = df[(df['hit_approved'] == 1)
+                         & (df['name'] == row['name'])
+                         & (df['ability'] == row['ability'])]
             comp = same_tt.iloc[-1]
             matching_responses = [
                 row['match_guess_terrible'] == comp['match_guess_terrible'],
@@ -165,7 +165,6 @@ class MTurkHandler_v2(MTurkHandler):
             df.loc[i, 'hit_approved'] = 1
             df.loc[i, 'bonus'] = bonus
         df.to_csv(static_df)
-
 
 
 def main(wait_interval=600, max_checks=1000):
