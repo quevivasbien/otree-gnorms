@@ -61,8 +61,8 @@ class ApplicantHandler(MTurkHandler):
         df['hit_approved'] = 0
         if os.path.isfile(static_df):
             df = pd.concat((pd.read_csv(static_df, index_col=0), df))
-            df.sort_values(by=['time_started'], ascending=True, inplace=True)
-            df = df[~df.index.duplicated(keep='first')]
+            df.sort_values(by=['time_fetched', 'time_started'], ascending=True, inplace=True)
+            df = df[~df.index.duplicated(keep='last')]
         # get list of submitted assignments ready for review
         assignment_ids = [x['AssignmentId'] for x in self.get_assignments_to_review()]
         to_review = df.index[df['mturk_assignment_id'].isin(assignment_ids)]

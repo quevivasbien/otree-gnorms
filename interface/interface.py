@@ -245,10 +245,11 @@ class MTurkHandler:
         df.to_csv(static_df)
 
     def get_and_process_df(self, downloads_dir=DOWNLOAD_FOLDER, static_df=None):
-        candidate_files = [f for f in os.listdir(downloads_dir) if 'all_apps_wide' in f.lower()]
+        candidate_files = [os.path.join(downloads_dir, f) \
+                           for f in os.listdir(downloads_dir) if 'all_apps_wide' in f.lower()]
         if not candidate_files:
             return False
-        filename = os.path.join(downloads_dir, candidate_files[0])
+        filename = max(candidate_files, key=os.path.getctime)
         df = pd.read_csv(filename, index_col='participant.code')
         self.process_df(df, static_df)
         os.remove(filename)

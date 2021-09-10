@@ -42,9 +42,9 @@ function setSelfEval(self_eval) {
 function setSelfEvalAgree(agree0, agree1, agree2) {
   let div = document.getElementById('self-eval-agree');
   div.innerHTML = '<p>When asked to rate ' + getPronoun() + ' level of agreement with the following questions on a scale from 0 (entirely disagree) to 100 (entirely agree), the applicant gave the following answers:</p>'
-      + '<p>"I performed well on the test I took in part 1." <b>' + agree0 + ' out of 100</b></p>'
-      + '<p>"Usually I am the best at what I do." <b>' + agree1 + ' out of 100</b></p>'
-      + '<p>"I conduct all tasks assigned to me, no matter how small, with the needed attention." <b>' + agree2 + ' out of 100</b></p>';
+      + '<p>"I performed well on the test I took in part 1." <b>' + parseInt(agree0) + ' out of 100</b></p>'
+      + '<p>"Usually I am the best at what I do." <b>' + parseInt(agree1) + ' out of 100</b></p>'
+      + '<p>"I conduct all tasks assigned to me, no matter how small, with the needed attention." <b>' + parseInt(agree2) + ' out of 100</b></p>';
 }
 
 function setSelfEvalStatement(self_eval) {

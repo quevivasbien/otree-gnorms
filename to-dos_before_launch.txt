@@ -6,8 +6,12 @@ Create credential with Pavitra's account for preventing retakes (or just use the
 change ENDPOINT and EXPERIMENT_SIZE in config.json
 
 go through and set correct payment amounts for everything in instructions
-! check that non-completers who submit hit are rejected correctly
+go through and set correct time estimates in consent forms and in mturk previews
 
 
 Temporarily upgrade Heroku server
 Make sure to be logged into the right AWS locally before launching interface.py
+
+randomly assign avatars
+only two gender options? -- check exley kessler
+remove most demographic questions

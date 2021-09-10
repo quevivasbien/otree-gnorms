@@ -43,8 +43,8 @@ class EmployerHandler(MTurkHandler):
         df['hit_approved'] = 0
         if os.path.isfile(static_df):
             df = pd.concat((pd.read_csv(static_df, index_col=0), df))
-            df.sort_values(by=['time_started'], ascending=True, inplace=True)
-            df = df[~df.index.duplicated(keep='first')]
+            df.sort_values(by=['time_fetched', 'time_started'], ascending=True, inplace=True)
+            df = df[~df.index.duplicated(keep='last')]
         # get list of submitted assignments ready for review
         assignment_ids = [x['AssignmentId'] for x in self.get_assignments_to_review()]
         to_review = df.index[df['mturk_assignment_id'].isin(assignment_ids)]
@@ -63,7 +63,7 @@ class EmployerHandler(MTurkHandler):
         df.to_csv(static_df)
 
 
-def main(wait_interval=600, max_checks=1000):
+def main(wait_interval=60, max_checks=1000):
     mTurkHandler = EmployerHandler(start=True)  # starts experiment upon init
     # make periodic checks to update data and approve tasks
     for _ in range(max_checks):
