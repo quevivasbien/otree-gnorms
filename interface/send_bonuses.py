@@ -9,11 +9,11 @@ import json
 # TODO: update these values
 BONUS_PER_QUESTION = 0.1
 CLOSE_GUESS_PROXIMITY = 0.05
-BONUS_FOR_CLOSE_GUESS = 1.0
+BONUS_FOR_CLOSE_guess1 = 1.0
 WAGE_BIDS_PER_GROUP = 10
 
 # retrieve question text
-with open('../applicant/static/applicant/question_text.json') as fh:
+with open('../_static/global/question_text.json') as fh:
     qtext = json.load(fh)
 
 # set up boto3 api client
@@ -99,7 +99,7 @@ class BonusResolver:
         n_other = len(promote_types)
         other_applicant = ''
         promote_type = 0
-        wage_guess = 0.0
+        wage_guess1 = 0.0
         # decide whether to do one of the self guesses or try one of the other guesses
         if random.random() <= n_other / (n_other + 3):
             # try other guess
@@ -123,18 +123,18 @@ class BonusResolver:
                 if len(candidates) > 0:
                     other_applicant = candidates.sample(1)[0]
                     promote_type = promote_types[i]
-                    wage_guess = split_to_float(self.app_df.at[applicant, 'wage_guess_other'])[i]
+                    wage_guess1 = split_to_float(self.app_df.at[applicant, 'wage_guess_other'])[i]
                     break
         if not other_applicant:
             # try self guess
             other_applicant = applicant
             promote_type = random.randrange(3)
-            wage_guess = self.app_df.at[applicant, ('wage_guess', 'wage_guess2', 'wage_guess3')[promote_type]]
+            wage_guess1 = self.app_df.at[applicant, ('wage_guess1', 'wage_guess2', 'wage_guess3')[promote_type]]
         # look up highest wage for selected applicant in selected treatment
         wage = max(self.app_bid_cwalk[other_applicant][promote_type])
         # give bonus if applicant's guess within CLOSE_GUESS_PROXIIMITY
-        if abs(wage - wage_guess) <= CLOSE_GUESS_PROXIMITY:
-            return BONUS_FOR_CLOSE_GUESS
+        if abs(wage - wage_guess1) <= CLOSE_GUESS_PROXIMITY:
+            return BONUS_FOR_CLOSE_guess1
         else:
             return 0.0
 

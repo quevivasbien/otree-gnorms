@@ -1,20 +1,24 @@
+let currentQuestion;
+let questionIndex = 0;
+
 function getOrder() {
-  var string = document.getElementById('display-order').innerHTML.replace(/\s+/g, '');
-  return string.split("-");
+    let string = document.getElementById('display-order').innerHTML.replace(/\s+/g, '');
+    return string.split("-");
 }
 
-function firstQuestion() {
-  var first = getOrder()[0];
-  document.getElementById(first).style.display = 'block';
+let numQuestions = getOrder().length;
+
+function updateCurrentQuestion() {
+    currentQuestion = getOrder()[questionIndex];
+    document.getElementById(currentQuestion).style.display = 'block';
 }
 
-function nextQuestion(currentQuestion) {
+function nextQuestion() {
   // Check that an answer is selected
-  try {
-    var buttons = document.getElementById('id_q' + currentQuestion
+    let buttons = document.getElementById('id_q' + currentQuestion
                             ).getElementsByClassName('form-check-input');
-    var checked = false;
-    for (let i=0; i<buttons.length; i++) {
+    let checked = false;
+    for (let i = 0; i < buttons.length; i++) {
       if (buttons[i].checked) {
         checked = true;
         break;
@@ -24,27 +28,27 @@ function nextQuestion(currentQuestion) {
       document.getElementById('not-complete-error').style.display = 'block';
       return;
     }
-  }
-  catch(error) {
-    console.log(error);
-  }
-  // hide current question and move to next
-  document.getElementById(currentQuestion).style.display = 'none';
-  var order = getOrder();
-  if (currentQuestion == order[order.length - 1]) {
-    document.getElementById('done').style.display = 'block';
-    document.getElementById('question-indicator').style.display = 'none';
-  }
-  else {
-    for (let i = 0; i < order.length - 1; i++) {
-      if (order[i] == currentQuestion) {
-        document.getElementById(order[i+1]).style.display = 'block';
-        break;
-      }
+    questionIndex++;
+    // hide current question and move to next
+    document.getElementById(currentQuestion).style.display = 'none';
+    if (questionIndex == numQuestions) {
+        // finished
+        document.getElementById('done').style.display = 'block';
+        document.getElementById('question-indicator').style.display = 'none';
     }
-  }
-  // advance question number and hide error message
-  var qnum = document.getElementById('question-number');
-  qnum.innerHTML = parseInt(qnum.innerHTML) + 1;
-  document.getElementById('not-complete-error').style.display = 'none';
+    else {
+        updateCurrentQuestion();
+    }
+    // advance displayed question number and hide error message
+    var qnum = document.getElementById('question-number');
+    qnum.innerHTML = questionIndex + 1;
+    document.getElementById('not-complete-error').style.display = 'none';
+}
+
+function skip() {
+    // for developer's eyes only ;)
+    while (questionIndex < numQuestions) {
+        document.getElementById('id_q' + currentQuestion).getElementsByClassName('form-check-input')[0].checked = true;
+        nextQuestion();
+    }
 }

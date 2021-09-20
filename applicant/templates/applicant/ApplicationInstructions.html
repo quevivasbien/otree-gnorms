@@ -3,7 +3,7 @@
 
 {% block styles %}
 
-<link href="{% static 'gender_norms/css/custom.css' %}" rel="stylesheet">
+<link href="{% static 'applicant/css/custom.css' %}" rel="stylesheet">
 
 {% endblock %}
 
@@ -21,9 +21,33 @@
 
 <div id="page2" style="display:none">
 	<p>In this part, you will be asked several questions related to your performance on the test you completed in Part 1. One of your answers to these questions will be added to your job application portfolio.</p>
-	<p>Your application portfolio will be received by “potential employers,” who are MTurkers similar to you and complete a different version of this study. They will look at your portfolio and offer how much they would like to pay you. The employer with the highest offer gets to buy your performance in the ten “job performance” questions that were <em>not</em> selected for bonus payment in Part 1. The wage offered by this employer will be your bonus for Part 2.</p>
-	<p>If this part is the selected part for your bonus payment, the bonus given to you and your employer will be determined as follows:</p>
-	<p><em>Your bonus will equal the highest wage offered to you among all the employer offers</em>. The employer with the highest wage offer will get a bonus of (i) $1.00 minus the wage offered to you plus (ii) 10 cents times the number of questions you answered correctly in the ten “job performance” questions. The potential employers who did not make the highest wage offer will get a bonus of $1.00.</p>
+
+	<p><b>How is your bonus determined?</b></p>
+	<p>Your application portfolio will be received by “potential employers,” who are MTurkers similar to you and complete a different version of this study. They will look at your portfolio and decide the maximum amount (1 to 100 cents) they are willing to pay to buy your performance in the ten "job performance" questions from Part 1. One of those employers will be randomly chosen, and <em>the amount that he/she is willing to pay for your performance will be your bonus for Part 2.</em></p>
+
+	<p><b>How is the employer's bonus determined?</b><p>
+	<p>To determine the bonus for the employer, we'll randomly select an amount of money from 1 to 100 cents. If that amount is less than the maximum that the employer is willing to pay for your work, then the employer "hires" you and gets 10 cents times the number of the ten "job performance" questions that you correctly answered. If that amount is greater than the maximum that the employer is willing to pay, then the employer simply receives the randomly-chosen amount.</p>
+
+	<p><b>Example</b></p>
+	<p>Suppose that the maximum amount that the employer is willing to pay to buy your performance is 60 cents.<p>
+	<table>
+		<tr>
+			<th>Random number drawn is</th>
+			<th>Your bonus</th>
+			<th>Employer bonus</th>
+		</tr>
+		<tr>
+			<td>Between 0 and 60</td>
+			<td>60 cents</td>
+			<td>10 cents times the number of questions you answered correctly in the ten “job performance” questions</td>
+		</tr>
+		<tr>
+			<td>Between 61 and 100</td>
+			<td>60 cents</td>
+			<td>Equal to the random number in cents</td>
+		</tr>
+	</table>
+
 	<button type="button" class="btn-primary btn back" onclick="show('page1', 'page2')" style="display:block">Back</button>
 	<button type="button" class="btn-primary btn next" onclick="show('page3', 'page2')" style="display:block">Next</button>
 </div>

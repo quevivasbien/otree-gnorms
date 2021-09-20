@@ -14,7 +14,7 @@ from random import shuffle
 
 
 # load question text
-with open('applicant/static/applicant/question_text.json', 'r', encoding='utf-8') as fh:
+with open('_static/global/question_text.json', 'r', encoding='utf-8') as fh:
     qtext = json.load(fh)
 # load applicant data
 with open('interface/applicant_data.json', 'r', encoding='utf-8') as fh:

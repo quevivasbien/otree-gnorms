@@ -23,16 +23,16 @@
 {% endblock %}
 
 {% block title %}
-	Part 3 of 3 - Wage Guesses
+	Part 3 of 3 - Performance Guesses
 {% endblock %}
 
 {% block content %}
 
 <div id="page1">
 
-	<p>The following profiles are profiles that employers will see based on <em>your responses</em> in the application. For each version, select the highest amount you think an employer would pay for that portfolio.</p>
+	<p>The following profiles are profiles that employers will see based on <em>your responses</em> in the application. For each version, select the number of number of job performance questions you think that an employer who sees that portfolio would estimate you correctly solved.</p>
 
-	<p>If one of the portfolios is selected for a bonus payment and your guess is within <em>5 cents</em> of the amount that a randomly selected employer would pay for the portfolio, your bonus payment will be $1.00.</p>
+	<p>If one of the portfolios is selected for a bonus payment and your guess is within <em>1</em> of the number that a randomly selected employer thinks you solved based on that portfolio, your bonus payment will be $1.00.</p>
 	<br>
 	<button type="button" class="btn-primary btn" onclick="show('page2', 'page1')">Next</button>
 </div>
@@ -47,14 +47,14 @@
 	</div>
 
 	<label class="col-form-label">
-		I estimate that the highest amount that an employer will be willing to pay for this portfolio will be:
+		I estimate that, based on this portfolio, the employer's guess about the number of job performance questions I correctly solved will be:
 	</label>
 
 	<div class="slider-container">
-	    <input id="rangeInput" type="range" name="wage_guess1" min="0.0" max="1.0" step="0.05" class="slider" oninput="amount.value=rangeInput.value"/>
-			$<input id="amount" type="number" value="0.50" min="0.0" max="1.0" step="0.01" oninput="rangeInput.value=amount.value" style="width: 60px;"/>
+	    <input id="rangeInput" type="range" name="perform_guess1" min="0" max="10" step="1" class="slider" oninput="amount.value=rangeInput.value"/>
+			<input id="amount" type="number" value="5" min="0" max="10" step="1" oninput="rangeInput.value=amount.value" style="width: 50px;"/> out of 10
 	</div>
-	{{ form.wage_guess1.errors }}
+	{{ form.perform_guess1.errors }}
 
 	<button type="button" class="btn-primary btn back" onclick="show('page1', 'page2')">Back</button>
 	<button type="button" class="btn-primary btn next" onclick="show('page3', 'page2')">Next</button>
@@ -74,14 +74,14 @@
 	</div>
 
 	<label class="col-form-label">
-		I estimate that the highest amount that an employer will be willing to pay for this portfolio will be:
+		I estimate that, based on this portfolio, the employer's guess about the number of job performance questions I correctly solved will be:
 	</label>
 
 	<div class="slider-container">
-	    <input id="rangeInput2" type="range" name="wage_guess2" min="0.0" max="1.0" step="0.05" class="slider" oninput="amount2.value=rangeInput2.value"/>
-			$<input id="amount2" type="number" value="0.50" min="0.0" max="1.0" step="0.01" oninput="rangeInput2.value=amount2.value" style="width: 60px;"/>
+		<input id="rangeInput2" type="range" name="perform_guess2" min="0" max="10" step="1" class="slider" oninput="amount2.value=rangeInput2.value"/>
+			<input id="amount2" type="number" value="5" min="0" max="10" step="1" oninput="rangeInput2.value=amount2.value" style="width: 50px;"/> out of 10
 	</div>
-	{{ form.wage_guess2.errors }}
+	{{ form.perform_guess2.errors }}
 
 	<button type="button" class="btn-primary btn back" onclick="show('page2', 'page3')">Back</button>
 	<button type="button" class="btn-primary btn next" onclick="show('page4', 'page3')">Next</button>
@@ -100,14 +100,14 @@
 	</div>
 
 	<label class="col-form-label">
-		I estimate that the highest amount that an employer will be willing to pay for this portfolio will be:
+		I estimate that, based on this portfolio, the employer's guess about the number of job performance questions I correctly solved will be:
 	</label>
 
 	<div class="slider-container">
-	    <input id="rangeInput3" type="range" name="wage_guess3" min="0.0" max="1.0" step="0.05" class="slider" oninput="amount3.value=rangeInput3.value"/>
-			$<input id="amount3" type="number" value="0.50" min="0.0" max="1.0" step="0.01" oninput="rangeInput3.value=amount3.value" style="width: 60px;"/>
+		<input id="rangeInput3" type="range" name="perform_guess3" min="0" max="10" step="1" class="slider" oninput="amount3.value=rangeInput3.value"/>
+			<input id="amount3" type="number" value="5" min="0" max="10" step="1" oninput="rangeInput3.value=amount3.value" style="width: 50px;"/> out of 10
 	</div>
-	{{ form.wage_guess3.errors }}
+	{{ form.perform_guess3.errors }}
 
 	<button type="button" class="btn-primary btn back" onclick="show('page3', 'page4')">Back</button>
 	<button type="button" class="btn-primary btn next" onclick="show('page5', 'page4')">Next</button>
@@ -117,8 +117,9 @@
 <div id="page5" style="display:none">
 	<p>Great! Now for some questions about <em>other people's</em> application profiles.</p>
 
-	<p>In the next few screens, you'll see some profiles of other MTurkers and be asked to guess the highest amount an employer would be willing to pay them based on their profiles.</p>
-	<p>If one of the portfolios is selected for a bonus payment and your guess is within <em>5 cents</em> of the amount that a randomly selected employer would pay for the portfolio, your bonus payment will be $1.00.</p>
+	<p>In the next few screens, you'll see some profiles of other MTurkers and be asked to guess the number of job performance questions that employers will think each applicant correctly answered based on their portfolios.</p>
+
+	<p>If one of the portfolios is selected for a bonus payment and your guess is within <em>1</em> of the number that a randomly selected employer thinks you solved based on that portfolio, your bonus payment will be $1.00.</p>
 
 	<button type="button" class="btn-primary btn back" onclick="show('page4', 'page5')">Back</button>
 	<button type="button" class="btn-primary btn next" onclick="startOther()">Next</button>
@@ -147,23 +148,23 @@
 	</div>
 
 	<label class="col-form-label">
-		I estimate that the highest amount that an employer will be willing to pay for this portfolio will be:
+		I estimate that, based on this portfolio, the employer's guess about the number of job performance questions the applicant correctly solved will be:
 	</label>
 
 	<div class="slider-container">
-	    <input id="rangeInput4" type="range" name="wage_guess4" min="0.0" max="1.0" step="0.05" class="slider" oninput="amount4.value=rangeInput4.value"/>
-			$<input id="amount4" type="number" value="0.50" min="0.0" max="1.0" step="0.01" oninput="rangeInput4.value=amount4.value" style="width: 60px;"/>
+		<input id="rangeInput4" type="range" name="perform_guess4" min="0" max="10" step="1" class="slider" oninput="amount4.value=rangeInput4.value"/>
+			<input id="amount4" type="number" value="5" min="0" max="10" step="1" oninput="rangeInput4.value=amount4.value" style="width: 50px;"/> out of 10
 	</div>
-	<div id="default-range-val" style="display:none">0.5</div>
-	<input id="hidden-input" type="hidden" name="wage_guess_other">
-	{{ form.wage_guess_other.errors }}
+	<div id="default-range-val" style="display:none">5</div>
+	<input id="hidden-input" type="hidden" name="perform_guess_other">
+	{{ form.perform_guess_other.errors }}
 
 	<button type="button" class="btn-primary btn back" onclick="backQuestion()">Back</button>
 	<button type="button" class="btn-primary btn next" onclick="nextQuestion()">Next</button>
 </div>
 
 <div id="page7" style="display:none">
-	<p>That's all for the wage guesses! Click "Back" to edit your responses, or click "Next" to move on to your guesses about performance.</p>
+	<p>That's it for the performance guesses! Click "Back" to edit your responses, or click "Next" to move on to guesses about social appropriateness.</p>
 
 	<button type="button" class="btn-primary btn back" onclick="show('page6', 'page7')">Back</button>
 	<button class="btn-primary btn next">Next</button>

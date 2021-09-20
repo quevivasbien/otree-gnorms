@@ -1,0 +1,40 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block styles %}
+
+<link href="{% static 'applicant/css/custom.css' %}" rel="stylesheet">
+
+{% endblock %}
+
+{% block title %}
+	Part 3 of 3 - Instructions
+{% endblock %}
+
+{% block content %}
+
+<div id="page1">
+<p>This is the last stage of the experiment!</p>
+
+<p>In this part, you will see different versions of your job application portfolio and of other applicants' portfolios. For each portfolio you see, you will:</p>
+<ul>
+	<li>guess the highest amount that a randomly chosen employer would pay for that portfolio.</li>
+	<li>guess a randomly chosen employer's belief about the number of job performance questions solved by the applicant in that portfolio.</li>
+	<li>guess a randomly chosen employer's belief about the social appropriateness of the applicant's self-evaluation in that portfolio.</li>
+</ul>
+
+<p>One of your guesses will be randomly chosen, and if it is close to the value actually chosen by a randomly selected employer who sees that portfolio, your bonus payment for Part 3 will be $1.00.</p>
+
+<br>
+<p>Answer the following question to check your understanding:</p>
+{% formfield player.understanding4 label="If this stage is selected for payment, I will receive a bonus payment of $1.00 for one of my guesses"%}
+
+{% next_button %}
+
+{% endblock %}
+
+{% block scripts %}
+
+<script src="{% static 'applicant/js/show.js' %}"></script>
+
+{% endblock %}

@@ -1,0 +1,338 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block styles %}
+
+<link href="{% static 'applicant/css/custom.css' %}" rel="stylesheet">
+<style>
+	img {
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+		width: 50%;
+		max-width: 200px;
+	}
+
+	.profile {
+		background-color: #e1e1ea;
+		margin: 10px 30px 10px 20px;
+		padding: 20px 20px;
+		text-align: center;
+	}
+</style>
+{% endblock %}
+
+{% block title %}
+	Part 3 of 3 - Performance Guesses
+{% endblock %}
+
+{% block content %}
+
+<div id="page1">
+
+	<p>The following profiles are profiles that employers will see based on <em>your responses</em> in the application. For each version, select how socially appropriate you think an employer would say the responses in each portfolio are.</p>
+
+	<p>By “socially appropriate”, we mean behavior that most people agree is “reasonable” or “correct,” and consistent with proper social behavior in that context.</p>
+
+	<p>If one of the portfolios is selected for a bonus payment and your guess matches the response of a randomly chosen employer, your bonus payment will be $1.00.</p>
+	<br>
+	<button type="button" class="btn-primary btn" onclick="show('page2', 'page1')">Next</button>
+</div>
+
+<div id="page2" style="display:none">
+
+	<h5>My portfolios: 1 of 3</h5>
+	<div class="profile">
+		{% if player.treatment != 0 %}<img src="/static/applicant/{{ player.avatar }}" alt="Your avatar"><br>{% endif %}
+		{% if player.treatment == 2 %}<p>The applicant correctly answered {{ player.eval_correct }} out of 10 evaluation questions.</p>{% endif %}
+		<p>The applicant rated {% if player.treatment == 0 %}their{% elif player.gender == "Male"%}his{% elif player.gender == "Female" %}her{% else %}their{% endif %} performance as {{ player.self_eval }}.</p>
+	</div>
+
+	<label class="col-form-label">
+		I believe that an employer would consider the self-evaluation in this portfolio to be:
+	</label>
+
+	<div class="form-group required">
+		<div class="controls field-approp_guess1">
+			<ul id="id_approp_guess1">
+				<li>
+					<label for="id_approp_guess1_0">
+						<input type="radio" name="approp_guess1" value="0" required id="id_approp_guess1_0" class="form-check-input">
+						Very socially inappropriate
+					</label>
+				</li>
+				<li>
+					<label for="id_approp_guess1_1">
+						<input type="radio" name="approp_guess1" value="1" required id="id_approp_guess1_1" class="form-check-input">
+						Socially inappropriate
+					</label>
+				</li>
+				<li>
+					<label for="id_approp_guess1_2">
+						<input type="radio" name="approp_guess1" value="2" required id="id_approp_guess1_2" class="form-check-input">
+						Somewhat socially inappropriate
+					</label>
+				</li>
+				<li>
+					<label for="id_approp_guess1_3">
+						<input type="radio" name="approp_guess1" value="3" required id="id_approp_guess1_3" class="form-check-input">
+						Somewhat socially appropriate
+					</label>
+				</li>
+				<li>
+					<label for="id_approp_guess1_4">
+						<input type="radio" name="approp_guess1" value="4" required id="id_approp_guess1_4" class="form-check-input">
+						Socially appropriate
+					</label>
+				</li>
+				<li>
+					<label for="id_approp_guess1_5">
+						<input type="radio" name="approp_guess1" value="5" required id="id_approp_guess1_5" class="form-check-input">
+						Very socially appropriate
+					</label>
+				</li>
+			</ul>
+		</div>
+	</div>
+	{{ form.approp_guess1.errors }}
+
+	<button type="button" class="btn-primary btn back" onclick="missing_response.style.display = 'none'; show('page1', 'page2');">Back</button>
+	<button type="button" class="btn-primary btn next" onclick="checkBeforeAdvance(1)">Next</button>
+
+</div>
+
+<div id="page3" style="display:none">
+
+	<h5>My portfolios: 2 of 3</h5>
+	<div class="profile">
+		{% if player.treatment != 0 %}<img src="/static/applicant/{{ player.avatar }}" alt="Your avatar"><br>{% endif %}
+		{% if player.treatment == 2 %}<p>The applicant correctly answered {{ player.eval_correct }} out of 10 evaluation questions.</p>{% endif %}
+		<p>When asked to rate {% if player.treatment == 0 %}their{% elif player.gender == "Male"%}his{% elif player.gender == "Female" %}her{% else %}their{% endif %} level of agreement with the following questions on a scale from 0 (entirely disagree) to 100 (entirely agree), the applicant gave the following answers:</p>
+		<p>"I performed well on the test I took in Part 1." <b>{{ player.self_eval_agree0 }} out of 100</b></p>
+		<p>"Usually I am the best at what I do." <b>{{ player.self_eval_agree1 }} out of 100</b></p>
+		<p>"I conduct all tasks assigned to me with the needed attention." <b>{{ player.self_eval_agree2 }} out of 100</b></p>
+	</div>
+
+	<label class="col-form-label">
+		I believe that an employer would consider the self-evaluation in this portfolio to be:
+	</label>
+
+	<div class="form-group required">
+		<div class="controls field-approp_guess2">
+			<ul id="id_approp_guess2">
+				<li>
+					<label for="id_approp_guess2_0">
+						<input type="radio" name="approp_guess2" value="0" required id="id_approp_guess2_0" class="form-check-input">
+						Very socially inappropriate
+					</label>
+				</li>
+				<li>
+					<label for="id_approp_guess2_1">
+						<input type="radio" name="approp_guess2" value="1" required id="id_approp_guess2_1" class="form-check-input">
+						Socially inappropriate
+					</label>
+				</li>
+				<li>
+					<label for="id_approp_guess2_2">
+						<input type="radio" name="approp_guess2" value="2" required id="id_approp_guess2_2" class="form-check-input">
+						Somewhat socially inappropriate
+					</label>
+				</li>
+				<li>
+					<label for="id_approp_guess2_3">
+						<input type="radio" name="approp_guess2" value="3" required id="id_approp_guess2_3" class="form-check-input">
+						Somewhat socially appropriate
+					</label>
+				</li>
+				<li>
+					<label for="id_approp_guess2_4">
+						<input type="radio" name="approp_guess2" value="4" required id="id_approp_guess2_4" class="form-check-input">
+						Socially appropriate
+					</label>
+				</li>
+				<li>
+					<label for="id_approp_guess2_5">
+						<input type="radio" name="approp_guess2" value="5" required id="id_approp_guess2_5" class="form-check-input">
+						Very socially appropriate
+					</label>
+				</li>
+			</ul>
+		</div>
+	</div>
+	{{ form.approp_guess2.errors }}
+
+	<button type="button" class="btn-primary btn back" onclick="missing_response.style.display = 'none'; show('page2', 'page3');">Back</button>
+	<button type="button" class="btn-primary btn next" onclick="checkBeforeAdvance(2)">Next</button>
+
+</div>
+
+<div id="page4" style="display:none">
+
+	<h5>My portfolios: 3 of 3</h5>
+	<div class="profile">
+		{% if player.treatment != 0 %}<img src="/static/applicant/{{ player.avatar }}" alt="Your avatar"><br>{% endif %}
+		{% if player.treatment == 2 %}<p>The applicant correctly answered {{ player.eval_correct }} out of 10 evaluation questions.</p>{% endif %}
+		{% if player.self_eval_statement != "I prefer not to include either of these statements in my application."%}<p>The applicant chose the following statement to accompany {% if player.treatment == 0 %}their{% elif player.gender == "Male"%}his{% elif player.gender == "Female" %}her{% else %}their{% endif %} application:</p>
+		<p>{{ player.self_eval_statement }}</p>
+		{% else %}<p>The applicant chose to not include any statement with {% if player.treatment == 0 %}their{% elif player.gender == "Male"%}his{% elif player.gender == "Female" %}her{% else %}their{% endif %} application.</p>{% endif %}
+	</div>
+
+	<label class="col-form-label">
+		I believe that an employer would consider the self-evaluation in this portfolio to be:
+	</label>
+
+	<div class="form-group required">
+		<div class="controls field-approp_guess3">
+			<ul id="id_approp_guess3">
+				<li>
+					<label for="id_approp_guess3_0">
+						<input type="radio" name="approp_guess3" value="0" required id="id_approp_guess3_0" class="form-check-input">
+						Very socially inappropriate
+					</label>
+				</li>
+				<li>
+					<label for="id_approp_guess3_1">
+						<input type="radio" name="approp_guess3" value="1" required id="id_approp_guess3_1" class="form-check-input">
+						Socially inappropriate
+					</label>
+				</li>
+				<li>
+					<label for="id_approp_guess3_2">
+						<input type="radio" name="approp_guess3" value="2" required id="id_approp_guess3_2" class="form-check-input">
+						Somewhat socially inappropriate
+					</label>
+				</li>
+				<li>
+					<label for="id_approp_guess3_3">
+						<input type="radio" name="approp_guess3" value="3" required id="id_approp_guess3_3" class="form-check-input">
+						Somewhat socially appropriate
+					</label>
+				</li>
+				<li>
+					<label for="id_approp_guess3_4">
+						<input type="radio" name="approp_guess3" value="4" required id="id_approp_guess3_4" class="form-check-input">
+						Socially appropriate
+					</label>
+				</li>
+				<li>
+					<label for="id_approp_guess3_5">
+						<input type="radio" name="approp_guess3" value="5" required id="id_approp_guess3_5" class="form-check-input">
+						Very socially appropriate
+					</label>
+				</li>
+			</ul>
+		</div>
+	</div>
+	{{ form.approp_guess3.errors }}
+
+	<button type="button" class="btn-primary btn back" onclick="missing_response.style.display = 'none'; show('page3', 'page4');">Back</button>
+	<button type="button" class="btn-primary btn next" onclick="checkBeforeAdvance(3)">Next</button>
+
+</div>
+
+<div id="page5" style="display:none">
+	<p>Great! Now for some questions about <em>other people's</em> application profiles.</p>
+
+	<p>In the next few screens, you'll see some profiles of other MTurkers and be asked to guess how socially appropriate employers will think their responses are.</p>
+
+	<p>If one of the portfolios is selected for a bonus payment and your guess matches the response of a randomly chosen employer, your bonus payment will be $1.00.</p>
+
+	<button type="button" class="btn-primary btn back" onclick="show('page4', 'page5')">Back</button>
+	<button type="button" class="btn-primary btn next" onclick="startOther()">Next</button>
+</div>
+
+<div style="display:none">
+	<!-- These values will not be displayed and are simply for sending parameters from the server to be used by the js code on this page -->
+	<div id="wg-treatment">{{ player.wage_guess_treatment }}</div>
+	<div id="wg-gender">{{ player.wage_guess_gender }}</div>
+	<div id="wg-image">{{ player.wage_guess_image }}</div>
+	<div id="wg-perform">{{ player.wage_guess_perform }}</div>
+	<div id="wg-promote-type">{{ player.wage_guess_promote_type }}</div>
+	<div id="wg-promote1">{{ player.wage_guess_promote1 }}</div>
+	<div id="wg-promote2a">{{ player.wage_guess_promote2a }}</div>
+	<div id="wg-promote2b">{{ player.wage_guess_promote2b }}</div>
+	<div id="wg-promote2c">{{ player.wage_guess_promote2c }}</div>
+	<div id="wg-promote3">{{ player.wage_guess_promote3 }}</div>
+</div>
+
+<div id="page6" style="display:none">
+
+	<div class="profile">
+		<img id="app-avatar" src="" alt="Applicant avatar">
+		<p id="app-performance"></p>
+		<div id="app-self-eval"></div>
+	</div>
+
+	<label class="col-form-label">
+		I believe that an employer would consider the self-evaluation in this portfolio to be:
+	</label>
+
+	<div class="form-group required">
+		<div class="controls field-approp_guess_other">
+			<ul id="id_approp_guess_other">
+				<li>
+					<label for="id_approp_guess_other_0">
+						<input type="radio" name="approp_guess_other" value="0" required id="id_approp_guess_other_0" class="form-check-input">
+						Very socially inappropriate
+					</label>
+				</li>
+				<li>
+					<label for="id_approp_guess_other_1">
+						<input type="radio" name="approp_guess_other" value="1" required id="id_approp_guess_other_1" class="form-check-input">
+						Socially inappropriate
+					</label>
+				</li>
+				<li>
+					<label for="id_approp_guess_other_2">
+						<input type="radio" name="approp_guess_other" value="2" required id="id_approp_guess_other_2" class="form-check-input">
+						Somewhat socially inappropriate
+					</label>
+				</li>
+				<li>
+					<label for="id_approp_guess_other_3">
+						<input type="radio" name="approp_guess_other" value="3" required id="id_approp_guess_other_3" class="form-check-input">
+						Somewhat socially appropriate
+					</label>
+				</li>
+				<li>
+					<label for="id_approp_guess_other_4">
+						<input type="radio" name="approp_guess_other" value="4" required id="id_approp_guess_other_4" class="form-check-input">
+						Socially appropriate
+					</label>
+				</li>
+				<li>
+					<label for="id_approp_guess_other_5">
+						<input type="radio" name="approp_guess_other" value="5" required id="id_approp_guess_other_5" class="form-check-input">
+						Very socially appropriate
+					</label>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div id="default-range-val" style="display:none"></div>
+	<input id="hidden-input" type="hidden" name="approp_guess_other">
+	{{ form.approp_guess_other.errors }}
+
+	<button type="button" class="btn-primary btn back" onclick="backQuestion()">Back</button>
+	<button type="button" class="btn-primary btn next" onclick="nextQuestion()">Next</button>
+</div>
+
+<div id="page7" style="display:none">
+	<p>You've finished all the parts of the study! Click "Back" to edit your responses, or click "Next" to finish the study.</p>
+
+	<button type="button" class="btn-primary btn back" onclick="show('page6', 'page7')">Back</button>
+	<button class="btn-primary btn next">Next</button>
+</div>
+
+<p id="missing-response-error" style="color:red; display:none">Choose one of the options above to proceed.</p>
+
+
+{% endblock %}
+
+{% block scripts %}
+
+<script src="{% static 'applicant/js/show.js' %}"></script>
+<script src="{% static 'applicant/js/wageGuessOther.js' %}"></script>
+<script src="{% static 'applicant/js/appropGuessOther.js' %}"></script>
+
+{% endblock %}

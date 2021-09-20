@@ -9,6 +9,9 @@
 	img {
 		width: 75%;
 		max-width: 150px;
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
 	}
 	.input-hidden {
 		position: absolute;
@@ -36,90 +39,39 @@
 {% block content %}
 
 <div id="treatment" style="display:none">{{ player.treatment }}</div>
+<div id="gender" style="display:none">{{ player.gender }}</div>
+<input type="hidden" id="id_avatar" name="avatar">
+{{ form.avatar.errors }}
 
 <div id="page1">
-<p>In the previous stage, you correctly answered {{ player.eval_correct }} out of the 10 evaluation questions. Among 100 prior MTurkers who took the ASVAB test, your performance on the 10 evaluation questions is as good as or better than {{ better_than }} of them and worse than {{ worse_than }} of them.</p>
+<p>During the study all participants are represented by an avatar. The avatars were assigned based on the answers in the entry survey and automatically selected from a library of avatars. This way your anonymity is preserved. The avatar that was automatically selected to represent you is displayed below.</p>
 
-<p>We're now ready to fill out your application. Below is an example of what an application may look like to employers. (Yours will look different depending on your responses.)</p>
+<img id="avatar_demo" src='' alt="Avatar option"><br>
 
-<div class="profile">
-	{% if player.treatment != 0 %}<img src="/static/applicant/male1.jpg" alt="Example avatar" style="display:block; margin-left: auto; margin-right: auto; width: 50%;">
-	<br>{% endif %}
-	{% if player.treatment == 2 %}<p>The applicant correctly answered 1 out of 10 evaluation questions.</p>{% endif %}
-	<p>The applicant rated {% if player.treatment == 0 %}their{% else %}his{% endif %} performance as <b>poor</b>.</p>
-</div>
-
-<p>Note that the information you provide below{% if player.treatment == 2 %}, plus your performance on the evaluation questions,{% endif %} is the <em>only</em> information that potential employers will see.{% if player.treatment != 2 %} They will <em>not</em> see how many questions you actually answered correctly.{% endif %}</p>
-
-<p>Click next to continue to the application questions.</p>
-<button type="button" class="btn-primary btn" onclick="initiate()">Next</button>
+<button type="button" class="btn-primary btn" onclick="show('page2', 'page1')">Next</button>
 </div>
 
 <div id="page2" style="display:none">
-	<div class="form-group">
-    <label class="col-form-label" for="id_avatar_0">Choose an avatar to show to potential employers with your application:</label>
-    <div class="controls  field-avatar">
-        <ul id="id_avatar">
 
-			   {% if player.gender != "Female" %}<li>
-			<input type="radio" name="avatar" value="male1.jpg" required="" id="id_avatar_0" class="input-hidden">
-			<label for="id_avatar_0">
-			 <img src="{% static 'applicant/male1.jpg' alt="Avatar option"%}"></label>
+	<p>Your job application portfolio is the <em>only</em> information that the employers will see.</p>
 
-			</li>{% endif %}
-			    {% if player.gender != "Male" %}<li>
-			<input type="radio" name="avatar" value="female1.jpg" required="" id="id_avatar_1" class="input-hidden">
-			<label for="id_avatar_1">
-			 <img src="{% static 'applicant/female1.jpg' alt="Avatar option"%}"></label>
+	{% if player.treatment == 0 %}<p>Your application portfolio consists of your evaluation of your performance on the test you completed in Part 1. The employers <em>do not</em> see your avatar or how many questions you answered correctly in Part 1.</p>{% endif %}
 
-			</li>{% endif %}
-			    {% if player.gender != "Female" %}<li>
-			<input type="radio" name="avatar" value="male2.jpg" required="" id="id_avatar_2" class="input-hidden">
-			<label for="id_avatar_2">
-			 <img src="{% static 'applicant/male2.jpg' alt="Avatar option"%}"></label>
+	{% if player.treatment == 1 %}<p>Your application portfolio consists of your avatar and your evaluation of your performance on the test you completed in Part 1. The employers <em>do not</em> see how many questions you answered correctly in Part 1.</p>{% endif %}
 
-			</li>{% endif %}
-			    {% if player.gender != "Male" %}<li>
-			<input type="radio" name="avatar" value="female2.jpg" required="" id="id_avatar_3" class="input-hidden">
-			<label for="id_avatar_3">
-			 <img src="{% static 'applicant/female2.jpg' alt="Avatar option"%}"></label>
+	{% if player.treatment == 2 %}<p>Your application portfolio consists of your avatar, your performance on the ten "evaluation questions" from Part 1, and your evaluation of your performance on the test you completed in Part 1.</p>{% endif %}
 
-			</li>{% endif %}
-			    {% if player.gender != "Female" %}<li>
-			<input type="radio" name="avatar" value="male3.jpg" required="" id="id_avatar_4" class="input-hidden">
-			<label for="id_avatar_4">
-			 <img src="{% static 'applicant/male3.jpg' alt="Avatar option"%}"></label>
+	<p>A quick reminder: in Part 1, you correctly answered {{ player.eval_correct }} out of the 10 evaluation questions. Among 100 prior MTurkers who took the ASVAB test, your performance on the 10 evaluation questions is as good as or better than {{ better_than }} of them and worse than {{ worse_than }} of them.</p>
 
-			</li>{% endif %}
-			    {% if player.gender != "Male" %}<li>
-			<input type="radio" name="avatar" value="female3.jpg" required="" id="id_avatar_5" class="input-hidden">
-			<label for="id_avatar_5">
-			 <img src="{% static 'applicant/female3.jpg' alt="Avatar option"%}"></label>
+	<p>Click next to continue to the application questions.</p>
 
-		 </li>{% endif %}
-				{% if player.gender != "Female" %}<li>
-			<input type="radio" name="avatar" value="male4.jpg" required="" id="id_avatar_6" class="input-hidden">
-			<label for="id_avatar_6">
-			 <img src="{% static 'applicant/male4.jpg' alt="Avatar option"%}"></label>
-
-		 </li>{% endif %}
-				 {% if player.gender != "Male" %}<li>
-		 <input type="radio" name="avatar" value="female4.jpg" required="" id="id_avatar_7" class="input-hidden">
-		 <label for="id_avatar_7">
-			<img src="{% static 'applicant/female4.jpg' alt="Avatar option"%}"></label>
-
-			</li>{% endif %}
-			</ul>
-
-		  </div>
-		</div>
-		<button type="button" class="btn-primary btn back" onclick="show('page1', 'page2')">Back</button>
-		<button type="button" class="btn-primary btn next" onclick="nextQuestion()">Next</button>
+	<button type="button" class="btn-primary btn back" onclick="show('page1', 'page2')">Back</button>
+	<button type="button" class="btn-primary btn next" onclick="show('page3', 'page2')">Next</button>
 </div>
 
 <div id="page3" style="display:none">
 
-	<p>Answer the following questions, which will be shown to employers as part of your application:</p>
+	<p>Answer the following questions, which will be shown to employers as part of your application portfolio. Each profile shown to employers will only include your response to <em>one</em> of the following three questions.</p>
 
 	{% formfield player.self_eval label="Based on the information you received about other applicants' performance on the task, please indicate how well you think you performed on the cognitive ability test:" %}
 	<br>
@@ -139,7 +91,7 @@
 				<input id="amount1" type="number" value="50" min="0" max="100" step="1" oninput="rangeInput1.value=amount1.value; agree1.value=amount1.value;" style="width: 60px;"/>
 		</div>
 		{{ form.self_eval_agree1.errors }}
-		<p>I conduct all tasks assigned to me, no matter how small, with the needed attention.</p>
+		<p>I conduct all tasks assigned to me with the needed attention.</p>
 		<div class="slider-container">
 			<input id="agree2" type="hidden" name="self_eval_agree2" value="50">
 		    <input id="rangeInput2" type="range" min="0" max="100" step="1" class="slider" oninput="amount2.value=rangeInput2.value; agree2.value=rangeInput2.value;"/>
@@ -172,5 +124,6 @@
 
 <script src="{% static 'applicant/js/show.js' %}"></script>
 <script src="{% static 'applicant/js/applicationQuestions.js' %}"></script>
+<script type="text/javascript">initiate()</script>
 
 {% endblock %}

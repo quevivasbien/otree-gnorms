@@ -13,7 +13,7 @@ from random import shuffle, sample, choices
 
 
 # load question text
-with open('test/static/test/question_text.json', 'r',  encoding='utf-8') as fh:
+with open('_static/global/question_text.json', 'r',  encoding='utf-8') as fh:
     qtext = json.load(fh)
 
 

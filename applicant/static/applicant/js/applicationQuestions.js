@@ -4,19 +4,15 @@ function getTreatment() {
 }
 
 function initiate() {
-  if (getTreatment() == 0) {
-    // TODO: Fix the bug here
-    // set default value for avatar so otree will let us advance
-    let default_avatar = document.getElementById("id_avatar_0")
-    if (default_avatar == null) {
-      default_avatar = document.getElementById("id_avatar_1");
-    }
-    default_avatar.checked = true;
-    show('page3', 'page1');
+  // set avatar
+  gender = document.getElementById('gender').innerHTML.toLowerCase();
+  if (gender == 'other') {
+      gender = ['male', 'female'][Math.floor(Math.random() * 2)]
   }
-  else {
-    show('page2', 'page1');
-  }
+  let num = Math.floor(Math.random() * 3) + 1;  // random int in (1, 2, 3)
+  let avatar = gender + num + '.jpg';
+  document.getElementById('id_avatar').value = avatar;
+  document.getElementById('avatar_demo').src = '/static/applicant/' + avatar;
 }
 
 function checkForAnswer(form_id) {
@@ -45,13 +41,6 @@ function checkForAnswer(form_id) {
   }
   catch(error) {
     console.log(error);
-  }
-}
-
-function nextQuestion() {
-  if (checkForAnswer('id_avatar')) {
-    show("page3", "page2");
-    document.getElementById('not-complete-error').style.display = 'none';
   }
 }
 

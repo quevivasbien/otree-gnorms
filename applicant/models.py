@@ -13,7 +13,7 @@ from random import shuffle, sample, choices
 
 
 # load question text
-with open('applicant/static/applicant/question_text.json', 'r',  encoding='utf-8') as fh:
+with open('_static/global/question_text.json', 'r',  encoding='utf-8') as fh:
     qtext = json.load(fh)
 
 
@@ -92,14 +92,15 @@ class Player(BasePlayer):
     understanding1 = models.StringField(choices=qtext['understanding1'], widget=widgets.RadioSelect)
     age = models.StringField(choices=qtext['age'])
     gender = models.StringField(choices=qtext['gender'])
-    ethnicity = models.StringField(choices=qtext['ethnicity'])
-    home_state = models.StringField(choices=qtext['home_state'])
+    # ethnicity = models.StringField(choices=qtext['ethnicity'])
+    # home_state = models.StringField(choices=qtext['home_state'])
     education = models.StringField(choices=qtext['education'])
-    married = models.StringField(choices=qtext['married'])
-    household_income = models.StringField(choices=qtext['household_income'])
+    # married = models.StringField(choices=qtext['married'])
+    # household_income = models.StringField(choices=qtext['household_income'])
     employed = models.StringField(choices=qtext['employed'])
-    religion = models.StringField(choices=qtext['religion'])
-    politics = models.StringField(choices=qtext['politics'])
+    # religion = models.StringField(choices=qtext['religion'])
+    # politics = models.StringField(choices=qtext['politics'])
+    resident = models.StringField(choices=['Yes', 'No'])
     understanding2 = models.StringField(choices=qtext['understanding2'], widget=widgets.RadioSelect)
     q1 = models.StringField(choices=qtext['q1'], widget=widgets.RadioSelect)
     q2 = models.StringField(choices=qtext['q2'], widget=widgets.RadioSelect)
@@ -131,10 +132,18 @@ class Player(BasePlayer):
     self_eval_agree2 = models.IntegerField()  # slider
     self_eval_statement = models.StringField(choices=qtext['self_eval_statement'], widget=widgets.RadioSelect)
     understanding4 = models.StringField(choices=qtext['understanding4'], widget=widgets.RadioSelect)
-    wage_guess = models.FloatField()  # is a slider, managed via html&js
+    wage_guess1 = models.FloatField()  # is a slider, managed via html&js
     wage_guess2 = models.FloatField()  # is a slider, managed via html&js
     wage_guess3 = models.FloatField()  # is a slider, managed via html&js
     wage_guess_other = models.StringField()
+    perform_guess1 = models.IntegerField()
+    perform_guess2 = models.IntegerField()
+    perform_guess3 = models.IntegerField()
+    perform_guess_other = models.StringField()
+    approp_guess1 = models.IntegerField()  # goes from 0 to 5, from v. soc. inappropriate to v. soc. appropriate
+    approp_guess2 = models.IntegerField()
+    approp_guess3 = models.IntegerField()
+    approp_guess_other = models.StringField()
 
     def understanding1_error_message(self, value):
         if value != qtext['understanding1'][1]:

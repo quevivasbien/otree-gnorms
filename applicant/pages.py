@@ -6,7 +6,7 @@ from captcha.fields import ReCaptchaField
 import json
 
 # load question text
-with open('applicant/static/applicant/question_text.json', 'r', encoding='utf-8') as fh:
+with open('_static/global/question_text.json', 'r', encoding='utf-8') as fh:
     qtext = json.load(fh)
 
 
@@ -32,8 +32,7 @@ class Overview(Page):
 class DemographicSurvey(Page):
     form_model = 'player'
     form_fields = [
-        'age', 'gender', 'ethnicity', 'education', 'household_income',
-        'home_state', 'married', 'employed', 'religion', 'politics'
+        'age', 'gender', 'education', 'resident'
     ]
 
 
@@ -98,14 +97,24 @@ class Application(Page):
         return dict(better_than=better_than, worse_than=worse_than)
 
 
-class WageGuessInstructions(Page):
+class GuessInstructions(Page):
     form_model = 'player'
     form_fields = ['understanding4']
 
 
 class WageGuess(Page):
     form_model = 'player'
-    form_fields = ['wage_guess', 'wage_guess2', 'wage_guess3', 'wage_guess_other']
+    form_fields = ['wage_guess1', 'wage_guess2', 'wage_guess3', 'wage_guess_other']
+
+
+class PerformanceGuess(Page):
+    form_model = 'player'
+    form_fields = ['perform_guess1', 'perform_guess2', 'perform_guess3', 'perform_guess_other']
+
+
+class SocAppropGuess(Page):
+    form_model = 'player'
+    form_fields = ['approp_guess1', 'approp_guess2', 'approp_guess3', 'approp_guess_other']
 
 
 class CompletionCode(Page):
@@ -114,4 +123,4 @@ class CompletionCode(Page):
 
 page_sequence = [Captcha, ConsentForm, DemographicSurvey, Overview, ASVABInstructions,
                  ASVABQuestions, ApplicationInstructions, Application,
-                 WageGuessInstructions, WageGuess, CompletionCode]
+                 GuessInstructions, WageGuess, PerformanceGuess, SocAppropGuess, CompletionCode]

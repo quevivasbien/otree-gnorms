@@ -36,7 +36,7 @@ class ApplicantHandler(MTurkHandler):
                 'avatar',
                 'eval_correct',
                 'noneval_correct',
-                'wage_guess',
+                'wage_guess1',
                 'self_eval',
                 'self_eval_agree0',
                 'self_eval_agree1',
