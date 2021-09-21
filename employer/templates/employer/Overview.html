@@ -35,9 +35,11 @@
 
 	<p>After the applicants see their performance on 10 out of the 20 questions, which we will call the “evaluation” questions, they evaluate their performance on those 10 questions. We will call the other 10 questions for which the applicants do not see their performance as “job performance” questions. Your payoff in this study will depend on their performance on the job performance questions.</p>
 
-	<p>The applicant profile consists of the applicant's evaluation of their performance. Some applicant profiles will also include an avatar representing them, and some others will also include their performance on the 10 “evaluation” questions. You will <em>not</em> see how well they did on their “job performance” questions; instead you'll need to guess their performance on those questions in order to choose appropriate wages for the applicants.</p>
+	{% if participant.vars.treatment == 0 %}<p>The applicant portfolio consists of the applicant's evaluation of their own performance.</p>
+	{% elif participant.vars.treatment == 1 %}<p>The applicant portfolio consists of the applicant's evaluation of their own performance, along with an avatar representing them.</p>
+	{% else %}<p>The applicant portfolio consists of the applicant’s evaluation of their own performance, an avatar representing them, and the number of evaluation questions that they correctly answered.</p>{% endif %}
 
-	<p>The average number of evaluation questions correctly answered by a job applicant is {{ mean_performance }} out of 10.</p>
+	<p><b>The average number of evaluation questions correctly answered by a job applicant is {{ mean_performance }} out of 10.</b></p>
 
 	<br>
 	<button type="button" class="btn-primary btn back" onclick="show('tab1', 'tab2')">Back</button>
