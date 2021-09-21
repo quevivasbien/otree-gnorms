@@ -14,11 +14,17 @@
 {% block content %}
 
 <div id="tab1">
-	<p>In this study, you will play the role of an employer deciding wages for “job applicants.” The “job applicants” are other Mturkers who participated in a different version of the study.</p>
+	<p>In this study, you will play the role of an employer evaluating job applicants. The “job applicants” are other Mturkers who participated in a different version of the study.</p>
 
-	<p>You will review the profiles of up to <b>30</b> applicants and determine the wage you would be willing to pay them for their work.</p>
+	<p>This study has three parts:</p>
+	<ul>
+		<li>In Part 1, you will decide the maximum amount you are willing to pay to job applicants to buy their performance in a test. You can earn a bonus from this part depending on your responses and on the performance of the applicants you review.</li>
+		<li>In Parts 2 and 3, you will guess the performance of the applicants and the social appropriateness of how they evaluate themselves in their "job application portfolios." You can earn a bonus from these parts if you make accurate guesses.</li>
 
-	<p>By completing this study, you will receive a guaranteed payment of $X within 24 hours. You will also receive a bonus payment based on the wages you choose for one of the applicants you evaluate and on that applicant's performance in a cognitive ability test that they have already taken. This bonus payment will be up to $Y.</p>
+
+	<p>You will review the profiles of up to <b>30</b> applicants.</p>
+
+	<p>By completing this study, you will receive a guaranteed payment of $X within 24 hours. You will also receive a bonus payment based on your responses in a randomly-selected part out of the three parts. This bonus payment will be up to $Y and will be paid to you within a week.</p>
 
 	<br>
 	<button type="button" class="btn-primary btn" onclick="show('tab2', 'tab1')">Next</button>
@@ -27,9 +33,11 @@
 <div id="tab2" style="display: none">
 	<p>The “job applicants” are MTurk workers who have completed a set of 20 questions from the Armed Services Vocational Aptitude Battery (ASVAB), which has questions from each of the following five categories: general science, arithmetic reasoning, math knowledge, mechanical comprehension, and assembling objects.</p>
 
-	<p>After the applicants see their performance on 10 out of the 20 questions, which we will call the “evaluation” questions, they evaluate their performance on those 10 questions. We will call the other 10 questions for which the applicants do not see their performance as “job performance” questions and these will be relevant for your payoff in this study.</p>
+	<p>After the applicants see their performance on 10 out of the 20 questions, which we will call the “evaluation” questions, they evaluate their performance on those 10 questions. We will call the other 10 questions for which the applicants do not see their performance as “job performance” questions. Your payoff in this study will depend on their performance on the job performance questions.</p>
 
 	<p>The applicant profile consists of the applicant's evaluation of their performance. Some applicant profiles will also include an avatar representing them, and some others will also include their performance on the 10 “evaluation” questions. You will <em>not</em> see how well they did on their “job performance” questions; instead you'll need to guess their performance on those questions in order to choose appropriate wages for the applicants.</p>
+
+	<p>The average number of evaluation questions correctly answered by a job applicant is {{ mean_performance }} out of 10.</p>
 
 	<br>
 	<button type="button" class="btn-primary btn back" onclick="show('tab1', 'tab2')">Back</button>

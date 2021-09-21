@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 
 import pandas as pd
-# import boto3
+import boto3
 import random
 import os
 import json
+import time
 
 # TODO: update these values
 BONUS_PER_QUESTION = 0.1
@@ -22,6 +23,7 @@ with open('config.json', 'r') as fh:
     ENDPOINT = json.load(fh)['endpoint']
 client = boto3.client('mturk', endpoint_url=ENDPOINT, region_name='us-east-1')
 
+
 def send_bonus(worker_id, amount, assignment_id, reason='', max_retry=1):
     try:
         client.send_bonus(
@@ -30,20 +32,22 @@ def send_bonus(worker_id, amount, assignment_id, reason='', max_retry=1):
             AssignmentId=assignment_id,
             Reason=reason
         )
-    except self.client.exceptions.ServiceFault:
+    except client.exceptions.ServiceFault:
         print(f'ServiceFault when attempting to send bonus for {assignment_id}')
         if max_retry > 0:
             print('Retrying in 5s...')
             time.wait(5)
             send_bonus(worker_id, amount, assignment_id, reason, max_retry-1)
-    
+
+
 # define a couple of helper functions
 def split_to_int(val):
     return [int(x) for x in val.split('-')]
 
+
 def split_to_float(val):
     return [float(x) for x in val.split('-')]
-    
+
 
 class BonusResolver:
 
@@ -74,7 +78,6 @@ class BonusResolver:
         # a bit backward, we want the index of the sp_types Series to be the type, actual value is the applicant id
         # this makes it fast to sort through self-promote types later
         self.sp_types = pd.Series(data=self.app_df.index, index=sp_types)
-                
 
     def get_employer_bonuses(self, bonuses_per_employer=1):
         bonuses = {emp: 1.0 for emp in self.emp_df.index}
@@ -152,13 +155,13 @@ class BonusResolver:
                 self.app_df.at[applicant, 'bonus'] = random.choice(sum(self.app_bid_cwalk[applicant], []))
             elif stage == 2:
                 self.app_df.at[applicant, 'bonus'] = self.get_wage_guess_bonus(applicant)
-    
+
     def send_bonuses(self):
         for _, row in self.app_df.iterrows():
             send_bonus(row['mturk_worker_id'], row['bonus'], row['mturk_assignment_id'], 'Participation bonus')
         for _, row in self.emp_df.iterrows():
             send_bonus(row['mturk_worker_id'], row['bonus'], row['mturk_assignment_id'], 'Participation bonus')
-            
+
 
 if __name__ == '__main__':
     br = BonusResolver()

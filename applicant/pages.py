@@ -9,6 +9,9 @@ import json
 with open('_static/global/question_text.json', 'r', encoding='utf-8') as fh:
     qtext = json.load(fh)
 
+with open('_static/global/constants.json', 'r', encoding='utf-8') as fh:
+    constants = json.load(fh)
+
 
 class Captcha(Page):
     form_model = 'player'
@@ -91,7 +94,7 @@ class Application(Page):
     def vars_for_template(self):
         # get the real performance pdf from the prelim questions we do
         # it's just a filler right now
-        perform_cdf = [0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.]
+        perform_cdf = constants['perform_cdf']
         better_than = int(perform_cdf[self.player.eval_correct]*100)
         worse_than = 100 - better_than
         return dict(better_than=better_than, worse_than=worse_than)

@@ -9,7 +9,7 @@ from otree.api import (
     # currency_range,
 )
 import json
-from random import shuffle, sample, choices
+import random
 
 
 # load question text
@@ -40,34 +40,34 @@ class Subsession(BaseSubsession):
             i = (i + 1) % 3
             # assign question order
             question_order = list(range(1, 21))
-            shuffle(question_order)
+            random.shuffle(question_order)
             p.question_order = '-'.join([str(x) for x in question_order])
             # assign evaluation and non-evaluation questions
-            eval_qs = sample(question_order, 10)
+            eval_qs = random.sample(question_order, 10)
             noneval_qs = [j for j in question_order if j not in eval_qs]
             p.participant.vars['eval_qs'] = eval_qs
             p.participant.vars['noneval_qs'] = noneval_qs
             # assign wage guess orderings
             num_wg = 5  # change this to whatever we decide
-            wg_treatment = choices(list(range(3)), k=num_wg)
+            wg_treatment = random.choices(list(range(3)), k=num_wg)
             p.wage_guess_treatment = '-'.join(map(str, wg_treatment))
-            wg_gender = choices(["Male", "Female"], k=num_wg)
+            wg_gender = random.choices(["Male", "Female"], k=num_wg)
             p.wage_guess_gender = '-'.join(map(str, wg_gender))
-            wg_image = choices(list(range(4)), k=num_wg)
+            wg_image = random.choices(list(range(4)), k=num_wg)
             p.wage_guess_image = '-'.join(map(str, wg_image))
-            wg_perform = choices(list(range(11)), k=num_wg)
+            wg_perform = random.choices(list(range(11)), k=num_wg)
             p.wage_guess_perform = '-'.join(map(str, wg_perform))
-            wg_promote_type = choices(list(range(3)), k=num_wg)
+            wg_promote_type = random.choices(list(range(3)), k=num_wg)
             p.wage_guess_promote_type = '-'.join(map(str, wg_promote_type))
-            wg_promote1 = choices(list(range(6)), k=num_wg)
+            wg_promote1 = random.choices(list(range(6)), k=num_wg)
             p.wage_guess_promote1 = '-'.join(map(str, wg_promote1))
-            wg_promote2a = choices(list(range(101)), k=num_wg)
+            wg_promote2a = random.choices(list(range(101)), k=num_wg)
             p.wage_guess_promote2a = '-'.join(map(str, wg_promote2a))
-            wg_promote2b = choices(list(range(101)), k=num_wg)
+            wg_promote2b = random.choices(list(range(101)), k=num_wg)
             p.wage_guess_promote2b = '-'.join(map(str, wg_promote2b))
-            wg_promote2c = choices(list(range(101)), k=num_wg)
+            wg_promote2c = random.choices(list(range(101)), k=num_wg)
             p.wage_guess_promote2c = '-'.join(map(str, wg_promote2c))
-            wg_promote3 = choices(list(range(3)), k=num_wg)
+            wg_promote3 = random.choices(list(range(3)), k=num_wg)
             p.wage_guess_promote3 = '-'.join(map(str, wg_promote3))
 
 

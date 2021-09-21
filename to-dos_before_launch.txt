@@ -5,6 +5,7 @@ Set OTREE_PRODUCTION variable to 1
 Create credential with Pavitra's account for preventing retakes (or just use the previously created one?)
 change ENDPOINT and EXPERIMENT_SIZE in config.json
 
+go through and set correct performance distributions for both applicant and employer
 go through and set correct payment amounts for everything in instructions
 go through and set correct time estimates in consent forms and in mturk previews
 

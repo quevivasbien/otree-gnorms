@@ -32,8 +32,7 @@ class Overview(Page):
 class DemographicSurvey(Page):
     form_model = 'player'
     form_fields = [
-        'age', 'gender', 'ethnicity', 'education', 'household_income',
-        'home_state', 'married', 'employed', 'religion', 'politics'
+        'age', 'gender', 'education', 'employed', 'resident'
     ]
 
 

@@ -1,15 +1,17 @@
-var currentTab = 1;
-var currentPart = 1;
-
-document.getElementById('player-bids').value = '0.5-'.repeat(30).slice(0, -1);
+let currentTab = 1;
+let currentPart = 1;
 
 function getVar(id) {
   let string = document.getElementById(id).innerHTML;
   return string.split('-')[currentTab-1];
 }
 
+const treatment = parseInt(document.getElementById('participant-treatment'));
+const numApplicants = getVar('participant-gender').length;
+
+document.getElementById('player-bids').value = '0.5-'.repeat(numApplicants * 3).slice(0, -1);
+
 function getPronoun() {
-  let treatment = parseInt(getVar('participant-treatment'));
   if (treatment == 0) {
     return 'their';
   }
@@ -63,7 +65,6 @@ function setSelfEvalStatement(self_eval) {
 function updateDisplay() {
   // update question number indicator
 	document.getElementById('question-number').innerHTML = currentTab;
-  let treatment = getVar('participant-treatment');
   // set up avatar
   let image = document.getElementById('avatar');
   if (treatment == 0) {
@@ -122,28 +123,28 @@ function startPart1() {
 
 function startPart2() {
   show('questions', 'part2explain');
-  currentTab = 11;
+  currentTab = numApplicants + 1;
   currentPart = 2;
   updateDisplay();
 }
 
 function startPart3() {
   show('questions', 'part3explain');
-  currentTab = 21;
+  currentTab = numApplicants * 2 + 1;
   currentPart = 3;
   updateDisplay();
 }
 
 function backToPart1() {
   show('questions', 'part2explain');
-  currentTab = 10;
+  currentTab = numApplicants;
   currentPart = 1;
   updateDisplay();
 }
 
 function backToPart2() {
   show('questions', 'part3explain');
-  currentTab = 20;
+  currentTab = numApplicants * 2;
   currentPart = 2;
   updateDisplay();
 }
@@ -151,13 +152,13 @@ function backToPart2() {
 function forward() {
   sendEntry();
   currentTab++;
-  if (currentTab == 11) {
+  if (currentTab == numApplicants + 1) {
     show('part2explain', 'questions');
   }
-  else if (currentTab == 21) {
+  else if (currentTab == numApplicants * 2 + 1) {
     show('part3explain', 'questions');
   }
-	else if (currentTab == 31) {
+	else if (currentTab == numApplicants * 3 + 1) {
     show('finished', 'questions');
 	}
 	else {
@@ -166,7 +167,7 @@ function forward() {
 }
 
 function back() {
-  if (currentTab > 30) {
+  if (currentTab > numApplicants * 3) {
     show('questions', 'finished');
     currentTab--;
   }
@@ -177,10 +178,10 @@ function back() {
       show('part1explain', 'questions');
       currentTab++;
     }
-    else if (currentTab == 10) {
+    else if (currentTab == numApplicants) {
       show('part2explain', 'questions');
     }
-  	else if (currentTab == 20) {
+  	else if (currentTab == numApplicants * 2) {
       show('part3explain', 'questions');
   	}
   	else {

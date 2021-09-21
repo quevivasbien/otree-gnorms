@@ -1,4 +1,5 @@
 var currentQuestion = 0;
+let treatments = getVals('wg-treatment');
 let defaultRangeValue = parseFloat(document.getElementById('default-range-val').innerHTML);
 
 const promote1_dict = {
@@ -22,12 +23,11 @@ function getVals(id) {
 }
 
 function setUpQuestion(n) {
-    var treatments = getVals('wg-treatment');
     // check to see if that's all the questions
     if (n >= treatments.length) {
       return false;
     }
-    var treatment = treatments[n];
+    let treatment = treatments[n];
     // set up pronoun and avatar image
     if (treatment != 0) {
       // get gender
@@ -82,6 +82,8 @@ function setUpQuestion(n) {
         message.innerHTML = '<p>The applicant chose to not include any statement with ' + pronoun + ' application.</p>';
       }
     }
+    // update question number indicator
+    document.getElementById('other-app-num').innerHTML = (n+1) + ' of ' + treatments.length;
     return true;  // successfully completed
 }
 
