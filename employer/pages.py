@@ -51,6 +51,16 @@ class BiddingPage(Page):
     form_fields = ['bids']
 
 
+class PerformGuessInstructions(Page):
+    form_model = 'player'
+    form_fields = ['understanding4']
+
+
+class PerformGuessPage(Page):
+    form_model = 'player'
+    form_fields = ['perform_guesses']
+
+
 class CompletionCode(Page):
     pass
 
@@ -63,5 +73,7 @@ page_sequence = [
     BiddingInstructions1,
     BiddingInstructions2,
     BiddingPage,
+    PerformGuessInstructions,
+    PerformGuessPage,
     CompletionCode
 ]

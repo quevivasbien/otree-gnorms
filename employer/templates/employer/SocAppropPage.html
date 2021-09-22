@@ -8,14 +8,14 @@
 {% endblock %}
 
 {% block title %}
-	Part 1 - Applicant valuations
+	Part 2 - Performance guesses
 {% endblock %}
 
 {% block content %}
 
 <div id="participant-treatment" style="display: none">{{ participant.vars.treatment }}</div>
 <div id="apps-per-emp" style="display: none">{{ Constants.apps_per_emp }}</div>
-<div id="default-bid" style="display: none">0.5</div>
+<div id="default-bid" style="display: none">5</div>
 <div id="participant-gender" style="display: none">{{ participant.vars.gender }}</div>
 <div id="participant-avatar" style="display: none">{{ participant.vars.avatar }}</div>
 <div id="participant-eval-correct" style="display: none">{{ participant.vars.eval_correct }}</div>
@@ -24,23 +24,23 @@
 <div id="participant-self-eval-agree1" style="display: none">{{ participant.vars.self_eval_agree1 }}</div>
 <div id="participant-self-eval-agree2" style="display: none">{{ participant.vars.self_eval_agree2 }}</div>
 <div id="participant-self-eval-statement" style="display: none">{{ participant.vars.self_eval_statement }}</div>
-<input id="player-bids" type="hidden" name="bids">
-{{ form.bids.errors }}
+<input id="player-bids" type="hidden" name="perform_guesses">
+{{ form.perform_guesses.errors }}
 
 <div id="part1explain" style="display: block">
+	<p>We're now ready to start reviewing the social appropriateness of the application portfolios.</p>
 
-	<p>We're now ready to start evaluating the applicants.</p>
+	<p>Like in the previous two parts of the study, the first 10 application portfolios you see will show how the applicant in each decision answered a question in which they indicated whether they thought that their performance on the test, relative to others, was <em>terrible, not good, neutral, good, very good, or exceptional</em>.</p>
 
-	<p>The first 10 application portfolios you see will show how the applicant in each decision answered a question in which they indicated whether they thought that their performance on the test, relative to others, was <em>terrible, not good, neutral, good, very good, or exceptional</em>. You will use that information to make a valuation for each applicant.</p>
-
-	<br>
-	<p>To help you with your valuations, keep in mind the following:</p>
+	<p>For each portfolio, you will indicate whether the contents of the portfolio are</p>
 	<ul>
-		<li>The average number of evaluation questions correctly answered by a job applicant is {{ Constants.mean_performance }} out of 10.</li>
-		<li>The valuation you choose for each applicant should be the maximum amount you would be willing to exchange in return for 10 cents times the number of job application questions correctly answered by the applicant.</li>
-	</ul>
+		<li>Very socially inappropriate,</li>
+		<li>Socially inappropriate</li>
+		<li></li>
 
 	<br>
+	<p>To help you with your guesses, keep in mind that the average number of evaluation questions correctly answered by a job applicant is {{ Constants.mean_performance }} out of 10.</p>
+
 	<button type="button" class="btn-primary btn" onclick="startPart1()">Next</button>
 </div>
 
@@ -51,16 +51,10 @@
 		<li>Usually I am the best at what I do.</li>
 		<li>I conduct all tasks assigned to me with the needed attention.</li>
 	</ul>
-	<p>You will use that information to make a valuation for each applicant.</p>
+	<p>You will use that information to guess the number of job application questions correctly answered by each applicant.</p>
 
-	<br>
-	<p>Again, keep in mind the following:</p>
-	<ul>
-		<li>The average number of evaluation questions correctly answered by a job applicant is {{ Constants.mean_performance }} out of 10.</li>
-		<li>The valuation you choose for each applicant should be the maximum amount you would be willing to exchange in return for 10 cents times the number of job application questions correctly answered by the applicant.</li>
-	</ul>
+	<p>Again, keep in mind that the average number of evaluation questions correctly answered by a job applicant is {{ Constants.mean_performance }} out of 10.</p>
 
-	<br>
 	<button type="button" class="btn-primary btn back" onclick="backToPart1()">Back</button>
 	<button type="button" class="btn-primary btn next" onclick="startPart2()">Next</button>
 </div>
@@ -72,16 +66,11 @@
 		<li>"I conduct all tasks assigned to me with the needed attention."</li>
 		<li>I prefer not to include either of these statements in my application.</li>
 	</ul>
-	<p>You will use that information to make a valuation for each applicant.</p>
+	<p>You will use that information to guess the number of job application questions correctly answered by each applicant.</p>
 
 	<br>
-	<p>Again, keep in mind the following:</p>
-	<ul>
-		<li>The average number of evaluation questions correctly answered by a job applicant is {{ Constants.mean_performance }} out of 10.</li>
-		<li>The valuation you choose for each applicant should be the maximum amount you would be willing to exchange in return for 10 cents times the number of job application questions correctly answered by the applicant.</li>
-	</ul>
+	<p>Again, keep in mind that the average number of evaluation questions correctly answered by a job applicant is {{ Constants.mean_performance }} out of 10.</p>
 
-	<br>
 	<button type="button" class="btn-primary btn back" onclick="backToPart2()">Back</button>
 	<button type="button" class="btn-primary btn next" onclick="startPart3()">Next</button>
 </div>
@@ -101,10 +90,10 @@
 
 	</div>
 
-	<p>Use the slider below to choose a valuation for this applicant:</p>
+	<p>Use the slider below to guess the number of job performance questions correctly answered by this applicant:</p>
 	<div class="slider-container">
-	    <input id="rangeInput" type="range" min="0.0" max="1.0" step="0.05" class="slider" oninput="amount.value=rangeInput.value"/>
-			$<input id="amount" type="number" value="0.50" min="0.0" max="1.0" step="0.01" oninput="rangeInput.value=amount.value" style="width: 60px;"/>
+	    <input id="rangeInput" type="range" min="0" max="10" step="1" class="slider" oninput="amount.value=rangeInput.value"/>
+			<input id="amount" type="number" value="5" min="0" max="10" step="1" oninput="rangeInput.value=amount.value" style="width: 40px;"/> out of 10
 	</div>
 
 	<br>
@@ -113,7 +102,7 @@
 </div>
 
 <div id="finished" style="display:none">
-	<p>That's all the questions for this part of the study! Click "Next" to move on to Part 2, or click "Back" if you want to change your answers.</p>
+	<p>That's all the questions for this part of the study! Click "Next" to move on to Part 3, or click "Back" if you want to change your answers.</p>
 
 	<br>
 	<button type="button" class="btn-primary btn back" onclick="back()">Back</button>

@@ -104,10 +104,13 @@ understanding1_choices = [x.replace('~', Constants.employer_payment) for x in qt
 class Player(BasePlayer):
     applicants = models.StringField()
     bids = models.StringField()
+    perform_guesses = models.StringField()
     captcha = models.CharField(blank=True)
     understanding1 = models.StringField(choices=understanding1_choices, widget=widgets.RadioSelect)
     understanding2 = models.StringField(choices=qtext['emp_understanding2'], widget=widgets.RadioSelect)
     understanding3 = models.StringField(choices=qtext['emp_understanding3'], widget=widgets.RadioSelect)
+    understanding4 = models.StringField(choices=qtext['emp_understanding4'], widget=widgets.RadioSelect)
+    understanding5 = models.StringField(choices=qtext['emp_understanding5'], widget=widgets.RadioSelect)
     age = models.StringField(choices=qtext['age'])
     gender = models.StringField(choices=qtext['gender'])
     # ethnicity = models.StringField(choices=qtext['ethnicity'])
@@ -132,3 +135,9 @@ class Player(BasePlayer):
 
     def understanding3_error_message(self, value):
         return self.check_q(value, qtext['emp_understanding3'][2])
+
+    def understanding4_error_message(self, value):
+        return self.check_q(value, qtext['emp_understanding4'][0])
+
+    def understanding5_error_message(self, value):
+        return self.check_q(value, qtext['emp_understanding5'][0])

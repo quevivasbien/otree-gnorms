@@ -6,10 +6,11 @@ function getVar(id) {
   return string.split('-')[currentTab-1];
 }
 
-const treatment = parseInt(document.getElementById('participant-treatment'));
-const numApplicants = getVar('participant-gender').length;
+const treatment = parseInt(document.getElementById('participant-treatment').innerHTML);
+const numApplicants = parseInt(document.getElementById('apps-per-emp').innerHTML);
+const defaultBid = document.getElementById('default-bid').innerHTML;
 
-document.getElementById('player-bids').value = '0.5-'.repeat(numApplicants * 3).slice(0, -1);
+document.getElementById('player-bids').value = (defaultBid + '-').repeat(numApplicants).slice(0, -1);
 
 function getPronoun() {
   if (treatment == 0) {
@@ -123,28 +124,28 @@ function startPart1() {
 
 function startPart2() {
   show('questions', 'part2explain');
-  currentTab = numApplicants + 1;
+  currentTab = numApplicants / 3 + 1;
   currentPart = 2;
   updateDisplay();
 }
 
 function startPart3() {
   show('questions', 'part3explain');
-  currentTab = numApplicants * 2 + 1;
+  currentTab = numApplicants * 2/3 + 1;
   currentPart = 3;
   updateDisplay();
 }
 
 function backToPart1() {
   show('questions', 'part2explain');
-  currentTab = numApplicants;
+  currentTab = numApplicants / 3;
   currentPart = 1;
   updateDisplay();
 }
 
 function backToPart2() {
   show('questions', 'part3explain');
-  currentTab = numApplicants * 2;
+  currentTab = numApplicants * 2/3;
   currentPart = 2;
   updateDisplay();
 }
@@ -152,13 +153,13 @@ function backToPart2() {
 function forward() {
   sendEntry();
   currentTab++;
-  if (currentTab == numApplicants + 1) {
+  if (currentTab == numApplicants / 3 + 1) {
     show('part2explain', 'questions');
   }
-  else if (currentTab == numApplicants * 2 + 1) {
+  else if (currentTab == numApplicants * 2/3 + 1) {
     show('part3explain', 'questions');
   }
-	else if (currentTab == numApplicants * 3 + 1) {
+	else if (currentTab == numApplicants + 1) {
     show('finished', 'questions');
 	}
 	else {
@@ -167,7 +168,7 @@ function forward() {
 }
 
 function back() {
-  if (currentTab > numApplicants * 3) {
+  if (currentTab > numApplicants) {
     show('questions', 'finished');
     currentTab--;
   }
@@ -178,10 +179,10 @@ function back() {
       show('part1explain', 'questions');
       currentTab++;
     }
-    else if (currentTab == numApplicants) {
+    else if (currentTab == numApplicants / 3) {
       show('part2explain', 'questions');
     }
-  	else if (currentTab == numApplicants * 2) {
+  	else if (currentTab == numApplicants * 2/3) {
       show('part3explain', 'questions');
   	}
   	else {

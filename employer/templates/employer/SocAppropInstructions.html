@@ -1,0 +1,32 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block styles %}
+
+<link href="/static/global/custom.css" rel="stylesheet">
+
+{% endblock %}
+
+{% block title %}
+	Instructions for Part 3
+{% endblock %}
+
+{% block content %}
+
+<p>We're now ready for Part 3 (the final part) of the study. Like the previous parts you'll see the profiles of {{ Constants.apps_per_emp }} applicants, and this time your task is to indicate how <em>socially appropriate</em> you think each applicants' responses are.</p>
+
+<p>By “socially appropriate”, we mean behavior that most people agree is “reasonable” or “correct,” and consistent with proper social behavior in that context. By “socially inappropriate”, we mean behavior that most people agree will make them form a negative impression of the applicant.</p>
+
+<p>If this part is chosen for your bonus payment, we'll randomly select one of your guesses, along with another employer in the study (who is an MTurk worker like you). If your guess matches the other employer's guess for the same applicant, you will receive a bonus of $1.00.</p>
+
+<p>Complete the following statement to check your understanding before continuing:</p>
+{% formfield player.understanding5 label="My bonus for this part of the study depends on whether I" %}
+
+{% next_button %}
+
+{% endblock %}
+
+
+{% block scripts %}
+
+{% endblock %}
