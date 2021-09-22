@@ -3,7 +3,7 @@
 
 {% block styles %}
 
-<link href="{% static 'applicant/css/custom.css' %}" rel="stylesheet">
+<link href="/static/global/custom.css" rel="stylesheet">
 
 <style>
 	img {
@@ -44,22 +44,20 @@
 {{ form.avatar.errors }}
 
 <div id="page1">
-<p>During the study all participants are represented by an avatar. The avatars were assigned based on the answers in the entry survey and automatically selected from a library of avatars. This way your anonymity is preserved. The avatar that was automatically selected to represent you is displayed below.</p>
+	<p>During the study all participants are represented by an avatar. The avatars were assigned based on the answers in the entry survey and automatically selected from a library of avatars. This way your anonymity is preserved. The avatar that was automatically selected to represent you is displayed below.</p>
 
-<img id="avatar_demo" src='' alt="Avatar option"><br>
+	<img id="avatar_demo" src='' alt="Avatar option"><br>
 
-<button type="button" class="btn-primary btn" onclick="show('page2', 'page1')">Next</button>
+	<button type="button" class="btn-primary btn" onclick="show('page2', 'page1')">Next</button>
 </div>
 
 <div id="page2" style="display:none">
 
 	<p>Your job application portfolio is the <em>only</em> information that the employers will see.</p>
 
-	{% if player.treatment == 0 %}<p>Your application portfolio consists of your evaluation of your performance on the test you completed in Part 1. The employers <em>do not</em> see your avatar or how many questions you answered correctly in Part 1.</p>{% endif %}
+	{% if player.treatment != 2 %}<p>Your application portfolio consists of {% if player.treatment == 1 %}your avatar and {% endif %}your evaluation of your performance on the test you completed in Part 1. The employers <em>do not</em> see how many questions you answered correctly in Part 1.</p>
 
-	{% if player.treatment == 1 %}<p>Your application portfolio consists of your avatar and your evaluation of your performance on the test you completed in Part 1. The employers <em>do not</em> see how many questions you answered correctly in Part 1.</p>{% endif %}
-
-	{% if player.treatment == 2 %}<p>Your application portfolio consists of your avatar, your performance on the ten "evaluation questions" from Part 1, and your evaluation of your performance on the test you completed in Part 1.</p>{% endif %}
+	{% else %}<p>Your application portfolio consists of your avatar, your performance on the ten "evaluation questions" from Part 1, and your evaluation of your performance on the test you completed in Part 1.</p>{% endif %}
 
 	<p>A quick reminder: in Part 1, you correctly answered {{ player.eval_correct }} out of the 10 evaluation questions. Among 100 prior MTurkers who took the ASVAB test, your performance on the 10 evaluation questions is as good as or better than {{ better_than }} of them and worse than {{ worse_than }} of them.</p>
 
@@ -102,7 +100,7 @@
 	<br>
 	{% formfield player.self_eval_statement label="Please choose one of the following statements to accompany your application:" %}
 
-	<button type="button" class="btn-primary btn back" onclick="backQuestion()">Back</button>
+	<button type="button" class="btn-primary btn back" onclick="show('page2', 'page3')">Back</button>
 	<button type="button" class="btn-primary btn next" onclick="seeProfile()">Next</button>
 
 </div>
@@ -122,7 +120,7 @@
 
 {% block scripts %}
 
-<script src="{% static 'applicant/js/show.js' %}"></script>
+<script src="/static/global/js/show.js"></script>
 <script src="{% static 'applicant/js/applicationQuestions.js' %}"></script>
 <script type="text/javascript">initiate()</script>
 

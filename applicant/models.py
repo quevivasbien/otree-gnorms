@@ -15,6 +15,9 @@ import random
 # load question text
 with open('_static/global/question_text.json', 'r',  encoding='utf-8') as fh:
     qtext = json.load(fh)
+# load constants
+with open('_static/global/constants.json', 'r',  encoding='utf-8') as fh:
+    constants = json.load(fh)
 
 
 author = 'Mckay D Jensen'
@@ -28,6 +31,9 @@ class Constants(BaseConstants):
     name_in_url = 'applicant'
     players_per_group = None
     num_rounds = 1
+    estimated_time = constants['applicant_estimated_time']
+    applicant_payment = '{:.2f}'.format(constants['applicant_payment'])
+    applicant_max_bonus = '{:.2f}'.format(constants['applicant_max_bonus'])
 
 
 class Subsession(BaseSubsession):
@@ -49,7 +55,7 @@ class Subsession(BaseSubsession):
             p.participant.vars['noneval_qs'] = noneval_qs
             # assign wage guess orderings
             num_wg = 5  # change this to whatever we decide
-            wg_treatment = random.choices(list(range(3)), k=num_wg)
+            wg_treatment = [p.treatment] * num_wg  # random.choices(list(range(3)), k=num_wg)
             p.wage_guess_treatment = '-'.join(map(str, wg_treatment))
             wg_gender = random.choices(["Male", "Female"], k=num_wg)
             p.wage_guess_gender = '-'.join(map(str, wg_gender))
@@ -75,7 +81,11 @@ class Group(BaseGroup):
     pass
 
 
+understanding1_choices = [x.replace('~', Constants.applicant_payment) for x in qtext['understanding1']]
+
+
 class Player(BasePlayer):
+    # vars set at session setup
     treatment = models.IntegerField()
     question_order = models.StringField()
     wage_guess_treatment = models.StringField()
@@ -89,7 +99,7 @@ class Player(BasePlayer):
     wage_guess_promote2c = models.StringField()
     wage_guess_promote3 = models.StringField()
     captcha = models.CharField(blank=True)
-    understanding1 = models.StringField(choices=qtext['understanding1'], widget=widgets.RadioSelect)
+    # demographic survey questions
     age = models.StringField(choices=qtext['age'])
     gender = models.StringField(choices=qtext['gender'])
     # ethnicity = models.StringField(choices=qtext['ethnicity'])
@@ -101,7 +111,12 @@ class Player(BasePlayer):
     # religion = models.StringField(choices=qtext['religion'])
     # politics = models.StringField(choices=qtext['politics'])
     resident = models.StringField(choices=['Yes', 'No'])
+    # understanding questions
+    understanding1 = models.StringField(choices=understanding1_choices, widget=widgets.RadioSelect)
     understanding2 = models.StringField(choices=qtext['understanding2'], widget=widgets.RadioSelect)
+    understanding3 = models.StringField(choices=qtext['understanding3'], widget=widgets.RadioSelect)
+    understanding4 = models.StringField(choices=qtext['understanding4'], widget=widgets.RadioSelect)
+    # ASVAB questions
     q1 = models.StringField(choices=qtext['q1'], widget=widgets.RadioSelect)
     q2 = models.StringField(choices=qtext['q2'], widget=widgets.RadioSelect)
     q3 = models.StringField(choices=qtext['q3'], widget=widgets.RadioSelect)
@@ -124,14 +139,14 @@ class Player(BasePlayer):
     q20 = models.StringField(choices=qtext['q20'], widget=widgets.RadioSelect)
     eval_correct = models.IntegerField()
     noneval_correct = models.IntegerField()
-    understanding3 = models.StringField(choices=qtext['understanding3'], widget=widgets.RadioSelect)
+    # application questions
     avatar = models.StringField()
     self_eval = models.StringField(choices=qtext['self_eval'], widget=widgets.RadioSelect)
     self_eval_agree0 = models.IntegerField()  # slider
     self_eval_agree1 = models.IntegerField()  # slider
     self_eval_agree2 = models.IntegerField()  # slider
     self_eval_statement = models.StringField(choices=qtext['self_eval_statement'], widget=widgets.RadioSelect)
-    understanding4 = models.StringField(choices=qtext['understanding4'], widget=widgets.RadioSelect)
+    # guessing questions
     wage_guess1 = models.FloatField()  # is a slider, managed via html&js
     wage_guess2 = models.FloatField()  # is a slider, managed via html&js
     wage_guess3 = models.FloatField()  # is a slider, managed via html&js
@@ -145,18 +160,18 @@ class Player(BasePlayer):
     approp_guess3 = models.IntegerField()
     approp_guess_other = models.StringField()
 
-    def understanding1_error_message(self, value):
-        if value != qtext['understanding1'][1]:
+    def check_q(self, value, correct):
+        if value != correct:
             return 'Sorry. Your answer is incorrect. Please choose the correct answer to proceed.'
+
+    def understanding1_error_message(self, value):
+        return self.check_q(value, understanding1_choices[1])
 
     def understanding2_error_message(self, value):
-        if value != qtext['understanding2'][1]:
-            return 'Sorry. Your answer is incorrect. Please choose the correct answer to proceed.'
+        return self.check_q(value, qtext['understanding2'][1])
 
     def understanding3_error_message(self, value):
-        if value != qtext['understanding3'][0]:
-            return 'Sorry. Your answer is incorrect. Please choose the correct answer to proceed.'
+        return self.check_q(value, qtext['understanding3'][0])
 
     def understanding4_error_message(self, value):
-        if value != qtext['understanding4'][0]:
-            return 'Sorry. Your answer is incorrect. Please choose the correct answer to proceed.'
+        return self.check_q(value, qtext['understanding4'][0])

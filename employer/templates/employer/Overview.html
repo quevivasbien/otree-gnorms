@@ -3,7 +3,7 @@
 
 {% block styles %}
 
-<link href="{% static 'employer/css/custom.css' %}" rel="stylesheet">
+<link href="/static/global/custom.css" rel="stylesheet">
 
 {% endblock %}
 
@@ -13,122 +13,38 @@
 
 {% block content %}
 
-<div id="tab1">
+<div id="page1">
 	<p>In this study, you will play the role of an employer evaluating job applicants. The “job applicants” are other Mturkers who participated in a different version of the study.</p>
 
 	<p>This study has three parts:</p>
 	<ul>
 		<li>In Part 1, you will decide the maximum amount you are willing to pay to job applicants to buy their performance in a test. You can earn a bonus from this part depending on your responses and on the performance of the applicants you review.</li>
 		<li>In Parts 2 and 3, you will guess the performance of the applicants and the social appropriateness of how they evaluate themselves in their "job application portfolios." You can earn a bonus from these parts if you make accurate guesses.</li>
-
-
-	<p>You will review the profiles of up to <b>30</b> applicants.</p>
-
-	<p>By completing this study, you will receive a guaranteed payment of $X within 24 hours. You will also receive a bonus payment based on your responses in a randomly-selected part out of the three parts. This bonus payment will be up to $Y and will be paid to you within a week.</p>
-
-	<br>
-	<button type="button" class="btn-primary btn" onclick="show('tab2', 'tab1')">Next</button>
-</div>
-
-<div id="tab2" style="display: none">
-	<p>The “job applicants” are MTurk workers who have completed a set of 20 questions from the Armed Services Vocational Aptitude Battery (ASVAB), which has questions from each of the following five categories: general science, arithmetic reasoning, math knowledge, mechanical comprehension, and assembling objects.</p>
-
-	<p>After the applicants see their performance on 10 out of the 20 questions, which we will call the “evaluation” questions, they evaluate their performance on those 10 questions. We will call the other 10 questions for which the applicants do not see their performance as “job performance” questions. Your payoff in this study will depend on their performance on the job performance questions.</p>
-
-	{% if participant.vars.treatment == 0 %}<p>The applicant portfolio consists of the applicant's evaluation of their own performance.</p>
-	{% elif participant.vars.treatment == 1 %}<p>The applicant portfolio consists of the applicant's evaluation of their own performance, along with an avatar representing them.</p>
-	{% else %}<p>The applicant portfolio consists of the applicant’s evaluation of their own performance, an avatar representing them, and the number of evaluation questions that they correctly answered.</p>{% endif %}
-
-	<p><b>The average number of evaluation questions correctly answered by a job applicant is {{ mean_performance }} out of 10.</b></p>
-
-	<br>
-	<button type="button" class="btn-primary btn back" onclick="show('tab1', 'tab2')">Back</button>
-	<button type="button" class="btn-primary btn next" onclick="show('tab3', 'tab2')">Next</button>
-</div>
-
-<div id="tab3" style="display: none">
-	<p>You will have a budget of $1.00 for each applicant portfolio you see. You will choose a wage (between 0 and 100 cents) that you would be willing to pay that applicant. You are one of 5 potential employers (who are all MTurk workers like you) who see that applicant’s portfolio. Just like you, each of the other four employers will choose a wage between 0 and 100 cents. If the wage you offer is the highest among the five employers, you will successfully hire that applicant.</p>
-
-	<ul>
-		<li>If your wage offer is <em>not</em> the highest among the five employers, your payoff for this applicant will be $1.00.</li>
-		<li>If your wage offer is the highest among the five employers, your payoff for this applicant will be $1.00 <em>minus</em> the wage you choose, <em>plus</em> 10 cents times the number of “job performance” questions that the applicant correctly answered.</li>
 	</ul>
 
-	<p>For example, suppose that you choose a wage of 50 cents for an applicant, and that wage is higher than the wages chosen by the other four employers. If the applicant correctly answered 7 out of the 10 non-evaluation questions, then your payoff will be</p>
 
-	<p style="text-align: center">$1 - $0.50 + $0.70 = $1.20.</p>
+	<p>You will review the profiles of up to <b>30</b> applicants in each part of the study.</p>
 
-	<p>In general, you should keep in mind that you pay the wages of the applicants you successfully hire, but you also get paid depending on how well those applicants perform on the “job performance” questions, so <b>you want to choose wages based on how well you think the applicants will perform on the “job performance” questions</b>, based on the portfolios you see.</p>
-
-	<p>After you complete the study, we'll randomly select one of the applicants you saw, and you will be sent your payoff for that applicant as a bonus payment for participating in this study.</p>
+	<p>By completing this study, you will receive a guaranteed payment of ${{ Constants.employer_payment }} within 24 hours. You will also receive a bonus payment based on your responses in a randomly-selected part out of the three parts. This bonus payment will be up to ${{ Constants.employer_max_bonus }} and will be paid to you within a week.</p>
 
 	<br>
-	<button type="button" class="btn-primary btn back" onclick="show('tab2', 'tab3')">Back</button>
-	<button type="button" class="btn-primary btn next" onclick="show('tab4', 'tab3')">Next</button>
+	<button type="button" class="btn-primary btn" onclick="show('page2', 'page1')">Next</button>
 </div>
 
-<div id="tab4" style="display: none">
-	<p>Answer the following question to check your understanding:</p>
+<div id="page2" style="display:none">
+	<p>Answer the following question to check your understanding before moving on to the first part of the study:<p>
+	{% formfield player.understanding1 label="Which of the following is true?" %}
+	<button type="button" class="btn-primary btn back" onclick="show('page1', 'page2')" style="display:block">Back</button>
+	<button class="btn-primary btn next" style="display:block">Next</button>
+</div>
 
-	<div class="fill-blanks">
-		<p>Fill in the blanks:</p>
-		<p style="display: inline-block">If I offer the highest wage for an applicant, my payoff will be $1.00 minus the wage I offer plus</p>
-		<input type="text" name="understanding1a" maxlength="5" size="5" required id="id_understanding1a" class="form-control">
-		<label for="understanding1a">cents</label>
-		<p style="display: inline-block">times the number of job performance questions they correctly answer.</p>
-
-		<p style="display: inline-block">If I do not offer the highest wage, my payoff will be</p>
-		<label for="understanding1b">$</label>
-		<input type="text" name="understanding1b" maxlength="5" size="5" required id="id_understanding1b" class="form-control">
-		<label for="understanding1b">.</label>
-	</div>
-
-	<br>
-	{{ form.understanding1a.errors }}
-	{{ form.understanding1b.errors }}
-	<div id="error-message" style="color: red"></div>
-	<button type="button" class="btn-primary btn back" onclick="show('tab3', 'tab4')">Back</button>
-	<button id="submit-button" type="button" onclick="validateBeforeSubmit()" class="btn-primary btn next">Next</button>
 {% endblock %}
 
 
 {% block scripts %}
 
-<script src="{% static 'employer/js/show.js' %}"></script>
-
-<script>
-
-function validateBeforeSubmit() {
-	// does a custom form field validation; if correct, submits
-	input1 = document.getElementById('id_understanding1a');
-	input2 = document.getElementById('id_understanding1b');
-	var incorrect = 0;
-	if (!['ten', '10', '10.0', 'TEN', 'Ten'].includes(input1.value)) {
-		incorrect++;
-	}
-	if (!['1', '1.00', 'one', '1.0', 'One', 'ONE'].includes(input2.value)) {
-		incorrect++;
-	}
-	if (incorrect == 0) {
-		$('#form').submit();
-	}
-	else if (incorrect == 1) {
-		document.getElementById('error-message').innerHTML = 'One of your answers is incorrect. Please choose the correct answers to proceed.';
-	}
-	else if (incorrect == 2) {
-		document.getElementById('error-message').innerHTML = 'Your answers are incorrect. Please choose the correct answers to proceed.';
-	}
-}
-
-// Listen for enter press in final field
-var input = document.getElementById('id_understanding1b');
-input.addEventListener('keyup', function(event) {
-  // Number 13 is the "Enter" key on the keyboard
-  if (event.keyCode === 13) {
-    event.preventDefault();
-    document.getElementById('submit-button').click();
-  }
-});
+<script src="/static/global/js/show.js"></script>
+<script src="/static/global/js/checkUnderstanding.js" onload="checkUnderstanding('id_understanding1', 'page2', 'page1')"></script>
 
 </script>
 

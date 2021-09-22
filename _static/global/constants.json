@@ -1,3 +1,10 @@
 {
-    "perform_cdf": [0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
+    "perform_cdf": [0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0],
+    "apps_per_emp_stage": 10,
+    "applicant_estimated_time": 30,
+    "employer_estimated_time": 20,
+    "applicant_payment": 4,
+    "employer_payment": 3,
+    "applicant_max_bonus": 1,
+    "employer_max_bonus": 1
 }

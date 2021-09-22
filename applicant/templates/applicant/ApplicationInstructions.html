@@ -3,7 +3,7 @@
 
 {% block styles %}
 
-<link href="{% static 'applicant/css/custom.css' %}" rel="stylesheet">
+<link href="/static/global/custom.css" rel="stylesheet">
 
 {% endblock %}
 
@@ -32,7 +32,7 @@
 	<p>Suppose that the maximum amount that the employer is willing to pay to buy your performance is 60 cents.<p>
 	<table>
 		<tr>
-			<th>Random number drawn is</th>
+			<th>Random amount is</th>
 			<th>Your bonus</th>
 			<th>Employer bonus</th>
 		</tr>
@@ -65,8 +65,8 @@
 
 {% block scripts %}
 
-<script src="{% static 'applicant/js/show.js' %}"></script>
-<script src="{% static 'applicant/js/checkUnderstanding.js' %}"></script>
+<script src="/static/global/js/show.js"></script>
+<script src="/static/global/js/checkUnderstanding.js"></script>
 <script type="text/javascript">
 	checkUnderstanding('id_understanding3', 'page3', 'page1')
 </script>

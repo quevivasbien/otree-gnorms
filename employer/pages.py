@@ -26,7 +26,7 @@ class ConsentForm(Page):
 
 class Overview(Page):
     form_model = 'player'
-    form_fields = ['understanding1a', 'understanding1b']
+    form_fields = ['understanding1']
 
 
 class DemographicSurvey(Page):
@@ -36,9 +36,18 @@ class DemographicSurvey(Page):
     ]
 
 
+class BiddingInstructions1(Page):
+    form_model = 'player'
+    form_fields = ['understanding2']
+
+
+class BiddingInstructions2(Page):
+    form_model = 'player'
+    form_fields = ['understanding3']
+
+
 class BiddingPage(Page):
     form_model = 'player'
-    live_method = 'live_bid'
     form_fields = ['bids']
 
 
@@ -46,4 +55,13 @@ class CompletionCode(Page):
     pass
 
 
-page_sequence = [Captcha, ConsentForm, DemographicSurvey, Overview, BiddingPage, CompletionCode]
+page_sequence = [
+    Captcha,
+    ConsentForm,
+    DemographicSurvey,
+    Overview,
+    BiddingInstructions1,
+    BiddingInstructions2,
+    BiddingPage,
+    CompletionCode
+]

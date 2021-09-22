@@ -1,6 +1,6 @@
 from otree.api import (
     models,
-    # widgets,
+    widgets,
     BaseConstants,
     BaseSubsession,
     BaseGroup,
@@ -36,14 +36,19 @@ so when assigning applicants to employers, can just loop through
 applicant_data.json and assign 30 applicants to employer
 """
 
-APPS_PER_EMP = 10*3
+perform_pdf = constants['perform_cdf'][:1] \
+    + [constants['perform_cdf'][i] - constants['perform_cdf'][i-1] for i in range(1, len(constants['perform_cdf']))]
 
 
 class Constants(BaseConstants):
     name_in_url = 'employer'
     players_per_group = None
     num_rounds = 1
-    mean_performance = int(sum([x * i for i, x in enumerate(constants['perform_cdf'])]))
+    estimated_time = constants['employer_estimated_time']
+    employer_payment = '{:.2f}'.format(constants['employer_payment'])
+    employer_max_bonus = '{:.2f}'.format(constants['employer_max_bonus'])
+    apps_per_emp = constants['apps_per_emp_stage'] * 3
+    mean_performance = '{:.1f}'.format(sum([x * i for i, x in enumerate(perform_pdf)]))
 
 
 class Subsession(BaseSubsession):
@@ -57,12 +62,12 @@ class Subsession(BaseSubsession):
         # divide applicants by treatment so we can give employers only one type of treatment
         applicant_ids = {0: [], 1: [], 2: []}
         for a in applicant_data.keys():
-            applicant_ids[a['treatment']].append(a)
+            applicant_ids[applicant_data[a]['treatment']].append(a)
         # assign applicants to employers
         for i, emp_idx in enumerate(employer_indices):
             treatment = i % 3
-            start_index = APPS_PER_EMP * (i // 3)
-            for j in range(APPS_PER_EMP):
+            start_index = Constants.apps_per_emp * (i // 3)
+            for j in range(Constants.apps_per_emp):
                 treatment_index = (start_index + j) % len(applicant_ids[treatment])
                 if treatment_index == 0:
                     # sample without replacement until all applicants exhausted, then resample
@@ -87,20 +92,22 @@ class Subsession(BaseSubsession):
                                                               for a in applicant_assignments[j])
             p.participant.vars['self_eval_statement'] = '-'.join(applicant_data[a]['self_eval_statement']
                                                                  for a in applicant_assignments[j])
-            p.participant.vars['num_applicants'] = APPS_PER_EMP
 
 
 class Group(BaseGroup):
     pass
 
 
+understanding1_choices = [x.replace('~', Constants.employer_payment) for x in qtext['understanding1']]
+
+
 class Player(BasePlayer):
-    treatment = models.IntegerField()
     applicants = models.StringField()
     bids = models.StringField()
     captcha = models.CharField(blank=True)
-    understanding1 = models.StringField(choices=qtext['understanding1'])  # same as applicant's understanding1
-    understanding2 = models.StringField()
+    understanding1 = models.StringField(choices=understanding1_choices, widget=widgets.RadioSelect)
+    understanding2 = models.StringField(choices=qtext['emp_understanding2'], widget=widgets.RadioSelect)
+    understanding3 = models.StringField(choices=qtext['emp_understanding3'], widget=widgets.RadioSelect)
     age = models.StringField(choices=qtext['age'])
     gender = models.StringField(choices=qtext['gender'])
     # ethnicity = models.StringField(choices=qtext['ethnicity'])
@@ -112,3 +119,16 @@ class Player(BasePlayer):
     # religion = models.StringField(choices=qtext['religion'])
     # politics = models.StringField(choices=qtext['politics'])
     resident = models.StringField(choices=['Yes', 'No'])
+
+    def check_q(self, value, correct):
+        if value != correct:
+            return 'Sorry. Your answer is incorrect. Please choose the correct answer to proceed.'
+
+    def understanding1_error_message(self, value):
+        return self.check_q(value, understanding1_choices[1])
+
+    def understanding2_error_message(self, value):
+        return self.check_q(value, qtext['emp_understanding2'][2])
+
+    def understanding3_error_message(self, value):
+        return self.check_q(value, qtext['emp_understanding3'][2])

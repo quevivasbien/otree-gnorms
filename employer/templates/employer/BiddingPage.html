@@ -3,12 +3,12 @@
 
 {% block styles %}
 
-<link href="{% static 'employer/css/custom.css' %}" rel="stylesheet">
+<link href="/static/global/custom.css" rel="stylesheet">
 
 {% endblock %}
 
 {% block title %}
-	Bidding
+	Part 1 - Valuations for applicants
 {% endblock %}
 
 {% block content %}
@@ -25,34 +25,37 @@
 <input id="player-bids" type="hidden" name="bids">
 {{ form.bids.errors }}
 
-<div id="intro">
+<div id="part1explain" style="display: block">
 
-	<p>We're now ready to start making wage bids on the applicants.</p>
+	<p>We're now ready to start evaluating the applicants.</p>
 
-	<p>There will be three parts in this section, with ten applicant profiles per part. In each part, the self-evaluation information that the applicants provide will be different.</p>
-
-	<p>Remember that you will only successfully hire an applicant if the offer you make is higher than the other employers who also review the applicant. Your payoff for a given employee will be $1.00 if you do <em>not</em> hire them and will depend on their performance otherwise.</p>
-
-	<p>To help you make informed offers, we've included average performance information on the next page, where you will make your bids.</p>
+	<p>The first 10 application portfolios you see will show how the applicant in each decision answered a question in which they indicated whether they thought that their performance on the test, relative to others, was <em>terrible, not good, neutral, good, very good, or exceptional</em>. You will use that information to make a valuation for each applicant.</p>
 
 	<br>
-	<button type="button" class="btn-primary btn" onclick="show('part1explain', 'intro')">Next</button>
-</div>
-
-<div id="part1explain" style="display: none">
-	<p>For the first 10 profiles you see, you will learn how the applicant in that decision answered a question in which they indicated whether they thought that their performance on the test relative to others was <em>terrible, not good, neutral, good, very good, or exceptional</em>.</p>
+	<p>To help you with your valuations, keep in mind the following:</p>
+	<ul>
+		<li>The average number of evaluation questions correctly answered by a job applicant is {{ Constants.mean_performance }} out of 10.</li>
+		<li>The valuation you choose for each applicant should be the maximum amount you would be willing to exchange in return for 10 cents times the number of job application questions correctly answered by the applicant.</li>
+	</ul>
 
 	<br>
-	<button type="button" class="btn-primary btn back" onclick="show('intro', 'part1explain')">Back</button>
-	<button type="button" class="btn-primary btn next" onclick="startPart1()">Next</button>
+	<button type="button" class="btn-primary btn" onclick="startPart1()">Next</button>
 </div>
 
 <div id="part2explain" style="display: none">
-	<p>In the next 10 profiles you see, you will learn how the applicant in that decision indicated their level of agreement on a scale from 0 (entirely disagree) to 100 (entirely agree) with the following statements:</p>
+	<p>The next 10 application portfolios you see will show how the applicant in each decision indicated their level of agreement on a scale from 0 (entirely disagree) to 100 (entirely agree) with the following statements:</p>
 	<ul>
 		<li>I performed well on the test I took in part 1.</li>
 		<li>Usually I am the best at what I do.</li>
 		<li>I conduct all tasks assigned to me with the needed attention.</li>
+	</ul>
+	<p>You will use that information to make a valuation for each applicant.</p>
+
+	<br>
+	<p>Again, keep in mind the following:</p>
+	<ul>
+		<li>The average number of evaluation questions correctly answered by a job applicant is {{ Constants.mean_performance }} out of 10.</li>
+		<li>The valuation you choose for each applicant should be the maximum amount you would be willing to exchange in return for 10 cents times the number of job application questions correctly answered by the applicant.</li>
 	</ul>
 
 	<br>
@@ -61,11 +64,19 @@
 </div>
 
 <div id="part3explain" style="display: none">
-	<p>For the next 10 profiles you see, you will see one of the following statements, which the applicant in that decision chose to include:</p>
+	<p>The next 10 profiles you see will each have one of the following statements, which the applicant in that decision chose to include:</p>
 	<ul>
 		<li>"Usually I am the best at what I do."</li>
 		<li>"I conduct all tasks assigned to me with the needed attention."</li>
 		<li>I prefer not to include either of these statements in my application.</li>
+	</ul>
+	<p>You will use that information to make a valuation for each applicant.</p>
+
+	<br>
+	<p>Again, keep in mind the following:</p>
+	<ul>
+		<li>The average number of evaluation questions correctly answered by a job applicant is {{ Constants.mean_performance }} out of 10.</li>
+		<li>The valuation you choose for each applicant should be the maximum amount you would be willing to exchange in return for 10 cents times the number of job application questions correctly answered by the applicant.</li>
 	</ul>
 
 	<br>
@@ -75,9 +86,7 @@
 
 <div id="questions" style="display:none">
 
-	<h3 id="question-indicator">Applicant <div id="question-number" style="display:inline">1</div> of {{ participant.vars.num_applicants }}:</h3>
-
-	<p>[Average performance information goes here.]</p>
+	<h3 id="question-indicator">Applicant <div id="question-number" style="display:inline">1</div> of {{ Constants.apps_per_emp }}:</h3>
 
 	<div class="form-group" style="text-align:center">
 		<img id="avatar" src="" alt="Applicant avatar" style="display:block; margin-left: auto; margin-right: auto; width: 50%; max-width: 200px;">
@@ -90,7 +99,7 @@
 
 	</div>
 
-	<p>Use the slider below to make a wage bid for this applicant:</p>
+	<p>Use the slider below to choose a valuation for this applicant:</p>
 	<div class="slider-container">
 	    <input id="rangeInput" type="range" min="0.0" max="1.0" step="0.05" class="slider" oninput="amount.value=rangeInput.value"/>
 			$<input id="amount" type="number" value="0.50" min="0.0" max="1.0" step="0.01" oninput="rangeInput.value=amount.value" style="width: 60px;"/>
@@ -102,7 +111,7 @@
 </div>
 
 <div id="finished" style="display:none">
-	<p>That's all the questions! Click "Next" to submit your responses, or click "Back" if you want to change your answers.</p>
+	<p>That's all the questions for this part of the study! Click "Next" to move on to Part 2, or click "Back" if you want to change your answers.</p>
 
 	<br>
 	<button type="button" class="btn-primary btn back" onclick="back()">Back</button>
@@ -113,7 +122,7 @@
 
 {% block scripts %}
 
-<script src="{% static 'employer/js/show.js' %}"></script>
+<script src="/static/global/js/show.js"></script>
 <script src="{% static 'employer/js/bidding.js' %}"></script>
 
 {% endblock %}
