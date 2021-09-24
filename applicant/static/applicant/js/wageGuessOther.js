@@ -52,7 +52,7 @@ function setUpQuestion(n) {
     let perform = document.getElementById('app-performance');
     if (treatment == 2) {
       perform.style.display = 'block';
-      perform.innerHTML = 'The applicant correctly answered ' + getVals('wg-perform')[n] + ' out of 10 evaluation questions.';
+      perform.innerHTML = 'The applicant correctly answered ' + getVals('wg-perform')[n] + ' out of 10 application questions.';
     }
     else {
       perform.style.display = 'none';

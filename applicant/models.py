@@ -43,16 +43,15 @@ class Constants(BaseConstants):
 class Subsession(BaseSubsession):
 
     def creating_session(self):
-        i = 0
-        for p in self.get_players():
+        for i, p in enumerate(self.get_players()):
             # assign treatment
-            p.treatment = i
-            i = (i + 1) % 3
+            p.treatment = i % 3
+            p.show_perf_guess = i % 2
             # assign question order
             question_order = list(range(1, 21))
             random.shuffle(question_order)
             p.question_order = '-'.join([str(x) for x in question_order])
-            # assign evaluation and non-evaluation questions
+            # assign evaluation and non-application questions
             eval_qs = random.sample(question_order, 10)
             noneval_qs = [j for j in question_order if j not in eval_qs]
             p.participant.vars['eval_qs'] = eval_qs
@@ -91,6 +90,7 @@ understanding1_choices = [x.replace('~', Constants.payment) for x in qtext['unde
 class Player(BasePlayer):
     # vars set at session setup
     treatment = models.IntegerField()
+    show_perf_guess = models.IntegerField()
     question_order = models.StringField()
     wage_guess_treatment = models.StringField()
     wage_guess_gender = models.StringField()
@@ -146,14 +146,14 @@ class Player(BasePlayer):
     # application questions
     avatar = models.StringField()
     self_eval = models.StringField(choices=qtext['self_eval'], widget=widgets.RadioSelect)
-    self_eval_agree0 = models.IntegerField()  # slider
-    self_eval_agree1 = models.IntegerField()  # slider
-    self_eval_agree2 = models.IntegerField()  # slider
-    self_eval_statement = models.StringField(choices=qtext['self_eval_statement'], widget=widgets.RadioSelect)
+    self_eval_agree = models.IntegerField()
+    self_eval_statement = models.StringField(
+        choices=qtext['self_eval_statement'], widget=widgets.RadioSelect
+    )
     # guessing questions
-    wage_guess1 = models.FloatField()  # is a slider, managed via html&js
-    wage_guess2 = models.FloatField()  # is a slider, managed via html&js
-    wage_guess3 = models.FloatField()  # is a slider, managed via html&js
+    wage_guess1 = models.FloatField()
+    wage_guess2 = models.FloatField()
+    wage_guess3 = models.FloatField()
     wage_guess_other = models.StringField()
     perform_guess1 = models.IntegerField()
     perform_guess2 = models.IntegerField()

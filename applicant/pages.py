@@ -49,9 +49,10 @@ class ASVABQuestions(Page):
     form_fields = [f'q{i+1}' for i in range(20)]
 
     def before_next_page(self):
+        # checks player's ASVAB answers and figures out how many are correct
         player = self.player
         correct_answers = [
-            2, 3, 0, 0,
+            2, 3, 0, 1,
             2, 3, 1, 2,
             0, 3, 3, 2,
             0, 3, 2, 2,
@@ -88,7 +89,7 @@ class ApplicationInstructions(Page):
 class Application(Page):
     form_model = 'player'
     form_fields = ['avatar', 'self_eval',
-                   'self_eval_agree0', 'self_eval_agree1', 'self_eval_agree2',
+                   'self_eval_agree',
                    'self_eval_statement']
 
     def vars_for_template(self):
@@ -114,10 +115,16 @@ class PerformanceGuess(Page):
     form_model = 'player'
     form_fields = ['perform_guess1', 'perform_guess2', 'perform_guess3', 'perform_guess_other']
 
+    def is_displayed(self):
+        return self.player.show_perf_guess == 1
+
 
 class SocAppropGuess(Page):
     form_model = 'player'
     form_fields = ['approp_guess1', 'approp_guess2', 'approp_guess3', 'approp_guess_other']
+
+    def is_displayed(self):
+        return self.player.show_perf_guess == 0
 
 
 class CompletionCode(Page):

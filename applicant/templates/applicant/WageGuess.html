@@ -31,9 +31,9 @@
 <div id="page1">
 
 	<p>On the following three screens, you will see different versions of the job application portfolio you created in Part 2.</p>
-	<p>For each version of your portfolio, your task is to guess the highest amount that an employer who sees that portfolio would be willing to pay in exchange for 10 cents times the number of job application questions you correctly answered.</p>
+	<p>For each version of your portfolio, your task is to guess the highest amount that an employer who sees that portfolio would be willing to pay in exchange for 10 cents times the number of job performance questions you correctly answered.</p>
 
-	<p>The employers will see <em>only</em> the information presented in each portfolio, plus the average number of job application questions correctly answered by all applicants, which is {{ Constants.mean_performance }} out of 10.</p>
+	<p>The employers will see <em>only</em> the information presented in each portfolio, plus the average number of job performance questions correctly answered by all applicants, which is {{ Constants.mean_performance }} out of 10.</p>
 
 	<p>If one of the portfolios is selected for a bonus payment and your guess is within <em>5 cents</em> of the amount that a randomly selected employer would pay for the portfolio, your bonus payment will be $1.00.</p>
 	<br>
@@ -45,7 +45,7 @@
 	<h5>My portfolios: 1 of 3</h5>
 	<div class="profile">
 		{% if player.treatment != 0 %}<img src="/static/applicant/{{ player.avatar }}" alt="Your avatar"><br>{% endif %}
-		{% if player.treatment == 2 %}<p>The applicant correctly answered {{ player.eval_correct }} out of 10 evaluation questions.</p>{% endif %}
+		{% if player.treatment == 2 %}<p>The applicant correctly answered {{ player.eval_correct }} out of 10 application questions.</p>{% endif %}
 		<p>The applicant rated {% if player.treatment == 0 %}their{% elif player.gender == "Male"%}his{% elif player.gender == "Female" %}her{% else %}their{% endif %} performance as {{ player.self_eval }}.</p>
 	</div>
 
@@ -69,7 +69,7 @@
 	<h5>My portfolios: 2 of 3</h5>
 	<div class="profile">
 		{% if player.treatment != 0 %}<img src="/static/applicant/{{ player.avatar }}" alt="Your avatar"><br>{% endif %}
-		{% if player.treatment == 2 %}<p>The applicant correctly answered {{ player.eval_correct }} out of 10 evaluation questions.</p>{% endif %}
+		{% if player.treatment == 2 %}<p>The applicant correctly answered {{ player.eval_correct }} out of 10 application questions.</p>{% endif %}
 		<p>When asked to rate {% if player.treatment == 0 %}their{% elif player.gender == "Male"%}his{% elif player.gender == "Female" %}her{% else %}their{% endif %} level of agreement with the following questions on a scale from 0 (entirely disagree) to 100 (entirely agree), the applicant gave the following answers:</p>
 		<p>"I performed well on the test I took in Part 1." <b>{{ player.self_eval_agree0 }} out of 100</b></p>
 		<p>"Usually I am the best at what I do." <b>{{ player.self_eval_agree1 }} out of 100</b></p>
@@ -96,7 +96,7 @@
 	<h5>My portfolios: 3 of 3</h5>
 	<div class="profile">
 		{% if player.treatment != 0 %}<img src="/static/applicant/{{ player.avatar }}" alt="Your avatar"><br>{% endif %}
-		{% if player.treatment == 2 %}<p>The applicant correctly answered {{ player.eval_correct }} out of 10 evaluation questions.</p>{% endif %}
+		{% if player.treatment == 2 %}<p>The applicant correctly answered {{ player.eval_correct }} out of 10 application questions.</p>{% endif %}
 		{% if player.self_eval_statement != "I prefer not to include either of these statements in my application."%}<p>The applicant chose the following statement to accompany {% if player.treatment == 0 %}their{% elif player.gender == "Male"%}his{% elif player.gender == "Female" %}her{% else %}their{% endif %} application:</p>
 		<p>{{ player.self_eval_statement }}</p>
 		{% else %}<p>The applicant chose to not include any statement with {% if player.treatment == 0 %}their{% elif player.gender == "Male"%}his{% elif player.gender == "Female" %}her{% else %}their{% endif %} application.</p>{% endif %}
@@ -120,9 +120,9 @@
 <div id="page5" style="display:none">
 	<p>Great! Now for some questions about <em>other people's</em> application profiles. The next few screens will be just like the ones you just saw, but this time the profiles you see will be potential profiles from other applicants.</p>
 
-	<p>Once again, your task for each portfolio is to guess the highest amount that an employer who sees that portfolio would be willing to pay in exchange for 10 cents times the number of job application questions correctly answered by the applicant.</p>
+	<p>Once again, your task for each portfolio is to guess the highest amount that an employer who sees that portfolio would be willing to pay in exchange for 10 cents times the number of job performance questions correctly answered by the applicant.</p>
 
-	<p>Like before, the employers will see <em>only</em> the information presented in each portfolio, plus the average number of job application questions correctly answered by all applicants, which is {{ Constants.mean_performance }} out of 10.</p>
+	<p>Like before, the employers will see <em>only</em> the information presented in each portfolio, plus the average number of job performance questions correctly answered by all applicants, which is {{ Constants.mean_performance }} out of 10.</p>
 
 	<p>If one of the portfolios is selected for a bonus payment and your guess is within <em>5 cents</em> of the amount that a randomly selected employer would pay for the portfolio, your bonus payment will be $1.00.</p>
 

@@ -30,10 +30,10 @@
 <div id="part1explain" style="display: block">
 	<p>We're now ready to start making performance guesses for the applicants.</p>
 
-	<p>Like in Part 1, the first 10 application portfolios you see will show how the applicant in each decision answered a question in which they indicated whether they thought that their performance on the test, relative to others, was <em>terrible, not good, neutral, good, very good, or exceptional</em>. You will use that information to guess the number of job application questions correctly answered by each applicant.</p>
+	<p>Like in Part 1, the first 10 application portfolios you see will show how the applicant in each decision answered a question in which they indicated whether they thought that their performance on the test, relative to others, was <em>terrible, not good, neutral, good, very good, or exceptional</em>. You will use that information to guess the number of job performance questions correctly answered by each applicant.</p>
 
 	<br>
-	<p>To help you with your guesses, keep in mind that the average number of evaluation questions correctly answered by a job applicant is {{ Constants.mean_performance }} out of 10.</p>
+	<p>To help you with your guesses, keep in mind that the average number of application questions correctly answered by a job applicant is {{ Constants.mean_performance }} out of 10.</p>
 
 	<button type="button" class="btn-primary btn" onclick="startPart1()">Next</button>
 </div>
@@ -45,9 +45,9 @@
 		<li>Usually I am the best at what I do.</li>
 		<li>I conduct all tasks assigned to me with the needed attention.</li>
 	</ul>
-	<p>You will use that information to guess the number of job application questions correctly answered by each applicant.</p>
+	<p>You will use that information to guess the number of job performance questions correctly answered by each applicant.</p>
 
-	<p>Again, keep in mind that the average number of evaluation questions correctly answered by a job applicant is {{ Constants.mean_performance }} out of 10.</p>
+	<p>Again, keep in mind that the average number of application questions correctly answered by a job applicant is {{ Constants.mean_performance }} out of 10.</p>
 
 	<button type="button" class="btn-primary btn back" onclick="backToPart1()">Back</button>
 	<button type="button" class="btn-primary btn next" onclick="startPart2()">Next</button>
@@ -60,10 +60,10 @@
 		<li>"I conduct all tasks assigned to me with the needed attention."</li>
 		<li>I prefer not to include either of these statements in my application.</li>
 	</ul>
-	<p>You will use that information to guess the number of job application questions correctly answered by each applicant.</p>
+	<p>You will use that information to guess the number of job performance questions correctly answered by each applicant.</p>
 
 	<br>
-	<p>Again, keep in mind that the average number of evaluation questions correctly answered by a job applicant is {{ Constants.mean_performance }} out of 10.</p>
+	<p>Again, keep in mind that the average number of application questions correctly answered by a job applicant is {{ Constants.mean_performance }} out of 10.</p>
 
 	<button type="button" class="btn-primary btn back" onclick="backToPart2()">Back</button>
 	<button type="button" class="btn-primary btn next" onclick="startPart3()">Next</button>
@@ -76,7 +76,7 @@
 	<div class="form-group" style="text-align:center">
 		<img id="avatar" src="" alt="Applicant avatar" style="display:block; margin-left: auto; margin-right: auto; width: 50%; max-width: 200px;">
 
-		<div id="display-eval-correct">The applicant correctly answered <div id="eval-correct" style="display:inline"></div> out of 10 evaluation questions.</div>
+		<div id="display-eval-correct">The applicant correctly answered <div id="eval-correct" style="display:inline"></div> out of 10 application questions.</div>
 
 		<div id="self-eval"></div>
 		<div id="self-eval-agree"></div>

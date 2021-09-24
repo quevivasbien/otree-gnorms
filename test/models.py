@@ -40,7 +40,7 @@ class Subsession(BaseSubsession):
             question_order = list(range(1, 21))
             random.shuffle(question_order)
             p.question_order = '-'.join([str(x) for x in question_order])
-            # assign evaluation and non-evaluation questions
+            # assign evaluation and non-application questions
             eval_qs = random.sample(question_order, 10)
             noneval_qs = [j for j in question_order if j not in eval_qs]
             p.participant.vars['eval_qs'] = eval_qs

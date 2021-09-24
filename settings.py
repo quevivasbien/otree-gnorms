@@ -47,18 +47,18 @@ SESSION_CONFIG_DEFAULTS = dict(
 )
 
 SESSION_CONFIGS = [
-     dict(
-        name='gender_norms',
-        display_name="Gender norms of self-promotion",
-        num_demo_participants=50,
-        app_sequence=['gender_norms']
-     ),
-     dict(
-        name='gender_norms_v2',
-        display_name="Gender norms of self-promotion, with extra questions",
-        num_demo_participants=50,
-        app_sequence=['gender_norms_v2']
-     ),
+     # dict(
+     #    name='gender_norms',
+     #    display_name="Gender norms of self-promotion",
+     #    num_demo_participants=50,
+     #    app_sequence=['gender_norms']
+     # ),
+     # dict(
+     #    name='gender_norms_v2',
+     #    display_name="Gender norms of self-promotion, with extra questions",
+     #    num_demo_participants=50,
+     #    app_sequence=['gender_norms_v2']
+     # ),
      dict(
         name='test',
         display_name='Test to establish performance distribution',

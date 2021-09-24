@@ -19,8 +19,8 @@
 <p>In this part, you will see different versions of your job application portfolio and of other applicants' portfolios. For each portfolio you see, you will:</p>
 <ul>
 	<li>guess the highest amount that a randomly chosen employer would pay for that portfolio.</li>
-	<li>guess a randomly chosen employer's belief about the number of job performance questions solved by the applicant in that portfolio.</li>
-	<li>guess a randomly chosen employer's belief about the social appropriateness of the applicant's self-evaluation in that portfolio.</li>
+	{% if player.show_perf_guess == 1 %}<li>guess a randomly chosen employer's belief about the number of job performance questions solved by the applicant in that portfolio.</li>
+	{% else %}<li>guess a randomly chosen employer's belief about the social appropriateness of the applicant's self-evaluation in that portfolio.</li>{% endif %}
 </ul>
 
 <p>One of your guesses will be randomly chosen, and if it is close to the value actually chosen by a randomly selected employer who sees that portfolio, your bonus payment for Part 3 will be $1.00.</p>
