@@ -8,11 +8,22 @@ change ENDPOINT and EXPERIMENT_SIZE in config.json
 go through and set correct performance distributions for both applicant and employer
 go through and set correct payment amounts for everything in instructions
 go through and set correct time estimates in consent forms and in mturk previews
+^ I'm working on handling the above in constants.json
 
 
 Temporarily upgrade Heroku server
 Make sure to be logged into the right AWS locally before launching interface.py
 
-randomly assign avatars
 only two gender options? -- check exley kessler
-remove most demographic questions
+
+
+Feedback from UX walkthrough for applicant:
+x asvab questions are difficult
+could look answers up, maybe implement time limit
+x can't see all the shapes at once
+x Instructions for part 2 are confusing. (Maybe move details about employer's bonus to later). The example is confusing, yeah I should remove all the DSM junk to later or just simplify to say "employer gets paid based on how many job application questions you got right"
+x It asks how well you think you did, then gives a bunch of adjectives instead of adverbs
+x Maybe keep understanding questions on the same page as the information, so it's clear that you can check your answer.
+x The "employers will see these profiles based on <em>your responses</em>" thing is confusing. Maybe just remove the <em> Just clear up that the first three are yours, the next are other peoples.
+x Make it clear that the responses in stage 3 are based only on the information available. This is particularly important when all that's displayed is their self evaluation (measure 1)
+took about 40 minutes

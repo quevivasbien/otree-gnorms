@@ -3,14 +3,14 @@
 
 {% block styles %}
 
-<link href="{% static 'gender_norms/css/custom.css' %}" rel="stylesheet">
+<link href="/static/global/custom.css" rel="stylesheet">
 <style>
 	img {
 		display: block;
 		margin-left: auto;
 		margin-right: auto;
-		width: 50%;
-		max-width: 200px;
+		width: 70%;
+		max-width: 300px;
 	}
 </style>
 
@@ -26,7 +26,15 @@
   {{ player.question_order }}
 </div>
 
-<h3 id="question-indicator"> Question <div id="question-number" style="display:inline">1</div> of 20:</h3>
+<div id="0">
+	<p>We're ready to start answering ASVAB questions. There will be a total of 20 questions, and you cannot go back to questions that you've already answered. For any questions that you don't know the answer, just make your best attempt.</p>
+
+	<p>Click "Next" to start the ASVAB questions.</p>
+
+	<button type="button" class="btn-primary btn" onclick="beginQuestions()">Next</button>
+</div>
+
+<h3 id="question-indicator" style="display:none"> Question <div id="question-number" style="display:inline">1</div> of 20:</h3>
 
 <div id="1" style="display:none">
 {% formfield player.q1 label="If a pencil is placed in a clear glass of water and viewed from the side, the pencil will appear to bend sharply at the top of the water. This is due to a phenomenon known as __________." %}
@@ -164,6 +172,6 @@
 
 {% block scripts %}
 
-<script src="{% static 'applicant/js/asvabqs.js' %}" onload="updateCurrentQuestion()"></script>
+<script src="{% static 'applicant/js/asvabqs.js' %}"></script>
 
 {% endblock %}

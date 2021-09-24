@@ -30,7 +30,10 @@
 
 <div id="page1">
 
-	<p>The following profiles are profiles that employers will see based on <em>your responses</em> in the application. For each version, select the highest amount you think an employer would pay for that portfolio.</p>
+	<p>On the following three screens, you will see different versions of the job application portfolio you created in Part 2.</p>
+	<p>For each version of your portfolio, your task is to guess the highest amount that an employer who sees that portfolio would be willing to pay in exchange for 10 cents times the number of job application questions you correctly answered.</p>
+
+	<p>The employers will see <em>only</em> the information presented in each portfolio, plus the average number of job application questions correctly answered by all applicants, which is {{ Constants.mean_performance }} out of 10.</p>
 
 	<p>If one of the portfolios is selected for a bonus payment and your guess is within <em>5 cents</em> of the amount that a randomly selected employer would pay for the portfolio, your bonus payment will be $1.00.</p>
 	<br>
@@ -115,9 +118,12 @@
 </div>
 
 <div id="page5" style="display:none">
-	<p>Great! Now for some questions about <em>other people's</em> application profiles.</p>
+	<p>Great! Now for some questions about <em>other people's</em> application profiles. The next few screens will be just like the ones you just saw, but this time the profiles you see will be potential profiles from other applicants.</p>
 
-	<p>In the next few screens, you'll see some profiles of other MTurkers and be asked to guess the highest amount an employer would be willing to pay them based on their profiles.</p>
+	<p>Once again, your task for each portfolio is to guess the highest amount that an employer who sees that portfolio would be willing to pay in exchange for 10 cents times the number of job application questions correctly answered by the applicant.</p>
+
+	<p>Like before, the employers will see <em>only</em> the information presented in each portfolio, plus the average number of job application questions correctly answered by all applicants, which is {{ Constants.mean_performance }} out of 10.</p>
+
 	<p>If one of the portfolios is selected for a bonus payment and your guess is within <em>5 cents</em> of the amount that a randomly selected employer would pay for the portfolio, your bonus payment will be $1.00.</p>
 
 	<button type="button" class="btn-primary btn back" onclick="show('page4', 'page5')">Back</button>

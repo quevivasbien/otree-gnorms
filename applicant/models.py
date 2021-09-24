@@ -26,14 +26,18 @@ doc = """
 Gender norms of self-promotion
 """
 
+perform_pdf = constants['perform_cdf'][:1] \
+    + [constants['perform_cdf'][i] - constants['perform_cdf'][i-1] for i in range(1, len(constants['perform_cdf']))]
+
 
 class Constants(BaseConstants):
     name_in_url = 'applicant'
     players_per_group = None
     num_rounds = 1
     estimated_time = constants['applicant_estimated_time']
-    applicant_payment = '{:.2f}'.format(constants['applicant_payment'])
-    applicant_max_bonus = '{:.2f}'.format(constants['applicant_max_bonus'])
+    payment = '{:.2f}'.format(constants['applicant_payment'])
+    max_bonus = '{:.2f}'.format(constants['applicant_max_bonus'])
+    mean_performance = '{:.1f}'.format(sum([x * i for i, x in enumerate(perform_pdf)]))
 
 
 class Subsession(BaseSubsession):
@@ -81,7 +85,7 @@ class Group(BaseGroup):
     pass
 
 
-understanding1_choices = [x.replace('~', Constants.applicant_payment) for x in qtext['understanding1']]
+understanding1_choices = [x.replace('~', Constants.payment) for x in qtext['understanding1']]
 
 
 class Player(BasePlayer):

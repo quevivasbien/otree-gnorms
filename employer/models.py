@@ -45,8 +45,8 @@ class Constants(BaseConstants):
     players_per_group = None
     num_rounds = 1
     estimated_time = constants['employer_estimated_time']
-    employer_payment = '{:.2f}'.format(constants['employer_payment'])
-    employer_max_bonus = '{:.2f}'.format(constants['employer_max_bonus'])
+    payment = '{:.2f}'.format(constants['employer_payment'])
+    max_bonus = '{:.2f}'.format(constants['employer_max_bonus'])
     apps_per_emp = constants['apps_per_emp_stage'] * 3
     mean_performance = '{:.1f}'.format(sum([x * i for i, x in enumerate(perform_pdf)]))
 
@@ -98,13 +98,14 @@ class Group(BaseGroup):
     pass
 
 
-understanding1_choices = [x.replace('~', Constants.employer_payment) for x in qtext['understanding1']]
+understanding1_choices = [x.replace('~', Constants.payment) for x in qtext['understanding1']]
 
 
 class Player(BasePlayer):
     applicants = models.StringField()
     bids = models.StringField()
     perform_guesses = models.StringField()
+    soc_approp_ratings = models.StringField()
     captcha = models.CharField(blank=True)
     understanding1 = models.StringField(choices=understanding1_choices, widget=widgets.RadioSelect)
     understanding2 = models.StringField(choices=qtext['emp_understanding2'], widget=widgets.RadioSelect)

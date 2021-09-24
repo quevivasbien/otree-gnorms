@@ -61,6 +61,16 @@ class PerformGuessPage(Page):
     form_fields = ['perform_guesses']
 
 
+class SocAppropInstructions(Page):
+    form_model = 'player'
+    form_fields = ['understanding5']
+
+
+class SocAppropPage(Page):
+    form_model = 'player'
+    form_fields = ['soc_approp_ratings']
+
+
 class CompletionCode(Page):
     pass
 
@@ -75,5 +85,7 @@ page_sequence = [
     BiddingPage,
     PerformGuessInstructions,
     PerformGuessPage,
+    SocAppropInstructions,
+    SocAppropPage,
     CompletionCode
 ]

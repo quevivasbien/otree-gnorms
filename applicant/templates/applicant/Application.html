@@ -44,7 +44,7 @@
 {{ form.avatar.errors }}
 
 <div id="page1">
-	<p>During the study all participants are represented by an avatar. The avatars were assigned based on the answers in the entry survey and automatically selected from a library of avatars. This way your anonymity is preserved. The avatar that was automatically selected to represent you is displayed below.</p>
+	<p>During the application process, participants are represented by an avatar in order to preserve your anonymity. The avatars were assigned based on the answers in the entry survey and automatically selected from a library of avatars. The avatar that was automatically selected to represent you is displayed below.</p>
 
 	<img id="avatar_demo" src='' alt="Avatar option"><br>
 
@@ -63,7 +63,7 @@
 
 	<p>Click next to continue to the application questions.</p>
 
-	<button type="button" class="btn-primary btn back" onclick="show('page1', 'page2')">Back</button>
+	{% if player.treatment != 0 %}<button type="button" class="btn-primary btn back" onclick="show('page1', 'page2')">Back</button>{% endif %}
 	<button type="button" class="btn-primary btn next" onclick="show('page3', 'page2')">Next</button>
 </div>
 
@@ -71,7 +71,7 @@
 
 	<p>Answer the following questions, which will be shown to employers as part of your application portfolio. Each profile shown to employers will only include your response to <em>one</em> of the following three questions.</p>
 
-	{% formfield player.self_eval label="Based on the information you received about other applicants' performance on the task, please indicate how well you think you performed on the cognitive ability test:" %}
+	{% formfield player.self_eval label="Based on the information you received about other applicants' performance on the task, please choose one of the following to describe your performance on the cognitive ability test:" %}
 	<br>
 	<div class="form-group required">
 		<p>On a scale from 0 (entirely disagree) to 100 (entirely agree), please indicate the extent to which you agree with each of the following three statements:</p>
@@ -122,6 +122,5 @@
 
 <script src="/static/global/js/show.js"></script>
 <script src="{% static 'applicant/js/applicationQuestions.js' %}"></script>
-<script type="text/javascript">initiate()</script>
 
 {% endblock %}

@@ -17,9 +17,9 @@
   "will only be paid if you correctly answer more than half of the ASVAB questions in this stage."
   ],
   "emp_understanding2": ["depends on the applicants' performance on the evaluation questions, which I will see as part of their application portfolios.", "depends on the applicants' performance on the job performance questions, which I will see as part of their application portfolios.", "depends on the applicants' performance on the job performance questions, which I will not see as part of their application portfolios."],
-  "understanding3": ["My job application portfolio will determine my bonus in Part 2, and there is a chance that I will receive that bonus payment.",
-  "The job application portfolio will determine my bonus in Part 2, but I cannot receive that bonus payment.",
-  "The job application portfolio does not determine my bonus in Part 2."],
+  "understanding3": ["10 cents for each job application question I answered correctly, and their decision determines my bonus payment for Part 2.",
+  "my bonus payment from Part 1, but their decision does not determine my bonus payment for Part 2.",
+  "a 50% chance of receiving $1.00, and their decision determines my bonus payment for Part 2."],
   "emp_understanding3": ["the maximum amount I'm willing to exchange for a random amount of money.", "the minimum amount I'm willing to exchange in order to be paid for the applicant's job performance questions.", "the maximum amount I'm willing to exchange in order to be paid for the applicant's job performance questions."],
   "emp_understanding4": ["the number of job performance questions correctly answered by each applicant.", "the number of evaluation questions correctly answered by each applicant.", "the highest valuation given to each applicant."],
   "emp_understanding5": ["indicate the same level(s) of social appropriateness as another randomly-selected employer.", "indicate the level(s) of social appropriateness that the applicants would choose for themselves.", "indicate that all the profiles I see have socially appropriate respones."],

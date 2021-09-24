@@ -23,8 +23,9 @@
 	<p>In this part, you will be asked several questions related to your performance on the test you completed in Part 1. One of your answers to these questions will be added to your job application portfolio.</p>
 
 	<p><b>How is your bonus determined?</b></p>
-	<p>Your application portfolio will be received by “potential employers,” who are MTurkers similar to you and complete a different version of this study. They will look at your portfolio and decide the maximum amount (1 to 100 cents) they are willing to pay to buy your performance in the ten "job performance" questions from Part 1. One of those employers will be randomly chosen, and <em>the amount that he/she is willing to pay for your performance will be your bonus for Part 2.</em></p>
+	<p>Your application portfolio will be reviewed by “potential employers,” who are MTurk workers similar to you and complete a different version of this study. They will look at your portfolio and decide the maximum amount (1 to 100 cents) they are willing to pay in order to receive 10 cents for each job performance question you correctly answered in Part 1. One of those employers will be randomly chosen, and <em>the amount that he/she is willing to pay for your performance will be your bonus for Part 2.</em></p>
 
+	<!--This is confusing; removing for now
 	<p><b>How is the employer's bonus determined?</b><p>
 	<p>To determine the bonus for the employer, we'll randomly select an amount of money from 1 to 100 cents. If that amount is less than the maximum that the employer is willing to pay for your work, then the employer "hires" you and gets 10 cents times the number of the ten "job performance" questions that you correctly answered. If that amount is greater than the maximum that the employer is willing to pay, then the employer simply receives the randomly-chosen amount.</p>
 
@@ -47,15 +48,16 @@
 			<td>Equal to the random number in cents</td>
 		</tr>
 	</table>
+	-->
 
 	<button type="button" class="btn-primary btn back" onclick="show('page1', 'page2')" style="display:block">Back</button>
 	<button type="button" class="btn-primary btn next" onclick="show('page3', 'page2')" style="display:block">Next</button>
 </div>
 
 <div id="page3" style="display:none">
-	<p>Please answer the following question to check your understanding:</p>
+	<p>Please complete the following statement to check your understanding before continuing:</p>
 
-	{% formfield player.understanding3 label="Which of the following is true?" %}
+	{% formfield player.understanding3 label="Employers will use my job application portfolio to decide how much they'd be willing to pay in exchange for" %}
 
 	<button type="button" class="btn-primary btn back" onclick="show('page2', 'page3')" style="display:block">Back</button>
 	<button class="btn-primary btn next" style="display:block">Next</button>

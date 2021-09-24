@@ -45,8 +45,17 @@ function nextQuestion() {
     document.getElementById('not-complete-error').style.display = 'none';
 }
 
+function beginQuestions() {
+    document.getElementById('0').style.display = 'none';
+    document.getElementById('question-indicator').style.display = 'block';
+    updateCurrentQuestion();
+}
+
 function skip() {
     // for developer's eyes only ;)
+    if (document.getElementById('0').style.display != 'none') {
+        beginQuestions();
+    }
     while (questionIndex < numQuestions) {
         document.getElementById('id_q' + currentQuestion).getElementsByClassName('form-check-input')[0].checked = true;
         nextQuestion();

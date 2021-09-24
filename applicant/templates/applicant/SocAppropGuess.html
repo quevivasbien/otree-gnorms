@@ -30,9 +30,13 @@
 
 <div id="page1">
 
-	<p>The following profiles are profiles that employers will see based on <em>your responses</em> in the application. For each version, select how socially appropriate you think an employer would say the responses in each portfolio are.</p>
+	<p>On the following three screens, you will again see different versions of the job application portfolio you created in Part 2.</p>
+
+	<p>This time, your task for each version of your portfolio is to guess how socially appropriate you think an employer would say the responses in that portfolio are.</p>
 
 	<p>By “socially appropriate”, we mean behavior that most people agree is “reasonable” or “correct,” and consistent with proper social behavior in that context. By “socially inappropriate”, we mean behavior that most people agree will make them form a negative impression of the applicant.</p>
+
+	<p>Like before, the employers will see <em>only</em> the information presented in each portfolio, plus the average number of job application questions correctly answered by all applicants, which is {{ Constants.mean_performance }} out of 10.</p>
 
 	<p>If one of the portfolios is selected for a bonus payment and your guess matches the response of a randomly chosen employer, your bonus payment will be $1.00.</p>
 	<br>
@@ -230,11 +234,13 @@
 
 </div>
 
-<h5>Other applicants' portfolios: <div id="other-app-num" style="display:inline"></div></h5>
 <div id="page5" style="display:none">
-	<p>Great! Now for some questions about <em>other people's</em> application profiles.</p>
 
-	<p>In the next few screens, you'll see some profiles of other MTurkers and be asked to guess how socially appropriate employers will think their responses are.</p>
+	<p>Great! Now for some questions about <em>other people's</em> application profiles. The next few screens will be just like the ones you just saw, but this time the profiles you see will be potential profiles from other applicants.</p>
+
+	<p>Once again, your task for each version portfolio is to guess how socially appropriate you think an employer would say the responses in that portfolio are.</p>
+
+	<p>Like before, the employers will see <em>only</em> the information presented in each portfolio, plus the average number of job application questions correctly answered by all applicants, which is {{ Constants.mean_performance }} out of 10.</p>
 
 	<p>If one of the portfolios is selected for a bonus payment and your guess matches the response of a randomly chosen employer, your bonus payment will be $1.00.</p>
 
@@ -258,6 +264,7 @@
 
 <div id="page6" style="display:none">
 
+	<h5>Other applicants' portfolios: <div id="other-app-num" style="display:inline"></div></h5>
 	<div class="profile">
 		<img id="app-avatar" src="" alt="Applicant avatar">
 		<p id="app-performance"></p>
@@ -273,37 +280,37 @@
 			<ul id="id_approp_guess_other">
 				<li>
 					<label for="id_approp_guess_other_0">
-						<input type="radio" name="approp_guess_other" value="0" required id="id_approp_guess_other_0" class="form-check-input">
+						<input type="radio" value="0" required id="id_approp_guess_other_0" class="form-check-input">
 						Very socially inappropriate
 					</label>
 				</li>
 				<li>
 					<label for="id_approp_guess_other_1">
-						<input type="radio" name="approp_guess_other" value="1" required id="id_approp_guess_other_1" class="form-check-input">
+						<input type="radio" value="1" required id="id_approp_guess_other_1" class="form-check-input">
 						Socially inappropriate
 					</label>
 				</li>
 				<li>
 					<label for="id_approp_guess_other_2">
-						<input type="radio" name="approp_guess_other" value="2" required id="id_approp_guess_other_2" class="form-check-input">
+						<input type="radio" value="2" required id="id_approp_guess_other_2" class="form-check-input">
 						Somewhat socially inappropriate
 					</label>
 				</li>
 				<li>
 					<label for="id_approp_guess_other_3">
-						<input type="radio" name="approp_guess_other" value="3" required id="id_approp_guess_other_3" class="form-check-input">
+						<input type="radio" value="3" required id="id_approp_guess_other_3" class="form-check-input">
 						Somewhat socially appropriate
 					</label>
 				</li>
 				<li>
 					<label for="id_approp_guess_other_4">
-						<input type="radio" name="approp_guess_other" value="4" required id="id_approp_guess_other_4" class="form-check-input">
+						<input type="radio" value="4" required id="id_approp_guess_other_4" class="form-check-input">
 						Socially appropriate
 					</label>
 				</li>
 				<li>
 					<label for="id_approp_guess_other_5">
-						<input type="radio" name="approp_guess_other" value="5" required id="id_approp_guess_other_5" class="form-check-input">
+						<input type="radio" value="5" required id="id_approp_guess_other_5" class="form-check-input">
 						Very socially appropriate
 					</label>
 				</li>

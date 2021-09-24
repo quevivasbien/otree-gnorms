@@ -8,14 +8,14 @@
 {% endblock %}
 
 {% block title %}
-	Part 2 - Performance guesses
+	Part 3 - Social Appropriateness
 {% endblock %}
 
 {% block content %}
 
 <div id="participant-treatment" style="display: none">{{ participant.vars.treatment }}</div>
 <div id="apps-per-emp" style="display: none">{{ Constants.apps_per_emp }}</div>
-<div id="default-bid" style="display: none">5</div>
+<div id="default-bid" style="display: none">X</div>
 <div id="participant-gender" style="display: none">{{ participant.vars.gender }}</div>
 <div id="participant-avatar" style="display: none">{{ participant.vars.avatar }}</div>
 <div id="participant-eval-correct" style="display: none">{{ participant.vars.eval_correct }}</div>
@@ -24,23 +24,23 @@
 <div id="participant-self-eval-agree1" style="display: none">{{ participant.vars.self_eval_agree1 }}</div>
 <div id="participant-self-eval-agree2" style="display: none">{{ participant.vars.self_eval_agree2 }}</div>
 <div id="participant-self-eval-statement" style="display: none">{{ participant.vars.self_eval_statement }}</div>
-<input id="player-bids" type="hidden" name="perform_guesses">
-{{ form.perform_guesses.errors }}
 
 <div id="part1explain" style="display: block">
 	<p>We're now ready to start reviewing the social appropriateness of the application portfolios.</p>
 
 	<p>Like in the previous two parts of the study, the first 10 application portfolios you see will show how the applicant in each decision answered a question in which they indicated whether they thought that their performance on the test, relative to others, was <em>terrible, not good, neutral, good, very good, or exceptional</em>.</p>
 
-	<p>For each portfolio, you will indicate whether the contents of the portfolio are</p>
+	<p>For each portfolio, you will indicate whether the contents of the portfolio are:</p>
 	<ul>
-		<li>Very socially inappropriate,</li>
+		<li>Very socially inappropriate</li>
 		<li>Socially inappropriate</li>
-		<li></li>
+		<li>Somewhat socially inappropriate</li>
+		<li>Somewhat socially appropriate</li>
+		<li>Socially appropriate</li>
+		<li>Very socially appropriate</li>
+	</ul>
 
 	<br>
-	<p>To help you with your guesses, keep in mind that the average number of evaluation questions correctly answered by a job applicant is {{ Constants.mean_performance }} out of 10.</p>
-
 	<button type="button" class="btn-primary btn" onclick="startPart1()">Next</button>
 </div>
 
@@ -51,9 +51,7 @@
 		<li>Usually I am the best at what I do.</li>
 		<li>I conduct all tasks assigned to me with the needed attention.</li>
 	</ul>
-	<p>You will use that information to guess the number of job application questions correctly answered by each applicant.</p>
-
-	<p>Again, keep in mind that the average number of evaluation questions correctly answered by a job applicant is {{ Constants.mean_performance }} out of 10.</p>
+	<p>For each portfolio you see, indicate how socially appropriate you think the responses are.</p>
 
 	<button type="button" class="btn-primary btn back" onclick="backToPart1()">Back</button>
 	<button type="button" class="btn-primary btn next" onclick="startPart2()">Next</button>
@@ -66,10 +64,7 @@
 		<li>"I conduct all tasks assigned to me with the needed attention."</li>
 		<li>I prefer not to include either of these statements in my application.</li>
 	</ul>
-	<p>You will use that information to guess the number of job application questions correctly answered by each applicant.</p>
-
-	<br>
-	<p>Again, keep in mind that the average number of evaluation questions correctly answered by a job applicant is {{ Constants.mean_performance }} out of 10.</p>
+	<p>For each portfolio you see, indicate how socially appropriate you think the responses are.</p>
 
 	<button type="button" class="btn-primary btn back" onclick="backToPart2()">Back</button>
 	<button type="button" class="btn-primary btn next" onclick="startPart3()">Next</button>
@@ -90,11 +85,52 @@
 
 	</div>
 
-	<p>Use the slider below to guess the number of job performance questions correctly answered by this applicant:</p>
-	<div class="slider-container">
-	    <input id="rangeInput" type="range" min="0" max="10" step="1" class="slider" oninput="amount.value=rangeInput.value"/>
-			<input id="amount" type="number" value="5" min="0" max="10" step="1" oninput="rangeInput.value=amount.value" style="width: 40px;"/> out of 10
+	<p>Choose one of the options below to indicate how socially appropriate you think this application portfolio is:</p>
+	<div class="form-group required">
+		<div class="controls field-soc_approp_ratings">
+			<ul id="id_soc_approp_ratings">
+				<li>
+					<label for="id_soc_approp_ratings_0">
+						<input type="radio" value="0" required id="id_soc_approp_ratings_0" class="form-check-input">
+						Very socially inappropriate
+					</label>
+				</li>
+				<li>
+					<label for="id_soc_approp_ratings_1">
+						<input type="radio" value="1" required id="id_soc_approp_ratings_1" class="form-check-input">
+						Socially inappropriate
+					</label>
+				</li>
+				<li>
+					<label for="id_soc_approp_ratings_2">
+						<input type="radio" value="2" required id="id_soc_approp_ratings_2" class="form-check-input">
+						Somewhat socially inappropriate
+					</label>
+				</li>
+				<li>
+					<label for="id_soc_approp_ratings_3">
+						<input type="radio" value="3" required id="id_soc_approp_ratings_3" class="form-check-input">
+						Somewhat socially appropriate
+					</label>
+				</li>
+				<li>
+					<label for="id_soc_approp_ratings_4">
+						<input type="radio" value="4" required id="id_soc_approp_ratings_4" class="form-check-input">
+						Socially appropriate
+					</label>
+				</li>
+				<li>
+					<label for="id_soc_approp_ratings_5">
+						<input type="radio" value="5" required id="id_soc_approp_ratings_5" class="form-check-input">
+						Very socially appropriate
+					</label>
+				</li>
+			</ul>
+		</div>
 	</div>
+	<div id="no-response-message" style="display: none; color: red;">Please choose one of the options above before moving on.</div>
+	<input id="player-bids" type="hidden" name="soc_approp_ratings">
+	{{ form.soc_approp_ratings.errors }}
 
 	<br>
 	<button type="button" class="btn-primary btn back" onclick="back()">Back</button>
@@ -102,7 +138,7 @@
 </div>
 
 <div id="finished" style="display:none">
-	<p>That's all the questions for this part of the study! Click "Next" to move on to Part 3, or click "Back" if you want to change your answers.</p>
+	<p>You've finished all the parts of the study! Click "Back" to edit your responses, or click "Next" to finish the study.</p>
 
 	<br>
 	<button type="button" class="btn-primary btn back" onclick="back()">Back</button>
@@ -115,5 +151,6 @@
 
 <script src="/static/global/js/show.js"></script>
 <script src="{% static 'employer/js/bidding.js' %}"></script>
+<script src="{% static 'employer/js/soc_approp.js' %}"></script>
 
 {% endblock %}

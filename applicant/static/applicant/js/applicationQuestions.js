@@ -48,3 +48,5 @@ function seeProfile() {
     document.getElementById('not-complete-error').style.display = 'none';
   }
 }
+
+initiate();
