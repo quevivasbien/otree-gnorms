@@ -70,10 +70,10 @@
 	<div class="profile">
 		{% if player.treatment != 0 %}<img src="/static/applicant/{{ player.avatar }}" alt="Your avatar"><br>{% endif %}
 		{% if player.treatment == 2 %}<p>The applicant correctly answered {{ player.eval_correct }} out of 10 application questions.</p>{% endif %}
-		<p>When asked to rate {% if player.treatment == 0 %}their{% elif player.gender == "Male"%}his{% elif player.gender == "Female" %}her{% else %}their{% endif %} level of agreement with the following questions on a scale from 0 (entirely disagree) to 100 (entirely agree), the applicant gave the following answers:</p>
-		<p>"I performed well on the test I took in Part 1." <b>{{ player.self_eval_agree0 }} out of 100</b></p>
-		<p>"Usually I am the best at what I do." <b>{{ player.self_eval_agree1 }} out of 100</b></p>
-		<p>"I conduct all tasks assigned to me with the needed attention." <b>{{ player.self_eval_agree2 }} out of 100</b></p>
+		<p>When asked to rate {% if player.treatment == 0 %}their{% elif player.gender == "Male"%}his{% elif player.gender == "Female" %}her{% else %}their{% endif %} level of agreement with the statement</p>
+		<p>"I performed well on the test I took in Part 1,"</p>
+		<p>on a scale from 0 (entirely disagree) to 100 (entirely agree), the applicant gave the following rating:</p>
+		<p><b>{{ player.self_eval_agree }} out of 100</b></p>
 	</div>
 
 	<label class="col-form-label">
@@ -138,9 +138,7 @@
 	<div id="wg-perform">{{ player.wage_guess_perform }}</div>
 	<div id="wg-promote-type">{{ player.wage_guess_promote_type }}</div>
 	<div id="wg-promote1">{{ player.wage_guess_promote1 }}</div>
-	<div id="wg-promote2a">{{ player.wage_guess_promote2a }}</div>
-	<div id="wg-promote2b">{{ player.wage_guess_promote2b }}</div>
-	<div id="wg-promote2c">{{ player.wage_guess_promote2c }}</div>
+	<div id="wg-promote2">{{ player.wage_guess_promote2 }}</div>
 	<div id="wg-promote3">{{ player.wage_guess_promote3 }}</div>
 </div>
 

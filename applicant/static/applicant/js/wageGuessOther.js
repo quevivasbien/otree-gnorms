@@ -65,13 +65,11 @@ function setUpQuestion(n) {
       message.innerHTML = '<p>The applicant rated ' + pronoun + ' performance as ' + promote1_dict[promote1] + '.</p>';
     }
     else if (promote_type == '1') {
-      let promote2a = getVals('wg-promote2a')[n];
-      let promote2b = getVals('wg-promote2b')[n];
-      let promote2c = getVals('wg-promote2c')[n];
-      message.innerHTML = '<p>When asked to rate ' + pronoun + ' level of agreement with the following questions on a scale from 0 (entirely disagree) to 100 (entirely agree), the applicant gave the following answers:</p>'
-          + '<p>"I performed well on the test I took in Part 1." <b>' + promote2a + ' out of 100</b></p>'
-          + '<p>"Usually I am the best at what I do." <b>' + promote2b + ' out of 100</b></p>'
-          + '<p>"I conduct all tasks assigned to me with the needed attention." <b>' + promote2c + ' out of 100</b></p>';
+      let promote2 = getVals('wg-promote2')[n];
+      message.innerHTML = '<p>When asked to rate ' + pronoun + ' level of agreement with the statement</p>'
+          + '<p>"I performed well on the test I took in Part 1."</p>'
+          + '<p>on a scale from 0 (entirely disagree) to 100 (entirely agree), the applicant gave the following rating:</p>'
+          + '<p><b>' + promote2 + ' out of 100</b></p>';
     }
     else {
       let promote3 = getVals('wg-promote3')[n];

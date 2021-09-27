@@ -20,9 +20,7 @@
 <div id="participant-avatar" style="display: none">{{ participant.vars.avatar }}</div>
 <div id="participant-eval-correct" style="display: none">{{ participant.vars.eval_correct }}</div>
 <div id="participant-self-eval" style="display: none">{{ participant.vars.self_eval }}</div>
-<div id="participant-self-eval-agree0" style="display: none">{{ participant.vars.self_eval_agree0 }}</div>
-<div id="participant-self-eval-agree1" style="display: none">{{ participant.vars.self_eval_agree1 }}</div>
-<div id="participant-self-eval-agree2" style="display: none">{{ participant.vars.self_eval_agree2 }}</div>
+<div id="participant-self-eval-agree" style="display: none">{{ participant.vars.self_eval_agree }}</div>
 <div id="participant-self-eval-statement" style="display: none">{{ participant.vars.self_eval_statement }}</div>
 <input id="player-bids" type="hidden" name="bids">
 {{ form.bids.errors }}
@@ -31,14 +29,66 @@
 
 	<p>We're now ready to start evaluating the applicants.</p>
 
-	<p>The first 10 application portfolios you see will show how the applicant in each decision answered a question in which they indicated whether they thought that their performance on the test, relative to others, was <em>terrible, not good, neutral, good, very good, or exceptional</em>. You will use that information to make a valuation for each applicant.</p>
+	<p>The first 10 application portfolios you see will show how the applicant in each decision answered a question in which they indicated whether they thought that their performance on the test, relative to others, was <em>terrible, not good, neutral, good, very good, or exceptional</em>. You will use that information to choose a "switching point" for each applicant.</p>
 
 	<br>
-	<p>To help you with your valuations, keep in mind the following:</p>
+	<p>To help you with your answers, keep in mind the following:</p>
 	<ul>
 		<li>The average number of application questions correctly answered by a job applicant is {{ Constants.mean_performance }} out of 10.</li>
-		<li>The valuation you choose for each applicant should be the maximum amount you would be willing to exchange in return for 10 cents times the number of job performance questions correctly answered by the applicant.</li>
+		<li>The switching point you choose is the amount in cents where you would start switching from option A to option B in the table below:</li>
 	</ul>
+
+	<table>
+		<tr>
+			<th>Q#</th>
+			<th></th>
+			<th>Option A</th>
+			<th>or</th>
+			<th>Option B</th>
+		</tr>
+		<tr>
+			<td>1</td>
+			<td>Would you rather have:</td>
+			<td>10 cents for each <em>job performance</em> question that the applicant answered correctly.</td>
+			<td>or</td>
+			<td>1 cent</td>
+		</tr>
+		<tr>
+			<td>2</td>
+			<td>Would you rather have:</td>
+			<td>10 cents for each <em>job performance</em> question that the applicant answered correctly.</td>
+			<td>or</td>
+			<td>2 cents</td>
+		</tr>
+		<tr>
+			<td>3</td>
+			<td>Would you rather have:</td>
+			<td>10 cents for each <em>job performance</em> question that the applicant answered correctly.</td>
+			<td>or</td>
+			<td>3 cents</td>
+		</tr>
+		<tr>
+			<td>&vellip;</td>
+			<td>&vellip;</td>
+			<td>&vellip;</td>
+			<td>&vellip;</td>
+			<td>&vellip;</td>
+		</tr>
+		<tr>
+			<td>99</td>
+			<td>Would you rather have:</td>
+			<td>10 cents for each <em>job performance</em> question that the applicant answered correctly.</td>
+			<td>or</td>
+			<td>99 cents</td>
+		</tr>
+		<tr>
+			<td>100</td>
+			<td>Would you rather have:</td>
+			<td>10 cents for each <em>job performance</em> question that the applicant answered correctly.</td>
+			<td>or</td>
+			<td>100 cents</td>
+		</tr>
+	</table>
 
 	<br>
 	<button type="button" class="btn-primary btn" onclick="startPart1()">Next</button>
@@ -57,8 +107,60 @@
 	<p>Again, keep in mind the following:</p>
 	<ul>
 		<li>The average number of application questions correctly answered by a job applicant is {{ Constants.mean_performance }} out of 10.</li>
-		<li>The valuation you choose for each applicant should be the maximum amount you would be willing to exchange in return for 10 cents times the number of job performance questions correctly answered by the applicant.</li>
+		<li>The switching point you choose is the amount in cents where you would start switching from option A to option B in the table below:</li>
 	</ul>
+
+	<table>
+		<tr>
+			<th>Q#</th>
+			<th></th>
+			<th>Option A</th>
+			<th>or</th>
+			<th>Option B</th>
+		</tr>
+		<tr>
+			<td>1</td>
+			<td>Would you rather have:</td>
+			<td>10 cents for each <em>job performance</em> question that the applicant answered correctly.</td>
+			<td>or</td>
+			<td>1 cent</td>
+		</tr>
+		<tr>
+			<td>2</td>
+			<td>Would you rather have:</td>
+			<td>10 cents for each <em>job performance</em> question that the applicant answered correctly.</td>
+			<td>or</td>
+			<td>2 cents</td>
+		</tr>
+		<tr>
+			<td>3</td>
+			<td>Would you rather have:</td>
+			<td>10 cents for each <em>job performance</em> question that the applicant answered correctly.</td>
+			<td>or</td>
+			<td>3 cents</td>
+		</tr>
+		<tr>
+			<td>&vellip;</td>
+			<td>&vellip;</td>
+			<td>&vellip;</td>
+			<td>&vellip;</td>
+			<td>&vellip;</td>
+		</tr>
+		<tr>
+			<td>99</td>
+			<td>Would you rather have:</td>
+			<td>10 cents for each <em>job performance</em> question that the applicant answered correctly.</td>
+			<td>or</td>
+			<td>99 cents</td>
+		</tr>
+		<tr>
+			<td>100</td>
+			<td>Would you rather have:</td>
+			<td>10 cents for each <em>job performance</em> question that the applicant answered correctly.</td>
+			<td>or</td>
+			<td>100 cents</td>
+		</tr>
+	</table>
 
 	<br>
 	<button type="button" class="btn-primary btn back" onclick="backToPart1()">Back</button>
@@ -78,8 +180,60 @@
 	<p>Again, keep in mind the following:</p>
 	<ul>
 		<li>The average number of application questions correctly answered by a job applicant is {{ Constants.mean_performance }} out of 10.</li>
-		<li>The valuation you choose for each applicant should be the maximum amount you would be willing to exchange in return for 10 cents times the number of job performance questions correctly answered by the applicant.</li>
+		<li>The switching point you choose is the amount in cents where you would start switching from option A to option B in the table below:</li>
 	</ul>
+
+	<table>
+		<tr>
+			<th>Q#</th>
+			<th></th>
+			<th>Option A</th>
+			<th>or</th>
+			<th>Option B</th>
+		</tr>
+		<tr>
+			<td>1</td>
+			<td>Would you rather have:</td>
+			<td>10 cents for each <em>job performance</em> question that the applicant answered correctly.</td>
+			<td>or</td>
+			<td>1 cent</td>
+		</tr>
+		<tr>
+			<td>2</td>
+			<td>Would you rather have:</td>
+			<td>10 cents for each <em>job performance</em> question that the applicant answered correctly.</td>
+			<td>or</td>
+			<td>2 cents</td>
+		</tr>
+		<tr>
+			<td>3</td>
+			<td>Would you rather have:</td>
+			<td>10 cents for each <em>job performance</em> question that the applicant answered correctly.</td>
+			<td>or</td>
+			<td>3 cents</td>
+		</tr>
+		<tr>
+			<td>&vellip;</td>
+			<td>&vellip;</td>
+			<td>&vellip;</td>
+			<td>&vellip;</td>
+			<td>&vellip;</td>
+		</tr>
+		<tr>
+			<td>99</td>
+			<td>Would you rather have:</td>
+			<td>10 cents for each <em>job performance</em> question that the applicant answered correctly.</td>
+			<td>or</td>
+			<td>99 cents</td>
+		</tr>
+		<tr>
+			<td>100</td>
+			<td>Would you rather have:</td>
+			<td>10 cents for each <em>job performance</em> question that the applicant answered correctly.</td>
+			<td>or</td>
+			<td>100 cents</td>
+		</tr>
+	</table>
 
 	<br>
 	<button type="button" class="btn-primary btn back" onclick="backToPart2()">Back</button>
@@ -101,7 +255,67 @@
 
 	</div>
 
-	<p>Use the slider below to choose a valuation for this applicant:</p>
+	<p>Use the slider below to choose a "switching point" for this applicant:&emsp;<button id="toggle-help" type="button" style="display:inline-block; border: none; background: none; color: blue;" onclick="toggleHelp()">[Show help]</button></p>
+	<div id="help" style="display:none; font-size: 10pt;">
+		<ul>
+			<li>The average number of application questions correctly answered by a job applicant is {{ Constants.mean_performance }} out of 10.</li>
+			<li>The switching point you choose is the amount in cents where you would start switching from option A to option B in the table below:</li>
+		</ul>
+
+		<table style="width: 75%; font-size: 10pt;">
+			<tr>
+				<th>Q#</th>
+				<th></th>
+				<th>Option A</th>
+				<th>or</th>
+				<th>Option B</th>
+			</tr>
+			<tr>
+				<td>1</td>
+				<td>Would you rather have:</td>
+				<td>10 cents for each <em>job performance</em> question that the applicant answered correctly.</td>
+				<td>or</td>
+				<td>1 cent</td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td>Would you rather have:</td>
+				<td>10 cents for each <em>job performance</em> question that the applicant answered correctly.</td>
+				<td>or</td>
+				<td>2 cents</td>
+			</tr>
+			<tr>
+				<td>3</td>
+				<td>Would you rather have:</td>
+				<td>10 cents for each <em>job performance</em> question that the applicant answered correctly.</td>
+				<td>or</td>
+				<td>3 cents</td>
+			</tr>
+			<tr>
+				<td>&vellip;</td>
+				<td>&vellip;</td>
+				<td>&vellip;</td>
+				<td>&vellip;</td>
+				<td>&vellip;</td>
+			</tr>
+			<tr>
+				<td>99</td>
+				<td>Would you rather have:</td>
+				<td>10 cents for each <em>job performance</em> question that the applicant answered correctly.</td>
+				<td>or</td>
+				<td>99 cents</td>
+			</tr>
+			<tr>
+				<td>100</td>
+				<td>Would you rather have:</td>
+				<td>10 cents for each <em>job performance</em> question that the applicant answered correctly.</td>
+				<td>or</td>
+				<td>100 cents</td>
+			</tr>
+		</table>
+		<br>
+	</div>
+
 	<div class="slider-container">
 	    <input id="rangeInput" type="range" min="0.0" max="1.0" step="0.05" class="slider" oninput="amount.value=rangeInput.value"/>
 			$<input id="amount" type="number" value="0.50" min="0.0" max="1.0" step="0.01" oninput="rangeInput.value=amount.value" style="width: 60px;"/>

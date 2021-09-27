@@ -44,12 +44,10 @@ function setSelfEval(self_eval) {
                     + ' performance as <em>' + self_eval + '</em>.</p>';
 }
 
-function setSelfEvalAgree(agree0, agree1, agree2) {
+function setSelfEvalAgree(agree) {
   let div = document.getElementById('self-eval-agree');
-  div.innerHTML = '<p>When asked to rate ' + getPronoun() + ' level of agreement with the following questions on a scale from 0 (entirely disagree) to 100 (entirely agree), the applicant gave the following answers:</p>'
-      + '<p>"I performed well on the test I took in part 1." <b>' + parseInt(agree0) + ' out of 100</b></p>'
-      + '<p>"Usually I am the best at what I do." <b>' + parseInt(agree1) + ' out of 100</b></p>'
-      + '<p>"I conduct all tasks assigned to me with the needed attention." <b>' + parseInt(agree2) + ' out of 100</b></p>';
+  div.innerHTML = '<p>When asked to rate ' + getPronoun() + ' level of agreement with the statement</p><p>"I performed well on the test I took in Part 1,"</p><p>on a scale from 0 (entirely disagree) to 100 (entirely agree), the applicant gave the following rating:</p>'
+      + '<p><b>' + parseInt(agree) + ' out of 100</b></p>';
 }
 
 function setSelfEvalStatement(self_eval) {
@@ -63,6 +61,24 @@ function setSelfEvalStatement(self_eval) {
                       + getPronoun() + ' application:</p><p>'
                       + self_eval + '</p>';
   }
+}
+
+function toggleHelp() {
+    help_div = document.getElementById('help');
+    if (help == null) {
+        return;
+    }
+    toggler_button = document.getElementById('toggle-help');
+    if (help_div.style.display == 'none') {
+        help_div.style.display = 'block';
+        toggler_button.innerHTML = '[Hide help]';
+        toggler_button.style.fontStyle = 'italic';
+    }
+    else {
+        help_div.style.display = 'none';
+        toggler_button.innerHTML = '[Show help]';
+        toggler_button.style.fontStyle = 'normal';
+    }
 }
 
 function updateInputDisplay() {
@@ -93,10 +109,8 @@ function updateDisplay() {
   	setSelfEval(self_eval);
   }
   else if (currentPart == 2) {
-    let agree0 = getVar('participant-self-eval-agree0');
-    let agree1 = getVar('participant-self-eval-agree1');
-    let agree2 = getVar('participant-self-eval-agree2');
-  	setSelfEvalAgree(agree0, agree1, agree2);
+    let agree = getVar('participant-self-eval-agree');
+  	setSelfEvalAgree(agree);
   }
   else {
     let self_eval = getVar('participant-self-eval-statement');

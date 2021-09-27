@@ -79,11 +79,11 @@
 		<p>On a scale from 0 (entirely disagree) to 100 (entirely agree), please indicate the extent to which you agree with the following statement:</p>
 		<p>"I performed well on the test I took in Part 1."</p>
 		<div class="slider-container">
-			<input id="agree0" type="hidden" name="self_eval_agree0" value="50">
-		    <input id="rangeInput0" type="range" min="0" max="100" step="1" class="slider" oninput="amount0.value=rangeInput0.value; agree0.value=rangeInput0.value;"/>
-				<input id="amount0" type="number" value="50" min="0" max="100" step="1" oninput="rangeInput0.value=amount0.value; agree0.value=amount0.value;" style="width: 60px;"/>
+			<input id="agree" type="hidden" name="self_eval_agree" value="50">
+		    <input id="rangeInput0" type="range" min="0" max="100" step="1" class="slider" oninput="amount0.value=rangeInput0.value; agree.value=rangeInput0.value;"/>
+				<input id="amount0" type="number" value="50" min="0" max="100" step="1" oninput="rangeInput0.value=amount0.value; agree.value=amount0.value;" style="width: 60px;"/>
 		</div>
-		{{ form.self_eval_agree0.errors }}
+		{{ form.self_eval_agree.errors }}
 	</div>
 	<br>
 	{% formfield player.self_eval_statement label="Please choose one of the following statements to accompany your application:" %}

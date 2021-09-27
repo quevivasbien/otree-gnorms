@@ -84,12 +84,8 @@ class Subsession(BaseSubsession):
                 )
             p.participant.vars['self_eval'] = '-'.join(applicant_data[a]['self_eval']
                                                        for a in applicant_assignments[j])
-            p.participant.vars['self_eval_agree0'] = '-'.join(str(applicant_data[a]['self_eval_agree0'])
-                                                              for a in applicant_assignments[j])
-            p.participant.vars['self_eval_agree1'] = '-'.join(str(applicant_data[a]['self_eval_agree1'])
-                                                              for a in applicant_assignments[j])
-            p.participant.vars['self_eval_agree2'] = '-'.join(str(applicant_data[a]['self_eval_agree2'])
-                                                              for a in applicant_assignments[j])
+            p.participant.vars['self_eval_agree'] = '-'.join(str(applicant_data[a]['self_eval_agree'])
+                                                             for a in applicant_assignments[j])
             p.participant.vars['self_eval_statement'] = '-'.join(applicant_data[a]['self_eval_statement']
                                                                  for a in applicant_assignments[j])
 
@@ -109,7 +105,8 @@ class Player(BasePlayer):
     captcha = models.CharField(blank=True)
     understanding1 = models.StringField(choices=understanding1_choices, widget=widgets.RadioSelect)
     understanding2 = models.StringField(choices=qtext['emp_understanding2'], widget=widgets.RadioSelect)
-    understanding3 = models.StringField(choices=qtext['emp_understanding3'], widget=widgets.RadioSelect)
+    understanding3a = models.StringField(choices=qtext['emp_understanding3'], widget=widgets.RadioSelect)
+    understanding3b = models.StringField(choices=qtext['emp_understanding3'], widget=widgets.RadioSelect)
     understanding4 = models.StringField(choices=qtext['emp_understanding4'], widget=widgets.RadioSelect)
     understanding5 = models.StringField(choices=qtext['emp_understanding5'], widget=widgets.RadioSelect)
     age = models.StringField(choices=qtext['age'])
@@ -134,8 +131,11 @@ class Player(BasePlayer):
     def understanding2_error_message(self, value):
         return self.check_q(value, qtext['emp_understanding2'][2])
 
-    def understanding3_error_message(self, value):
+    def understanding3a_error_message(self, value):
         return self.check_q(value, qtext['emp_understanding3'][2])
+
+    def understanding3b_error_message(self, value):
+        return self.check_q(value, qtext['emp_understanding3'][1])
 
     def understanding4_error_message(self, value):
         return self.check_q(value, qtext['emp_understanding4'][0])

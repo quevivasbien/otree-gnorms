@@ -43,7 +43,7 @@ class BiddingInstructions1(Page):
 
 class BiddingInstructions2(Page):
     form_model = 'player'
-    form_fields = ['understanding3']
+    form_fields = ['understanding3a', 'understanding3b']
 
 
 class BiddingPage(Page):
