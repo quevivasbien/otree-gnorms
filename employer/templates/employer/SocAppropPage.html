@@ -20,9 +20,7 @@
 <div id="participant-avatar" style="display: none">{{ participant.vars.avatar }}</div>
 <div id="participant-eval-correct" style="display: none">{{ participant.vars.eval_correct }}</div>
 <div id="participant-self-eval" style="display: none">{{ participant.vars.self_eval }}</div>
-<div id="participant-self-eval-agree0" style="display: none">{{ participant.vars.self_eval_agree0 }}</div>
-<div id="participant-self-eval-agree1" style="display: none">{{ participant.vars.self_eval_agree1 }}</div>
-<div id="participant-self-eval-agree2" style="display: none">{{ participant.vars.self_eval_agree2 }}</div>
+<div id="participant-self-eval-agree" style="display: none">{{ participant.vars.self_eval_agree }}</div>
 <div id="participant-self-eval-statement" style="display: none">{{ participant.vars.self_eval_statement }}</div>
 
 <div id="part1explain" style="display: block">
@@ -45,12 +43,8 @@
 </div>
 
 <div id="part2explain" style="display: none">
-	<p>The next 10 application portfolios you see will show how the applicant in each decision indicated their level of agreement on a scale from 0 (entirely disagree) to 100 (entirely agree) with the following statements:</p>
-	<ul>
-		<li>I performed well on the test I took in part 1.</li>
-		<li>Usually I am the best at what I do.</li>
-		<li>I conduct all tasks assigned to me with the needed attention.</li>
-	</ul>
+	<p>The next 10 application portfolios you see will show how the applicant in each decision indicated their level of agreement on a scale from 0 (entirely disagree) to 100 (entirely agree) with the statement "I performed well on the test I took in Part 1."</p>
+	
 	<p>For each portfolio you see, indicate how socially appropriate you think the responses are.</p>
 
 	<button type="button" class="btn-primary btn back" onclick="backToPart1()">Back</button>
