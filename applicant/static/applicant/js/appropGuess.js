@@ -23,13 +23,11 @@ function checkBeforeAdvance(i) {
 
 function updateRadioSelect() {
     let guess_other = document.getElementById('hidden-input').value.split('-').map(str => parseInt(str));
-    if (guess_other.length < currentQuestion + 1 || isNaN(guess_other[0])) {
-        // uncheck all
-        for (let i = 0; i < buttons.length; i++) {
-            buttons[i].checked = false;
-        }
+    // uncheck all
+    for (let i = 0; i < buttons.length; i++) {
+        buttons[i].checked = false;
     }
-    else {
+    if (guess_other.length >= currentQuestion + 1 && !isNaN(guess_other[0])) {
         // if guess_other[currentQuestion] is a valid integer, check button with that index
         buttons[guess_other[currentQuestion]].checked = true;
     }
@@ -91,7 +89,6 @@ function nextQuestion() {
 function backQuestion() {
   updateHiddenInput();
   currentQuestion--;
-  displayQuestion();
   missing_response.style.display = 'none';
   if (currentQuestion < 0) {
     show("page5", "page6");

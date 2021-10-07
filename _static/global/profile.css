@@ -1,0 +1,14 @@
+img {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 30%;
+	max-width: 150px;
+}
+
+.profile {
+	background-color: #e1e1ea;
+	margin: 10px 30px 10px 20px;
+	padding: 20px 20px;
+	text-align: center;
+}

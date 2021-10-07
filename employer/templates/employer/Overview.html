@@ -3,7 +3,7 @@
 
 {% block styles %}
 
-<link href="/static/global/custom.css" rel="stylesheet">
+
 
 {% endblock %}
 
@@ -16,19 +16,14 @@
 <div id="page1">
 	<p>In this study, you will play the role of an employer evaluating job applicants. The “job applicants” are other Mturkers who participated in a different version of the study.</p>
 
-	<p>This study has three parts:</p>
-	<ul>
-		<li>In Part 1, you will decide the maximum amount you are willing to pay to job applicants to buy their performance in a test. You can earn a bonus from this part depending on your responses and on the performance of the applicants you review.</li>
-		<li>In Parts 2 and 3, you will guess the performance of the applicants and the social appropriateness of how they evaluate themselves in their "job application portfolios." You can earn a bonus from these parts if you make accurate guesses.</li>
-	</ul>
+	<p>This study has three parts: in each part you'll see a set of job applications and answer some questions about them. You will have a chance to receive a bonus payment from each part.</p>
 
-
-	<p>You will review the profiles of up to <b>30</b> applicants in each part of the study.</p>
+	<p>You will review the profiles of up to <b>{{ participant.vars.apps_per_emp }}</b> applicants in each part of the study.</p>
 
 	<p>By completing this study, you will receive a guaranteed payment of ${{ Constants.payment }} within 24 hours. You will also receive a bonus payment based on your responses in a randomly-selected part out of the three parts. This bonus payment will be up to ${{ Constants.max_bonus }} and will be paid to you within a week.</p>
 
 	<br>
-	<button type="button" class="btn-primary btn" onclick="show('page2', 'page1')">Next</button>
+	<button type="button" class="btn-primary btn next" onclick="show('page2', 'page1')">Next</button>
 </div>
 
 <div id="page2" style="display:none">

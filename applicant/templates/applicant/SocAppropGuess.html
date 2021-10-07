@@ -3,44 +3,40 @@
 
 {% block styles %}
 
-<link href="/static/global/custom.css" rel="stylesheet">
-<style>
-	img {
-		display: block;
-		margin-left: auto;
-		margin-right: auto;
-		width: 50%;
-		max-width: 200px;
-	}
+<link href="/static/global/profile.css" rel="stylesheet">
 
-	.profile {
-		background-color: #e1e1ea;
-		margin: 10px 30px 10px 20px;
-		padding: 20px 20px;
-		text-align: center;
-	}
-</style>
 {% endblock %}
 
 {% block title %}
-	Part 3 of 3 - Performance Guesses
+	Part 4 of 4 - Social Appropriateness Guesses
 {% endblock %}
 
 {% block content %}
 
-<div id="page1">
+<div id="page0">
+	<p>This is the last stage of the experiment! You are almost done.</p>
 
-	<p>On the following three screens, you will again see different versions of the job application portfolio you created in Part 2.</p>
+	<p>In this part, you will again see different versions of your job application portfolio and of other applicants' portfolios.</p>
 
-	<p>This time, your task for each version of your portfolio is to guess how socially appropriate you think an employer would say the responses in that portfolio are.</p>
+	<p>This time, your task for each portfolio you see is to guess how <em>socially appropriate</em> you think an employer would say the responses in that portfolio are.</p>
 
 	<p>By “socially appropriate”, we mean behavior that most people agree is “reasonable” or “correct,” and consistent with proper social behavior in that context. By “socially inappropriate”, we mean behavior that most people agree will make them form a negative impression of the applicant.</p>
 
+	<p>To determine your bonus payment for this part, we'll randomly select one of the portfolios from this part, and if your guess for that portfolio is the same as an employer's response for that portfolio, you'll receive a bonus of $1.00.</p>
+
+	<button type="button" class="btn-primary btn next" onclick="show('page1', 'page0')">Next</button>
+</div>
+
+<div id="page1" style="display:none">
+
+	<p>On the following three screens, you will again see different versions of the job application portfolio you created in Part 2.</p>
+
+	<p>Remember, your task for each version of your portfolio is to guess how <em>socially appropriate</em> you think an employer would say the responses in that portfolio are.</p>
+
 	<p>Like before, the employers will see <em>only</em> the information presented in each portfolio, plus the average number of job performance questions correctly answered by all applicants, which is {{ Constants.mean_performance }} out of 10.</p>
 
-	<p>If one of the portfolios is selected for a bonus payment and your guess matches the response of a randomly chosen employer, your bonus payment will be $1.00.</p>
-	<br>
-	<button type="button" class="btn-primary btn" onclick="show('page2', 'page1')">Next</button>
+	<button type="button" class="btn btn-primary back" onclick="show('page0', 'page1')">Back</button>
+	<button type="button" class="btn-primary btn next" onclick="show('page2', 'page1')">Next</button>
 </div>
 
 <div id="page2" style="display:none">
@@ -242,15 +238,14 @@
 
 	<p>Like before, the employers will see <em>only</em> the information presented in each portfolio, plus the average number of job performance questions correctly answered by all applicants, which is {{ Constants.mean_performance }} out of 10.</p>
 
-	<p>If one of the portfolios is selected for a bonus payment and your guess matches the response of a randomly chosen employer, your bonus payment will be $1.00.</p>
-
 	<button type="button" class="btn-primary btn back" onclick="show('page4', 'page5')">Back</button>
 	<button type="button" class="btn-primary btn next" onclick="startOther()">Next</button>
 </div>
 
 <div style="display:none">
 	<!-- These values will not be displayed and are simply for sending parameters from the server to be used by the js code on this page -->
-	<div id="wg-treatment">{{ player.wage_guess_treatment }}</div>
+	<div id="treatment">{{ player.treatment}}</div>
+	<div id="num-wg">{{ Constants.num_wg }}</div>
 	<div id="wg-gender">{{ player.wage_guess_gender }}</div>
 	<div id="wg-image">{{ player.wage_guess_image }}</div>
 	<div id="wg-perform">{{ player.wage_guess_perform }}</div>
@@ -262,7 +257,7 @@
 
 <div id="page6" style="display:none">
 
-	<h5>Other applicants' portfolios: <div id="other-app-num" style="display:inline"></div></h5>
+	<h5>Other applicants' portfolios: <span id="other-app-num"></span></h5>
 	<div class="profile">
 		<img id="app-avatar" src="" alt="Applicant avatar">
 		<p id="app-performance"></p>
@@ -278,37 +273,37 @@
 			<ul id="id_approp_guess_other">
 				<li>
 					<label for="id_approp_guess_other_0">
-						<input type="radio" value="0" required id="id_approp_guess_other_0" class="form-check-input">
+						<input type="radio" value="0" name="ago" required id="id_approp_guess_other_0" class="form-check-input">
 						Very socially inappropriate
 					</label>
 				</li>
 				<li>
 					<label for="id_approp_guess_other_1">
-						<input type="radio" value="1" required id="id_approp_guess_other_1" class="form-check-input">
+						<input type="radio" value="1" name="ago" required id="id_approp_guess_other_1" class="form-check-input">
 						Socially inappropriate
 					</label>
 				</li>
 				<li>
 					<label for="id_approp_guess_other_2">
-						<input type="radio" value="2" required id="id_approp_guess_other_2" class="form-check-input">
+						<input type="radio" value="2" name="ago" required id="id_approp_guess_other_2" class="form-check-input">
 						Somewhat socially inappropriate
 					</label>
 				</li>
 				<li>
 					<label for="id_approp_guess_other_3">
-						<input type="radio" value="3" required id="id_approp_guess_other_3" class="form-check-input">
+						<input type="radio" value="3" name="ago" required id="id_approp_guess_other_3" class="form-check-input">
 						Somewhat socially appropriate
 					</label>
 				</li>
 				<li>
 					<label for="id_approp_guess_other_4">
-						<input type="radio" value="4" required id="id_approp_guess_other_4" class="form-check-input">
+						<input type="radio" value="4" name="ago" required id="id_approp_guess_other_4" class="form-check-input">
 						Socially appropriate
 					</label>
 				</li>
 				<li>
 					<label for="id_approp_guess_other_5">
-						<input type="radio" value="5" required id="id_approp_guess_other_5" class="form-check-input">
+						<input type="radio" value="5" name="ago" required id="id_approp_guess_other_5" class="form-check-input">
 						Very socially appropriate
 					</label>
 				</li>
@@ -338,7 +333,7 @@
 {% block scripts %}
 
 <script src="/static/global/js/show.js"></script>
-<script src="{% static 'applicant/js/wageGuessOther.js' %}"></script>
-<script src="{% static 'applicant/js/appropGuessOther.js' %}"></script>
+<script src="{% static 'applicant/js/wageGuess.js' %}"></script>
+<script src="{% static 'applicant/js/appropGuess.js' %}"></script>
 
 {% endblock %}

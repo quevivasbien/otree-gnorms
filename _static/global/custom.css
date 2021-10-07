@@ -1,3 +1,20 @@
+html {
+    background-color: #ebebeb;
+}
+body {
+    max-width: 720px;
+    margin: auto;
+    padding-left: 3%;
+    padding-right: 3%;
+    background-color: white;
+    font-family: Helvetica, sans-serif;
+    font-size: 11pt;
+}
+.form-group {
+    background-color: #e1e1ea;
+    margin: 10px 30px 10px 20px;
+    padding: 20px 20px;
+}
 .next {
     float: right;
     margin: 40px auto;
@@ -25,14 +42,13 @@ label {
 input.form-control {
   width: 100px;
   display: inline-block;
-  outline: 0; border: 0; padding: 0; margin: 0;
-  border-bottom: 1px solid white;
-  background-color: inherit;
+  outline: 0; border: 1px; padding: 0; margin: 0;
   text-align: center;
 }
 .slider-container {
   width: 100%;
   align-items: center;
+  text-align: center;
 }
 .slider {
   width: 80%;
@@ -51,5 +67,9 @@ table {
     margin-left: auto;
     margin-right: auto;
     width: 80%;
-    font-size: 11pt;
+    font-size: 10pt;
+}
+
+.highlight {
+    background: #88f299;
 }

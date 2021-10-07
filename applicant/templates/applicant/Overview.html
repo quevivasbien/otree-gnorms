@@ -3,7 +3,7 @@
 
 {% block styles %}
 
-<link href="/static/global/custom.css" rel="stylesheet">
+
 
 {% endblock %}
 
@@ -17,19 +17,19 @@
 <div id="page1">
 <p>In this study, you will play the role of a job applicant.</p>
 
-<p>This study has three parts, meant to simulate a job interview process. You have an opportunity for a bonus payment in each part.</p>
+<p>This study has four parts, meant to simulate a job interview process. You have an opportunity for a bonus payment in each part.</p>
 
 <ul>
-	<li>In Part 1, you will take a cognitive ability test consisting of 20 questions as part of the job interview process; your bonus for Part 1 depends on how well you do in these questions.</li>
+	<li>In Part 1, you will take a cognitive ability test consisting of 20 questions as part of the job interview process; your bonus for Part 1 depends on how well you do in these questions. This is the longest part of the study.</li>
 
 	<li>In Part 2, you create a job application portfolio based on your performance in Part 1. Based on this portfolio, an "employer" (who is another MTurk worker) will decide how much they are willing to pay for your work in Part 1. This amount will be your bonus for Part 2.</li>
 
-	<li>In Part 3, you will make guesses about how employers will respond to different job applicant portfolios. Your bonus for Part 3 depends on how accurately you make these guesses.</li>
+	<li>In Parts 3 and 4, you will make guesses about how employers will respond to different job applicant portfolios. Your bonus for these parts depends on how accurately you make these guesses.</li>
 </ul>
 
 <p>By completing this study, you will receive a guaranteed payment of ${{ Constants.payment }} within 24 hours. You will also receive a bonus payment based on your responses in a randomly-selected part out of the three parts. This bonus payment will be up to ${{ Constants.max_bonus }} and will be paid to you within a week.</p>
 
-<button type="button" class="btn-primary btn" onclick="show('page2', 'page1')" style="display:block">Next</button>
+<button type="button" class="btn-primary btn next" onclick="show('page2', 'page1')" style="display:block">Next</button>
 </div>
 
 <div id="page2" style="display:none">

@@ -3,7 +3,7 @@
 
 {% block styles %}
 
-<link href="/static/global/custom.css" rel="stylesheet">
+
 
 {% endblock %}
 
@@ -13,14 +13,14 @@
 
 {% block content %}
 
-<p>We're now ready for Part 2 of the study. You will again see the profiles of {{ Constants.apps_per_emp }} applicants, just like in Part 1, except this time your task will be to guess the number of job performance questions that the applicant correctly answered.</p>
+<p>We're now ready for Part 2 of the study. You will again see the profiles of {{ participant.vars.apps_per_emp }} applicants, just like in Part 1, except this time your task will be to guess the number of job performance questions that the applicant correctly answered.</p>
 
 <p>If this part is chosen for your bonus payment, we'll randomly select one of your guesses, and if it is within <em>1</em> of the correct number, you'll receive a bonus payment of $1.00.</p>
 
 <p>Complete the following statement to check your understanding before continuing:</p>
 {% formfield player.understanding4 label="My bonus for this part of the study depends on how accurately I can guess" %}
 
-{% next_button %}
+<button class="btn-primary btn next">Next</button>
 
 {% endblock %}
 

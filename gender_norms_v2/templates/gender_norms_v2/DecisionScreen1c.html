@@ -3,7 +3,7 @@
 
 {% block styles %}
 
-<link href="/static/global/custom.css" rel="stylesheet">
+
 <style>
 	input[type=radio] {
 		display: block;
@@ -42,7 +42,7 @@ your <u>MATCH</u> would think that the decision is “socially appropriate” an
 what most people who are like you would think {{ player.name }} OUGHT to do.” <u>If your rating is the same as your MATCH’s rating, you will earn a bonus of 20 cents</u>.</p>
 
 
-<button type="button" class="btn-primary btn" id="button" onclick="show()" style="display:block">Continue to questions</button>
+<button type="button" class="btn-primary btn next" id="button" onclick="show()" style="display:block">Continue to questions</button>
 
 <!-- Tab navigation -->
 <ul class="nav nav-tabs fixed-top navbar-light bg-light justify-content-center " id="myTab" role="tablist">
@@ -74,7 +74,7 @@ what most people who are like you would think {{ player.name }} OUGHT to do.” 
 
 <div class="tab-pane show active" id="part1" role="tabpanel" aria-labelledby="part1-tab">
 
-<h3>Question 1 of 5</h3>
+<h4>Question 1 of 5</h4>
 
 Suppose that on a scale from 0 (entirely disagree) to 100 (entirely agree), {{ player.name }} <em>chose 5, indicating strong disagreement</em> with the statement, “I would succeed in a job that required me to perform well on the test I took.” (Recall that {{ player.name }} knows that {{ player.pronoun }} correctly answered {{ player.ability_score }} out of 20 questions. Among 100 prior interviews, {{ player.pronoun_possessive }} performance was better than {{ player.ability }} of them and worse than {{ player.ability_comp }} of them.)
 
@@ -122,7 +122,7 @@ Suppose that on a scale from 0 (entirely disagree) to 100 (entirely agree), {{ p
 
 <div class="tab-pane" id="part2" role="tabpanel" aria-labelledby="part3-tab">
 
-<h3>Question 2 of 5</h3>
+<h4>Question 2 of 5</h4>
 
 Suppose that on a scale from 0 (entirely disagree) to 100 (entirely agree), {{ player.name }} <em>chose 25, indicating disagreement</em> with the statement, “I would succeed in a job that required me to perform well on the test I took.” (Recall that {{ player.name }} knows that {{ player.pronoun }} correctly answered {{ player.ability_score }} out of 20 questions. Among 100 prior interviews, {{ player.pronoun_possessive }} performance was better than {{ player.ability }} of them and worse than {{ player.ability_comp }} of them.)
 
@@ -171,7 +171,7 @@ Suppose that on a scale from 0 (entirely disagree) to 100 (entirely agree), {{ p
 
 <div class="tab-pane" id="part3" role="tabpanel" aria-labelledby="part3-tab">
 
-<h3>Question 3 of 5</h3>
+<h4>Question 3 of 5</h4>
 
 Suppose that on a scale from 0 (entirely disagree) to 100 (entirely agree), {{ player.name }} <em>chose 55, indicating neither much agreement nor disagreement</em> with the statement, “I would succeed in a job that required me to perform well on the test I took.” (Recall that {{ player.name }} knows that {{ player.pronoun }} correctly answered {{ player.ability_score }} out of 20 questions. Among 100 prior interviews, {{ player.pronoun_possessive }} performance was better than {{ player.ability }} of them and worse than {{ player.ability_comp }} of them.)
 
@@ -220,7 +220,7 @@ Suppose that on a scale from 0 (entirely disagree) to 100 (entirely agree), {{ p
 
 <div class="tab-pane" id="part4" role="tabpanel" aria-labelledby="part4-tab">
 
-<h3>Question 4 of 5</h3>
+<h4>Question 4 of 5</h4>
 
 Suppose that on a scale from 0 (entirely disagree) to 100 (entirely agree), {{ player.name }} <em>chose 75, indicating strong agreement</em> with the statement, “I would succeed in a job that required me to perform well on the test I took.” (Recall that {{ player.name }} knows that {{ player.pronoun }} correctly answered {{ player.ability_score }} out of 20 questions. Among 100 prior interviews, {{ player.pronoun_possessive }} performance was better than {{ player.ability }} of them and worse than {{ player.ability_comp }} of them.)
 
@@ -269,7 +269,7 @@ Suppose that on a scale from 0 (entirely disagree) to 100 (entirely agree), {{ p
 
 <div class="tab-pane" id="part5" role="tabpanel" aria-labelledby="part5-tab">
 
-<h3>Question 5 of 5</h3>
+<h4>Question 5 of 5</h4>
 
 Suppose that on a scale from 0 (entirely disagree) to 100 (entirely agree), {{ player.name }} <em>chose 95, indicating strong agreement</em> with the statement, “I would succeed in a job that required me to perform well on the test I took.” (Recall that {{ player.name }} knows that {{ player.pronoun }} correctly answered {{ player.ability_score }} out of 20 questions. Among 100 prior interviews, {{ player.pronoun_possessive }} performance was better than {{ player.ability }} of them and worse than {{ player.ability_comp }} of them.)
 

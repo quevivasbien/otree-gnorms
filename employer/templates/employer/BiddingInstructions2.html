@@ -3,7 +3,7 @@
 
 {% block styles %}
 
-<link href="/static/global/custom.css" rel="stylesheet">
+
 
 {% endblock %}
 
@@ -18,7 +18,7 @@
 
 <table>
 	<tr>
-		<th>Q#</th>
+		<th>Row #</th>
 		<th></th>
 		<th>Option A</th>
 		<th>or</th>
@@ -69,35 +69,79 @@
 </table>
 
 <br>
-<p>In each question you pick either Option A (10 cents for each job performance questions that the applicant answered correctly) or Option B (the fixed payment). After you answer all 100 questions, one question will be randomly picked and you will be paid for the option you chose on that one question. Each question is equally likely to be chosen for payment. It's in your interest to be honest on each question, because otherwise you may end up with the option you like less.</p>
+<p>In each question you pick either Option A (10 cents for each job performance questions that the applicant answered correctly) or Option B (the fixed payment). After you answer all 100 questions, one row of the table above will be randomly picked and you will be paid for the option you chose on that one question. Each question is equally likely to be chosen for payment. It's in your interest to be honest on each question, because otherwise you may end up with the option you like less.</p>
 
-<p>Most people will choose Option A in at least the first few questions, but at some point switch to choosing Option B. So, to save time, we'll just ask you at which cent value you want to switch, and we'll then automatically "fill out" your answers to all 100 questions based on your switching point (choosing Option A for all questions before your switching point, and Option B for all questions at or after your switching point). We’ll still draw one question randomly for payment. Again, you'll want to be honest about your true switching point so you don't end up getting paid an option that you like less.</p>
+<p>Most people will choose Option A in at least the first few rows, but at some point switch to choosing Option B. So, to save time, we'll just ask you at which cent value you want to switch, and we'll then automatically "fill out" your answers to all 100 rows based on your switching point (choosing Option A for all rows before your switching point, and Option B for all rows at or after your switching point). We’ll still choose one row randomly for payment. Again, you'll want to be honest about your true switching point so you don't end up getting paid an option that you like less.</p>
 
 <p><b>Example</b></p>
-<p>Suppose that you choose a switching point of <em>60 cents</em> for an applicant. The table below shows your possible bonuses for that applicant:</p>
+<p>Suppose that you choose a switching point of <em>60 cents</em> for an applicant. In the table below, we've highlighted the bonus you would get for each row:</p>
 <table>
 	<tr>
-		<th>Question number is</th>
-		<th>Your bonus</th>
+		<th>Row #</th>
+		<th></th>
+		<th>Option A</th>
+		<th>or</th>
+		<th>Option B</th>
 	</tr>
 	<tr>
-		<td>Between 0 and 60</td>
-		<td>10 cents times the number of job performance questions that the applicant answered correctly (for example, if the applicant answered 5 out of 10 job performance questions correctly, you'd get 50 cents)</td>
+		<td>1</td>
+		<td>Would you rather have:</td>
+		<td class="highlight">10 cents for each <em>job performance</em> question that the applicant answered correctly.</td>
+		<td>or</td>
+		<td>1 cent</td>
 	</tr>
 	<tr>
-		<td>Between 61 and 100</td>
-		<td>Equal to the question number in cents (for example, if the question number is 70, you'd get 70 cents)</td>
+		<td>&vellip;</td>
+		<td>&vellip;</td>
+		<td class="highlight">&vellip;</td>
+		<td>&vellip;</td>
+		<td>&vellip;</td>
+	</tr>
+	<tr>
+		<td>59</td>
+		<td>Would you rather have:</td>
+		<td class="highlight">10 cents for each <em>job performance</em> question that the applicant answered correctly.</td>
+		<td>or</td>
+		<td>59 cents</td>
+	</tr>
+	<tr>
+		<td>60</td>
+		<td>Would you rather have:</td>
+		<td>10 cents for each <em>job performance</em> question that the applicant answered correctly.</td>
+		<td>or</td>
+		<td class="highlight">60 cents</td>
+	</tr>
+	<tr>
+		<td>61</td>
+		<td>Would you rather have:</td>
+		<td>10 cents for each <em>job performance</em> question that the applicant answered correctly.</td>
+		<td>or</td>
+		<td class="highlight">61 cents</td>
+	</tr>
+	<tr>
+		<td>&vellip;</td>
+		<td>&vellip;</td>
+		<td>&vellip;</td>
+		<td>&vellip;</td>
+		<td class="highlight">&vellip;</td>
+	</tr>
+	<tr>
+		<td>100</td>
+		<td>Would you rather have:</td>
+		<td>10 cents for each <em>job performance</em> question that the applicant answered correctly.</td>
+		<td>or</td>
+		<td class="highlight">100 cents</td>
 	</tr>
 </table>
-<br>
 
+<br>
 <p>To help you with your answers, keep in mind that the average number of application questions answered correctly by a job applicant is {{ Constants.mean_performance }} out of 10.</p>
 
 <p>Answer the following questions to check your understanding before continuing:</p>
-{% formfield player.understanding3a label="Suppose I choose a switching point of 45 cents for an applicant, and the applicant turns out to have answered 4 out of 10 job performance questions correctly. If question number 60 is chosen to determine my bonus payment, then my bonus is" %}
-{% formfield player.understanding3b label="Suppose I choose a switching point of 45 cents for an applicant, and the applicant turns out to have answered 4 out of 10 job performance questions correctly. If question number 30 is chosen to determine my bonus payment, then my bonus is" %}
+{% formfield player.understanding3a label="Suppose I choose a switching point of 45 cents for an applicant, and the applicant turns out to have answered 4 out of 10 job performance questions correctly. If row number 60 is chosen to determine my bonus payment, then my bonus is" %}
+{% formfield player.understanding3b label="Suppose I choose a switching point of 45 cents for an applicant, and the applicant turns out to have answered 4 out of 10 job performance questions correctly. If row number 30 is chosen to determine my bonus payment, then my bonus is" %}
 
-{% next_button %}
+<button class="btn-primary btn next">Next</button>
 
 {% endblock %}
 

@@ -1,0 +1,23 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Demographic survey
+{% endblock %}
+
+{% block content %}
+
+    <p>This study starts with a short demographic survey followed by tasks involving decision making. Please answer the following survey questions to the best of your ability.</p>
+
+    {% formfield player.age label="What is your age?" %}
+
+    {% formfield player.gender label="What gender do you identify as?" %}
+
+    {% formfield player.employed label="What is your current employment status?" %}
+
+    {% formfield player.education label="What is the highest degree or level of education you have completed?" %}
+
+    {% formfield player.resident label="Are you a U.S. resident?" %}
+
+    <button class="btn-primary btn next">Next</button>
+{% endblock %}

@@ -3,12 +3,12 @@
 
 {% block styles %}
 
-<link href="/static/global/custom.css" rel="stylesheet">
+
 
 {% endblock %}
 
 {% block title %}
-	Part 1 of 3 - Instructions for ASVAB Questions
+	Part 1 of 4 - Instructions for ASVAB Questions
 {% endblock %}
 
 {% block content %}
@@ -21,7 +21,7 @@
 <p>Complete the following statement to check your understanding before continuing:</p>
 {% formfield player.understanding2 label="If this stage is randomly selected for the bonus payment, then your bonus payment" %}
 
-{% next_button %}
+<button class="btn-primary btn next">Next</button>
 
 {% endblock %}
 

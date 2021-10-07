@@ -3,7 +3,7 @@
 
 {% block styles %}
 
-<link href="/static/global/custom.css" rel="stylesheet">
+
 <style>
 	input[type=radio] {
 		display: block;
@@ -39,7 +39,7 @@
 
 <p>TASK: Your task is to rate {{ player.name }}’s self-evaluation decision based on whether <b>you think</b> that the decision is “appropriate” and “consistent with what {{ player.name }} OUGHT to do.”</p>
 
-<button type="button" class="btn-primary btn" id="button" onclick="show()" style="display:block">Continue to questions</button>
+<button type="button" class="btn-primary btn next" id="button" onclick="show()" style="display:block">Continue to questions</button>
 
 <!-- Tab navigation -->
 <ul class="nav nav-tabs fixed-top navbar-light bg-light justify-content-center " id="myTab" role="tablist">
@@ -74,7 +74,7 @@
 
 <div class="tab-pane show active" id="part1" role="tabpanel" aria-labelledby="part1-tab">
 
-<h3>Question 1 of 6</h3>
+<h4>Question 1 of 6</h4>
 
 Suppose {{ player.name }} indicated that {{ player.pronoun_possessive }} performance on the test was <em>terrible</em>. (Recall that {{ player.name }} knows that {{ player.pronoun }} correctly answered {{ player.ability_score }} out of 20 questions. Among 100 prior interviews, {{ player.pronoun_possessive }} performance was better than {{ player.ability }} of them and worse than {{ player.ability_comp }} of them.)
 
@@ -122,7 +122,7 @@ Suppose {{ player.name }} indicated that {{ player.pronoun_possessive }} perform
 
 <div class="tab-pane" id="part2" role="tabpanel" aria-labelledby="part2-tab">
 
-<h3>Question 2 of 6</h3>
+<h4>Question 2 of 6</h4>
 
 Suppose {{ player.name }} indicated that {{ player.pronoun_possessive }} performance on the test was <em>very poor</em>. (Recall that {{ player.name }} knows that {{ player.pronoun }} correctly answered {{ player.ability_score }} out of 20 questions. Among 100 prior interviews, {{ player.pronoun_possessive }} performance was better than {{ player.ability }} of them and worse than {{ player.ability_comp }} of them.)
 
@@ -171,7 +171,7 @@ Suppose {{ player.name }} indicated that {{ player.pronoun_possessive }} perform
 
 <div class="tab-pane" id="part3" role="tabpanel" aria-labelledby="part3-tab">
 
-<h3>Question 3 of 6</h3>
+<h4>Question 3 of 6</h4>
 
 Suppose {{ player.name }} indicated that {{ player.pronoun_possessive }} performance on the test was <em>neutral</em>. (Recall that {{ player.name }} knows that {{ player.pronoun }} correctly answered {{ player.ability_score }} out of 20 questions. Among 100 prior interviews, {{ player.pronoun_possessive }} performance was better than {{ player.ability }} of them and worse than {{ player.ability_comp }} of them.)
 
@@ -220,7 +220,7 @@ Suppose {{ player.name }} indicated that {{ player.pronoun_possessive }} perform
 
 <div class="tab-pane" id="part4" role="tabpanel" aria-labelledby="part4-tab">
 
-<h3>Question 4 of 6</h3>
+<h4>Question 4 of 6</h4>
 
 Suppose {{ player.name }} indicated that {{ player.pronoun_possessive }} performance on the test was <em>good</em>. (Recall that {{ player.name }} knows that {{ player.pronoun }} correctly answered {{ player.ability_score }} out of 20 questions. Among 100 prior interviews, {{ player.pronoun_possessive }} performance was better than {{ player.ability }} of them and worse than {{ player.ability_comp }} of them.)
 
@@ -269,7 +269,7 @@ Suppose {{ player.name }} indicated that {{ player.pronoun_possessive }} perform
 
 <div class="tab-pane" id="part5" role="tabpanel" aria-labelledby="part5-tab">
 
-<h3>Question 5 of 6</h3>
+<h4>Question 5 of 6</h4>
 
 Suppose {{ player.name }} indicated that {{ player.pronoun_possessive }} performance on the test was <em>very good</em>. (Recall that {{ player.name }} knows that {{ player.pronoun }} correctly answered {{ player.ability_score }} out of 20 questions. Among 100 prior interviews, {{ player.pronoun_possessive }} performance was better than {{ player.ability }} of them and worse than {{ player.ability_comp }} of them.)
 
@@ -318,7 +318,7 @@ Suppose {{ player.name }} indicated that {{ player.pronoun_possessive }} perform
 
 <div class="tab-pane" id="part6" role="tabpanel" aria-labelledby="part6-tab">
 
-<h3>Question 6 of 6</h3>
+<h4>Question 6 of 6</h4>
 
 Suppose {{ player.name }} indicated that {{ player.pronoun_possessive }} performance on the test was <em>exceptional</em>. (Recall that {{ player.name }} knows that {{ player.pronoun }} correctly answered {{ player.ability_score }} out of 20 questions. Among 100 prior interviews, {{ player.pronoun_possessive }} performance was better than {{ player.ability }} of them and worse than {{ player.ability_comp }} of them.)
 

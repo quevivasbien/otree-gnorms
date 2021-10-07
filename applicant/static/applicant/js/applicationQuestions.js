@@ -1,4 +1,7 @@
 const treatment = parseInt(document.getElementById('treatment').innerHTML);
+const agree = document.getElementById('agree');
+const rangeInput = document.getElementById('rangeInput');
+const amount = document.getElementById('amount');
 
 function initiate() {
   // set avatar
@@ -16,14 +19,25 @@ function initiate() {
   }
 }
 
-function checkForAnswer(form_id) {
-    let form = document.getElementById(form_id);
-    if (form_id == 'id_avatar') {
-      var buttons = form.getElementsByClassName('input-hidden');
+function updateAgreeResponse() {
+    agree.value = rangeInput.value;
+    amount.innerHTML = rangeInput.value;
+}
+
+function checkAgreeForAnswer() {
+    if (amount.innerHTML == '--') {
+        document.getElementById('not-complete-error2').style.display = 'block';
+        return false;
     }
     else {
-      var buttons = form.getElementsByClassName('form-check-input');
+        document.getElementById('not-complete-error2').style.display = 'none';
+        return true;
     }
+}
+
+function checkForAnswer(form_id) {
+    let form = document.getElementById(form_id);
+    let buttons = form.getElementsByClassName('form-check-input');
     let checked = false;
     for (i = 0; i < buttons.length; i++) {
       if (buttons[i].checked) {
@@ -31,21 +45,23 @@ function checkForAnswer(form_id) {
         break;
       }
     }
+    let nce_id = 'not-complete-error' + (form_id == 'id_self_eval' ? '1' : '3');
     if (!checked) {
-      document.getElementById('not-complete-error').style.display = 'block';
-      return false;
+        document.getElementById(nce_id).style.display = 'block';
+        return false;
     }
     else {
-      return true;
+        document.getElementById(nce_id).style.display = 'none';
+        return true;
     }
 }
 
 function seeProfile() {
   if (checkForAnswer('id_self_eval')
-        && checkForAnswer('id_self_eval_statement')) {
+        & checkAgreeForAnswer()
+        & checkForAnswer('id_self_eval_statement')) {
     // switch to profile screen
     show("page4", "page3");
-    document.getElementById('not-complete-error').style.display = 'none';
   }
 }
 

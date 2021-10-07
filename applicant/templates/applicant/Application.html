@@ -3,16 +3,9 @@
 
 {% block styles %}
 
-<link href="/static/global/custom.css" rel="stylesheet">
+<link href="/static/global/profile.css" rel="stylesheet">
 
 <style>
-	img {
-		width: 75%;
-		max-width: 150px;
-		display: block;
-		margin-left: auto;
-		margin-right: auto;
-	}
 	.input-hidden {
 		position: absolute;
 		left: -9999px;
@@ -21,19 +14,12 @@
 		border: 1px solid blue;
 		box-shadow: 0 0 3px 3px #3366ff;
 	}
-
-	.profile {
-		background-color: #e1e1ea;
-		margin: 10px 30px 10px 20px;
-		padding: 20px 20px;
-		text-align: center;
-	}
 </style>
 
 {% endblock %}
 
 {% block title %}
-	Part 2 of 3 - Application
+	Part 2 of 4 - Application
 {% endblock %}
 
 {% block content %}
@@ -48,12 +34,12 @@
 
 	<img id="avatar_demo" src='' alt="Avatar option"><br>
 
-	<button type="button" class="btn-primary btn" onclick="show('page2', 'page1')">Next</button>
+	<button type="button" class="btn-primary btn next" onclick="show('page2', 'page1')">Next</button>
 </div>
 
 <div id="page2" style="display:none">
 
-	<p>Your job application portfolio is the <em>only</em> information that the employers will see.</p>
+	<p>Your job application portfolio is the <em>only</em> information about you that the employers will see.</p>
 
 	{% if player.treatment != 2 %}<p>Your application portfolio consists of {% if player.treatment == 1 %}your avatar and {% endif %}your evaluation of your performance on the test you completed in Part 1. The employers <em>do not</em> see how many questions you answered correctly in Part 1, but they do see the average number of job performance questions answered correctly by all applicants.</p>
 
@@ -74,19 +60,23 @@
 	<p>Answer the following questions, which will be shown to employers as {% if player.treatment != 0 %}part of {% endif %}your application portfolio. Each profile shown to employers will only include your response to <em>one</em> of the following three questions.</p>
 
 	{% formfield player.self_eval label="Based on the information you received about other applicants' performance on the task, please choose one of the following to describe your performance on the cognitive ability test:" %}
+	<p id="not-complete-error1" style="color:red; display:none">Select one of the choices to continue.</p>
 	<br>
 	<div class="form-group required">
 		<p>On a scale from 0 (entirely disagree) to 100 (entirely agree), please indicate the extent to which you agree with the following statement:</p>
 		<p>"I performed well on the test I took in Part 1."</p>
 		<div class="slider-container">
-			<input id="agree" type="hidden" name="self_eval_agree" value="50">
-		    <input id="rangeInput0" type="range" min="0" max="100" step="1" class="slider" oninput="amount0.value=rangeInput0.value; agree.value=rangeInput0.value;"/>
-				<input id="amount0" type="number" value="50" min="0" max="100" step="1" oninput="rangeInput0.value=amount0.value; agree.value=amount0.value;" style="width: 60px;"/>
+			<input id="agree" type="hidden" name="self_eval_agree">
+		    <input id="rangeInput" type="range" min="0" max="100" step="1" class="slider" onclick="updateAgreeResponse()" oninput="updateAgreeResponse()"/>
+				<p><span id="amount" style="font-weight:bold">--</span> out of 100</p>
 		</div>
 		{{ form.self_eval_agree.errors }}
 	</div>
+	<p id="not-complete-error2" style="color:red; display:none">Select one of the choices to continue.</p>
 	<br>
 	{% formfield player.self_eval_statement label="Please choose one of the following statements to accompany your application:" %}
+
+	<p id="not-complete-error3" style="color:red; display:none">Select one of the choices to continue.</p>
 
 	<button type="button" class="btn-primary btn back" onclick="show('page2', 'page3')">Back</button>
 	<button type="button" class="btn-primary btn next" onclick="seeProfile()">Next</button>
@@ -101,8 +91,6 @@
 	<button class="btn-primary btn next">Next</button>
 
 </div>
-
-<p id="not-complete-error" style="color:red; display:none">Select one of the choices to continue.</p>
 
 {% endblock %}
 

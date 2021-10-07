@@ -47,7 +47,6 @@ class Constants(BaseConstants):
     estimated_time = constants['employer_estimated_time']
     payment = '{:.2f}'.format(constants['employer_payment'])
     max_bonus = '{:.2f}'.format(constants['employer_max_bonus'])
-    apps_per_emp = constants['apps_per_emp_stage'] * 3
     mean_performance = '{:.1f}'.format(sum([x * i for i, x in enumerate(perform_pdf)]))
 
 
@@ -64,16 +63,26 @@ class Subsession(BaseSubsession):
         for a in applicant_data.keys():
             applicant_ids[applicant_data[a]['treatment']].append(a)
         # assign applicants to employers
+        start_idxs = {i: 0 for i in range(3)}
         for i, emp_idx in enumerate(employer_indices):
             treatment = i % 3
-            start_index = Constants.apps_per_emp * (i // 3)
-            for j in range(Constants.apps_per_emp):
+            num_apps = (constants['apps_per_emp1']
+                        + constants['apps_per_emp2']
+                        + (constants['apps_per_emp3a'] if treatment == 0 else constants['apps_per_emp3b']))
+            start_index = start_idxs[treatment]
+            for j in range(num_apps):
                 treatment_index = (start_index + j) % len(applicant_ids[treatment])
                 if treatment_index == 0:
                     # sample without replacement until all applicants exhausted, then resample
                     shuffle(applicant_ids[treatment])
                 applicant_assignments[emp_idx].append(applicant_ids[treatment][treatment_index])
             players[i].participant.vars['treatment'] = treatment
+            players[i].participant.vars['apps_per_emp1'] = constants['apps_per_emp1']
+            players[i].participant.vars['apps_per_emp2'] = constants['apps_per_emp2']
+            players[i].participant.vars['apps_per_emp3'] = (
+                constants['apps_per_emp3a'] if treatment == 0 else constants['apps_per_emp3b']
+            )
+            players[i].participant.vars['apps_per_emp'] = num_apps
 
         for j, p in zip(employer_indices, players):
             p.applicants = '-'.join(map(str, applicant_assignments[j]))
@@ -109,7 +118,7 @@ class Player(BasePlayer):
     understanding3b = models.StringField(choices=qtext['emp_understanding3'], widget=widgets.RadioSelect)
     understanding4 = models.StringField(choices=qtext['emp_understanding4'], widget=widgets.RadioSelect)
     understanding5 = models.StringField(choices=qtext['emp_understanding5'], widget=widgets.RadioSelect)
-    age = models.StringField(choices=qtext['age'])
+    age = models.IntegerField(min=18, max=95)
     gender = models.StringField(choices=qtext['gender'])
     # ethnicity = models.StringField(choices=qtext['ethnicity'])
     # home_state = models.StringField(choices=qtext['home_state'])

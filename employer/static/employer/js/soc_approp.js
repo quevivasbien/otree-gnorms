@@ -1,7 +1,6 @@
 // overwrites some of the functions in bidding.js
 
 const buttons = document.getElementById('id_soc_approp_ratings').getElementsByTagName('input');
-const no_response_message = document.getElementById('no-response-message');
 
 function updateInputDisplay() {
     let value = playerBids.value.split('-')[currentTab - 1];
@@ -20,26 +19,4 @@ function sendEntry() {
         }
     }
     return false;
-}
-
-function forward() {
-    if (sendEntry()) {
-        forwardTab();
-        no_response_message.style.display = 'none';
-    }
-    else {
-        no_response_message.style.display = 'block';
-    }
-}
-
-function back() {
-    if (currentTab > numApplicants) {
-        show('questions', 'finished');
-        currentTab--;
-    }
-    else {
-        sendEntry();
-        backTab();
-        no_response_message.style.display = 'none';
-    }
 }

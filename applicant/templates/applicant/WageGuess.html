@@ -3,27 +3,12 @@
 
 {% block styles %}
 
-<link href="/static/global/custom.css" rel="stylesheet">
-<style>
-	img {
-		display: block;
-		margin-left: auto;
-		margin-right: auto;
-		width: 50%;
-		max-width: 200px;
-	}
+<link href="/static/global/profile.css" rel="stylesheet">
 
-	.profile {
-		background-color: #e1e1ea;
-		margin: 10px 30px 10px 20px;
-		padding: 20px 20px;
-		text-align: center;
-	}
-</style>
 {% endblock %}
 
 {% block title %}
-	Part 3 of 3 - Wage Guesses
+	Part 3 of 4 - Wage Guesses
 {% endblock %}
 
 {% block content %}
@@ -31,13 +16,13 @@
 <div id="page1">
 
 	<p>On the following three screens, you will see different versions of the job application portfolio you created in Part 2.</p>
-	<p>For each version of your portfolio, your task is to guess the highest amount that an employer who sees that portfolio would be willing to pay in exchange for 10 cents times the number of job performance questions you correctly answered.</p>
+	<p>For each version of your portfolio, your task is to guess the amount that an employer who sees that portfolio would be willing to pay in exchange for 10 cents times the number of job performance questions you correctly answered.</p>
 
 	<p>The employers will see <em>only</em> the information presented in each portfolio, plus the average number of job performance questions correctly answered by all applicants, which is {{ Constants.mean_performance }} out of 10.</p>
 
-	<p>If one of the portfolios is selected for a bonus payment and your guess is within <em>5 cents</em> of the amount that a randomly selected employer would pay for the portfolio, your bonus payment will be $1.00.</p>
+	<p>One of the portfolios will be selected to determine your bonus payment: if your guess on that portfolio is within <em>5 cents</em> of the amount that a randomly selected employer would pay for the portfolio, your bonus payment will be $1.00.</p>
 	<br>
-	<button type="button" class="btn-primary btn" onclick="show('page2', 'page1')">Next</button>
+	<button type="button" class="btn-primary btn next" onclick="show('page2', 'page1')">Next</button>
 </div>
 
 <div id="page2" style="display:none">
@@ -49,18 +34,19 @@
 		<p>The applicant rated {% if player.treatment == 0 %}their{% elif player.gender == "Male"%}his{% elif player.gender == "Female" %}her{% else %}their{% endif %} performance as {{ player.self_eval }}.</p>
 	</div>
 
-	<label class="col-form-label">
-		I estimate that the highest amount that an employer will be willing to pay for this portfolio will be:
-	</label>
+	<p>
+		I estimate that the amount an employer will be willing to pay for this portfolio will be:
+	</p>
 
 	<div class="slider-container">
-	    <input id="rangeInput" type="range" name="wage_guess1" min="0.0" max="1.0" step="0.05" class="slider" oninput="amount.value=rangeInput.value"/>
-			$<input id="amount" type="number" value="0.50" min="0.0" max="1.0" step="0.01" oninput="rangeInput.value=amount.value" style="width: 60px;"/>
+	    <input id="rangeInput1" type="range" name="wage_guess1" min="0.0" max="1.0" step="0.05" class="slider" onclick="updateAmount(1)" oninput="updateAmount(1)"/>
+			<p>$<span id="amount1" style="font-weight:bold">--</span></p>
 	</div>
+	<div id="no-response-message1" style="display: none; color: red;">Please use the slider to select a value before moving on.</div>
 	{{ form.wage_guess1.errors }}
 
-	<button type="button" class="btn-primary btn back" onclick="show('page1', 'page2')">Back</button>
-	<button type="button" class="btn-primary btn next" onclick="show('page3', 'page2')">Next</button>
+	<button type="button" class="btn-primary btn back" onclick="backMyProfile(1)">Back</button>
+	<button type="button" class="btn-primary btn next" onclick="nextMyProfile(1)">Next</button>
 
 </div>
 
@@ -76,18 +62,19 @@
 		<p><b>{{ player.self_eval_agree }} out of 100</b></p>
 	</div>
 
-	<label class="col-form-label">
-		I estimate that the highest amount that an employer will be willing to pay for this portfolio will be:
-	</label>
+	<p>
+		I estimate that the amount an employer will be willing to pay for this portfolio will be:
+	</p>
 
 	<div class="slider-container">
-	    <input id="rangeInput2" type="range" name="wage_guess2" min="0.0" max="1.0" step="0.05" class="slider" oninput="amount2.value=rangeInput2.value"/>
-			$<input id="amount2" type="number" value="0.50" min="0.0" max="1.0" step="0.01" oninput="rangeInput2.value=amount2.value" style="width: 60px;"/>
+		<input id="rangeInput2" type="range" name="wage_guess2" min="0.0" max="1.0" step="0.05" class="slider" onclick="updateAmount(2)" oninput="updateAmount(2)"/>
+			<p>$<span id="amount2" style="font-weight:bold">--</span></p>
 	</div>
+	<div id="no-response-message2" style="display: none; color: red;">Please use the slider to select a value before moving on.</div>
 	{{ form.wage_guess2.errors }}
 
-	<button type="button" class="btn-primary btn back" onclick="show('page2', 'page3')">Back</button>
-	<button type="button" class="btn-primary btn next" onclick="show('page4', 'page3')">Next</button>
+	<button type="button" class="btn-primary btn back" onclick="backMyProfile(2)">Back</button>
+	<button type="button" class="btn-primary btn next" onclick="nextMyProfile(2)">Next</button>
 
 </div>
 
@@ -102,29 +89,28 @@
 		{% else %}<p>The applicant chose to not include any statement with {% if player.treatment == 0 %}their{% elif player.gender == "Male"%}his{% elif player.gender == "Female" %}her{% else %}their{% endif %} application.</p>{% endif %}
 	</div>
 
-	<label class="col-form-label">
-		I estimate that the highest amount that an employer will be willing to pay for this portfolio will be:
-	</label>
+	<p>
+		I estimate that the amount an employer will be willing to pay for this portfolio will be:
+	</p>
 
 	<div class="slider-container">
-	    <input id="rangeInput3" type="range" name="wage_guess3" min="0.0" max="1.0" step="0.05" class="slider" oninput="amount3.value=rangeInput3.value"/>
-			$<input id="amount3" type="number" value="0.50" min="0.0" max="1.0" step="0.01" oninput="rangeInput3.value=amount3.value" style="width: 60px;"/>
+		<input id="rangeInput3" type="range" name="wage_guess3" min="0.0" max="1.0" step="0.05" class="slider" onclick="updateAmount(3)" oninput="updateAmount(3)"/>
+			<p>$<span id="amount3" style="font-weight:bold">--</span></p>
 	</div>
+	<div id="no-response-message3" style="display: none; color: red;">Please use the slider to select a value before moving on.</div>
 	{{ form.wage_guess3.errors }}
 
-	<button type="button" class="btn-primary btn back" onclick="show('page3', 'page4')">Back</button>
-	<button type="button" class="btn-primary btn next" onclick="show('page5', 'page4')">Next</button>
+	<button type="button" class="btn-primary btn back" onclick="backMyProfile(3)">Back</button>
+	<button type="button" class="btn-primary btn next" onclick="nextMyProfile(3)">Next</button>
 
 </div>
 
 <div id="page5" style="display:none">
 	<p>Great! Now for some questions about <em>other people's</em> application profiles. The next few screens will be just like the ones you just saw, but this time the profiles you see will be potential profiles from other applicants.</p>
 
-	<p>Once again, your task for each portfolio is to guess the highest amount that an employer who sees that portfolio would be willing to pay in exchange for 10 cents times the number of job performance questions correctly answered by the applicant.</p>
+	<p>Once again, your task for each portfolio is to guess the amount that an employer who sees that portfolio would be willing to pay in exchange for 10 cents times the number of job performance questions correctly answered by the applicant.</p>
 
 	<p>Like before, the employers will see <em>only</em> the information presented in each portfolio, plus the average number of job performance questions correctly answered by all applicants, which is {{ Constants.mean_performance }} out of 10.</p>
-
-	<p>If one of the portfolios is selected for a bonus payment and your guess is within <em>5 cents</em> of the amount that a randomly selected employer would pay for the portfolio, your bonus payment will be $1.00.</p>
 
 	<button type="button" class="btn-primary btn back" onclick="show('page4', 'page5')">Back</button>
 	<button type="button" class="btn-primary btn next" onclick="startOther()">Next</button>
@@ -132,7 +118,8 @@
 
 <div style="display:none">
 	<!-- These values will not be displayed and are simply for sending parameters from the server to be used by the js code on this page -->
-	<div id="wg-treatment">{{ player.wage_guess_treatment }}</div>
+	<div id="treatment">{{ player.treatment}}</div>
+	<div id="num-wg">{{ Constants.num_wg }}</div>
 	<div id="wg-gender">{{ player.wage_guess_gender }}</div>
 	<div id="wg-image">{{ player.wage_guess_image }}</div>
 	<div id="wg-perform">{{ player.wage_guess_perform }}</div>
@@ -144,23 +131,24 @@
 
 <div id="page6" style="display:none">
 
-	<h5>Other applicants' portfolios: <div id="other-app-num" style="display:inline"></div></h5>
+	<h5>Other applicants' portfolios: <span id="other-app-num"></span></h5>
 	<div class="profile">
 		<img id="app-avatar" src="" alt="Applicant avatar">
 		<p id="app-performance"></p>
 		<div id="app-self-eval"></div>
 	</div>
 
-	<label class="col-form-label">
-		I estimate that the highest amount that an employer will be willing to pay for this portfolio will be:
-	</label>
+	<p>
+		I estimate that the amount an employer will be willing to pay for this portfolio will be:
+	</p>
 
 	<div class="slider-container">
-	    <input id="rangeInput4" type="range" name="wage_guess4" min="0.0" max="1.0" step="0.05" class="slider" oninput="amount4.value=rangeInput4.value"/>
-			$<input id="amount4" type="number" value="0.50" min="0.0" max="1.0" step="0.01" oninput="rangeInput4.value=amount4.value" style="width: 60px;"/>
+		<input id="rangeInput4" type="range" min="0.0" max="1.0" step="0.05" class="slider" onclick="updateAmount(4)" oninput="updateAmount(4)"/>
+			<p>$<span id="amount4" style="font-weight:bold">--</span></p>
 	</div>
 	<div id="default-range-val" style="display:none">0.5</div>
 	<input id="hidden-input" type="hidden" name="wage_guess_other">
+	<div id="no-response-message" style="display: none; color: red;">Please use the slider to select a value before moving on.</div>
 	{{ form.wage_guess_other.errors }}
 
 	<button type="button" class="btn-primary btn back" onclick="backQuestion()">Back</button>
@@ -180,6 +168,6 @@
 {% block scripts %}
 
 <script src="/static/global/js/show.js"></script>
-<script src="{% static 'applicant/js/wageGuessOther.js' %}"></script>
+<script src="{% static 'applicant/js/wageGuess.js' %}"></script>
 
 {% endblock %}

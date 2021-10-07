@@ -3,7 +3,7 @@
 
 {% block styles %}
 
-<link href="/static/global/custom.css" rel="stylesheet">
+
 
 {% endblock %}
 
@@ -14,7 +14,9 @@
 {% block content %}
 
 <div id="participant-treatment" style="display: none">{{ participant.vars.treatment }}</div>
-<div id="apps-per-emp" style="display: none">{{ Constants.apps_per_emp }}</div>
+<div id="apps-per-emp1" style="display: none">{{ participant.vars.apps_per_emp1 }}</div>
+<div id="apps-per-emp2" style="display: none">{{ participant.vars.apps_per_emp2 }}</div>
+<div id="apps-per-emp3" style="display: none">{{ participant.vars.apps_per_emp3 }}</div>
 <div id="default-bid" style="display: none">X</div>
 <div id="participant-gender" style="display: none">{{ participant.vars.gender }}</div>
 <div id="participant-avatar" style="display: none">{{ participant.vars.avatar }}</div>
@@ -39,12 +41,12 @@
 	</ul>
 
 	<br>
-	<button type="button" class="btn-primary btn" onclick="startPart1()">Next</button>
+	<button type="button" class="btn-primary btn next" onclick="startPart1()">Next</button>
 </div>
 
 <div id="part2explain" style="display: none">
 	<p>The next 10 application portfolios you see will show how the applicant in each decision indicated their level of agreement on a scale from 0 (entirely disagree) to 100 (entirely agree) with the statement "I performed well on the test I took in Part 1."</p>
-	
+
 	<p>For each portfolio you see, indicate how socially appropriate you think the responses are.</p>
 
 	<button type="button" class="btn-primary btn back" onclick="backToPart1()">Back</button>
@@ -66,12 +68,12 @@
 
 <div id="questions" style="display:none">
 
-	<h3 id="question-indicator">Applicant <div id="question-number" style="display:inline">1</div> of {{ Constants.apps_per_emp }}:</h3>
+	<h4 id="question-indicator">Applicant <span id="question-number">1</span> of {{ participant.vars.apps_per_emp }}:</h4>
 
 	<div class="form-group" style="text-align:center">
-		<img id="avatar" src="" alt="Applicant avatar" style="display:block; margin-left: auto; margin-right: auto; width: 50%; max-width: 200px;">
+		<img id="avatar" src="" alt="Applicant avatar" style="display:block; margin-left: auto; margin-right: auto; width: 30%; max-width: 150px;">
 
-		<div id="display-eval-correct">The applicant correctly answered <div id="eval-correct" style="display:inline"></div> out of 10 application questions.</div>
+		<div id="display-eval-correct">The applicant correctly answered <span id="eval-correct"></span> out of 10 application questions.</div>
 
 		<div id="self-eval"></div>
 		<div id="self-eval-agree"></div>

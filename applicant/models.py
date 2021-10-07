@@ -38,6 +38,7 @@ class Constants(BaseConstants):
     payment = '{:.2f}'.format(constants['applicant_payment'])
     max_bonus = '{:.2f}'.format(constants['applicant_max_bonus'])
     mean_performance = '{:.1f}'.format(sum([x * i for i, x in enumerate(perform_pdf)]))
+    num_wg = constants['num_wg1'] + constants['num_wg2'] + constants['num_wg3']
 
 
 class Subsession(BaseSubsession):
@@ -57,16 +58,15 @@ class Subsession(BaseSubsession):
             p.participant.vars['eval_qs'] = eval_qs
             p.participant.vars['noneval_qs'] = noneval_qs
             # assign wage guess orderings
-            num_wg = 5  # change this to whatever we decide
-            wg_treatment = [p.treatment] * num_wg  # random.choices(list(range(3)), k=num_wg)
-            p.wage_guess_treatment = '-'.join(map(str, wg_treatment))
+            num_wg = Constants.num_wg
             wg_gender = random.choices(["Male", "Female"], k=num_wg)
             p.wage_guess_gender = '-'.join(map(str, wg_gender))
             wg_image = random.choices(list(range(4)), k=num_wg)
             p.wage_guess_image = '-'.join(map(str, wg_image))
             wg_perform = random.choices(list(range(11)), k=num_wg)
             p.wage_guess_perform = '-'.join(map(str, wg_perform))
-            wg_promote_type = random.choices(list(range(3)), k=num_wg)
+            wg_promote_type = [0] * constants['num_wg1'] + [1] * constants['num_wg2'] + [2] * constants['num_wg3']
+            random.shuffle(wg_promote_type)
             p.wage_guess_promote_type = '-'.join(map(str, wg_promote_type))
             wg_promote1 = random.choices(list(range(6)), k=num_wg)
             p.wage_guess_promote1 = '-'.join(map(str, wg_promote1))
@@ -98,7 +98,7 @@ class Player(BasePlayer):
     wage_guess_promote3 = models.StringField()
     captcha = models.CharField(blank=True)
     # demographic survey questions
-    age = models.StringField(choices=qtext['age'])
+    age = models.IntegerField(min=18, max=95)
     gender = models.StringField(choices=qtext['gender'])
     # ethnicity = models.StringField(choices=qtext['ethnicity'])
     # home_state = models.StringField(choices=qtext['home_state'])

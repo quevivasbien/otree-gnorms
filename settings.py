@@ -59,12 +59,12 @@ SESSION_CONFIGS = [
      #    num_demo_participants=50,
      #    app_sequence=['gender_norms_v2']
      # ),
-     dict(
-        name='test',
-        display_name='Test to establish performance distribution',
-        num_demo_participants=50,
-        app_sequence=['test']
-         ),
+     # dict(
+     #    name='test',
+     #    display_name='Test to establish performance distribution',
+     #    num_demo_participants=50,
+     #    app_sequence=['test']
+     #     ),
      dict(
         name='applicant',
         display_name="Applicant",

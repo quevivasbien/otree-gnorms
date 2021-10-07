@@ -7,12 +7,20 @@ function getVar(id) {
 }
 
 const treatment = parseInt(document.getElementById('participant-treatment').innerHTML);
-const numApplicants = parseInt(document.getElementById('apps-per-emp').innerHTML);
+const numApplicants1 = parseInt(document.getElementById('apps-per-emp1').innerHTML);
+const numApplicants2 = parseInt(document.getElementById('apps-per-emp2').innerHTML);
+const numApplicants3 = parseInt(document.getElementById('apps-per-emp3').innerHTML);
+
 const defaultBid = document.getElementById('default-bid').innerHTML;
+const bidIsInt = parseInt(defaultBid) == defaultBid;
+
+const rangeInput = document.getElementById('rangeInput');
+const amount = document.getElementById('amount');
+const no_response_message = document.getElementById('no-response-message');
 
 const playerBids = document.getElementById('player-bids');
 
-playerBids.value = (defaultBid + '-').repeat(numApplicants).slice(0, -1);
+playerBids.value = ('?-').repeat(numApplicants1 + numApplicants2 + numApplicants3).slice(0, -1);
 
 function getPronoun() {
   if (treatment == 0) {
@@ -81,13 +89,26 @@ function toggleHelp() {
     }
 }
 
+function updateAmount() {
+    if (bidIsInt) {
+        amount.innerHTML = rangeInput.value;
+    }
+    else {
+        amount.innerHTML = parseFloat(rangeInput.value).toFixed(2);
+    }
+}
+
 function updateInputDisplay() {
     // set up slider
-  	let rangeInput = document.getElementById('rangeInput');
-  	rangeInput.value = parseFloat(
-      playerBids.value.split('-')[currentTab - 1]
-    );
-  	document.getElementById('amount').value = rangeInput.value;
+    let value = playerBids.value.split('-')[currentTab - 1];
+    if (value == '?') {
+        rangeInput.value = defaultBid;
+        amount.innerHTML = '--';
+    }
+    else {
+        rangeInput.value = value;
+        updateAmount();
+    }
 }
 
 function updateDisplay() {
@@ -129,10 +150,16 @@ function updateDisplay() {
 }
 
 function sendEntry() {
-	let bids = playerBids.value.split("-");
-	let new_bid = document.getElementById('rangeInput').value;
-	bids[currentTab-1] = new_bid;
-	playerBids.value = bids.join("-");
+	let new_bid = amount.innerHTML;
+    if (new_bid == '--') {
+        return false;
+    }
+    else {
+        let bids = playerBids.value.split("-");
+    	bids[currentTab-1] = new_bid;
+    	playerBids.value = bids.join("-");
+        return true;
+    }
 }
 
 function startPart1() {
@@ -143,51 +170,46 @@ function startPart1() {
 
 function startPart2() {
   show('questions', 'part2explain');
-  currentTab = numApplicants / 3 + 1;
+  currentTab = numApplicants1 + 1;
   currentPart = 2;
   updateDisplay();
 }
 
 function startPart3() {
   show('questions', 'part3explain');
-  currentTab = numApplicants * 2/3 + 1;
+  currentTab = numApplicants1 + numApplicants2 + 1;
   currentPart = 3;
   updateDisplay();
 }
 
 function backToPart1() {
   show('questions', 'part2explain');
-  currentTab = numApplicants / 3;
+  currentTab = numApplicants1;
   currentPart = 1;
   updateDisplay();
 }
 
 function backToPart2() {
   show('questions', 'part3explain');
-  currentTab = numApplicants * 2/3;
+  currentTab = numApplicants1 + numApplicants2;
   currentPart = 2;
   updateDisplay();
 }
 
 function forwardTab() {
     currentTab++;
-    if (currentTab == numApplicants / 3 + 1) {
+    if (currentTab == numApplicants1 + 1) {
       show('part2explain', 'questions');
     }
-    else if (currentTab == numApplicants * 2/3 + 1) {
+    else if (currentTab == numApplicants1 + numApplicants2 + 1) {
       show('part3explain', 'questions');
     }
-  	else if (currentTab == numApplicants + 1) {
+  	else if (currentTab == numApplicants1 + numApplicants2 + numApplicants3 + 1) {
       show('finished', 'questions');
   	}
   	else {
   		updateDisplay();
   	}
-}
-
-function forward() {
-  sendEntry();
-  forwardTab();
 }
 
 function backTab() {
@@ -196,10 +218,10 @@ function backTab() {
       show('part1explain', 'questions');
       currentTab++;
     }
-    else if (currentTab == numApplicants / 3) {
+    else if (currentTab == numApplicants1) {
       show('part2explain', 'questions');
     }
-  	else if (currentTab == numApplicants * 2/3) {
+  	else if (currentTab == numApplicants1 + numApplicants2) {
       show('part3explain', 'questions');
   	}
   	else {
@@ -207,13 +229,24 @@ function backTab() {
     }
 }
 
+function forward() {
+    if (sendEntry()) {
+        forwardTab();
+        no_response_message.style.display = 'none';
+    }
+    else {
+        no_response_message.style.display = 'block';
+    }
+}
+
 function back() {
-  if (currentTab > numApplicants) {
-    show('questions', 'finished');
-    currentTab--;
-  }
-  else {
-    sendEntry();
-    backTab();
-  }
+    if (currentTab > numApplicants1 + numApplicants2 + numApplicants3) {
+        show('questions', 'finished');
+        currentTab--;
+    }
+    else {
+        sendEntry();
+        backTab();
+        no_response_message.style.display = 'none';
+    }
 }

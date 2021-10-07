@@ -1,6 +1,9 @@
-var currentQuestion = 0;
-let treatments = getVals('wg-treatment');
-let defaultRangeValue = parseFloat(document.getElementById('default-range-val').innerHTML);
+let currentQuestion = 0;
+const treatment = parseInt(document.getElementById('treatment').innerHTML);
+const numOther = parseInt(document.getElementById('num-wg').innerHTML);
+const defaultRangeValue = parseFloat(document.getElementById('default-range-val').innerHTML);
+const rangeIsInt = parseInt(defaultRangeValue) == defaultRangeValue;
+const noResponseMessage = document.getElementById('no-response-message');
 
 const promote1_dict = {
   '0': 'terrible',
@@ -8,7 +11,7 @@ const promote1_dict = {
   '2': 'neutral',
   '3': 'good',
   '4': 'very good',
-  '5': 'excellent'
+  '5': 'exceptional'
 }
 
 const promote3_dict = {
@@ -22,12 +25,41 @@ function getVals(id) {
   return string.split("-");
 }
 
+function updateAmount(i) {
+    let value = document.getElementById('rangeInput' + i).value;
+    if (!rangeIsInt) {
+        value = parseFloat(value).toFixed(2);
+    }
+    document.getElementById('amount' + i).innerHTML = value;
+}
+
+function checkMyProfileForResponse(i) {
+    if (document.getElementById('amount' + i).innerHTML == '--') {
+        document.getElementById('no-response-message' + i).style.display = 'block';
+        return false;
+    }
+    else {
+        return true;
+    }
+}
+
+function backMyProfile(i) {
+    document.getElementById('no-response-message' + i).style.display = 'none';
+    show('page' + i, 'page' + (parseInt(i)+1));
+}
+
+function nextMyProfile(i) {
+    if (checkMyProfileForResponse(i)) {
+        document.getElementById('no-response-message' + i).style.display = 'none';
+        show('page' + (parseInt(i)+2), 'page' + (parseInt(i)+1));
+    }
+}
+
 function setUpQuestion(n) {
     // check to see if that's all the questions
-    if (n >= treatments.length) {
+    if (n >= numOther) {
       return false;
     }
-    let treatment = treatments[n];
     // set up pronoun and avatar image
     if (treatment != 0) {
       // get gender
@@ -81,7 +113,7 @@ function setUpQuestion(n) {
       }
     }
     // update question number indicator
-    document.getElementById('other-app-num').innerHTML = (n+1) + ' of ' + treatments.length;
+    document.getElementById('other-app-num').innerHTML = (n+1) + ' of ' + numOther;
     return true;  // successfully completed
 }
 
@@ -94,12 +126,12 @@ function displayQuestion() {
   let amountInput = document.getElementById('amount4');
   if (wg_other.length < currentQuestion + 1 || !wg_other[0]) {
     rangeInput.value = defaultRangeValue;
-    amountInput.value = defaultRangeValue;
+    amountInput.innerHTML = '--';
   }
   else {
     let value = parseFloat(wg_other[currentQuestion]);
     rangeInput.value = value;
-    amountInput.value = value;
+    amountInput.innerHTML = (rangeIsInt ? value : parseFloat(value).toFixed(2));
   }
   // signal that we've completed successfully
   return true;
@@ -123,26 +155,42 @@ function updateHiddenInput() {
   hidden_input.value = wg_other.join('-');
 }
 
+function checkForResponse() {
+    if (document.getElementById('amount4').innerHTML == '--') {
+        noResponseMessage.style.display = 'block';
+        return false;
+    }
+    else {
+        return true;
+    }
+}
+
 function nextQuestion() {
   // update output for wage_guess_other
-  updateHiddenInput();
-  // advance question
-  currentQuestion++;
-  if (!displayQuestion()) {
-    // go to the finish page
-    currentQuestion--;
-    show('page7', 'page6');
+  if (checkForResponse()) {
+      noResponseMessage.style.display = 'none';
+      updateHiddenInput();
+      // advance question
+      currentQuestion++;
+      if (!displayQuestion()) {
+        // go to the finish page
+        currentQuestion--;
+        show('page7', 'page6');
+      }
   }
 }
 
 function backQuestion() {
-  updateHiddenInput();
-  currentQuestion--;
-  if (currentQuestion < 0) {
-    show("page5", "page6");
-    currentQuestion = 0;
-  }
-  else {
-    displayQuestion();
-  }
+    if (checkForResponse()) {
+        updateHiddenInput();
+    }
+    noResponseMessage.style.display = 'none';
+    currentQuestion--;
+    if (currentQuestion < 0) {
+        show("page5", "page6");
+        currentQuestion = 0;
+    }
+    else {
+        displayQuestion();
+    }
 }
