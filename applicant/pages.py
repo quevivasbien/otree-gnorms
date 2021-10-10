@@ -48,6 +48,9 @@ class ASVABQuestions(Page):
     form_model = 'player'
     form_fields = [f'q{i+1}' for i in range(20)]
 
+    def vars_for_template(self):
+        return {'title': 'Part 1 of 3 - ASVAB Questions'}
+
     def before_next_page(self):
         # checks player's ASVAB answers and figures out how many are correct
         player = self.player

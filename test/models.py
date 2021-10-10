@@ -15,6 +15,9 @@ import random
 # load question text
 with open('_static/global/question_text.json', 'r',  encoding='utf-8') as fh:
     qtext = json.load(fh)
+# load constants
+with open('_static/global/constants.json', 'r',  encoding='utf-8') as fh:
+    constants = json.load(fh)
 
 
 author = 'Mckay D Jensen'
@@ -28,6 +31,9 @@ class Constants(BaseConstants):
     name_in_url = 'test'
     players_per_group = None
     num_rounds = 1
+    estimated_time = constants['test_estimated_time']
+    payment = '{:.2f}'.format(constants['test_payment'])
+    max_bonus = '{:.2f}'.format(constants['test_max_bonus'])
 
 
 class Subsession(BaseSubsession):
@@ -54,16 +60,17 @@ class Group(BaseGroup):
 class Player(BasePlayer):
     question_order = models.StringField()
     captcha = models.CharField(blank=True)
-    age = models.StringField(choices=qtext['age'])
+    age = models.IntegerField(min=18, max=95)
     gender = models.StringField(choices=qtext['gender'])
-    ethnicity = models.StringField(choices=qtext['ethnicity'])
-    home_state = models.StringField(choices=qtext['home_state'])
+    # ethnicity = models.StringField(choices=qtext['ethnicity'])
+    # home_state = models.StringField(choices=qtext['home_state'])
     education = models.StringField(choices=qtext['education'])
-    married = models.StringField(choices=qtext['married'])
-    household_income = models.StringField(choices=qtext['household_income'])
+    # married = models.StringField(choices=qtext['married'])
+    # household_income = models.StringField(choices=qtext['household_income'])
     employed = models.StringField(choices=qtext['employed'])
-    religion = models.StringField(choices=qtext['religion'])
-    politics = models.StringField(choices=qtext['politics'])
+    # religion = models.StringField(choices=qtext['religion'])
+    # politics = models.StringField(choices=qtext['politics'])
+    resident = models.StringField(choices=['Yes', 'No'])
     understanding2 = models.StringField(choices=qtext['understanding2'], widget=widgets.RadioSelect)
     q1 = models.StringField(choices=qtext['q1'], widget=widgets.RadioSelect)
     q2 = models.StringField(choices=qtext['q2'], widget=widgets.RadioSelect)
@@ -88,18 +95,6 @@ class Player(BasePlayer):
     eval_correct = models.IntegerField()
     noneval_correct = models.IntegerField()
 
-    def understanding1_error_message(self, value):
-        if value != qtext['understanding1'][1]:
-            return 'Sorry. Your answer is incorrect. Please choose the correct answer to proceed.'
-
     def understanding2_error_message(self, value):
         if value != qtext['understanding2'][1]:
-            return 'Sorry. Your answer is incorrect. Please choose the correct answer to proceed.'
-
-    def understanding3_error_message(self, value):
-        if value != qtext['understanding3'][0]:
-            return 'Sorry. Your answer is incorrect. Please choose the correct answer to proceed.'
-
-    def understanding4_error_message(self, value):
-        if value != qtext['understanding4'][0]:
             return 'Sorry. Your answer is incorrect. Please choose the correct answer to proceed.'

@@ -32,8 +32,7 @@ class Overview(Page):
 class DemographicSurvey(Page):
     form_model = 'player'
     form_fields = [
-        'age', 'gender', 'ethnicity', 'education', 'household_income',
-        'home_state', 'married', 'employed', 'religion', 'politics'
+        'age', 'gender', 'education', 'employed', 'resident'
     ]
 
 
@@ -45,6 +44,9 @@ class Instructions(Page):
 class ASVABQuestions(Page):
     form_model = 'player'
     form_fields = [f'q{i+1}' for i in range(20)]
+
+    def vars_for_template(self):
+        return {'title': 'ASVAB Questions'}
 
     def before_next_page(self):
         player = self.player

@@ -1,18 +1,1 @@
-{% extends "global/Page.html" %}
-{% load otree static %}
-
-{% block title %}
-	Decision-making study
-{% endblock %}
-
-{% block content %}
-
-	<p>Thank you for participating in this study! You will have to sign a consent form to participate in the study.</p>
- 
-	<p>Please complete the CAPTCHA to be taken to the consent form. Read the consent form carefully.</p>
-
-    {% formfield player.captcha %}
-
-    <button class="btn-primary btn next">Next</button>
-
-{% endblock %}
+{% extends "global/Captcha.html" %}
