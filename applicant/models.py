@@ -49,7 +49,7 @@ class Subsession(BaseSubsession):
             p.treatment = i % 3
             p.show_perf_guess = i % 2
             # assign question order
-            question_order = list(range(1, 21))
+            question_order = random.sample(range(1, 26), 20)
             random.shuffle(question_order)
             p.question_order = '-'.join([str(x) for x in question_order])
             # assign evaluation and non-application questions
@@ -135,6 +135,11 @@ class Player(BasePlayer):
     q18 = models.StringField(choices=qtext['q18'], widget=widgets.RadioSelect)
     q19 = models.StringField(choices=qtext['q19'], widget=widgets.RadioSelect)
     q20 = models.StringField(choices=qtext['q20'], widget=widgets.RadioSelect)
+    q21 = models.StringField(choices=qtext['q21'], widget=widgets.RadioSelect)
+    q22 = models.StringField(choices=qtext['q22'], widget=widgets.RadioSelect)
+    q23 = models.StringField(choices=qtext['q23'], widget=widgets.RadioSelect)
+    q24 = models.StringField(choices=qtext['q24'], widget=widgets.RadioSelect)
+    q25 = models.StringField(choices=qtext['q25'], widget=widgets.RadioSelect)
     eval_correct = models.IntegerField()
     noneval_correct = models.IntegerField()
     # application questions

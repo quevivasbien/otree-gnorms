@@ -6,17 +6,17 @@ function getOrder() {
     return string.split("-");
 }
 
-let numQuestions = getOrder().length;
+const numQuestions = getOrder().length;
+const bankSize = document.getElementById('bank-size').innerHTML;
 
 function updateCurrentQuestion() {
     currentQuestion = getOrder()[questionIndex];
     document.getElementById(currentQuestion).style.display = 'block';
 }
 
-function nextQuestion() {
-  // Check that an answer is selected
-    let buttons = document.getElementById('id_q' + currentQuestion
-                            ).getElementsByClassName('form-check-input');
+function isChecked(q_num) {
+    let buttons = document.getElementById('id_q' + q_num)
+                          .getElementsByClassName('form-check-input');
     let checked = false;
     for (let i = 0; i < buttons.length; i++) {
       if (buttons[i].checked) {
@@ -24,7 +24,25 @@ function nextQuestion() {
         break;
       }
     }
-    if (!checked) {
+    return checked;
+}
+
+function finish() {
+    document.getElementById('done').style.display = 'block';
+    document.getElementById('question-indicator').style.display = 'none';
+    // give default answers for any questions the user didn't see
+    for (let i = 1; i <= bankSize; i++) {
+        if (!isChecked(i)) {
+            let buttons = document.getElementById('id_q' + i)
+                                  .getElementsByClassName('form-check-input');
+            buttons[0].checked = true;
+        }
+    }
+}
+
+function nextQuestion() {
+  // Check that an answer is selected
+    if (!isChecked(currentQuestion)) {
       document.getElementById('not-complete-error').style.display = 'block';
       return;
     }
@@ -32,9 +50,7 @@ function nextQuestion() {
     // hide current question and move to next
     document.getElementById(currentQuestion).style.display = 'none';
     if (questionIndex == numQuestions) {
-        // finished
-        document.getElementById('done').style.display = 'block';
-        document.getElementById('question-indicator').style.display = 'none';
+        finish();
     }
     else {
         updateCurrentQuestion();

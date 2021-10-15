@@ -25,6 +25,7 @@
 <div id="display-order" style="display:none">
   {{ player.question_order }}
 </div>
+<div id="bank-size" style="display:none">25</div>
 
 <div id="0">
 	<p>We're ready to start answering ASVAB questions. There will be a total of 20 questions, and you cannot go back to questions that you've already answered. For any questions that you don't know the answer, just make your best attempt.</p>
@@ -156,6 +157,37 @@
 <div id="20" style="display:none">
 {% formfield player.q20 label="Select the answer that best shows how the object will look when the parts in the box are put together." %}
 <img src="{% static 'applicant/shapes4.png' %}" alt="Select the answer that best shows how the object will look when the parts in the box are put together.">
+<br>
+<button type="button" class="btn-primary btn next" onclick="nextQuestion()">Next</button>
+</div>
+
+<div id="21" style="display:none">
+{% formfield player.q21 label="Which of the following best describes the difference between eukaryotic cells and prokaryotic cells?" %}
+<br>
+<button type="button" class="btn-primary btn next" onclick="nextQuestion()">Next</button>
+</div>
+
+<div id="22" style="display:none">
+{% formfield player.q22 label="A machine in an assembly plant lifts parts weighing 10 N from the floor to a height of 2 m. If this machine must lift batches of 20 parts at a time in 2 seconds, what amount of power is required?" %}
+<br>
+<button type="button" class="btn-primary btn next" onclick="nextQuestion()">Next</button>
+</div>
+
+<div id="23" style="display:none">
+{% formfield player.q23 label="From 1980 through 1990, the population of Country X increased by 100%. From 1990 to 2000, the population increased by 50%. What was the combined increase for the period 1980-2000?" %}
+<br>
+<button type="button" class="btn-primary btn next" onclick="nextQuestion()">Next</button>
+</div>
+
+<div id="24" style="display:none">
+{% formfield player.q24 label="When D is divided by 15, the result is 6 with a remainder of 2. What is the remainder when D is divided by 6?" %}
+<br>
+<button type="button" class="btn-primary btn next" onclick="nextQuestion()">Next</button>
+</div>
+
+<div id="25" style="display:none">
+{% formfield player.q25 label="Select the answer that best shows how the object will look when the parts in the box are put together." %}
+<img src="{% static 'applicant/shapes5.png' %}" alt="Select the answer that best shows how the object will look when the parts in the box are put together.">
 <br>
 <button type="button" class="btn-primary btn next" onclick="nextQuestion()">Next</button>
 </div>

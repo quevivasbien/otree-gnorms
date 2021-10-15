@@ -45,5 +45,10 @@
   "q17": ["A", "B", "C", "D"],
   "q18": ["A", "B", "C", "D"],
   "q19": ["A", "B", "C", "D"],
-  "q20": ["A", "B", "C", "D"]
+  "q20": ["A", "B", "C", "D"],
+  "q21": ["Prokaryotic cells do not have nuclei.", "Prokaryotic cells are only found in plants.", "Eukaryotic cells are only found in plants.", "Eukaryotic cells do not have nuclei."],
+  "q22": ["20 watts", "100 watts", "200 watts", "400 watts"],
+  "q23": ["150%", "167%", "175%", "200%"],
+  "q24": ["0", "2", "3", "4"],
+  "q25": ["A", "B", "C", "D"]
 }

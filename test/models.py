@@ -92,6 +92,11 @@ class Player(BasePlayer):
     q18 = models.StringField(choices=qtext['q18'], widget=widgets.RadioSelect)
     q19 = models.StringField(choices=qtext['q19'], widget=widgets.RadioSelect)
     q20 = models.StringField(choices=qtext['q20'], widget=widgets.RadioSelect)
+    q21 = models.StringField(choices=qtext['q21'], widget=widgets.RadioSelect)
+    q22 = models.StringField(choices=qtext['q22'], widget=widgets.RadioSelect)
+    q23 = models.StringField(choices=qtext['q23'], widget=widgets.RadioSelect)
+    q24 = models.StringField(choices=qtext['q24'], widget=widgets.RadioSelect)
+    q25 = models.StringField(choices=qtext['q25'], widget=widgets.RadioSelect)
     eval_correct = models.IntegerField()
     noneval_correct = models.IntegerField()
 
