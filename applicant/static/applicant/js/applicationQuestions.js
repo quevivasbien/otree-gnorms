@@ -13,10 +13,10 @@ function initiate() {
   let avatar = gender + num + '.jpg';
   document.getElementById('id_avatar').value = avatar;
   document.getElementById('avatar_demo').src = '/static/applicant/' + avatar;
-  if (treatment == 0) {
-      // skip first page
-      show('page2', 'page1');
-  }
+  // if (treatment == 0) {
+  //     // skip first page
+  //     show('page2', 'page1');
+  // }
 }
 
 function updateAgreeResponse() {
