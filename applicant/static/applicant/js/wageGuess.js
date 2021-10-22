@@ -194,3 +194,9 @@ function backQuestion() {
         displayQuestion();
     }
 }
+
+// prevent using Enter key to submit form
+forms = document.getElementsByTagName('form');
+for (let i = 0; i < forms.length; i++) {
+    forms[i].onkeydown = ()=>(event.key != 'Enter');
+}
