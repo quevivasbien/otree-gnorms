@@ -4,6 +4,7 @@ from ._builtin import Page
 from captcha.fields import ReCaptchaField
 
 import json
+from random import randint
 
 # load question text
 with open('_static/global/question_text.json', 'r', encoding='utf-8') as fh:
@@ -72,7 +73,8 @@ class SocAppropPage(Page):
 
 
 class CompletionCode(Page):
-    pass
+    def vars_for_template(self):
+        return {'completion_code': randint(1, 100) * 3}
 
 
 page_sequence = [
