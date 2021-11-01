@@ -41,9 +41,9 @@
 
 	<p>Your job application portfolio is the <em>only</em> information about you that the employers will see.</p>
 
-	{% if player.treatment != 2 %}<p>Your application portfolio consists of {% if player.treatment == 1 %}<em>your avatar</em> <b>and</b> {% endif %}<em>your evaluation</em> of your performance on the test you completed in Part 1. The employers <em>do not</em> see how many questions you answered correctly in Part 1, but they do see the average number of <em>application</em> questions answered correctly by all applicants.</p>
+	{% if player.treatment != 2 %}<p>Your application portfolio consists of {% if player.treatment == 1 %}(1) your avatar <b>and</b> (2) {% endif %}your evaluation of your performance on the test you completed in Part 1. The employers <em>do not</em> see how many questions you answered correctly in Part 1, but they do see the average number of <em>application</em> questions answered correctly by all applicants.</p>
 
-	{% else %}<p>Your application portfolio consists of <em>your avatar</em>, <em>your evaluation</em> of your performance on the test you completed in Part 1, <em>your performance</em> on the ten <em>application</em> questions from Part 1, and the average number of <em>application</em> questions answered correctly by all applicants.</p>{% endif %}
+	{% else %}<p>Your application portfolio consists of (1) your avatar, (2) your evaluation of your performance on the test you completed in Part 1, (3) your performance on the ten <em>application</em> questions from Part 1, and (4) the average number of <em>application</em> questions answered correctly by all applicants.</p>{% endif %}
 
 	<p>A quick reminder: in Part 1, you correctly answered {{ player.eval_correct }} out of the 10 <em>application</em> questions.<p>
 

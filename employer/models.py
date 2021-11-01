@@ -105,7 +105,6 @@ class Group(BaseGroup):
 
 understanding1_choices = [x.replace('~', Constants.payment) for x in qtext['understanding1']]
 
-
 class Player(BasePlayer):
     applicants = models.StringField()
     bids = models.StringField()
