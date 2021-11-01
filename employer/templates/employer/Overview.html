@@ -14,11 +14,11 @@
 {% block content %}
 
 <div id="page1">
-	<p>In this study, you will play the role of an employer evaluating job applicants. The “job applicants” are other Mturkers who participated in a different version of the study.</p>
+	<p>In this study, you will play the role of an <em>employer</em> evaluating job applicants. The “job applicants” are other Mturkers who participated in a different version of the study.</p>
 
-	<p>This study has three parts: in each part you'll see a set of job applications and answer some questions about them. You will have a chance to receive a bonus payment from each part.</p>
+	<p>This study has three parts: in each part you'll see a set of job application portfolios and answer some questions about them. You will have a chance to receive a bonus payment from each part.</p>
 
-	<p>You will review the profiles of up to <b>{{ participant.vars.apps_per_emp }}</b> applicants in each part of the study.</p>
+	<p>You will review the portfolios of <b>{{ participant.vars.apps_per_emp }}</b> applicants in each part of the study.</p>
 
 	<p>By completing this study, you will receive a guaranteed payment of ${{ Constants.payment }} within 24 hours. You will also receive a bonus payment based on your responses in each of the three parts. This bonus payment will be up to ${{ Constants.max_bonus }} and will be paid to you within a week.</p>
 

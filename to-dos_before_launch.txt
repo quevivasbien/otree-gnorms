@@ -14,9 +14,4 @@ go through and set correct time estimates in consent forms and in mturk previews
 Temporarily upgrade Heroku server
 Make sure to be logged into the right AWS locally before launching interface.py
 
-
-maybe change progress indicators on part 3 of applicant app?
-
-automatically capture time spent
-add five reasonably hard asvab questions
-send pavitra links
+add 10 very difficult asvab questions

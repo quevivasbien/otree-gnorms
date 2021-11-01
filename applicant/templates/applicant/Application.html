@@ -41,13 +41,13 @@
 
 	<p>Your job application portfolio is the <em>only</em> information about you that the employers will see.</p>
 
-	{% if player.treatment != 2 %}<p>Your application portfolio consists of {% if player.treatment == 1 %}<em>your avatar</em> <b>and</b> {% endif %}<em>your evaluation</em> of your performance on the test you completed in Part 1. The employers <em>do not</em> see how many questions you answered correctly in Part 1, but they do see the average number of application questions answered correctly by all applicants.</p>
+	{% if player.treatment != 2 %}<p>Your application portfolio consists of {% if player.treatment == 1 %}<em>your avatar</em> <b>and</b> {% endif %}<em>your evaluation</em> of your performance on the test you completed in Part 1. The employers <em>do not</em> see how many questions you answered correctly in Part 1, but they do see the average number of <em>application</em> questions answered correctly by all applicants.</p>
 
-	{% else %}<p>Your application portfolio consists of <em>your avatar</em>, <em>your evaluation</em> of your performance on the test you completed in Part 1, <em>your performance</em> on the ten <em>application questions</em> from Part 1, and the average number of <em>application questions</em> answered correctly by all applicants.</p>{% endif %}
+	{% else %}<p>Your application portfolio consists of <em>your avatar</em>, <em>your evaluation</em> of your performance on the test you completed in Part 1, <em>your performance</em> on the ten <em>application</em> questions from Part 1, and the average number of <em>application</em> questions answered correctly by all applicants.</p>{% endif %}
 
-	<p>A quick reminder: in Part 1, you correctly answered {{ player.eval_correct }} out of the 10 application questions.<p>
+	<p>A quick reminder: in Part 1, you correctly answered {{ player.eval_correct }} out of the 10 <em>application</em> questions.<p>
 
-	<p>Among 100 prior MTurkers who took the ASVAB test, your performance on the 10 application questions is as good as or better than {{ better_than }} of them and worse than {{ worse_than }} of them.</p>
+	<p>Among 100 prior MTurkers who took the ASVAB test, your performance on the 10 <em>application</em> questions is as good as or better than {{ better_than }} of them and worse than {{ worse_than }} of them.</p>
 
 	<p>Click next to continue to create your job application portfolio.</p>
 
@@ -57,7 +57,7 @@
 
 <div id="page3" style="display:none">
 
-	<p>Answer the following questions, which will be shown to employers as {% if player.treatment != 0 %}part of {% endif %}your application portfolio. Each profile shown to employers will only include your response to <em>one</em> of the following three questions.</p>
+	<p>Answer the following questions, which will be shown to employers as {% if player.treatment != 0 %}part of {% endif %}your application portfolio. Each portfolio shown to employers will only include your response to <em>one</em> of the following three questions.</p>
 
 	{% formfield player.self_eval label="Based on the information you received about other applicants' performance on the task, please choose one of the following to describe your performance on the cognitive ability test:" %}
 	<p id="not-complete-error1" style="color:red; display:none">Select one of the choices to continue.</p>
