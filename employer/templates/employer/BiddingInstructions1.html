@@ -13,11 +13,13 @@
 
 {% block content %}
 
-<p>In this part of the study, you will review the profiles of {{ participant.vars.apps_per_emp }} job applicants and decide the maximum amount you are willing to pay for each one.</p>
+<p>In this part of the study, you will review the portfolios of {{ participant.vars.apps_per_emp }} job applicants and decide the maximum amount you are willing to pay for each one.</p>
 
 <p>The “job applicants” are MTurk workers who have completed a set of 20 questions from the Armed Services Vocational Aptitude Battery (ASVAB), which has questions from each of the following five categories: general science, arithmetic reasoning, math knowledge, mechanical comprehension, and assembling objects.</p>
 
-<p>After the applicants see their performance on 10 out of the 20 questions, which we will call the “application” questions, they evaluate their performance on those 10 questions. We will call the other 10 questions “job performance” questions. Neither you nor the applicants see their performance on the job performance questions, and your payoff for this part of the study will depend on their performance in the job performance questions.</p>
+<p>The applicants learn about their performance on 10 out of the 20 questions and they evaluate their own performance on those 10 questions. We will call those 10 questions “application questions”.</p>
+
+<p>We will call the <em>other</em> 10 questions “job performance” questions. Neither you nor the applicants see their performance on the “job performance” questions. However, the applicants' performance in the “job performance” questions will affect your payoff in this part of the study.</p>
 
 <p>Complete the following statement to check your understanding before continuing:</p>
 {% formfield player.understanding2 label="My bonus for this part of the study" %}

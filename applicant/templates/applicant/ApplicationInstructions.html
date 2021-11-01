@@ -14,7 +14,7 @@
 {% block content %}
 
 <div id="page1">
-	<p>In the part you just completed (Part 1), you correctly answered {{ player.eval_correct }} out of the 10 application questions, so you will receive a bonus of {{ stage1_bonus }} for Part 1.</p>
+	<p>In the part you just completed (Part 1), you correctly answered {{ player.eval_correct }} out of the 10 <em>application</em> questions, so you will receive a bonus of {{ stage1_bonus }} for Part 1.</p>
 	<p>Now it's time to continue to Part 2, where you will prepare a job application portfolio.</p>
 	<button type="button" class="btn-primary btn next" onclick="show('page2', 'page1')" style="display:block">Next</button>
 </div>
@@ -23,8 +23,8 @@
 	<p>In this part, you will be asked several questions related to your performance on the test you completed in Part 1. One of your answers to these questions will be added to your job application portfolio.</p>
 
 	<p><b>How is your bonus determined?</b></p>
-	<p>Your application portfolio will be reviewed by “potential employers,” who are MTurk workers similar to you and complete a different version of this study. They will look at your portfolio and decide the amount (1 to 100 cents) they are willing to pay in order to receive 10 cents for each <em>job performance question</em> you correctly answered in Part 1. (Remember that the job performance questions are the <em>other</em> 10 questions beside the application questions used to determine your bonus for Part 1.)</p>
-	<p>One of those employers will be randomly chosen, and <em>the amount that he/she is willing to pay for your job performance questions will be your bonus for Part 2.</em></p>
+	<p>Your application portfolio will be reviewed by “potential employers,” who are MTurk workers similar to you and complete a different version of this study. They will look at your portfolio and decide the amount (1 to 100 cents) they are willing to pay in order to receive 10 cents for each <em>job performance</em> question you correctly answered in Part 1. (Remember that the <em>job performance</em> questions are the <em>other</em> 10 questions beside the<em>application</em> questions used to determine your bonus for Part 1.)</p>
+	<p>One of those employers will be randomly chosen, and <em>the amount that he/she is willing to pay for your <em>job performance</em> questions will be your bonus for Part 2.</em></p>
 
 	<button type="button" class="btn-primary btn back" onclick="show('page1', 'page2')" style="display:block">Back</button>
 	<button type="button" class="btn-primary btn next" onclick="show('page3', 'page2')" style="display:block">Next</button>

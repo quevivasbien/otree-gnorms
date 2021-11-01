@@ -13,8 +13,8 @@
 
 {% block content %}
 
-<p>Each applicant portfolio you see will include the applicant's evaluation of their own performance{% if participant.vars.treatment == 1 %}, along with an avatar representing them
-{% elif participant.vars.treatment == 2 %}, an avatar representing them, and the number of application questions that they answered correctly{% endif %}. Using that information, you will be answering the following list of questions for each applicant:</p>
+<p>Each applicant portfolio you see will include {% if participant.vars.treatment != 0 %}(1) {% endif %}the applicant's evaluation of their own performance{% if participant.vars.treatment == 1 %}, and (2) an avatar representing them
+{% elif participant.vars.treatment == 2 %}, (2) an avatar representing them, and (3) the number of <em>application</em> questions that they answered correctly{% endif %}. Using that information, you will be answering the following list of questions for each applicant:</p>
 
 <table>
 	<tr>
@@ -69,7 +69,7 @@
 </table>
 
 <br>
-<p>In each question you pick either Option A (10 cents for each job performance questions that the applicant answered correctly) or Option B (the fixed payment). After you answer all 100 questions, one row of the table above will be randomly picked and you will be paid for the option you chose on that one question. Each question is equally likely to be chosen for payment. It's in your interest to be honest on each question, because otherwise you may end up with the option you like less.</p>
+<p>In each question you pick either Option A (10 cents for each <em>job performance</em> questions that the applicant answered correctly) or Option B (the fixed payment). After you answer all 100 questions, one row of the table above will be randomly picked and you will be paid for the option you chose on that one question. Each question is equally likely to be chosen for payment. It's in your interest to be honest on each question, because otherwise you may end up with the option you like less.</p>
 
 <p>Most people will choose Option A in at least the first few rows, but at some point switch to choosing Option B. So, to save time, we'll just ask you at which cent value you want to switch, and we'll then automatically "fill out" your answers to all 100 rows based on your switching point (choosing Option A for all rows before your switching point, and Option B for all rows at or after your switching point). We’ll still choose one row randomly for payment. Again, you'll want to be honest about your true switching point so you don't end up getting paid an option that you like less.</p>
 
@@ -135,11 +135,11 @@
 </table>
 
 <br>
-<p>To help you with your answers, keep in mind that the average number of application questions answered correctly by a job applicant is {{ Constants.mean_performance }} out of 10.</p>
+<p>To help you with your answers, keep in mind that the average number of <em>application</em> questions answered correctly by a job applicant is {{ Constants.mean_performance }} out of 10.</p>
 
 <p>Answer the following questions to check your understanding before continuing:</p>
-{% formfield player.understanding3a label="Suppose I choose a switching point of 45 cents for an applicant, and the applicant turns out to have answered 4 out of 10 job performance questions correctly. If row number 60 is chosen to determine my bonus payment, then my bonus is" %}
-{% formfield player.understanding3b label="Suppose I choose a switching point of 45 cents for an applicant, and the applicant turns out to have answered 4 out of 10 job performance questions correctly. If row number 30 is chosen to determine my bonus payment, then my bonus is" %}
+{% formfield player.understanding3a label="Suppose I choose a switching point of 45 cents for an applicant, and the applicant turns out to have answered 4 out of 10 <em>job performance</em> questions correctly. If row number 60 is chosen to determine my bonus payment, then my bonus is" %}
+{% formfield player.understanding3b label="Suppose I choose a switching point of 45 cents for an applicant, and the applicant turns out to have answered 4 out of 10 <em>job performance</em> questions correctly. If row number 30 is chosen to determine my bonus payment, then my bonus is" %}
 
 <button class="btn-primary btn next">Next</button>
 
