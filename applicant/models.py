@@ -47,9 +47,10 @@ class Constants(BaseConstants):
 
 class Subsession(BaseSubsession):
     def creating_session(self):
+        # gender_idx session vars are used for assigning treatment
+        self.session.vars["male_idx"] = 0
+        self.session.vars["female_idx"] = 0
         for i, p in enumerate(self.get_players()):
-            # assign treatment
-            p.treatment = i % 3
             p.show_perf_guess = i % 2
             # assign question order
             question_order = random.sample(range(1, 32), 20)

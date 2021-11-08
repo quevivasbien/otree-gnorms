@@ -28,14 +28,29 @@ class ConsentForm(Page):
     pass
 
 
-class Overview(Page):
-    form_model = "player"
-    form_fields = ["understanding1"]
-
-
 class DemographicSurvey(Page):
     form_model = "player"
     form_fields = ["age", "gender", "employed", "education", "resident"]
+
+    def before_next_page(self):
+        """Assign treatment based on response to gender question
+        This is so treatments are more likely to be balanced by gender"""
+        player = self.player
+        if player.gender == "Male":
+            player.treatment = self.session.vars["male_idx"] % 3
+            self.session.vars["male_idx"] += 1
+        elif player.gender == "Female":
+            player.treatment = self.session.vars["female_idx"] % 3
+            self.session.vars["female_idx"] += 1
+        else:
+            player.treatment = (
+                self.session.vars["male_idx"] + self.session.vars["female_idx"]
+            ) % 3
+
+
+class Overview(Page):
+    form_model = "player"
+    form_fields = ["understanding1"]
 
 
 class ASVABInstructions(Page):
@@ -54,13 +69,38 @@ class ASVABQuestions(Page):
         # checks player's ASVAB answers and figures out how many are correct
         player = self.player
         correct_answers = [
-            2, 3, 0, 1, 2,
-            3, 1, 2, 0, 3,
-            3, 2, 0, 3, 2,
-            2, 3, 1, 0, 0,
-            0, 2, 3, 1, 1,
-            0, 0, 2, 2, 3,
-            2, 3
+            2,
+            3,
+            0,
+            1,
+            2,
+            3,
+            1,
+            2,
+            0,
+            3,
+            3,
+            2,
+            0,
+            3,
+            2,
+            2,
+            3,
+            1,
+            0,
+            0,
+            0,
+            2,
+            3,
+            1,
+            1,
+            0,
+            0,
+            2,
+            2,
+            3,
+            2,
+            3,
         ]
         eval_correct = 0
         noneval_correct = 0
@@ -99,7 +139,7 @@ class ASVABQuestions(Page):
                 player.q29,
                 player.q30,
                 player.q31,
-                player.q32
+                player.q32,
             ]
         ):
             if i + 1 in evqs and q == qtext[f"q{i+1}"][correct_answers[i]]:
@@ -116,7 +156,9 @@ class ApplicationInstructions(Page):
 
     def vars_for_template(self):
         player = self.player
-        stage1_bonus = '${:.2f}'.format(player.eval_correct * constants['bonus_per_question'] / 100)
+        stage1_bonus = "${:.2f}".format(
+            player.eval_correct * constants["bonus_per_question"] / 100
+        )
         return dict(stage1_bonus=stage1_bonus)
 
 

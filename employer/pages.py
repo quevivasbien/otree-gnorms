@@ -26,14 +26,14 @@ class ConsentForm(Page):
     pass
 
 
-class Overview(Page):
-    form_model = "player"
-    form_fields = ["understanding1"]
-
-
 class DemographicSurvey(Page):
     form_model = "player"
     form_fields = ["age", "gender", "education", "employed", "resident"]
+
+
+class Overview(Page):
+    form_model = "player"
+    form_fields = ["understanding1"]
 
 
 class BiddingInstructions1(Page):
