@@ -41,6 +41,8 @@ class Constants(BaseConstants):
     max_bonus = "{:.2f}".format(constants["applicant_max_bonus"])
     mean_performance = "{:.1f}".format(sum([x * i for i, x in enumerate(perform_pdf)]))
     num_wg = constants["num_wg1"] + constants["num_wg2"] + constants["num_wg3"]
+    bonus_per_part = "{:.2f}".format(constants["bonus_per_part"])
+    bonus_per_question = str(constants["bonus_per_question"])
 
 
 class Subsession(BaseSubsession):
@@ -89,6 +91,10 @@ understanding1_choices = [
     x.replace("~", Constants.payment) for x in qtext["understanding1"]
 ]
 
+understanding3_choices = [
+    x.replace("~", Constants.bonus_per_question) for x in qtext["understanding3"]
+]
+
 
 class Player(BasePlayer):
     # vars set at session setup
@@ -124,7 +130,7 @@ class Player(BasePlayer):
         choices=qtext["understanding2"], widget=widgets.RadioSelect
     )
     understanding3 = models.StringField(
-        choices=qtext["understanding3"], widget=widgets.RadioSelect
+        choices=understanding3_choices, widget=widgets.RadioSelect,
     )
     understanding4 = models.StringField(
         choices=qtext["understanding4"], widget=widgets.RadioSelect
@@ -200,7 +206,7 @@ class Player(BasePlayer):
         return self.check_q(value, qtext["understanding2"][1])
 
     def understanding3_error_message(self, value):
-        return self.check_q(value, qtext["understanding3"][0])
+        return self.check_q(value, understanding3_choices[0])
 
     def understanding4_error_message(self, value):
         return self.check_q(value, qtext["understanding4"][0])

@@ -20,7 +20,7 @@
 
 	<p>This time, your task for each portfolio you see is to guess the number of <em>job performance</em> questions that an employer who sees that portfolio would estimate that the applicant from the portfolio correctly solved.</p>
 
-	<p>To determine your bonus payment for this part, we'll randomly select one of the portfolios from this part, and if your guess for that portfolio is within <em>1</em> of the amount that an employer who sees that portfolio guesses, you'll receive a bonus of $1.00.</p>
+	<p>To determine your bonus payment for this part, we'll randomly select one of the portfolios from this part, and if your guess for that portfolio is within <em>1</em> of the amount that an employer who sees that portfolio guesses, you'll receive a bonus of ${{ Constants.bonus_per_part }}.</p>
 
 	<button type="button" class="btn-primary btn next" onclick="show('page1', 'page0')">Next</button>
 </div>
@@ -29,7 +29,7 @@
 
 	<p>On the following three screens, you will again see different versions of the job application portfolio you created in Part 2.</p>
 
-	<p>Remember, your task for each version of your portfolio is to guess the number of <em>job performance</em> questions that employer who sees that portfolio would estimate you correctly solved.</p>
+	<p>Remember, your task for each version of your portfolio is to guess the number of <em>job performance</em> questions that an employer who sees that portfolio would estimate you correctly solved.</p>
 
 	<p>Like before, the employers will see <em>only</em> the information presented in each portfolio, plus the average number of <em>application</em> questions correctly answered by all applicants, which is {{ Constants.mean_performance }} out of 10.</p>
 
@@ -120,7 +120,7 @@
 <div id="page5" style="display:none">
 	<p>Great! Now for some questions about <em>other people's</em> application portfolios. The next few screens will be just like the ones you just saw, but this time the portfolios you see will be potential portfolios from other applicants.</p>
 
-	<p>Once again, your task for each portfolio is to guess the number of <em>job performance</em> questions that employer who sees that portfolio would estimate that the applicant from the portfolio correctly solved.</p>
+	<p>Once again, your task for each portfolio is to guess the number of <em>job performance</em> questions that an employer who sees that portfolio would estimate that the applicant from the portfolio correctly solved.</p>
 
 	<p>Like before, the employers will see <em>only</em> the information presented in each portfolio, plus the average number of <em>application</em> questions correctly answered by all applicants, which is {{ Constants.mean_performance }} out of 10.</p>
 

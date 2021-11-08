@@ -17,7 +17,7 @@
 <div id="apps-per-emp1" style="display: none">{{ participant.vars.apps_per_emp1 }}</div>
 <div id="apps-per-emp2" style="display: none">{{ participant.vars.apps_per_emp2 }}</div>
 <div id="apps-per-emp3" style="display: none">{{ participant.vars.apps_per_emp3 }}</div>
-<div id="default-bid" style="display: none">0.5</div>
+<div id="default-bid" style="display: none">1.01</div>
 <div id="participant-gender" style="display: none">{{ participant.vars.gender }}</div>
 <div id="participant-avatar" style="display: none">{{ participant.vars.avatar }}</div>
 <div id="participant-eval-correct" style="display: none">{{ participant.vars.eval_correct }}</div>
@@ -37,7 +37,7 @@
 	<p>To help you with your answers, keep in mind the following:</p>
 	<ul>
 		<li>The average number of <em>application</em> questions correctly answered by a job applicant is {{ Constants.mean_performance }} out of 10.</li>
-		<li>The switching point you choose is the amount in cents where you would start switching from option A to option B in the table below:</li>
+		<li>The switching point you choose is the amount in cents where you would start switching from option A to option B in the table below. This is the same as the maximum amount you would be willing to exchange in order to receive {{ Constants.bonus_per_question }} cents for each <em>job performance</em> question that the applicant answered correctly.</li>
 	</ul>
 
 	<table>
@@ -51,21 +51,21 @@
 		<tr>
 			<td>1</td>
 			<td>Would you rather have:</td>
-			<td>10 cents for each <em>job performance</em> question that the applicant answered correctly.</td>
+			<td>{{ Constants.bonus_per_question }} cents for each <em>job performance</em> question that the applicant answered correctly.</td>
 			<td>or</td>
 			<td>1 cent</td>
 		</tr>
 		<tr>
 			<td>2</td>
 			<td>Would you rather have:</td>
-			<td>10 cents for each <em>job performance</em> question that the applicant answered correctly.</td>
+			<td>{{ Constants.bonus_per_question }} cents for each <em>job performance</em> question that the applicant answered correctly.</td>
 			<td>or</td>
 			<td>2 cents</td>
 		</tr>
 		<tr>
 			<td>3</td>
 			<td>Would you rather have:</td>
-			<td>10 cents for each <em>job performance</em> question that the applicant answered correctly.</td>
+			<td>{{ Constants.bonus_per_question }} cents for each <em>job performance</em> question that the applicant answered correctly.</td>
 			<td>or</td>
 			<td>3 cents</td>
 		</tr>
@@ -77,18 +77,18 @@
 			<td>&vellip;</td>
 		</tr>
 		<tr>
-			<td>99</td>
+			<td>199</td>
 			<td>Would you rather have:</td>
-			<td>10 cents for each <em>job performance</em> question that the applicant answered correctly.</td>
+			<td>{{ Constants.bonus_per_question }} cents for each <em>job performance</em> question that the applicant answered correctly.</td>
 			<td>or</td>
-			<td>99 cents</td>
+			<td>199 cents</td>
 		</tr>
 		<tr>
-			<td>100</td>
+			<td>200</td>
 			<td>Would you rather have:</td>
-			<td>10 cents for each <em>job performance</em> question that the applicant answered correctly.</td>
+			<td>{{ Constants.bonus_per_question }} cents for each <em>job performance</em> question that the applicant answered correctly.</td>
 			<td>or</td>
-			<td>100 cents</td>
+			<td>200 cents</td>
 		</tr>
 	</table>
 
@@ -139,7 +139,7 @@
 	<div id="help" style="display:none; font-size: 10pt;">
 		<ul>
 			<li>The average number of <em>application</em> questions correctly answered by a job applicant is {{ Constants.mean_performance }} out of 10.</li>
-			<li>The switching point you choose is the amount in cents where you would start switching from option A to option B in the table below:</li>
+			<li>The switching point you choose is the amount in cents where you would start switching from option A to option B in the table below. This is the same as the maximum amount you would be willing to exchange in order to receive {{ Constants.bonus_per_question }} cents for each <em>job performance</em> question that the applicant answered correctly.</li>
 		</ul>
 
 		<table style="width: 75%; font-size: 10pt;">
@@ -153,21 +153,21 @@
 			<tr>
 				<td>1</td>
 				<td>Would you rather have:</td>
-				<td>10 cents for each <em>job performance</em> question that the applicant answered correctly.</td>
+				<td>{{ Constants.bonus_per_question }} cents for each <em>job performance</em> question that the applicant answered correctly.</td>
 				<td>or</td>
 				<td>1 cent</td>
 			</tr>
 			<tr>
 				<td>2</td>
 				<td>Would you rather have:</td>
-				<td>10 cents for each <em>job performance</em> question that the applicant answered correctly.</td>
+				<td>{{ Constants.bonus_per_question }} cents for each <em>job performance</em> question that the applicant answered correctly.</td>
 				<td>or</td>
 				<td>2 cents</td>
 			</tr>
 			<tr>
 				<td>3</td>
 				<td>Would you rather have:</td>
-				<td>10 cents for each <em>job performance</em> question that the applicant answered correctly.</td>
+				<td>{{ Constants.bonus_per_question }} cents for each <em>job performance</em> question that the applicant answered correctly.</td>
 				<td>or</td>
 				<td>3 cents</td>
 			</tr>
@@ -181,14 +181,14 @@
 			<tr>
 				<td>99</td>
 				<td>Would you rather have:</td>
-				<td>10 cents for each <em>job performance</em> question that the applicant answered correctly.</td>
+				<td>{{ Constants.bonus_per_question }} cents for each <em>job performance</em> question that the applicant answered correctly.</td>
 				<td>or</td>
 				<td>99 cents</td>
 			</tr>
 			<tr>
 				<td>100</td>
 				<td>Would you rather have:</td>
-				<td>10 cents for each <em>job performance</em> question that the applicant answered correctly.</td>
+				<td>{{ Constants.bonus_per_question }} cents for each <em>job performance</em> question that the applicant answered correctly.</td>
 				<td>or</td>
 				<td>100 cents</td>
 			</tr>
@@ -197,7 +197,7 @@
 	</div>
 
 	<div class="slider-container">
-	    <input id="rangeInput" type="range" min="0.0" max="1.0" step="0.05" class="slider" onclick="updateAmount()" oninput="updateAmount()"/>
+	    <input id="rangeInput" type="range" min="0.0" max="2.0" step="0.05" class="slider" onclick="updateAmount()" oninput="updateAmount()"/>
 			<p>$<span id="amount" style="font-weight:bold">--</span></p>
 	</div>
 	<div id="no-response-message" style="display: none; color: red;">Please use the slider to select a value before moving on.</div>

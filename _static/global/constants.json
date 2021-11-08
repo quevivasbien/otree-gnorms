@@ -8,12 +8,14 @@
     "apps_per_emp3a": 3,
     "apps_per_emp3b": 6,
     "applicant_estimated_time": 30,
-    "applicant_payment": 4,
-    "applicant_max_bonus": 4,
+    "applicant_payment": 2,
+    "applicant_max_bonus": 8,
     "employer_estimated_time": 25,
-    "employer_payment": 3,
-    "employer_max_bonus": 3,
+    "employer_payment": 2,
+    "employer_max_bonus": 6,
     "test_estimated_time": 15,
     "test_payment": 1,
-    "test_max_bonus": 1
+    "test_max_bonus": 1,
+    "bonus_per_part": 2,
+    "bonus_per_question": 20
 }

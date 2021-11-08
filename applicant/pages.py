@@ -45,7 +45,7 @@ class ASVABInstructions(Page):
 
 class ASVABQuestions(Page):
     form_model = "player"
-    form_fields = [f"q{i+1}" for i in range(25)]
+    form_fields = [f"q{i+1}" for i in range(32)]
 
     def vars_for_template(self):
         return {"title": "Part 1 of 4 - ASVAB Questions"}
@@ -116,9 +116,7 @@ class ApplicationInstructions(Page):
 
     def vars_for_template(self):
         player = self.player
-        stage1_bonus = (
-            f"{player.eval_correct * 10} cents" if player.eval_correct < 10 else "$1.00"
-        )
+        stage1_bonus = '${:.2f}'.format(player.eval_correct * constants['bonus_per_question'] / 100)
         return dict(stage1_bonus=stage1_bonus)
 
 
