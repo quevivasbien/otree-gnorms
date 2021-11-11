@@ -15,7 +15,7 @@
     "employer_max_bonus": 6,
     "test_estimated_time": 15,
     "test_payment": 1,
-    "test_max_bonus": 1,
+    "test_max_bonus": 2,
     "bonus_per_part": 2,
     "bonus_per_question": 20
 }

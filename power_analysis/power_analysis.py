@@ -84,7 +84,7 @@ perform_pdf_female = np.diff(perform_cdf_female)
 # constants for number of evaluations done by each employer
 answers_per_employer = 10
 
-default_n_applicants = 350
+default_n_applicants = 400
 
 
 # ~~~Define helper functions for sampling performance~~~
@@ -117,6 +117,9 @@ def get_perform(n, app_female):
     return app_perform
 
 
+default_emp_var = 20
+default_emp_corr = 0.2
+
 # this dictionary stores covariance matrices, so we don't have to regenerate them all the time
 covmats = {}
 
@@ -148,11 +151,11 @@ def gen_errors(var, corr, n_employers):
 class PowerTest:
     def __init__(
         self,
-        employer_var=10,
-        employer_corr=0.2,
+        employer_var=default_emp_var,
+        employer_corr=default_emp_corr,
         promote0=-0.1,
         promote1=-1.0,
-        promote2=-0.5,
+        promote2=-0.2,
         verbose=False,
         min_n=20,
         measure2=False,
@@ -322,8 +325,8 @@ class Hypothesis1(PowerTest):
         self,
         beta0,
         beta1,
-        employer_var=10,
-        employer_corr=0.2,
+        employer_var=default_emp_var,
+        employer_corr=default_emp_corr,
         promote0=-0.1,
         promote1=-1.0,
         promote2=-0.5,
@@ -375,8 +378,8 @@ class Hypothesis2(PowerTest):
         beta1,
         beta2,
         beta3,
-        employer_var=10,
-        employer_corr=0.2,
+        employer_var=default_emp_var,
+        employer_corr=default_emp_corr,
         promote0=-0.1,
         promote1=-1.0,
         promote2=-0.5,
@@ -440,8 +443,8 @@ class Hypothesis3(PowerTest):
         beta2,
         beta3,
         perform_step,
-        employer_var=10,
-        employer_corr=0.2,
+        employer_var=default_emp_var,
+        employer_corr=default_emp_corr,
         promote0=-0.1,
         promote1=-1.0,
         promote2=-0.5,
@@ -514,8 +517,8 @@ class Hypothesis4(PowerTest):
         beta1,
         beta2,
         beta3,
-        employer_var=10,
-        employer_corr=0.2,
+        employer_var=default_emp_var,
+        employer_corr=default_emp_corr,
         promote0=-0.1,
         promote1=-1.0,
         promote2=-0.5,
@@ -580,8 +583,8 @@ class Hypothesis5(PowerTest):
         beta1,
         beta2,
         beta3,
-        employer_var=10,
-        employer_corr=0.2,
+        employer_var=default_emp_var,
+        employer_corr=default_emp_corr,
         promote0=-0.1,
         promote1=-1.0,
         promote2=-0.5,
@@ -646,8 +649,8 @@ class Hypothesis6(PowerTest):
         beta2,
         beta3,
         perform_step,
-        employer_var=10,
-        employer_corr=0.2,
+        employer_var=default_emp_var,
+        employer_corr=default_emp_corr,
         promote0=-0.1,
         promote1=-1.0,
         promote2=-0.5,
@@ -722,8 +725,8 @@ class Hypothesis7(PowerTest):
         beta2,
         beta3,
         perform_step,
-        employer_var=10,
-        employer_corr=0.2,
+        employer_var=default_emp_var,
+        employer_corr=default_emp_corr,
         promote0=-0.1,
         promote1=-1.0,
         promote2=-0.5,
@@ -820,8 +823,8 @@ class Hypothesis7(PowerTest):
 class Hypothesis8(PowerTest):
     def __init__(
         self,
-        employer_var=10,
-        employer_corr=0.2,
+        employer_var=default_emp_var,
+        employer_corr=default_emp_corr,
         promote0=-0.1,
         promote1=-1.0,
         promote2=-0.5,
@@ -863,8 +866,8 @@ class Hypothesis8(PowerTest):
 class Hypothesis9(PowerTest):
     def __init__(
         self,
-        employer_var=10,
-        employer_corr=0.2,
+        employer_var=default_emp_var,
+        employer_corr=default_emp_corr,
         promote0=-0.1,
         promote1=-1.0,
         promote2=-0.5,
@@ -914,8 +917,8 @@ class Hypothesis9(PowerTest):
 class Hypothesis10(PowerTest):
     def __init__(
         self,
-        employer_var=10,
-        employer_corr=0.2,
+        employer_var=default_emp_var,
+        employer_corr=default_emp_corr,
         promote0=-0.1,
         promote1=-1.0,
         promote2=-0.5,
@@ -991,7 +994,7 @@ measure2_reduced_coeffs = [[x / 2 for x in y] for y in measure2_wage_coeffs]
 
 def run_all(
     emp_var=None,
-    emp_cov=None,
+    emp_corr=None,
     promote0=None,
     promote1=None,
     promote2=None,
@@ -999,9 +1002,9 @@ def run_all(
     measure2=None,
 ):
     if emp_var is None:
-        emp_var = 10
-    if emp_cov is None:
-        emp_cov = 0.2
+        emp_var = default_emp_var
+    if emp_corr is None:
+        emp_corr = default_emp_corr
     if promote0 is None:
         promote0 = -0.1
     if promote1 is None:
@@ -1017,7 +1020,7 @@ def run_all(
             w[0][0],
             w[0][1],
             emp_var,
-            emp_cov,
+            emp_corr,
             promote0,
             promote1,
             promote2,
@@ -1029,7 +1032,7 @@ def run_all(
             w[1][2],
             w[1][3],
             emp_var,
-            emp_cov,
+            emp_corr,
             promote0,
             promote1,
             promote2,
@@ -1042,7 +1045,7 @@ def run_all(
             w[2][3],
             w[2][4],
             emp_var,
-            emp_cov,
+            emp_corr,
             promote0,
             promote1,
             promote2,
@@ -1054,7 +1057,7 @@ def run_all(
             w[3][2],
             w[3][3],
             emp_var,
-            emp_cov,
+            emp_corr,
             promote0,
             promote1,
             promote2,
@@ -1066,7 +1069,7 @@ def run_all(
             w[4][2],
             w[4][3],
             emp_var,
-            emp_cov,
+            emp_corr,
             promote0,
             promote1,
             promote2,
@@ -1079,7 +1082,7 @@ def run_all(
             w[5][3],
             w[5][4],
             emp_var,
-            emp_cov,
+            emp_corr,
             promote0,
             promote1,
             promote2,
@@ -1092,20 +1095,20 @@ def run_all(
             w[6][3],
             w[6][4],
             emp_var,
-            emp_cov,
+            emp_corr,
             promote0,
             promote1,
             promote2,
             measure2=measure2,
         ).test(),
         Hypothesis8(
-            emp_var, emp_cov, promote0, promote1, promote2, measure2=measure2
+            emp_var, emp_corr, promote0, promote1, promote2, measure2=measure2
         ).test(),
         Hypothesis9(
-            emp_var, emp_cov, promote0, promote1, promote2, measure2=measure2
+            emp_var, emp_corr, promote0, promote1, promote2, measure2=measure2
         ).test(),
         Hypothesis10(
-            emp_var, emp_cov, promote0, promote1, promote2, measure2=measure2
+            emp_var, emp_corr, promote0, promote1, promote2, measure2=measure2
         ).test(),
     ]
 
@@ -1156,7 +1159,7 @@ def run_all_single_n(
     n_employers=200,
     repeat=1000,
     emp_var=None,
-    emp_cov=None,
+    emp_corr=None,
     promote0=None,
     promote1=None,
     promote2=None,
@@ -1164,9 +1167,9 @@ def run_all_single_n(
     measure2=None,
 ):
     if emp_var is None:
-        emp_var = 10
-    if emp_cov is None:
-        emp_cov = 0.2
+        emp_var = default_emp_var
+    if emp_corr is None:
+        emp_corr = default_emp_corr
     if promote0 is None:
         promote0 = -0.1
     if promote1 is None:
@@ -1182,7 +1185,7 @@ def run_all_single_n(
             w[0][0],
             w[0][1],
             emp_var,
-            emp_cov,
+            emp_corr,
             promote0,
             promote1,
             promote2,
@@ -1194,7 +1197,7 @@ def run_all_single_n(
             w[1][2],
             w[1][3],
             emp_var,
-            emp_cov,
+            emp_corr,
             promote0,
             promote1,
             promote2,
@@ -1207,7 +1210,7 @@ def run_all_single_n(
             w[2][3],
             w[2][4],
             emp_var,
-            emp_cov,
+            emp_corr,
             promote0,
             promote1,
             promote2,
@@ -1219,7 +1222,7 @@ def run_all_single_n(
             w[3][2],
             w[3][3],
             emp_var,
-            emp_cov,
+            emp_corr,
             promote0,
             promote1,
             promote2,
@@ -1231,7 +1234,7 @@ def run_all_single_n(
             w[4][2],
             w[4][3],
             emp_var,
-            emp_cov,
+            emp_corr,
             promote0,
             promote1,
             promote2,
@@ -1244,7 +1247,7 @@ def run_all_single_n(
             w[5][3],
             w[5][4],
             emp_var,
-            emp_cov,
+            emp_corr,
             promote0,
             promote1,
             promote2,
@@ -1257,20 +1260,20 @@ def run_all_single_n(
             w[6][3],
             w[6][4],
             emp_var,
-            emp_cov,
+            emp_corr,
             promote0,
             promote1,
             promote2,
             measure2=measure2,
         ).est_power(repeat, n_applicants),
         Hypothesis8(
-            emp_var, emp_cov, promote0, promote1, promote2, measure2=measure2
+            emp_var, emp_corr, promote0, promote1, promote2, measure2=measure2
         ).est_power(repeat, n_applicants),
         Hypothesis9(
-            emp_var, emp_cov, promote0, promote1, promote2, measure2=measure2
+            emp_var, emp_corr, promote0, promote1, promote2, measure2=measure2
         ).est_power(repeat, n_applicants),
         Hypothesis10(
-            emp_var, emp_cov, promote0, promote1, promote2, measure2=measure2
+            emp_var, emp_corr, promote0, promote1, promote2, measure2=measure2
         ).est_power(repeat, n_applicants),
     ]
 

@@ -15,8 +15,3 @@ Temporarily upgrade Heroku server
 Make sure to be logged into the right AWS locally before launching interface.py
 
 let employers know that the profiles they see are for different people, and avatars are chosen arbitrarily
-assign treatment after learning gender
-
-change payments to 2.00 base + 2.00 max bonus per part
-
-put instructions in text format
