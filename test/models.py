@@ -43,8 +43,7 @@ class Subsession(BaseSubsession):
         for p in self.get_players():
             i = (i + 1) % 3
             # assign question order
-            question_order = list(range(1, 21))
-            random.shuffle(question_order)
+            question_order = random.sample(range(1, 32 + 1), 20)
             p.question_order = "-".join([str(x) for x in question_order])
             # assign evaluation and non-application questions
             eval_qs = random.sample(question_order, 10)
@@ -55,6 +54,9 @@ class Subsession(BaseSubsession):
 
 class Group(BaseGroup):
     pass
+
+
+u2_choices = [x.replace("<em>application</em> ", "") for x in qtext["understanding2"]]
 
 
 class Player(BasePlayer):
@@ -71,9 +73,7 @@ class Player(BasePlayer):
     # religion = models.StringField(choices=qtext['religion'])
     # politics = models.StringField(choices=qtext['politics'])
     resident = models.StringField(choices=["Yes", "No"])
-    understanding2 = models.StringField(
-        choices=qtext["understanding2"], widget=widgets.RadioSelect
-    )
+    understanding2 = models.StringField(choices=u2_choices, widget=widgets.RadioSelect)
     q1 = models.StringField(choices=qtext["q1"], widget=widgets.RadioSelect)
     q2 = models.StringField(choices=qtext["q2"], widget=widgets.RadioSelect)
     q3 = models.StringField(choices=qtext["q3"], widget=widgets.RadioSelect)
@@ -110,5 +110,5 @@ class Player(BasePlayer):
     noneval_correct = models.IntegerField()
 
     def understanding2_error_message(self, value):
-        if value != qtext["understanding2"][1]:
+        if value != u2_choices[1]:
             return "Sorry. Your answer is incorrect. Please choose the correct answer to proceed."

@@ -1,23 +1,7 @@
-const treatment = parseInt(document.getElementById('treatment').innerHTML);
 const agree = document.getElementById('agree');
 const rangeInput = document.getElementById('rangeInput');
 const amount = document.getElementById('amount');
 
-function initiate() {
-  // set avatar
-  gender = document.getElementById('gender').innerHTML.toLowerCase();
-  if (gender == 'other') {
-      gender = ['male', 'female'][Math.floor(Math.random() * 2)]
-  }
-  let num = Math.floor(Math.random() * 3) + 1;  // random int in (1, 2, 3)
-  let avatar = gender + num + '.jpg';
-  document.getElementById('id_avatar').value = avatar;
-  document.getElementById('avatar_demo').src = '/static/applicant/' + avatar;
-  // if (treatment == 0) {
-  //     // skip first page
-  //     show('page2', 'page1');
-  // }
-}
 
 function updateAgreeResponse() {
     agree.value = rangeInput.value;
@@ -65,7 +49,6 @@ function seeProfile() {
   }
 }
 
-initiate();
 
 // prevent using Enter key to submit form
 forms = document.getElementsByTagName('form');

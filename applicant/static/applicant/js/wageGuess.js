@@ -15,8 +15,8 @@ const promote1_dict = {
 }
 
 const promote3_dict = {
-  '0': '“Usually I am the best at what I do, and therefore I would succeed in a job that required me to perform well in tasks similar to the test in Part 1.”',
-  '1': '“I conduct all tasks assigned to me with the needed attention, and therefore I would work hard in a job that required me to perform well in tasks similar to the test in Part 1.”'
+  '0': '“Usually I am the best at what I do, and therefore I would succeed in a job that required me to perform well in tasks similar to the application questions.”',
+  '1': '“I conduct all tasks assigned to me with the needed attention, and therefore I would work hard in a job that required me to perform well in tasks similar to the application questions.”'
 }
 
 function getVals(id) {

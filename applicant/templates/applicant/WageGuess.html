@@ -39,7 +39,7 @@
 	</p>
 
 	<div class="slider-container">
-	    <input id="rangeInput1" type="range" name="wage_guess1" min="0.0" max="1.0" step="0.05" class="slider" onclick="updateAmount(1)" oninput="updateAmount(1)"/>
+	    <input id="rangeInput1" type="range" name="wage_guess1" min="0.0" max="2.0" step="0.05" class="slider" onclick="updateAmount(1)" oninput="updateAmount(1)"/>
 			<p>$<span id="amount1" style="font-weight:bold">--</span></p>
 	</div>
 	<div id="no-response-message1" style="display: none; color: red;">Please use the slider to select a value before moving on.</div>
@@ -67,7 +67,7 @@
 	</p>
 
 	<div class="slider-container">
-		<input id="rangeInput2" type="range" name="wage_guess2" min="0.0" max="1.0" step="0.05" class="slider" onclick="updateAmount(2)" oninput="updateAmount(2)"/>
+		<input id="rangeInput2" type="range" name="wage_guess2" min="0.0" max="2.0" step="0.05" class="slider" onclick="updateAmount(2)" oninput="updateAmount(2)"/>
 			<p>$<span id="amount2" style="font-weight:bold">--</span></p>
 	</div>
 	<div id="no-response-message2" style="display: none; color: red;">Please use the slider to select a value before moving on.</div>
@@ -94,7 +94,7 @@
 	</p>
 
 	<div class="slider-container">
-		<input id="rangeInput3" type="range" name="wage_guess3" min="0.0" max="1.0" step="0.05" class="slider" onclick="updateAmount(3)" oninput="updateAmount(3)"/>
+		<input id="rangeInput3" type="range" name="wage_guess3" min="0.0" max="2.0" step="0.05" class="slider" onclick="updateAmount(3)" oninput="updateAmount(3)"/>
 			<p>$<span id="amount3" style="font-weight:bold">--</span></p>
 	</div>
 	<div id="no-response-message3" style="display: none; color: red;">Please use the slider to select a value before moving on.</div>
@@ -106,7 +106,7 @@
 </div>
 
 <div id="page5" style="display:none">
-	<p>Great! Now for some questions about <em>other people's</em> application portfolios. The next few screens will be just like the ones you just saw, but this time the portfolios you see will be potential portfolios from other applicants.</p>
+	<p>Great! Now for some questions about <em>other people's</em> application portfolios. The next few screens will be just like the ones you just saw, but this time the portfolios you see will be potential portfolios from other applicants. You should assume that all the portfolios come from different applicants, even if they look similar to each other.</p>
 
 	<p>Once again, your task for each portfolio is to guess the amount that an employer who sees that portfolio would be willing to pay in exchange for {{ Constants.bonus_per_question }} cents times the number of <em>job performance</em> questions correctly answered by the applicant.</p>
 
@@ -143,10 +143,10 @@
 	</p>
 
 	<div class="slider-container">
-		<input id="rangeInput4" type="range" min="0.0" max="1.0" step="0.05" class="slider" onclick="updateAmount(4)" oninput="updateAmount(4)"/>
+		<input id="rangeInput4" type="range" min="0.0" max="2.0" step="0.05" class="slider" onclick="updateAmount(4)" oninput="updateAmount(4)"/>
 			<p>$<span id="amount4" style="font-weight:bold">--</span></p>
 	</div>
-	<div id="default-range-val" style="display:none">0.5</div>
+	<div id="default-range-val" style="display:none">1.01</div>
 	<input id="hidden-input" type="hidden" name="wage_guess_other">
 	<div id="no-response-message" style="display: none; color: red;">Please use the slider to select a value before moving on.</div>
 	{{ form.wage_guess_other.errors }}
@@ -156,7 +156,7 @@
 </div>
 
 <div id="page7" style="display:none">
-	<p>That's all for the wage guesses! Click "Back" to edit your responses, or click "Next" to move on to your guesses about performance.</p>
+	<p>That's all for the wage guesses! Click "Back" to edit your responses, or click "Next" to move on to the fourth (and last) part.</p>
 
 	<button type="button" class="btn-primary btn back" onclick="show('page6', 'page7')">Back</button>
 	<button class="btn-primary btn next">Next</button>

@@ -14,4 +14,4 @@ go through and set correct time estimates in consent forms and in mturk previews
 Temporarily upgrade Heroku server
 Make sure to be logged into the right AWS locally before launching interface.py
 
-let employers know that the profiles they see are for different people, and avatars are chosen arbitrarily
+tell employers in treatment 3 the relative performance, also when treatment 3 applicants are making wage guesses

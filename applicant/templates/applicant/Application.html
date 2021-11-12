@@ -24,34 +24,20 @@
 
 {% block content %}
 
-<div id="treatment" style="display:none">{{ player.treatment }}</div>
-<div id="gender" style="display:none">{{ player.gender }}</div>
-<input type="hidden" id="id_avatar" name="avatar">
-{{ form.avatar.errors }}
-
-<div id="page1">
-	<p>During the application process, participants are represented by an avatar in order to preserve your anonymity. The avatars were assigned based on the answers in the entry survey and automatically selected from a library of avatars. The avatar that was automatically selected to represent you is displayed below.</p>
-
-	<img id="avatar_demo" src='' alt="Avatar option"><br>
-
-	<button type="button" class="btn-primary btn next" onclick="show('page2', 'page1')">Next</button>
-</div>
-
-<div id="page2" style="display:none">
+<div id="page2" style="display:block">
 
 	<p>Your job application portfolio is the <em>only</em> information about you that the employers will see.</p>
 
-	{% if player.treatment != 2 %}<p>Your application portfolio consists of {% if player.treatment == 1 %}(1) your avatar and (2) {% endif %}your evaluation of your performance on the test you completed in Part 1. The employers <em>do not</em> see how many questions you answered correctly in Part 1, but they do see the average number of <em>application</em> questions answered correctly by all applicants.</p>
+	{% if player.treatment != 2 %}<p>Your application portfolio consists of {% if player.treatment == 1 %}(1) your avatar and (2) {% endif %}your evaluation of your performance on the test you completed in Part 1. The employers <em>do not</em> see {% if player.treatment == 0 %}your avatar or {% endif %}how many questions you answered correctly in Part 1, but they do see the average number of <em>application</em> questions answered correctly by all applicants.</p>
 
 	{% else %}<p>Your application portfolio consists of (1) your avatar, (2) your evaluation of your performance on the test you completed in Part 1, (3) your performance on the ten <em>application</em> questions from Part 1, and (4) the average number of <em>application</em> questions answered correctly by all applicants.</p>{% endif %}
 
 	<p>A quick reminder: in Part 1, you correctly answered {{ player.eval_correct }} out of the 10 <em>application</em> questions.<p>
 
-	<p>Among 100 prior MTurkers who took the ASVAB test, your performance on the 10 <em>application</em> questions is as good as or better than {{ better_than }} of them and worse than {{ worse_than }} of them.</p>
+	<p>Among 100 MTurkers who took the ASVAB test previously, your performance on the 10 <em>application</em> questions is as good as or better than {{ better_than }} of them and worse than {{ worse_than }} of them.</p>
 
 	<p>Click next to continue to create your job application portfolio.</p>
 
-	{% if player.treatment != 0 %}<button type="button" class="btn-primary btn back" onclick="show('page1', 'page2')">Back</button>{% endif %}
 	<button type="button" class="btn-primary btn next" onclick="show('page3', 'page2')">Next</button>
 </div>
 

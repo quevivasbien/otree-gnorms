@@ -14,7 +14,6 @@ import statsmodels.api as sm
 import multiprocessing
 
 import warnings
-
 warnings.filterwarnings("ignore")
 
 
@@ -84,7 +83,17 @@ perform_pdf_female = np.diff(perform_cdf_female)
 # constants for number of evaluations done by each employer
 answers_per_employer = 10
 
-default_n_applicants = 400
+default_n_applicants = 350
+default_n_employers = 100
+
+# variance and within-employer correlation of wage bids
+default_emp_var = 20
+default_emp_corr = 0.2
+
+# "alpha" values for female promotion by gender
+default_fem_promote0 = -0.1
+default_fem_promote1 = -1.0
+default_fem_promote2 = -0.2
 
 
 # ~~~Define helper functions for sampling performance~~~
@@ -117,9 +126,6 @@ def get_perform(n, app_female):
     return app_perform
 
 
-default_emp_var = 20
-default_emp_corr = 0.2
-
 # this dictionary stores covariance matrices, so we don't have to regenerate them all the time
 covmats = {}
 
@@ -146,16 +152,14 @@ def gen_errors(var, corr, n_employers):
 
 
 # Define base class used to construct simulated data
-
-
 class PowerTest:
     def __init__(
         self,
         employer_var=default_emp_var,
         employer_corr=default_emp_corr,
-        promote0=-0.1,
-        promote1=-1.0,
-        promote2=-0.2,
+        promote0=default_fem_promote0,
+        promote1=default_fem_promote1,
+        promote2=default_fem_promote2,
         verbose=False,
         min_n=20,
         measure2=False,
@@ -327,9 +331,9 @@ class Hypothesis1(PowerTest):
         beta1,
         employer_var=default_emp_var,
         employer_corr=default_emp_corr,
-        promote0=-0.1,
-        promote1=-1.0,
-        promote2=-0.5,
+        promote0=default_fem_promote0,
+        promote1=default_fem_promote1,
+        promote2=default_fem_promote2,
         verbose=False,
         min_n=20,
         measure2=False,
@@ -380,9 +384,9 @@ class Hypothesis2(PowerTest):
         beta3,
         employer_var=default_emp_var,
         employer_corr=default_emp_corr,
-        promote0=-0.1,
-        promote1=-1.0,
-        promote2=-0.5,
+        promote0=default_fem_promote0,
+        promote1=default_fem_promote1,
+        promote2=default_fem_promote2,
         verbose=False,
         min_n=20,
         measure2=False,
@@ -445,9 +449,9 @@ class Hypothesis3(PowerTest):
         perform_step,
         employer_var=default_emp_var,
         employer_corr=default_emp_corr,
-        promote0=-0.1,
-        promote1=-1.0,
-        promote2=-0.5,
+        promote0=default_fem_promote0,
+        promote1=default_fem_promote1,
+        promote2=default_fem_promote2,
         verbose=False,
         min_n=20,
         measure2=False,
@@ -519,9 +523,9 @@ class Hypothesis4(PowerTest):
         beta3,
         employer_var=default_emp_var,
         employer_corr=default_emp_corr,
-        promote0=-0.1,
-        promote1=-1.0,
-        promote2=-0.5,
+        promote0=default_fem_promote0,
+        promote1=default_fem_promote1,
+        promote2=default_fem_promote2,
         verbose=False,
         min_n=20,
         measure2=False,
@@ -585,9 +589,9 @@ class Hypothesis5(PowerTest):
         beta3,
         employer_var=default_emp_var,
         employer_corr=default_emp_corr,
-        promote0=-0.1,
-        promote1=-1.0,
-        promote2=-0.5,
+        promote0=default_fem_promote0,
+        promote1=default_fem_promote1,
+        promote2=default_fem_promote2,
         verbose=False,
         min_n=40,
         measure2=False,
@@ -651,9 +655,9 @@ class Hypothesis6(PowerTest):
         perform_step,
         employer_var=default_emp_var,
         employer_corr=default_emp_corr,
-        promote0=-0.1,
-        promote1=-1.0,
-        promote2=-0.5,
+        promote0=default_fem_promote0,
+        promote1=default_fem_promote1,
+        promote2=default_fem_promote2,
         verbose=False,
         min_n=40,
         measure2=False,
@@ -727,9 +731,9 @@ class Hypothesis7(PowerTest):
         perform_step,
         employer_var=default_emp_var,
         employer_corr=default_emp_corr,
-        promote0=-0.1,
-        promote1=-1.0,
-        promote2=-0.5,
+        promote0=default_fem_promote0,
+        promote1=default_fem_promote1,
+        promote2=default_fem_promote2,
         verbose=False,
         min_n=40,
         measure2=False,
@@ -825,9 +829,9 @@ class Hypothesis8(PowerTest):
         self,
         employer_var=default_emp_var,
         employer_corr=default_emp_corr,
-        promote0=-0.1,
-        promote1=-1.0,
-        promote2=-0.5,
+        promote0=default_fem_promote0,
+        promote1=default_fem_promote1,
+        promote2=default_fem_promote2,
         verbose=False,
         min_n=20,
         measure2=False,
@@ -868,9 +872,9 @@ class Hypothesis9(PowerTest):
         self,
         employer_var=default_emp_var,
         employer_corr=default_emp_corr,
-        promote0=-0.1,
-        promote1=-1.0,
-        promote2=-0.5,
+        promote0=default_fem_promote0,
+        promote1=default_fem_promote1,
+        promote2=default_fem_promote2,
         verbose=False,
         min_n=20,
         measure2=False,
@@ -919,9 +923,9 @@ class Hypothesis10(PowerTest):
         self,
         employer_var=default_emp_var,
         employer_corr=default_emp_corr,
-        promote0=-0.1,
-        promote1=-1.0,
-        promote2=-0.5,
+        promote0=default_fem_promote0,
+        promote1=default_fem_promote1,
+        promote2=default_fem_promote2,
         verbose=False,
         min_n=20,
         measure2=False,
@@ -1006,11 +1010,11 @@ def run_all(
     if emp_corr is None:
         emp_corr = default_emp_corr
     if promote0 is None:
-        promote0 = -0.1
+        promote0 = default_fem_promote0
     if promote1 is None:
-        promote1 = -1.0
+        promote1 = default_fem_promote1
     if promote2 is None:
-        promote2 = -0.5
+        promote2 = default_fem_promote2
     if w is None:
         w = default_wage_coeffs
     if measure2 is None:
@@ -1148,15 +1152,19 @@ with multiprocessing.Pool(processes=4) as pool:
 
 
 out = create_table(
-    np.stack((run_A, run_B, run_C, run_D), axis=1), ["(A)", "(B)", "(C)", "(D)"]
+    np.stack((run_A, run_B, run_C, run_D), axis=1), ["[A]", "[B]", "[A]", "[B]"]
 )
+
+with open('power_table.tex', 'w') as fh:
+    fh.write(out)
+
 print(out)
 
 
 # get power calculations for each hypothesis, with sample size given
 def run_all_single_n(
-    n_applicants=350,
-    n_employers=200,
+    n_applicants=default_n_applicants,
+    n_employers=default_n_employers,
     repeat=1000,
     emp_var=None,
     emp_corr=None,
@@ -1171,11 +1179,11 @@ def run_all_single_n(
     if emp_corr is None:
         emp_corr = default_emp_corr
     if promote0 is None:
-        promote0 = -0.1
+        promote0 = default_fem_promote0
     if promote1 is None:
-        promote1 = -1.0
+        promote1 = default_fem_promote1
     if promote2 is None:
-        promote2 = -0.5
+        promote2 = default_fem_promote2
     if w is None:
         w = default_wage_coeffs
     if measure2 is None:
@@ -1293,6 +1301,10 @@ with multiprocessing.Pool(processes=4) as pool:
 
 out_single_n = create_table(
     np.stack((run_A_single_n, run_B_single_n, run_C_single_n, run_D_single_n), axis=1),
-    ["(A)", "(B)", "(C)", "(D)"],
+    ["[A]", "[B]", "[A]", "[B]"],
 )
+
+with open('power_single_n_table.tex', 'w') as fh:
+    fh.write(out_single_n)
+
 print(out_single_n)

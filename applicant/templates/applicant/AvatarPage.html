@@ -1,0 +1,29 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block styles %}
+
+<link href="/static/global/profile.css" rel="stylesheet">
+
+{% endblock %}
+
+{% block title %}
+	Overview
+{% endblock %}
+
+{% block content %}
+
+<p>In this study, participants are represented by an avatar in order to preserve anonymity. The avatars are automatically selected from a library of avatars based on the answers in the entry survey. The avatar that was automatically selected to represent you is displayed below.</p>
+
+<img id="avatar_demo" src='/static/applicant/{{ player.avatar }}' alt="Avatar option"><br>
+
+<button class="btn-primary btn next">Next</button>
+
+{% endblock %}
+
+{% block scripts %}
+
+<script src="/static/global/js/show.js"></script>
+<script src="{% static 'applicant/js/applicationQuestions.js' %}"></script>
+
+{% endblock %}

@@ -13,7 +13,7 @@
 
 {% block content %}
 
-<p>Each applicant portfolio you see will include {% if participant.vars.treatment != 0 %}(1) {% endif %}the applicant's evaluation of their own performance{% if participant.vars.treatment == 1 %} and (2) an avatar representing them{% elif participant.vars.treatment == 2 %}, (2) an avatar representing them, and (3) the number of <em>application</em> questions that they answered correctly{% endif %}.</p>
+<p>Each applicant portfolio you see will consist of {% if participant.vars.treatment != 0 %}(1) {% endif %}the applicant's evaluation of their own performance{% if participant.vars.treatment == 1 %} and (2) an avatar representing them{% elif participant.vars.treatment == 2 %}, (2) an avatar representing them, and (3) the number of <em>application</em> questions that they answered correctly{% endif %}.</p>
 
 <p>Using that information, you will choose a "switching point" for each applicant, which is the maximum amount you would be willing to exchange in order to receive {{ Constants.bonus_per_question }} cents for each <em>job performance</em> question that the applicant answered correctly.</p>
 

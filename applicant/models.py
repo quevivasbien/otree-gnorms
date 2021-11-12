@@ -48,13 +48,13 @@ class Constants(BaseConstants):
 class Subsession(BaseSubsession):
     def creating_session(self):
         # gender_idx session vars are used for assigning treatment
+        # treatment assignment actually takes place in pages.py, after demographic survey
         self.session.vars["male_idx"] = 0
         self.session.vars["female_idx"] = 0
         for i, p in enumerate(self.get_players()):
             p.show_perf_guess = i % 2
             # assign question order
-            question_order = random.sample(range(1, 32), 20)
-            random.shuffle(question_order)
+            question_order = random.sample(range(1, 32 + 1), 20)
             p.question_order = "-".join([str(x) for x in question_order])
             # assign evaluation and non-application questions
             eval_qs = random.sample(question_order, 10)

@@ -5,6 +5,8 @@ from ._builtin import Page
 from captcha.fields import ReCaptchaField
 
 import json
+import random
+
 
 # load question text
 with open("_static/global/question_text.json", "r", encoding="utf-8") as fh:
@@ -46,6 +48,17 @@ class DemographicSurvey(Page):
             player.treatment = (
                 self.session.vars["male_idx"] + self.session.vars["female_idx"]
             ) % 3
+
+        # Also assign avatar
+        gender = player.gender.lower()
+        if gender not in ("male", "female"):
+            gender = random.choice(("male", "female"))
+        num = random.randint(1, 3)
+        player.avatar = gender + str(num) + ".jpg"
+
+
+class AvatarPage(Page):
+    form_model = "player"
 
 
 class Overview(Page):
@@ -164,7 +177,7 @@ class ApplicationInstructions(Page):
 
 class Application(Page):
     form_model = "player"
-    form_fields = ["avatar", "self_eval", "self_eval_agree", "self_eval_statement"]
+    form_fields = ["self_eval", "self_eval_agree", "self_eval_statement"]
 
     def vars_for_template(self):
         # get the real performance pdf from the prelim questions we do
@@ -219,6 +232,7 @@ page_sequence = [
     Captcha,
     ConsentForm,
     DemographicSurvey,
+    AvatarPage,
     Overview,
     ASVABInstructions,
     ASVABQuestions,
