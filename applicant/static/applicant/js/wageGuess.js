@@ -4,6 +4,7 @@ const numOther = parseInt(document.getElementById('num-wg').innerHTML);
 const defaultRangeValue = parseFloat(document.getElementById('default-range-val').innerHTML);
 const rangeIsInt = parseInt(defaultRangeValue) == defaultRangeValue;
 const noResponseMessage = document.getElementById('no-response-message');
+const evalCDF = document.getElementById('eval-cdf').innerHTML.split('-').map(parseFloat);
 
 const promote1_dict = {
   '0': 'terrible',
@@ -84,7 +85,9 @@ function setUpQuestion(n) {
     let perform = document.getElementById('app-performance');
     if (treatment == 2) {
       perform.style.display = 'block';
-      perform.innerHTML = 'The applicant correctly answered ' + getVals('wg-perform')[n] + ' out of 10 application questions.';
+      let numCorrect = parseInt(getVals('wg-perform')[n]);
+      let percentile = parseInt(evalCDF[numCorrect] * 100);
+      perform.innerHTML = 'The applicant correctly answered ' + numCorrect + ' out of 10 application questions, which is as good as or better than ' + percentile + '% of other MTurkers who took a similar test.';
     }
     else {
       perform.style.display = 'none';

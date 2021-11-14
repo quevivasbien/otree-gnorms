@@ -20,6 +20,8 @@ const no_response_message = document.getElementById('no-response-message');
 
 const playerBids = document.getElementById('player-bids');
 
+const performCDF = document.getElementById('perform-cdf').innerHTML.split('-').map(parseFloat);
+
 playerBids.value = ('?-').repeat(numApplicants1 + numApplicants2 + numApplicants3).slice(0, -1);
 
 function getPronoun() {
@@ -142,6 +144,7 @@ function updateDisplay() {
     let eval_correct = parseInt(getVar('participant-eval-correct'));
     document.getElementById('display-eval-correct').style.display = 'block';
     document.getElementById('eval-correct').innerHTML = eval_correct;
+    document.getElementById('eval-correct-percentile').innerHTML = parseInt(performCDF[eval_correct] * 100);
   }
   else {
     document.getElementById('display-eval-correct').style.display = 'none';

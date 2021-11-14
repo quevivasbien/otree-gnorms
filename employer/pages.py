@@ -71,6 +71,11 @@ class SocAppropPage(Page):
     form_fields = ["soc_approp_ratings"]
 
 
+class StudyTopic(Page):
+    form_model = "player"
+    form_fields = ["study_topic_guess"]
+
+
 class CompletionCode(Page):
     def vars_for_template(self):
         return {"completion_code": randint(1, 100) * 3}
@@ -88,5 +93,6 @@ page_sequence = [
     PerformGuessPage,
     SocAppropInstructions,
     SocAppropPage,
+    StudyTopic,
     CompletionCode,
 ]

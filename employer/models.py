@@ -49,6 +49,7 @@ class Constants(BaseConstants):
     estimated_time = constants["employer_estimated_time"]
     payment = "{:.2f}".format(constants["employer_payment"])
     max_bonus = "{:.2f}".format(constants["employer_max_bonus"])
+    perform_cdf = "-".join(map(str, constants["perform_cdf"]))
     mean_performance = "{:.1f}".format(sum([x * i for i, x in enumerate(perform_pdf)]))
     bonus_per_part = "{:.2f}".format(constants["bonus_per_part"])
     bonus_per_question = str(constants["bonus_per_question"])
@@ -166,6 +167,8 @@ class Player(BasePlayer):
     # religion = models.StringField(choices=qtext['religion'])
     # politics = models.StringField(choices=qtext['politics'])
     resident = models.StringField(choices=["Yes", "No"])
+
+    study_topic_guess = models.StringField()
 
     def check_q(self, value, correct):
         if value != correct:

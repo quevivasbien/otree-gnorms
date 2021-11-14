@@ -39,6 +39,7 @@ class Constants(BaseConstants):
     estimated_time = constants["applicant_estimated_time"]
     payment = "{:.2f}".format(constants["applicant_payment"])
     max_bonus = "{:.2f}".format(constants["applicant_max_bonus"])
+    perform_cdf = "-".join(map(str, constants["perform_cdf"]))
     mean_performance = "{:.1f}".format(sum([x * i for i, x in enumerate(perform_pdf)]))
     num_wg = constants["num_wg1"] + constants["num_wg2"] + constants["num_wg3"]
     bonus_per_part = "{:.2f}".format(constants["bonus_per_part"])
@@ -195,6 +196,8 @@ class Player(BasePlayer):
     approp_guess2 = models.IntegerField()
     approp_guess3 = models.IntegerField()
     approp_guess_other = models.StringField()
+
+    study_topic_guess = models.StringField()
 
     def check_q(self, value, correct):
         if value != correct:

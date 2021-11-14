@@ -180,8 +180,6 @@ class Application(Page):
     form_fields = ["self_eval", "self_eval_agree", "self_eval_statement"]
 
     def vars_for_template(self):
-        # get the real performance pdf from the prelim questions we do
-        # it's just a filler right now
         perform_cdf = constants["perform_cdf"]
         better_than = int(perform_cdf[self.player.eval_correct] * 100)
         worse_than = 100 - better_than
@@ -197,6 +195,11 @@ class WageGuess(Page):
     form_model = "player"
     form_fields = ["wage_guess1", "wage_guess2", "wage_guess3", "wage_guess_other"]
 
+    def vars_for_template(self):
+        perform_cdf = constants["perform_cdf"]
+        better_than = int(perform_cdf[self.player.eval_correct] * 100)
+        return dict(better_than=better_than)
+
 
 class PerformanceGuess(Page):
     form_model = "player"
@@ -206,6 +209,11 @@ class PerformanceGuess(Page):
         "perform_guess3",
         "perform_guess_other",
     ]
+
+    def vars_for_template(self):
+        perform_cdf = constants["perform_cdf"]
+        better_than = int(perform_cdf[self.player.eval_correct] * 100)
+        return dict(better_than=better_than)
 
     def is_displayed(self):
         return self.player.show_perf_guess == 1
@@ -220,8 +228,18 @@ class SocAppropGuess(Page):
         "approp_guess_other",
     ]
 
+    def vars_for_template(self):
+        perform_cdf = constants["perform_cdf"]
+        better_than = int(perform_cdf[self.player.eval_correct] * 100)
+        return dict(better_than=better_than)
+
     def is_displayed(self):
         return self.player.show_perf_guess == 0
+
+
+class StudyTopic(Page):
+    form_model = "player"
+    form_fields = ["study_topic_guess"]
 
 
 class CompletionCode(Page):
@@ -242,5 +260,6 @@ page_sequence = [
     WageGuess,
     PerformanceGuess,
     SocAppropGuess,
+    StudyTopic,
     CompletionCode,
 ]

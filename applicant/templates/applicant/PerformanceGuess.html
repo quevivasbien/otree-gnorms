@@ -42,7 +42,7 @@
 	<h5>My portfolios: 1 of 3</h5>
 	<div class="profile">
 		{% if player.treatment != 0 %}<img src="/static/applicant/{{ player.avatar }}" alt="Your avatar"><br>{% endif %}
-		{% if player.treatment == 2 %}<p style="font-style: italic">The applicant correctly answered {{ player.eval_correct }} out of 10 application questions.</p>{% endif %}
+		{% if player.treatment == 2 %}<p style="font-style: italic">The applicant correctly answered {{ player.eval_correct }} out of 10 application questions, which is as good as or better than {{ better_than }}% of other MTurkers who took a similar test.</p>{% endif %}
 		<p>The applicant rated {% if player.treatment == 0 %}their{% elif player.gender == "Male"%}his{% elif player.gender == "Female" %}her{% else %}their{% endif %} performance as {{ player.self_eval }}.</p>
 	</div>
 
@@ -67,7 +67,7 @@
 	<h5>My portfolios: 2 of 3</h5>
 	<div class="profile">
 		{% if player.treatment != 0 %}<img src="/static/applicant/{{ player.avatar }}" alt="Your avatar"><br>{% endif %}
-		{% if player.treatment == 2 %}<p style="font-style: italic">The applicant correctly answered {{ player.eval_correct }} out of 10 application questions.</p>{% endif %}
+		{% if player.treatment == 2 %}<p style="font-style: italic">The applicant correctly answered {{ player.eval_correct }} out of 10 application questions, which is as good as or better than {{ better_than }}% of other MTurkers who took a similar test.</p>{% endif %}
 		<p>When asked to rate {% if player.treatment == 0 %}their{% elif player.gender == "Male"%}his{% elif player.gender == "Female" %}her{% else %}their{% endif %} level of agreement with the statement</p>
 		<p>"I performed well on the test I took in Part 1,"</p>
 		<p>on a scale from 0 (entirely disagree) to 100 (entirely agree), the applicant gave the following rating:</p>
@@ -95,7 +95,7 @@
 	<h5>My portfolios: 3 of 3</h5>
 	<div class="profile">
 		{% if player.treatment != 0 %}<img src="/static/applicant/{{ player.avatar }}" alt="Your avatar"><br>{% endif %}
-		{% if player.treatment == 2 %}<p style="font-style: italic">The applicant correctly answered {{ player.eval_correct }} out of 10 application questions.</p>{% endif %}
+		{% if player.treatment == 2 %}<p style="font-style: italic">The applicant correctly answered {{ player.eval_correct }} out of 10 application questions, which is as good as or better than {{ better_than }}% of other MTurkers who took a similar test.</p>{% endif %}
 		{% if player.self_eval_statement != "I prefer not to include either of these statements in my application."%}<p>The applicant chose the following statement to accompany {% if player.treatment == 0 %}their{% elif player.gender == "Male"%}his{% elif player.gender == "Female" %}her{% else %}their{% endif %} application:</p>
 		<p>{{ player.self_eval_statement }}</p>
 		{% else %}<p>The applicant chose to not include any statement with {% if player.treatment == 0 %}their{% elif player.gender == "Male"%}his{% elif player.gender == "Female" %}her{% else %}their{% endif %} application.</p>{% endif %}
@@ -139,6 +139,7 @@
 	<div id="wg-promote1">{{ player.wage_guess_promote1 }}</div>
 	<div id="wg-promote2">{{ player.wage_guess_promote2 }}</div>
 	<div id="wg-promote3">{{ player.wage_guess_promote3 }}</div>
+	<div id="eval-cdf">{{ Constants.perform_cdf }}</div>
 </div>
 
 <div id="page6" style="display:none">
@@ -146,7 +147,7 @@
 	<h5>Other applicants' portfolios: <span id="other-app-num"></span></h5>
 	<div class="profile">
 		<img id="app-avatar" src="" alt="Applicant avatar">
-		<p id="app-performance"></p>
+		<p id="app-performance" style="font-style: italic"></p>
 		<div id="app-self-eval"></div>
 	</div>
 
