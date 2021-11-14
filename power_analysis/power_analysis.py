@@ -14,6 +14,7 @@ import statsmodels.api as sm
 import multiprocessing
 
 import warnings
+
 warnings.filterwarnings("ignore")
 
 
@@ -91,9 +92,9 @@ default_emp_var = 20
 default_emp_corr = 0.2
 
 # "alpha" values for female promotion by gender
-default_fem_promote0 = -0.1
+default_fem_promote0 = -0.05
 default_fem_promote1 = -1.0
-default_fem_promote2 = -0.2
+default_fem_promote2 = -0.1
 
 
 # ~~~Define helper functions for sampling performance~~~
@@ -1155,7 +1156,7 @@ out = create_table(
     np.stack((run_A, run_B, run_C, run_D), axis=1), ["[A]", "[B]", "[A]", "[B]"]
 )
 
-with open('power_table.tex', 'w') as fh:
+with open("power_table.tex", "w") as fh:
     fh.write(out)
 
 print(out)
@@ -1304,7 +1305,7 @@ out_single_n = create_table(
     ["[A]", "[B]", "[A]", "[B]"],
 )
 
-with open('power_single_n_table.tex', 'w') as fh:
+with open("power_single_n_table.tex", "w") as fh:
     fh.write(out_single_n)
 
 print(out_single_n)
