@@ -1,1 +1,52 @@
-{% extends "global/ConsentForm.html" %}
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block styles %}
+<style>
+	.consent-content {
+		text-align: justify;
+		text-justify: inter-word;
+	}
+</style>
+{% endblock %}
+
+{% block title %}
+	Consent Form
+{% endblock %}
+
+{% block content %}
+
+<div class="consent-content">
+
+<p>You are invited to participate in this research study about economic decision-making. Your participation is entirely voluntary, which means you can choose whether or not to participate.</p>
+<p>If you decide to participate, you will be asked to continue with the study after reading this form and your continuation will indicate your consent. If you do not understand what you are reading, please do not continue with the study. If there is anything you do not understand, please contact the research team by e-mailing them at <a href="mailto:u6019273">u6019273@utah.edu</a>.</p>
+
+<p>Please read through the consent form at your own pace.</p>
+<br>
+
+<p><b>What is the purpose of the study?</b> The purpose of the research is to help understand how people make economic decisions.</p>
+
+<p><b>What will my participation involve?</b> If you decide to participate in this research, you will be asked to answer some questions, including some questions about yourself. Your answers will remain anonymous, during and after the session. Your responses will be stored in electronic files using a randomly assigned identification number, rather than your name or MTurk ID.</p>
+
+<p><b>How long will I be in the study? How many other people will be in the study?</b> Your participation will last about {{ Constants.estimated_time }} minutes. You will be one of approximately 600 people in the study.</p>
+
+<p><b>Are there any risks or benefits to me?</b> There are no known risks or direct benefits to you from participating in this study. Your participation in this research study may benefit other people by helping us learn more about how individuals make decisions.</p>
+
+<p><b>Will I be paid for my participation?</b> You will be paid a ${{ Constants.payment }} base pay for completing the study. In addition, you will have a chance to earn a bonus of up to ${{ Constants.max_bonus }}.  The amount of money earned depends upon the answers you give. We cannot assure any specific level of earnings above the ${{ Constants.payment }} base pay to you  but can assure you that all the procedures described to you in the instructions (which comes after your consent to participate) will be followed exactly as stated.</p>
+
+<p><b>How will my privacy be protected?</b> As is required by law, the research team will make every effort to keep the information obtained during this study strictly confidential. Data from the experiment are recorded using randomly assigned identification numbers and are not linked to your MTurk ID or name, so individually identifiable participant choices will not be stored. In any sort of report, we might publish, we will not include any information that will make it possible to identify any participant. Access to research records will be limited to researchers and other scholars.</p>
+
+<p><b>Is my permission voluntary, and may I change my mind?</b> Your permission is voluntary. You do not have to provide consent to participate and you may refuse to do so. If you refuse to provide consent, however, you cannot take part in this research study. You may completely withdraw from the study at any time without penalty.</p>
+
+<p><b>Whom should I contact if I have questions?</b> Please take as much time as you need to think over whether or not you wish to participate. If you have any questions, concerns, or complaints regarding your participation in this research study or if you have any questions about your rights as a research subject, you may contact the research team at <a href="mailto:u6019273">u6019273@utah.edu</a>.</p>
+
+<p><b>Agreement to participate:</b> I have read this consent and authorization form describing the research study procedures, risks, and benefits. I have had a chance to ask questions about the research study, and I have received answers to my questions. I agree to participate in this research study.</p>
+
+<p><b><em>By continuing with this study, you are consenting to participate.<b></em></p>
+</div>
+
+<br>
+
+    <button class="btn-primary btn next">Next</button>
+
+{% endblock %}
