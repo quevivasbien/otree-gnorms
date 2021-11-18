@@ -1,7 +1,7 @@
 # from otree.api import Currency as c, currency_range
 from ._builtin import Page
 
-# from .models import Constants
+from .models import Constants
 from captcha.fields import ReCaptchaField
 
 import json
@@ -32,7 +32,7 @@ class Overview(Page):
 
 class DemographicSurvey(Page):
     form_model = "player"
-    form_fields = ["age", "gender", "education", "employed", "resident"]
+    form_fields = ["age", "gender", "education", "employed"]
 
 
 class Instructions(Page):
@@ -133,7 +133,9 @@ class ASVABQuestions(Page):
 
 
 class CompletionCode(Page):
-    pass
+    def vars_for_template(self):
+        total_bonus = f'{self.player.eval_correct * float(Constants.bonus_per_question) / 100:.2f}'
+        return dict(total_bonus=total_bonus)
 
 
 page_sequence = [

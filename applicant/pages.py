@@ -32,7 +32,7 @@ class ConsentForm(Page):
 
 class DemographicSurvey(Page):
     form_model = "player"
-    form_fields = ["age", "gender", "employed", "education", "resident"]
+    form_fields = ["age", "gender", "employed", "education"]
 
     def before_next_page(self):
         """Assign treatment based on response to gender question

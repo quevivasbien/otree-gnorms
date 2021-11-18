@@ -118,7 +118,7 @@ class Player(BasePlayer):
     employed = models.StringField(choices=qtext["employed"])
     # religion = models.StringField(choices=qtext['religion'])
     # politics = models.StringField(choices=qtext['politics'])
-    resident = models.StringField(choices=["Yes", "No"])
+    # resident = models.StringField(choices=["Yes", "No"])
 
     study_topic_guess = models.StringField()
 

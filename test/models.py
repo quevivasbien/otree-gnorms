@@ -57,6 +57,7 @@ class Group(BaseGroup):
 
 
 u2_choices = [x.replace("<em>application</em> ", "") for x in qtext["understanding2"]]
+u2_choices[1] = u2_choices[1].replace("will be", "will likely be")
 
 
 class Player(BasePlayer):
@@ -72,7 +73,7 @@ class Player(BasePlayer):
     employed = models.StringField(choices=qtext["employed"])
     # religion = models.StringField(choices=qtext['religion'])
     # politics = models.StringField(choices=qtext['politics'])
-    resident = models.StringField(choices=["Yes", "No"])
+    # resident = models.StringField(choices=["Yes", "No"])
     understanding2 = models.StringField(choices=u2_choices, widget=widgets.RadioSelect)
     q1 = models.StringField(choices=qtext["q1"], widget=widgets.RadioSelect)
     q2 = models.StringField(choices=qtext["q2"], widget=widgets.RadioSelect)

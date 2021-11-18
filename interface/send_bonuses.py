@@ -30,8 +30,11 @@ with open("config.json", "r") as fh:
 client = boto3.client("mturk", endpoint_url=ENDPOINT, region_name="us-east-1")
 
 
-def send_bonus(worker_id, amount, assignment_id, reason="", max_retry=1):
-    if DRY_RUN:
+def send_bonus(
+    worker_id, amount, assignment_id, reason="", max_retry=1, dry_run=DRY_RUN
+):
+    if dry_run:
+        print(f"Sending bonus of ${amount} to {worker_id}")
         return
     try:
         client.send_bonus(
@@ -157,7 +160,7 @@ class BonusResolver:
         self.emp_df["bonus"] = pd.Series(bonuses)
 
     def get_guess_to_compare(self, applicant, guess_type="wage"):
-        promote_types = self.app_df.at[applicant, f"wage_guess_promote_type"].split("-")
+        promote_types = self.app_df.at[applicant, "wage_guess_promote_type"].split("-")
         n_other = len(promote_types)
         other_applicant = ""
         promote_type = 0
@@ -165,7 +168,7 @@ class BonusResolver:
         # decide whether to do one of the self guesses or try one of the other guesses
         if random.random() <= n_other / (n_other + 3):
             # try other guess
-            gender = self.app_df.at[applicant, f"wage_guess_gender"].split("-")
+            gender = self.app_df.at[applicant, "wage_guess_gender"].split("-")
             treatment = split_to_int(self.app_df.at[applicant, "wage_guess_treatment"])
             promote1 = split_to_int(self.app_df.at[applicant, "wage_guess_promote1"])
             promote2 = split_to_int(self.app_df.at[applicant, "wage_guess_promote2"])
