@@ -10,8 +10,6 @@ from otree.api import (
 )
 import json
 
-from random import shuffle
-
 
 # load question text
 with open("_static/global/question_text.json", "r", encoding="utf-8") as fh:
@@ -58,68 +56,22 @@ class Constants(BaseConstants):
 class Subsession(BaseSubsession):
     def creating_session(self):
         players = self.get_players()
-        num_players = len(players)
-        employer_indices = list(range(num_players))
-        applicant_assignments = {j: [] for j in employer_indices}
+        employer_indices = list(range(len(players)))
+        self.session.vars["applicant_assignments"] = {j: [] for j in employer_indices}
 
         # divide applicants by treatment so we can give employers only one type of treatment
         applicant_ids = {0: [], 1: [], 2: []}
         for a in applicant_data.keys():
             applicant_ids[applicant_data[a]["treatment"]].append(a)
-        # assign applicants to employers
-        start_idxs = {i: 0 for i in range(3)}
-        for i, emp_idx in enumerate(employer_indices):
-            treatment = i % 3
-            num_apps = (
-                constants["apps_per_emp1"]
-                + constants["apps_per_emp2"]
-                + (
-                    constants["apps_per_emp3a"]
-                    if treatment == 0
-                    else constants["apps_per_emp3b"]
-                )
-            )
-            start_index = start_idxs[treatment]
-            for j in range(num_apps):
-                treatment_index = (start_index + j) % len(applicant_ids[treatment])
-                if treatment_index == 0:
-                    # sample without replacement until all applicants exhausted, then resample
-                    shuffle(applicant_ids[treatment])
-                applicant_assignments[emp_idx].append(
-                    applicant_ids[treatment][treatment_index]
-                )
-            players[i].participant.vars["treatment"] = treatment
-            players[i].participant.vars["apps_per_emp1"] = constants["apps_per_emp1"]
-            players[i].participant.vars["apps_per_emp2"] = constants["apps_per_emp2"]
-            players[i].participant.vars["apps_per_emp3"] = (
-                constants["apps_per_emp3a"]
-                if treatment == 0
-                else constants["apps_per_emp3b"]
-            )
-            players[i].participant.vars["apps_per_emp"] = num_apps
+        self.session.vars["applicant_ids"] = applicant_ids
 
-        for j, p in zip(employer_indices, players):
-            p.applicants = "-".join(map(str, applicant_assignments[j]))
-            p.participant.vars["gender"] = "-".join(
-                applicant_data[a]["gender"] for a in applicant_assignments[j]
-            )
-            p.participant.vars["avatar"] = "-".join(
-                applicant_data[a]["avatar"] for a in applicant_assignments[j]
-            )
-            p.participant.vars["eval_correct"] = "-".join(
-                str(applicant_data[a]["eval_correct"]) for a in applicant_assignments[j]
-            )
-            p.participant.vars["self_eval"] = "-".join(
-                applicant_data[a]["self_eval"] for a in applicant_assignments[j]
-            )
-            p.participant.vars["self_eval_agree"] = "-".join(
-                str(applicant_data[a]["self_eval_agree"])
-                for a in applicant_assignments[j]
-            )
-            p.participant.vars["self_eval_statement"] = "-".join(
-                applicant_data[a]["self_eval_statement"]
-                for a in applicant_assignments[j]
-            )
+        self.session.vars["male_idx"] = 0
+        self.session.vars["female_idx"] = 0
+        self.session.vars["emp_idx"] = 0
+
+        self.session.vars["applicant_start_idxs"] = {i: 0 for i in range(3)}
+
+        # everything else happens in pages.py, after demographic survey
 
 
 class Group(BaseGroup):

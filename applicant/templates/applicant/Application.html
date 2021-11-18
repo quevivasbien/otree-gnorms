@@ -45,12 +45,12 @@
 
 	<p>Answer the following questions, which will be shown to employers as {% if player.treatment != 0 %}part of {% endif %}your application portfolio. Each portfolio shown to employers will only include your response to <em>one</em> of the following three questions.</p>
 
-	{% formfield player.self_eval label="Based on the information you received about other applicants' performance on the task, please choose one of the following to describe your performance on the cognitive ability test:" %}
+	{% formfield player.self_eval label="Based on the information you received about other applicants' performance on the task, please indicate how well you think you performed on the <em>application</em> questions in the cognitive ability test" %}
 	<p id="not-complete-error1" style="color:red; display:none">Select one of the choices to continue.</p>
 	<br>
 	<div class="form-group required">
 		<p>On a scale from 0 (entirely disagree) to 100 (entirely agree), please indicate the extent to which you agree with the following statement:</p>
-		<p>"I performed well on the test I took in Part 1."</p>
+		<p style="text-align:center">"I performed well on the application questions."</p>
 		<div class="slider-container">
 			<input id="agree" type="hidden" name="self_eval_agree">
 		    <input id="rangeInput" type="range" min="0" max="100" step="1" class="slider" onclick="updateAgreeResponse()" oninput="updateAgreeResponse()"/>

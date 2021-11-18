@@ -44,6 +44,7 @@ class Constants(BaseConstants):
     num_wg = constants["num_wg1"] + constants["num_wg2"] + constants["num_wg3"]
     bonus_per_part = "{:.2f}".format(constants["bonus_per_part"])
     bonus_per_question = str(constants["bonus_per_question"])
+    close_guess_proximity = str(constants["close_guess_proximity"])
 
 
 class Subsession(BaseSubsession):
@@ -97,6 +98,10 @@ understanding3_choices = [
     x.replace("~", Constants.bonus_per_question) for x in qtext["understanding3"]
 ]
 
+understanding4_choices = [
+    x.replace("~", Constants.close_guess_proximity) for x in qtext["understanding4"]
+]
+
 
 class Player(BasePlayer):
     # vars set at session setup
@@ -135,7 +140,7 @@ class Player(BasePlayer):
         choices=understanding3_choices, widget=widgets.RadioSelect,
     )
     understanding4 = models.StringField(
-        choices=qtext["understanding4"], widget=widgets.RadioSelect
+        choices=understanding4_choices, widget=widgets.RadioSelect
     )
     # ASVAB questions
     q1 = models.StringField(choices=qtext["q1"], widget=widgets.RadioSelect)
@@ -213,4 +218,4 @@ class Player(BasePlayer):
         return self.check_q(value, understanding3_choices[0])
 
     def understanding4_error_message(self, value):
-        return self.check_q(value, qtext["understanding4"][0])
+        return self.check_q(value, understanding4_choices[0])

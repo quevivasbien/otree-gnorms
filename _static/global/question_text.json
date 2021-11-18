@@ -25,7 +25,7 @@
   "emp_understanding5": ["indicate the same level(s) of social appropriateness as another randomly-selected employer.", "indicate the level(s) of social appropriateness that the applicants would choose for themselves.", "indicate that all the portfolios I see have socially appropriate respones."],
   "self_eval": ["terrible", "not good", "neutral", "good", "very good", "exceptional"],
   "self_eval_statement": ["“Usually I am the best at what I do, and therefore I would succeed in a job that required me to perform well in tasks similar to the application questions.”", "“I conduct all tasks assigned to me with the needed attention, and therefore I would work hard in a job that required me to perform well in tasks similar to the application questions.”", "I prefer not to include either of these statements in my application."],
-  "understanding4": ["if my guess is within 10 cents of what an employer guesses.", "if my guess is higher than anyone else's guess.", "if an employer sees my response and endorses it."],
+  "understanding4": ["if my guess is within ~ cents of what an employer guesses.", "if my guess is higher than anyone else's guess.", "if an employer sees my response and endorses it."],
   "q1": ["elusivity", "reflection", "refraction", "rotation"],
   "q2": ["mixing salt and sugar", "drying wet clothes", "boiling a pot of water", "burning pieces of wood"],
   "q3": ["one hundredth of a meter", "one tenth of a meter", "ten meters", "one hundred meters"],
