@@ -202,6 +202,11 @@ class Player(BasePlayer):
     approp_guess3 = models.IntegerField()
     approp_guess_other = models.StringField()
 
+    understanding1_attempts = models.IntegerField(initial=0)
+    understanding2_attempts = models.IntegerField(initial=0)
+    understanding3_attempts = models.IntegerField(initial=0)
+    understanding4_attempts = models.IntegerField(initial=0)
+
     study_topic_guess = models.StringField()
 
     def check_q(self, value, correct):

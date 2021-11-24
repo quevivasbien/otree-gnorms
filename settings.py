@@ -6,12 +6,12 @@ from os import environ
 # e.g. self.session.config['participation_fee']
 
 SESSION_CONFIG_DEFAULTS = dict(
-    real_world_currency_per_point=1.00, participation_fee=2.00, doc="",
+    real_world_currency_per_point=1.00, participation_fee=1.00, doc="",
     mturk_hit_settings=dict(
         keywords='bonus, study, decisions',
         title='Decision-making study',
         description='Academic experiment on decision making from Aix-Marseille University,'
-                    'the University of Chicago, and the University of Utah',
+                    ' the University of Chicago, and the University of Utah',
         frame_height=500,
         template='global/mturk_template.html',
         minutes_allotted_per_assignment=60,
@@ -37,12 +37,11 @@ SESSION_CONFIG_DEFAULTS = dict(
             },
             # Has not already taken survey
             {
-                'QualificationTypeId': '303SJT1CWE1SIJV6J0XUXHLQB1Q4F7',
+                'QualificationTypeId': '3VVYNZTOMVAZHDRJGI7F78SBKS5ADF',
                 'Comparator': 'DoesNotExist'
             }
         ],
-        grant_qualification_id='303SJT1CWE1SIJV6J0XUXHLQB1Q4F7'  # to prevent retakes
-        # TODO: Change qualifcation ID to an id controlled by Pavitra's account
+        grant_qualification_id='3VVYNZTOMVAZHDRJGI7F78SBKS5ADF'  # to prevent retakes
     )
 )
 

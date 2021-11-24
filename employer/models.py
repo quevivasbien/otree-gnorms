@@ -120,6 +120,13 @@ class Player(BasePlayer):
     # politics = models.StringField(choices=qtext['politics'])
     # resident = models.StringField(choices=["Yes", "No"])
 
+    understanding1_attempts = models.IntegerField(initial=0)
+    understanding2_attempts = models.IntegerField(initial=0)
+    understanding3_attempts = models.IntegerField(initial=0)
+    understanding4_attempts = models.IntegerField(initial=0)
+    understanding5_attempts = models.IntegerField(initial=0)
+    understanding6_attempts = models.IntegerField(initial=0)
+
     study_topic_guess = models.StringField()
 
     def check_q(self, value, correct):

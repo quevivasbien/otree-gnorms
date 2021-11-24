@@ -19,6 +19,8 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support.ui import Select, WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+os.chdir(os.path.dirname(os.path.realpath(__file__)))
+
 with open('config.json', 'r') as fh:
     config = json.load(fh)
 

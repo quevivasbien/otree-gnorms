@@ -8,9 +8,10 @@ import json
 import time
 
 DRY_RUN = True
+FILE_DIR = os.path.dirname(os.path.realpath(__file__))
 
 # load constants
-with open("../_static/global/constants.json", "r", encoding="utf-8") as fh:
+with open(os.path.join(FILE_DIR, "../_static/global/constants.json"), "r", encoding="utf-8") as fh:
     constants = json.load(fh)
 
 NBIDS = constants["apps_per_emp1"]
@@ -20,11 +21,11 @@ CLOSE_GUESS_PROXIMITY = constants["close_guess_proximity"] / 100
 BONUS_PER_QUESTION = constants["bonus_per_question"] / 100
 
 # retrieve question text
-with open("../_static/global/question_text.json", "r", encoding="utf-8") as fh:
+with open(os.path.join(FILE_DIR, "../_static/global/question_text.json"), "r", encoding="utf-8") as fh:
     qtext = json.load(fh)
 
 # set up boto3 api client
-with open("config.json", "r") as fh:
+with open(os.path.join(FILE_DIR, "config.json"), "r") as fh:
     # TODO: Change endpoint to None before deploying
     ENDPOINT = json.load(fh)["endpoint"]
 client = boto3.client("mturk", endpoint_url=ENDPOINT, region_name="us-east-1")
@@ -74,11 +75,11 @@ class BonusResolver:
         self, applicant_csv="applicant_data.csv", employer_csv="employer_data.csv"
     ):
         self.app_df = pd.read_csv(
-            os.path.join(os.path.dirname(os.path.realpath(__file__)), applicant_csv),
+            os.path.join(FILE_DIR, applicant_csv),
             index_col=0,
         )
         self.emp_df = pd.read_csv(
-            os.path.join(os.path.dirname(os.path.realpath(__file__)), employer_csv),
+            os.path.join(FILE_DIR, employer_csv),
             index_col=0,
         )
         # emp_app_cwalk is the applicants evaluated by each employer

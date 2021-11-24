@@ -19,6 +19,9 @@
 
 <p>Complete the following statement to check your understanding before continuing:</p>
 {% formfield player.understanding4 label="My bonus for this part of the study depends on how accurately I can guess" %}
+<div style="display:none" id="understanding-attempts-display">{{ player.understanding4_attempts }}</div>
+<input type="hidden" name="understanding4_attempts" id="understanding-attempts-submit">
+{{ form.understanding4_attempts.errors }}
 
 <button class="btn-primary btn next">Next</button>
 
@@ -26,5 +29,9 @@
 
 
 {% block scripts %}
+
+<script type="text/javascript">
+	document.getElementById('understanding-attempts-submit').value = parseInt(document.getElementById('understanding-attempts-display').innerHTML) + 1;
+</script>
 
 {% endblock %}

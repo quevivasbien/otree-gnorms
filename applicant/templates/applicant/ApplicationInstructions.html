@@ -34,6 +34,9 @@
 	<p>Please complete the following statement to check your understanding before continuing:</p>
 
 	{% formfield player.understanding3 label="Employers will use my job application portfolio to decide how much they'd be willing to pay in exchange for" %}
+	<div style="display:none" id="understanding-attempts-display">{{ player.understanding3_attempts }}</div>
+	<input type="hidden" name="understanding3_attempts" id="understanding-attempts-submit">
+	{{ form.understanding3_attempts.errors }}
 
 	<button type="button" class="btn-primary btn back" onclick="show('page2', 'page3')" style="display:block">Back</button>
 	<button class="btn-primary btn next" style="display:block">Next</button>
@@ -46,7 +49,8 @@
 <script src="/static/global/js/show.js"></script>
 <script src="/static/global/js/checkUnderstanding.js"></script>
 <script type="text/javascript">
-	checkUnderstanding('id_understanding3', 'page3', 'page1')
+	checkUnderstanding('id_understanding3', 'page3', 'page1');
+	document.getElementById('understanding-attempts-submit').value = parseInt(document.getElementById('understanding-attempts-display').innerHTML) + 1;
 </script>
 
 {% endblock %}

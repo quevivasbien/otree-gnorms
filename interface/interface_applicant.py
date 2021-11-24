@@ -5,13 +5,17 @@ Check on hit status, send custom bonuses, etc.
 Author: Mckay Jensen
 """
 
-from interface import MTurkHandler
 import os
 import sys
 import json
 import pandas as pd
 import time
 import re
+
+os.chdir(os.path.dirname(os.path.realpath(__file__)))
+
+from interface import MTurkHandler
+
 
 with open("config.json", "r") as fh:
     config = json.load(fh)

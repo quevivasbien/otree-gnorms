@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
 
 import pandas as pd
+import os
 
-from send_bonuses import BONUS_PER_QUESTION, send_bonus
+from send_bonuses import FILE_DIR, BONUS_PER_QUESTION, send_bonus
 
 DRY_RUN = True
 
 
 def main():
-    df = pd.read_csv("dummy_data.csv", index_col=0)
+    df = pd.read_csv(os.path.join(FILE_DIR, "dummy_data.csv"), index_col=0)
     for idx, row in df.iterrows():
         amt_correct = row["noneval_correct"]
         bonus = amt_correct * BONUS_PER_QUESTION

@@ -20,11 +20,18 @@
 
 <p>Complete the following statement to check your understanding before continuing:</p>
 {% formfield player.understanding2 label="Your bonus payment for this part" %}
+<div style="display:none" id="understanding-attempts-display">{{ player.understanding2_attempts }}</div>
+<input type="hidden" name="understanding2_attempts" id="understanding-attempts-submit">
+{{ form.understanding2_attempts.errors }}
 
 <button class="btn-primary btn next">Next</button>
 
 {% endblock %}
 
 {% block scripts %}
+
+<script type="text/javascript">
+	document.getElementById('understanding-attempts-submit').value = parseInt(document.getElementById('understanding-attempts-display').innerHTML) + 1;
+</script>
 
 {% endblock %}

@@ -112,17 +112,17 @@ class DemographicSurvey(Page):
 
 class Overview(Page):
     form_model = "player"
-    form_fields = ["understanding1"]
+    form_fields = ["understanding1", "understanding1_attempts"]
 
 
 class BiddingInstructions1(Page):
     form_model = "player"
-    form_fields = ["understanding2"]
+    form_fields = ["understanding2", "understanding2_attempts"]
 
 
 class BiddingInstructions2(Page):
     form_model = "player"
-    form_fields = ["understanding3"]
+    form_fields = ["understanding3", "understanding3_attempts"]
 
 
 class BiddingPage(Page):
@@ -132,7 +132,7 @@ class BiddingPage(Page):
 
 class PerformGuessInstructions(Page):
     form_model = "player"
-    form_fields = ["understanding4"]
+    form_fields = ["understanding4", "understanding4_attempts"]
 
 
 class PerformGuessPage(Page):
@@ -142,7 +142,7 @@ class PerformGuessPage(Page):
 
 class SocAppropInstructions(Page):
     form_model = "player"
-    form_fields = ["understanding5"]
+    form_fields = ["understanding5", "understanding5_attempts"]
 
 
 class SocAppropPage(Page):

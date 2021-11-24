@@ -15,6 +15,8 @@ import re
 
 from interface import MTurkHandler
 
+os.chdir(os.path.dirname(os.path.realpath(__file__)))
+
 
 with open('config.json', 'r') as fh:
     config = json.load(fh)

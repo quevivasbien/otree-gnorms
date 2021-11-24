@@ -1,9 +1,16 @@
 #!/usr/bin/env python3
 
-from interface_applicant import ApplicantHandler
+import pandas as pd
 import json
 import time
+import re
 import sys
+import os
+
+os.chdir(os.path.dirname(os.path.realpath(__file__)))
+
+from interface import MTurkHandler
+
 
 with open("config.json", "r") as fh:
     config = json.load(fh)
@@ -16,12 +23,52 @@ EXPERIMENT_SIZE = config["experiment_size"]
 DOWNLOAD_FOLDER = config["downloads"]
 
 CSV_NAME = "dummy_data.csv"
-JSON_NAME = "dummy_data.json"
 
 
-class DummyHandler(ApplicantHandler):
+class DummyHandler(MTurkHandler):
     def start_experiment(self):
         self.start_experiment_("Test to establish performance distribution")
+    
+    def process_df(self, df, static_df=None):
+        if static_df is None:
+            static_df = os.path.join(
+                os.path.dirname(os.path.realpath(__file__)), CSV_NAME
+            )
+        # get rid of all the junk on the beginning of the column names
+        df.rename(columns=lambda x: re.search(r"[^.]+$", x).group(), inplace=True)
+        # drop problematic columns
+        df.drop(columns=["label", "payoff"], inplace=True)
+        # drop empty rows
+        df.dropna(subset=["mturk_assignment_id"], inplace=True)
+        # add new columns for determining payoffs
+        df["time_fetched"] = time.time()
+        df["hit_approved"] = 0
+        if os.path.isfile(static_df):
+            df = pd.concat((pd.read_csv(static_df, index_col=0), df))
+            df.sort_values(
+                by=["time_fetched", "time_started"], ascending=True, inplace=True
+            )
+            df = df[~df.index.duplicated(keep="last")]
+        # get list of submitted assignments ready for review
+        assignment_ids = [x["AssignmentId"] for x in self.get_assignments_to_review()]
+        to_review = df.index[df["mturk_assignment_id"].isin(assignment_ids)]
+        # check for participants who did not complete the survey but submitted the HIT, reject them
+        dont_approve = to_review[
+            df.loc[to_review, "_index_in_pages"] != df.loc[to_review, "_max_page_index"]
+        ]
+        for i in dont_approve:
+            self.reject_hit(df.at[i, "mturk_assignment_id"], "Did not complete.")
+        df.loc[dont_approve, "hit_approved"] = -1  # -1 indicates hit was rejected
+        # review completed but unapproved assignments
+        not_approved = df.index[df["hit_approved"] == 0]
+        to_review = to_review.intersection(not_approved)
+        for i in to_review:
+            self.approve_hit(
+                df.at[i, "mturk_assignment_id"], "Your bonus payment will be sent soon."
+            )
+        df.loc[to_review, "hit_approved"] = 1
+        # bonuses will be sent out later
+        df.to_csv(static_df)
 
 
 def main(wait_interval=600, max_checks=1000):

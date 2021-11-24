@@ -27,6 +27,9 @@
 <div id="page2" style="display:none">
 <p>Answer the following question to check your understanding:</p>
 {% formfield player.understanding2 label="Your bonus payment" %}
+<div style="display:none" id="understanding-attempts-display">{{ player.understanding2_attempts }}</div>
+<input type="hidden" name="understanding2_attempts" id="understanding-attempts-submit">
+{{ form.understanding2_attempts.errors }}
 
 <p>Once you correctly answer this question, you can continue to the ASVAB questions.</p>
 
@@ -39,5 +42,9 @@
 {% block scripts %}
 
 <script src="/static/global/js/show.js"></script>
+
+<script type="text/javascript">
+	document.getElementById('understanding-attempts-submit').value = parseInt(document.getElementById('understanding-attempts-display').innerHTML) + 1;
+</script>
 
 {% endblock %}

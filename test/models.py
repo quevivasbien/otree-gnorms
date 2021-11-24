@@ -110,6 +110,8 @@ class Player(BasePlayer):
     eval_correct = models.IntegerField()
     noneval_correct = models.IntegerField()
 
+    understanding2attempts = models.IntegerField(initial=0)
+
     def understanding2_error_message(self, value):
         if value != u2_choices[1]:
             return "Sorry. Your answer is incorrect. Please choose the correct answer to proceed."
