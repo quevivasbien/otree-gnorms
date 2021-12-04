@@ -1,2 +1,1 @@
-otree[mturk]<5
-django-recaptcha
+otree[mturk]

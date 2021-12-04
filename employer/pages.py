@@ -2,7 +2,7 @@
 from ._builtin import Page
 
 # from .models import Constants
-from captcha.fields import ReCaptchaField
+# from captcha.fields import ReCaptchaField
 
 import json
 from random import randint, shuffle
@@ -20,14 +20,14 @@ with open("_static/global/constants.json", "r", encoding="utf-8") as fh:
     constants = json.load(fh)
 
 
-class Captcha(Page):
-    form_model = "player"
-    form_fields = ["captcha"]
+# class Captcha(Page):
+#     form_model = "player"
+#     form_fields = ["captcha"]
 
-    def get_form(self, data=None, files=None, **kwargs):
-        frm = super().get_form(data, files, **kwargs)
-        frm.fields["captcha"] = ReCaptchaField(label="")
-        return frm
+#     def get_form(self, data=None, files=None, **kwargs):
+#         frm = super().get_form(data, files, **kwargs)
+#         frm.fields["captcha"] = ReCaptchaField(label="")
+#         return frm
 
 
 class ConsentForm(Page):
@@ -161,7 +161,7 @@ class CompletionCode(Page):
 
 
 page_sequence = [
-    Captcha,
+    # Captcha,
     ConsentForm,
     DemographicSurvey,
     Overview,

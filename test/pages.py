@@ -2,7 +2,7 @@
 from ._builtin import Page
 
 from .models import Constants
-from captcha.fields import ReCaptchaField
+# from captcha.fields import ReCaptchaField
 
 import json
 
@@ -11,14 +11,14 @@ with open("_static/global/question_text.json", "r", encoding="utf-8") as fh:
     qtext = json.load(fh)
 
 
-class Captcha(Page):
-    form_model = "player"
-    form_fields = ["captcha"]
+# class Captcha(Page):
+#     form_model = "player"
+#     form_fields = ["captcha"]
 
-    def get_form(self, data=None, files=None, **kwargs):
-        frm = super().get_form(data, files, **kwargs)
-        frm.fields["captcha"] = ReCaptchaField(label="")
-        return frm
+#     def get_form(self, data=None, files=None, **kwargs):
+#         frm = super().get_form(data, files, **kwargs)
+#         frm.fields["captcha"] = ReCaptchaField(label="")
+#         return frm
 
 
 class ConsentForm(Page):
@@ -141,7 +141,7 @@ class CompletionCode(Page):
 
 
 page_sequence = [
-    Captcha,
+    # Captcha,
     ConsentForm,
     DemographicSurvey,
     Instructions,

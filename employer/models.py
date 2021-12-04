@@ -92,7 +92,7 @@ class Player(BasePlayer):
     bids = models.StringField()
     perform_guesses = models.StringField()
     soc_approp_ratings = models.StringField()
-    captcha = models.CharField(blank=True)
+    # captcha = models.CharField(blank=True)
     understanding1 = models.StringField(
         choices=understanding1_choices, widget=widgets.RadioSelect
     )
