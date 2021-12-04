@@ -16,7 +16,7 @@ with open("config.json", "r") as fh:
     config = json.load(fh)
 
 # TODO: Change endpoint to None before deploying
-ENDPOINT = config["endpoint"]
+ENDPOINT = config['endpoint'] if config['endpoint'] != 'None' else None
 # TODO: Set this as the correct experiment size
 EXPERIMENT_SIZE = config["experiment_size"]
 # TODO: Set this as the local downloads directory

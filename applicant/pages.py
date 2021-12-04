@@ -237,7 +237,7 @@ class SocAppropGuess(Page):
         return self.player.show_perf_guess == 0
 
 
-class StudyTopic(Page):
+class ExitSurvey(Page):
     form_model = "player"
     form_fields = ["study_topic_guess"]
 
@@ -260,6 +260,6 @@ page_sequence = [
     WageGuess,
     PerformanceGuess,
     SocAppropGuess,
-    StudyTopic,
+    ExitSurvey,
     CompletionCode,
 ]

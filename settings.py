@@ -6,7 +6,7 @@ from os import environ
 # e.g. self.session.config['participation_fee']
 
 SESSION_CONFIG_DEFAULTS = dict(
-    real_world_currency_per_point=1.00, participation_fee=1.00, doc="",
+    real_world_currency_per_point=1.00, participation_fee=1.50, doc="",
     mturk_hit_settings=dict(
         keywords='bonus, study, decisions',
         title='Decision-making study',
@@ -28,6 +28,12 @@ SESSION_CONFIG_DEFAULTS = dict(
                 'QualificationTypeId': '000000000000000000L0',
                 'Comparator': 'GreaterThanOrEqualTo',
                 'IntegerValues': [95]
+            },
+            # Is adult
+            {
+                'QualificationTypeId': '00000000000000000060',
+                'Comparator': 'EqualTo',
+                'IntegerValue': 1
             },
             # Is in US
             {

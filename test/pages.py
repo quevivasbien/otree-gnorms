@@ -25,11 +25,6 @@ class ConsentForm(Page):
     pass
 
 
-class Overview(Page):
-    form_model = "player"
-    form_fields = ["understanding1"]
-
-
 class DemographicSurvey(Page):
     form_model = "player"
     form_fields = ["age", "gender", "education", "employed"]
@@ -37,7 +32,7 @@ class DemographicSurvey(Page):
 
 class Instructions(Page):
     form_model = "player"
-    form_fields = ["understanding2"]
+    form_fields = ["understanding2", "understanding2_attempts"]
 
 
 class ASVABQuestions(Page):
@@ -132,10 +127,17 @@ class ASVABQuestions(Page):
         player.noneval_correct = noneval_correct
 
 
-class CompletionCode(Page):
+class ExitSurvey(Page):
+    form_model = 'player'
+    form_fields = ['study_topic_guess', 'male_avg_answers_guess', 'female_avg_answers_guess']
+
     def vars_for_template(self):
         total_bonus = f'{self.player.eval_correct * float(Constants.bonus_per_question) / 100:.2f}'
         return dict(total_bonus=total_bonus)
+
+
+class CompletionCode(Page):
+    form_model = 'player'
 
 
 page_sequence = [
@@ -144,5 +146,6 @@ page_sequence = [
     DemographicSurvey,
     Instructions,
     ASVABQuestions,
-    CompletionCode,
+    ExitSurvey,
+    CompletionCode
 ]

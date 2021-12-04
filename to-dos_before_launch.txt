@@ -17,6 +17,4 @@ go through and set correct time estimates in consent forms and in mturk previews
 Temporarily upgrade Heroku server
 Make sure to be logged into the right AWS locally before launching interface.py
 
-make sure qualifications are correct, including filtering for age
-
 add interface and bonus code for test app

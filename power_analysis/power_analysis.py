@@ -83,6 +83,7 @@ perform_pdf_female = np.diff(perform_cdf_female)
 
 # constants for number of evaluations done by each employer
 answers_per_employer = 10
+wage_guesses_per_applicant = 5
 
 default_n_applicants = 350
 default_n_employers = 100
@@ -131,20 +132,20 @@ def get_perform(n, app_female):
 covmats = {}
 
 
-def gen_errors(var, corr, n_employers):
+def gen_errors(var, corr, n_employers, answers_per_reviewer):
     """generate clustered errors"""
     # create covariance matrix, or draw from covmats if it's pre-generated
-    covmat = covmats.get((var, corr))
+    covmat = covmats.get((var, corr, answers_per_reviewer))
     if covmat is None:
         covmat = var * corr * np.ones(
-            (answers_per_employer, answers_per_employer)
-        ) + var * np.diag(np.ones(answers_per_employer))
-        covmats[(var, corr)] = covmat
+            (answers_per_reviewer, answers_per_reviewer)
+        ) + var * np.diag(np.ones(answers_per_reviewer))
+        covmats[(var, corr, answers_per_reviewer)] = covmat
     # draw clustered errors
     emp_errors = np.array(
         [
             np.random.multivariate_normal(
-                mean=np.zeros(answers_per_employer), cov=covmat
+                mean=np.zeros(answers_per_reviewer), cov=covmat
             )
             for _ in range(n_employers)
         ]
@@ -164,6 +165,7 @@ class PowerTest:
         verbose=False,
         min_n=20,
         measure2=False,
+        answers_per_reviewer=answers_per_employer
     ):
         self.employer_var = employer_var
         self.employer_corr = employer_corr
@@ -173,20 +175,26 @@ class PowerTest:
         self.verbose = verbose
         self.min_n = min_n
         self.measure2 = measure2
+        self.answers_per_reviewer = answers_per_reviewer
 
     def create_errors(self, repeat, final_length, n_employers):
         """Generates employer ids and errors for employer wage bids"""
         errors = np.stack(
             [
                 np.concatenate(
-                    gen_errors(self.employer_var, self.employer_corr, n_employers)
+                    gen_errors(
+                        self.employer_var,
+                        self.employer_corr,
+                        n_employers,
+                        self.answers_per_reviewer
+                    )
                 )[:final_length]
                 for _ in range(repeat)
             ],
             axis=0,
         )
         emp_ids = np.array(
-            sum(([i] * answers_per_employer for i in range(n_employers)), [])
+            sum(([i] * self.answers_per_reviewer for i in range(n_employers)), [])
         )[:final_length]
         return emp_ids, errors
 
@@ -205,9 +213,9 @@ class PowerTest:
         1. Generate applicant data
 
         2. {If we're testing a hypothesis on employer bids:}
-        len of each rep needs to be n_employers * answers_per_employer
-        -> replicate applicant data (n_employers * answer_per_employer) / n_applicants times
-        create errors clustered in blocks of size answers_per_employer
+        len of each rep needs to be n_employers * answers_per_reviewer
+        -> replicate applicant data (n_employers * answer_per_reviewer) / n_applicants times
+        create errors clustered in blocks of size answers_per_reviewer
         """
         # sample applicant genders
         treatment = np.random.choice(
@@ -240,7 +248,7 @@ class PowerTest:
             app_promote[app_promote > 5] = 5
         if n_employers is not None:
             # duplicate applicant data, if needed
-            final_length = n_employers * answers_per_employer
+            final_length = n_employers * self.answers_per_reviewer
             evals_per_app = np.ceil(final_length / n_applicants).astype(int)
             treatment = np.tile(treatment, (1, evals_per_app))[:, :final_length]
             app_female = np.tile(app_female, (1, evals_per_app))[:, :final_length]
@@ -338,6 +346,7 @@ class Hypothesis1(PowerTest):
         verbose=False,
         min_n=20,
         measure2=False,
+        answers_per_reviewer=answers_per_employer
     ):
         super().__init__(
             employer_var,
@@ -348,6 +357,7 @@ class Hypothesis1(PowerTest):
             verbose,
             min_n,
             measure2,
+            answers_per_reviewer
         )
         self.beta0 = beta0
         self.beta1 = beta1
@@ -391,6 +401,7 @@ class Hypothesis2(PowerTest):
         verbose=False,
         min_n=20,
         measure2=False,
+        answers_per_reviewer=answers_per_employer
     ):
         super().__init__(
             employer_var,
@@ -401,6 +412,7 @@ class Hypothesis2(PowerTest):
             verbose,
             min_n,
             measure2,
+            answers_per_reviewer
         )
         self.beta0 = beta0
         self.beta1 = beta1
@@ -456,6 +468,7 @@ class Hypothesis3(PowerTest):
         verbose=False,
         min_n=20,
         measure2=False,
+        answers_per_reviewer=answers_per_employer
     ):
         super().__init__(
             employer_var,
@@ -466,6 +479,7 @@ class Hypothesis3(PowerTest):
             verbose,
             min_n,
             measure2,
+            answers_per_reviewer
         )
         self.beta0 = beta0
         self.beta1 = beta1
@@ -530,6 +544,7 @@ class Hypothesis4(PowerTest):
         verbose=False,
         min_n=20,
         measure2=False,
+        answers_per_reviewer=wage_guesses_per_applicant
     ):
         super().__init__(
             employer_var,
@@ -540,6 +555,7 @@ class Hypothesis4(PowerTest):
             verbose,
             min_n,
             measure2,
+            answers_per_reviewer
         )
         self.beta0 = beta0
         self.beta1 = beta1
@@ -596,6 +612,7 @@ class Hypothesis5(PowerTest):
         verbose=False,
         min_n=40,
         measure2=False,
+        answers_per_reviewer=wage_guesses_per_applicant
     ):
         super().__init__(
             employer_var,
@@ -606,6 +623,7 @@ class Hypothesis5(PowerTest):
             verbose,
             min_n,
             measure2,
+            answers_per_reviewer
         )
         self.beta0 = beta0
         self.beta1 = beta1
@@ -662,6 +680,7 @@ class Hypothesis6(PowerTest):
         verbose=False,
         min_n=40,
         measure2=False,
+        answers_per_reviewer=wage_guesses_per_applicant
     ):
         super().__init__(
             employer_var,
@@ -672,6 +691,7 @@ class Hypothesis6(PowerTest):
             verbose,
             min_n,
             measure2,
+            answers_per_reviewer
         )
         self.beta0 = beta0
         self.beta1 = beta1
@@ -722,104 +742,105 @@ class Hypothesis6(PowerTest):
 # Hypothesis6(0, 5, 0, -2, 5, verbose=True).test()
 
 
-class Hypothesis7(PowerTest):
-    def __init__(
-        self,
-        beta0,
-        beta1,
-        beta2,
-        beta3,
-        perform_step,
-        employer_var=default_emp_var,
-        employer_corr=default_emp_corr,
-        promote0=default_fem_promote0,
-        promote1=default_fem_promote1,
-        promote2=default_fem_promote2,
-        verbose=False,
-        min_n=40,
-        measure2=False,
-    ):
-        super().__init__(
-            employer_var,
-            employer_corr,
-            promote0,
-            promote1,
-            promote2,
-            verbose,
-            min_n,
-            measure2,
-        )
-        self.beta0 = beta0
-        self.beta1 = beta1
-        self.beta2 = beta2
-        self.beta3 = beta3
-        self.perform_step = perform_step
+## We've marked this hypothesis as exploratory. No need to calculate power now
+# class Hypothesis7(PowerTest):
+#     def __init__(
+#         self,
+#         beta0,
+#         beta1,
+#         beta2,
+#         beta3,
+#         perform_step,
+#         employer_var=default_emp_var,
+#         employer_corr=default_emp_corr,
+#         promote0=default_fem_promote0,
+#         promote1=default_fem_promote1,
+#         promote2=default_fem_promote2,
+#         verbose=False,
+#         min_n=40,
+#         measure2=False,
+#     ):
+#         super().__init__(
+#             employer_var,
+#             employer_corr,
+#             promote0,
+#             promote1,
+#             promote2,
+#             verbose,
+#             min_n,
+#             measure2,
+#         )
+#         self.beta0 = beta0
+#         self.beta1 = beta1
+#         self.beta2 = beta2
+#         self.beta3 = beta3
+#         self.perform_step = perform_step
 
-    def est_power(self, repeat, n, alpha=0.05):
-        data = self.gen_data(
-            repeat,
-            n_applicants=n // 2,
-            n_employers=n // 2,
-            filter_treatment=2,
-            filter_percentile=75,
-        )
-        oks = []
-        for d in data:
-            selfpromotionXfemale = d["app_promote"] * d["app_female"]
-            wageguess = (
-                self.beta0
-                + self.beta1 * d["app_promote"]
-                + self.beta2 * d["app_female"]
-                + self.beta3 * selfpromotionXfemale
-                + self.perform_step * d["app_perform"]
-                + d["error"]
-            )
-            perform_dummies = pd.get_dummies(d["app_perform"]).to_numpy()[:, :-1]
-            try:
-                X = sm.add_constant(
-                    np.concatenate(
-                        (
-                            np.stack(
-                                (
-                                    d["app_promote"],
-                                    d["app_female"],
-                                    selfpromotionXfemale,
-                                ),
-                                axis=1,
-                            ),
-                            perform_dummies,
-                        ),
-                        axis=1,
-                    )
-                )
-            except ValueError as e:
-                print(f'received error "{e}" in Hyp7; trying again...')
-                return self.est_power(repeat, n, alpha)
-            try:
-                fitted = sm.OLS(wageguess, X).fit(
-                    cov_type="cluster", cov_kwds={"groups": d["emp_id"]}
-                )
-                ok = fitted.pvalues[1] < alpha and fitted.pvalues[3] < alpha
-            except (IndexError, ValueError) as e:
-                print(f'received error "{e}" in Hyp7; trying again...')
-                return self.est_power(repeat, n, alpha)
-            oks.append(ok)
-        return np.mean(oks)
+#     def est_power(self, repeat, n, alpha=0.05):
+#         data = self.gen_data(
+#             repeat,
+#             n_applicants=n // 2,
+#             n_employers=n // 2,
+#             filter_treatment=2,
+#             filter_percentile=75,
+#         )
+#         oks = []
+#         for d in data:
+#             selfpromotionXfemale = d["app_promote"] * d["app_female"]
+#             wageguess = (
+#                 self.beta0
+#                 + self.beta1 * d["app_promote"]
+#                 + self.beta2 * d["app_female"]
+#                 + self.beta3 * selfpromotionXfemale
+#                 + self.perform_step * d["app_perform"]
+#                 + d["error"]
+#             )
+#             perform_dummies = pd.get_dummies(d["app_perform"]).to_numpy()[:, :-1]
+#             try:
+#                 X = sm.add_constant(
+#                     np.concatenate(
+#                         (
+#                             np.stack(
+#                                 (
+#                                     d["app_promote"],
+#                                     d["app_female"],
+#                                     selfpromotionXfemale,
+#                                 ),
+#                                 axis=1,
+#                             ),
+#                             perform_dummies,
+#                         ),
+#                         axis=1,
+#                     )
+#                 )
+#             except ValueError as e:
+#                 print(f'received error "{e}" in Hyp7; trying again...')
+#                 return self.est_power(repeat, n, alpha)
+#             try:
+#                 fitted = sm.OLS(wageguess, X).fit(
+#                     cov_type="cluster", cov_kwds={"groups": d["emp_id"]}
+#                 )
+#                 ok = fitted.pvalues[1] < alpha and fitted.pvalues[3] < alpha
+#             except (IndexError, ValueError) as e:
+#                 print(f'received error "{e}" in Hyp7; trying again...')
+#                 return self.est_power(repeat, n, alpha)
+#             oks.append(ok)
+#         return np.mean(oks)
 
-    def test(
-        self,
-        repeat=400,
-        n=400,
-        last_n=0,
-        refine_repeat=None,
-        target_power=0.8,
-        alpha=0.05,
-        maxiter=20,
-    ):
-        """Need to overwrite starting guess for n here since 100 is too low."""
-        return super().test(
-            repeat, n, last_n, refine_repeat, target_power, alpha, maxiter
-        )
+#     def test(
+#         self,
+#         repeat=400,
+#         n=400,
+#         last_n=0,
+#         refine_repeat=None,
+#         target_power=0.8,
+#         alpha=0.05,
+#         maxiter=20,
+#     ):
+#         """Need to overwrite starting guess for n here since 100 is too low."""
+#         return super().test(
+#             repeat, n, last_n, refine_repeat, target_power, alpha, maxiter
+#         )
 
 
 # Hypothesis7(0, 5, 0, -2, 5, verbose=True).test()
@@ -973,11 +994,11 @@ class Hypothesis10(PowerTest):
 default_wage_coeffs = [
     [0, 5],
     [0, 10, 0, -3],
-    [0, 10, 0, -2, 5],
+    [0, 5, 0, -2, 5],
     [0, 10, 0, -3],
     [0, 10, 0, -3],
     [0, 5, 0, -2, 5],
-    [0, 5, 0, -2, 5],
+    # [0, 5, 0, -2, 5],
 ]
 
 # assumption for smaller effect sizes
@@ -987,11 +1008,11 @@ reduced_wage_coeffs = [[x / 2 for x in y] for y in default_wage_coeffs]
 measure2_wage_coeffs = [
     [0, 0.25],
     [0, 0.5, 0, -0.15],
-    [0, 0.5, 0, -0.1, 5],
+    [0, 0.25, 0, -0.1, 5],
     [0, 0.5, 0, -0.15],
     [0, 0.5, 0, -0.15],
     [0, 0.25, 0, -0.1, 5],
-    [0, 0.25, 0, -0.1, 5],
+    # [0, 0.25, 0, -0.1, 5],
 ]
 
 measure2_reduced_coeffs = [[x / 2 for x in y] for y in measure2_wage_coeffs]
@@ -1093,19 +1114,19 @@ def run_all(
             promote2,
             measure2=measure2,
         ).test(),
-        Hypothesis7(
-            w[6][0],
-            w[6][1],
-            w[6][2],
-            w[6][3],
-            w[6][4],
-            emp_var,
-            emp_corr,
-            promote0,
-            promote1,
-            promote2,
-            measure2=measure2,
-        ).test(),
+        # Hypothesis7(
+        #     w[6][0],
+        #     w[6][1],
+        #     w[6][2],
+        #     w[6][3],
+        #     w[6][4],
+        #     emp_var,
+        #     emp_corr,
+        #     promote0,
+        #     promote1,
+        #     promote2,
+        #     measure2=measure2,
+        # ).test(),
         Hypothesis8(
             emp_var, emp_corr, promote0, promote1, promote2, measure2=measure2
         ).test(),
@@ -1140,23 +1161,35 @@ def pool_func(args):
     return run_all(promote1=promote1, promote2=promote2, measure2=measure2, w=w)
 
 
+# args = [
+#     (None, None, None, None),
+#     (-0.5, -0.3, None, reduced_wage_coeffs),
+#     (None, None, True, measure2_wage_coeffs),
+#     (-0.5, -0.3, True, measure2_reduced_coeffs),
+# ]
 args = [
     (None, None, None, None),
-    (-0.5, -0.3, None, reduced_wage_coeffs),
-    (None, None, True, measure2_wage_coeffs),
-    (-0.5, -0.3, True, measure2_reduced_coeffs),
+    (None, None, True, measure2_wage_coeffs)
 ]
 
 
-with multiprocessing.Pool(processes=4) as pool:
-    run_A, run_B, run_C, run_D = tuple(pool.map(pool_func, args))
+# with multiprocessing.Pool(processes=4) as pool:
+#     run_A, run_B, run_C, run_D = tuple(pool.map(pool_func, args))
+with multiprocessing.Pool(processes=2) as pool:
+    run_A, run_C = tuple(pool.map(pool_func, args))
 
+
+# out = create_table(
+#     np.stack((run_A, run_B, run_C, run_D), axis=1), ["[A]", "[B]", "[A]", "[B]"])
 
 out = create_table(
-    np.stack((run_A, run_B, run_C, run_D), axis=1), ["[A]", "[B]", "[A]", "[B]"]
+    np.stack((run_A, run_C), axis=1), ["Treatment 1", "Treatment 2"]
 )
 
-with open("power_table.tex", "w") as fh:
+# with open("power_table.tex", "w") as fh:
+#     fh.write(out)
+
+with open("power_table_simplified.tex", "w") as fh:
     fh.write(out)
 
 print(out)
@@ -1262,19 +1295,19 @@ def run_all_single_n(
             promote2,
             measure2=measure2,
         ).est_power(repeat, n_applicants),
-        Hypothesis7(
-            w[6][0],
-            w[6][1],
-            w[6][2],
-            w[6][3],
-            w[6][4],
-            emp_var,
-            emp_corr,
-            promote0,
-            promote1,
-            promote2,
-            measure2=measure2,
-        ).est_power(repeat, n_applicants),
+        # Hypothesis7(
+        #     w[6][0],
+        #     w[6][1],
+        #     w[6][2],
+        #     w[6][3],
+        #     w[6][4],
+        #     emp_var,
+        #     emp_corr,
+        #     promote0,
+        #     promote1,
+        #     promote2,
+        #     measure2=measure2,
+        # ).est_power(repeat, n_applicants),
         Hypothesis8(
             emp_var, emp_corr, promote0, promote1, promote2, measure2=measure2
         ).est_power(repeat, n_applicants),
@@ -1294,18 +1327,31 @@ def pool_func_single_n(args):
     )
 
 
-with multiprocessing.Pool(processes=4) as pool:
-    run_A_single_n, run_B_single_n, run_C_single_n, run_D_single_n = tuple(
+# with multiprocessing.Pool(processes=4) as pool:
+#     run_A_single_n, run_B_single_n, run_C_single_n, run_D_single_n = tuple(
+#         pool.map(pool_func_single_n, args)
+#     )
+
+with multiprocessing.Pool(processes=2) as pool:
+    run_A_single_n, run_C_single_n = tuple(
         pool.map(pool_func_single_n, args)
     )
 
 
+# out_single_n = create_table(
+#     np.stack((run_A_single_n, run_B_single_n, run_C_single_n, run_D_single_n), axis=1),
+#     ["[A]", "[B]", "[A]", "[B]"],
+# )
+
 out_single_n = create_table(
-    np.stack((run_A_single_n, run_B_single_n, run_C_single_n, run_D_single_n), axis=1),
-    ["[A]", "[B]", "[A]", "[B]"],
+    np.stack((run_A_single_n, run_C_single_n), axis=1),
+    ["Measure 1", "Measure 2"],
 )
 
-with open("power_single_n_table.tex", "w") as fh:
+# with open("power_single_n_table.tex", "w") as fh:
+#     fh.write(out_single_n)
+
+with open("power_single_n_table_simplified.tex", "w") as fh:
     fh.write(out_single_n)
 
 print(out_single_n)

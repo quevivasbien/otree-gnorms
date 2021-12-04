@@ -1,0 +1,33 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+  Finished!
+{% endblock %}
+
+{% block content %}
+
+  <p>Thank you for your participation!</p>
+
+  <p>You correctly answered {{ player.eval_correct }} of the 10 bonus questions, so we'll send you a bonus payment of ${{ total_bonus }}, in addition to your base payment of ${{ Constants.payment }}.</p>
+
+  <p>Before getting your completion code, please take some time to answer the following questions:</p>
+  
+  <div class="form-group required">
+    <p>In a few words, what do you think this study is about?</p>
+    <div class="controls  field-study_topic_guess">
+        <input type="text" name="study_topic_guess" maxlength="100" required="" id="id_study_topic_guess" class="form-control" style="width: 100ch; max-width: 100%;">
+    </div>
+  </div>
+
+  {{ form.study_topic_guess.errors }}
+
+  {% formfield player.male_avg_answers_guess label="Of the 10 questions that count for payment, how many questions do you think that the average <em>male</em> participant in this study will answer correctly?"%}
+
+  {% formfield player.female_avg_answers_guess label="Of the 10 questions that count for payment, how many questions do you think that the average <em>female</em> participant in this study will answer correctly?"%}
+
+  <br>
+  <button class="btn-primary btn next">Next</button>
+
+
+{% endblock %}

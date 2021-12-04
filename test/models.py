@@ -110,7 +110,11 @@ class Player(BasePlayer):
     eval_correct = models.IntegerField()
     noneval_correct = models.IntegerField()
 
-    understanding2attempts = models.IntegerField(initial=0)
+    understanding2_attempts = models.IntegerField(initial=0)
+
+    study_topic_guess = models.StringField()
+    male_avg_answers_guess = models.FloatField(min=0, max=10)
+    female_avg_answers_guess = models.FloatField(min=0, max=10)
 
     def understanding2_error_message(self, value):
         if value != u2_choices[1]:

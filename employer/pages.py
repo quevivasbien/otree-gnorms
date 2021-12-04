@@ -150,7 +150,7 @@ class SocAppropPage(Page):
     form_fields = ["soc_approp_ratings"]
 
 
-class StudyTopic(Page):
+class ExitSurvey(Page):
     form_model = "player"
     form_fields = ["study_topic_guess"]
 
@@ -172,6 +172,6 @@ page_sequence = [
     PerformGuessPage,
     SocAppropInstructions,
     SocAppropPage,
-    StudyTopic,
+    ExitSurvey,
     CompletionCode,
 ]
