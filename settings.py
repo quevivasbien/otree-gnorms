@@ -33,7 +33,7 @@ SESSION_CONFIG_DEFAULTS = dict(
             {
                 'QualificationTypeId': '00000000000000000060',
                 'Comparator': 'EqualTo',
-                'IntegerValue': 1
+                'IntegerValues': [1]
             },
             # Is in US
             {
