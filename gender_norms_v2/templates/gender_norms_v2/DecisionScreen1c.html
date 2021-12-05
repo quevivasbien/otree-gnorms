@@ -80,7 +80,7 @@ Suppose that on a scale from 0 (entirely disagree) to 100 (entirely agree), {{ p
 
 <br>
 
-<div class="_formfield required">
+<div class="form-group required">
 	<p>I think my MATCH will rate this decision as:</p>
 	<div class="controls  field-match_guess_succeed5">
 	  <div id="id_match_guess_succeed5" class="form-row">
@@ -128,7 +128,7 @@ Suppose that on a scale from 0 (entirely disagree) to 100 (entirely agree), {{ p
 
 <br>
 
-<div class="_formfield required">
+<div class="form-group required">
 	<p>I think my MATCH will rate this decision as:</p>
 	<div class="controls  field-match_guess_succeed25">
 	  <div id="id_match_guess_succeed25" class="form-row">
@@ -177,7 +177,7 @@ Suppose that on a scale from 0 (entirely disagree) to 100 (entirely agree), {{ p
 
 <br>
 
-<div class="_formfield required">
+<div class="form-group required">
 	<p>I think my MATCH will rate this decision as:</p>
 	<div class="controls  field-match_guess_succeed55">
 	  <div id="id_match_guess_succeed55" class="form-row">
@@ -226,7 +226,7 @@ Suppose that on a scale from 0 (entirely disagree) to 100 (entirely agree), {{ p
 
 <br>
 
-<div class="_formfield required">
+<div class="form-group required">
 	<p>I think my MATCH will rate this decision as:</p>
 	<div class="controls  field-match_guess_succeed75">
 	  <div id="id_match_guess_succeed75" class="form-row">
@@ -275,7 +275,7 @@ Suppose that on a scale from 0 (entirely disagree) to 100 (entirely agree), {{ p
 
 <br>
 
-<div class="_formfield required">
+<div class="form-group required">
 	<p>I think my MATCH will rate this decision as:</p>
 	<div class="controls  field-match_guess_succeed95">
 	  <div id="id_match_guess_succeed95" class="form-row">
@@ -320,11 +320,11 @@ Suppose that on a scale from 0 (entirely disagree) to 100 (entirely agree), {{ p
 
 </div>
 
-
-
-
-
-
+{{ form.match_guess_succeed5.errors }}
+{{ form.match_guess_succeed25.errors }}
+{{ form.match_guess_succeed55.errors }}
+{{ form.match_guess_succeed75.errors }}
+{{ form.match_guess_succeed95.errors }}
 
 {% endblock %}
 

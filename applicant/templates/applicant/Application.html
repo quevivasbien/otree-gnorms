@@ -48,7 +48,7 @@
 	{% formfield player.self_eval label="Based on the information you received about other applicants' performance on the task, please indicate how well you think you performed on the <em>application</em> questions in the cognitive ability test" %}
 	<p id="not-complete-error1" style="color:red; display:none">Select one of the choices to continue.</p>
 	<br>
-	<div class="_formfield required">
+	<div class="form-group required">
 		<p>On a scale from 0 (entirely disagree) to 100 (entirely agree), please indicate the extent to which you agree with the following statement:</p>
 		<p style="text-align:center">"I performed well on the application questions."</p>
 		<div class="slider-container">
@@ -56,6 +56,7 @@
 		    <input id="rangeInput" type="range" min="0" max="100" step="1" class="slider" onclick="updateAgreeResponse()" oninput="updateAgreeResponse()"/>
 				<p><span id="amount" style="font-weight:bold">--</span> out of 100</p>
 		</div>
+		{{ form.self_eval_agree.errors }}
 	</div>
 	<p id="not-complete-error2" style="color:red; display:none">Select one of the choices to continue.</p>
 	<br>

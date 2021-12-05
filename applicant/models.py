@@ -116,7 +116,7 @@ class Player(BasePlayer):
     wage_guess_promote1 = models.StringField()
     wage_guess_promote2 = models.StringField()
     wage_guess_promote3 = models.StringField()
-    # captcha = models.CharField(blank=True)
+    captcha = models.CharField(blank=True)
     # demographic survey questions
     age = models.IntegerField(min=18, max=95)
     gender = models.StringField(choices=qtext["gender"])

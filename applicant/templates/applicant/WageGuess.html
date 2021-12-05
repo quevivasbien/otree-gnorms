@@ -43,7 +43,7 @@
 			<p>$<span id="amount1" style="font-weight:bold">--</span></p>
 	</div>
 	<div id="no-response-message1" style="display: none; color: red;">Please use the slider to select a value before moving on.</div>
-
+	{{ form.wage_guess1.errors }}
 
 	<button type="button" class="btn-primary btn back" onclick="backMyProfile(1)">Back</button>
 	<button type="button" class="btn-primary btn next" onclick="nextMyProfile(1)">Next</button>
@@ -71,7 +71,7 @@
 			<p>$<span id="amount2" style="font-weight:bold">--</span></p>
 	</div>
 	<div id="no-response-message2" style="display: none; color: red;">Please use the slider to select a value before moving on.</div>
-
+	{{ form.wage_guess2.errors }}
 
 	<button type="button" class="btn-primary btn back" onclick="backMyProfile(2)">Back</button>
 	<button type="button" class="btn-primary btn next" onclick="nextMyProfile(2)">Next</button>
@@ -98,7 +98,7 @@
 			<p>$<span id="amount3" style="font-weight:bold">--</span></p>
 	</div>
 	<div id="no-response-message3" style="display: none; color: red;">Please use the slider to select a value before moving on.</div>
-
+	{{ form.wage_guess3.errors }}
 
 	<button type="button" class="btn-primary btn back" onclick="backMyProfile(3)">Back</button>
 	<button type="button" class="btn-primary btn next" onclick="nextMyProfile(3)">Next</button>
@@ -150,7 +150,7 @@
 	<div id="default-range-val" style="display:none">1.01</div>
 	<input id="hidden-input" type="hidden" name="wage_guess_other">
 	<div id="no-response-message" style="display: none; color: red;">Please use the slider to select a value before moving on.</div>
-
+	{{ form.wage_guess_other.errors }}
 
 	<button type="button" class="btn-primary btn back" onclick="backQuestion()">Back</button>
 	<button type="button" class="btn-primary btn next" onclick="nextQuestion()">Next</button>

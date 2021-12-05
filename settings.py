@@ -106,9 +106,9 @@ SECRET_KEY = environ.get('DJANGO_SECRET_KEY')
 # if an app is included in SESSION_CONFIGS, you don't need to list it here
 INSTALLED_APPS = ['otree']
 
-# EXTENSION_APPS = [
-#     'captcha',
-# ]
+EXTENSION_APPS = [
+    'captcha',
+]
 
-# RECAPTCHA_PUBLIC_KEY = '6LdWJsMZAAAAAAeXmwaUt1Whil_vaRJgXZ_Z9lZu'
-# RECAPTCHA_PRIVATE_KEY = environ.get('RECAPTCHA_PRIVATE_KEY')
+RECAPTCHA_PUBLIC_KEY = '6LdWJsMZAAAAAAeXmwaUt1Whil_vaRJgXZ_Z9lZu'
+RECAPTCHA_PRIVATE_KEY = environ.get('RECAPTCHA_PRIVATE_KEY')

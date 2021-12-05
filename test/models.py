@@ -62,7 +62,7 @@ u2_choices[1] = u2_choices[1].replace("will be", "will likely be")
 
 class Player(BasePlayer):
     question_order = models.StringField()
-    # captcha = models.CharField(blank=True)
+    captcha = models.CharField(blank=True)
     age = models.IntegerField(min=18, max=95)
     gender = models.StringField(choices=qtext["gender"])
     # ethnicity = models.StringField(choices=qtext['ethnicity'])

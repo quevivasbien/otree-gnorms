@@ -83,7 +83,7 @@ Suppose {{ player.name }} indicated that {{ player.pronoun_possessive }} perform
 
 <br>
 
-<div class="_formfield required">
+<div class="form-group required">
 	<p>I think my MATCH will rate this decision as:</p>
 	<div class="controls  field-match_guess_terrible">
 	  <div id="id_match_guess_terrible" class="form-row">
@@ -131,7 +131,7 @@ Suppose {{ player.name }} indicated that {{ player.pronoun_possessive }} perform
 
 <br>
 
-<div class="_formfield required">
+<div class="form-group required">
 	<p>I think my MATCH will rate this decision as:</p>
 	<div class="controls  field-match_guess_very_poor">
 	  <div id="id_match_guess_very_poor" class="form-row">
@@ -180,7 +180,7 @@ Suppose {{ player.name }} indicated that {{ player.pronoun_possessive }} perform
 
 <br>
 
-<div class="_formfield required">
+<div class="form-group required">
 	<p>I think my MATCH will rate this decision as:</p>
 	<div class="controls  field-match_guess_neutral">
 	  <div id="id_match_guess_neutral" class="form-row">
@@ -229,7 +229,7 @@ Suppose {{ player.name }} indicated that {{ player.pronoun_possessive }} perform
 
 <br>
 
-<div class="_formfield required">
+<div class="form-group required">
 	<p>I think my MATCH will rate this decision as:</p>
 	<div class="controls  field-match_guess_good">
 	  <div id="id_match_guess_good" class="form-row">
@@ -278,7 +278,7 @@ Suppose {{ player.name }} indicated that {{ player.pronoun_possessive }} perform
 
 <br>
 
-<div class="_formfield required">
+<div class="form-group required">
 	<p>I think my MATCH will rate this decision as:</p>
 	<div class="controls  field-match_guess_very_good">
 	  <div id="id_match_guess_very_good" class="form-row">
@@ -327,7 +327,7 @@ Suppose {{ player.name }} indicated that {{ player.pronoun_possessive }} perform
 
 <br>
 
-<div class="_formfield required">
+<div class="form-group required">
 	<p>I think my MATCH will rate this decision as:</p>
 	<div class="controls  field-match_guess_exceptional">
 	  <div id="id_match_guess_exceptional" class="form-row">
@@ -372,12 +372,12 @@ Suppose {{ player.name }} indicated that {{ player.pronoun_possessive }} perform
 
 </div>
 
-
-
-
-
-
-
+{{ form.match_guess_terrible.errors }}
+{{ form.match_guess_very_poor.errors }}
+{{ form.match_guess_neutral.errors }}
+{{ form.match_guess_good.errors }}
+{{ form.match_guess_very_good.errors }}
+{{ form.match_guess_exceptional.errors }}
 
 {% endblock %}
 

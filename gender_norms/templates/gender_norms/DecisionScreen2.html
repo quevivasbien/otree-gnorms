@@ -80,7 +80,7 @@ Suppose {{ player.name }} indicated that {{ player.pronoun_possessive }} perform
 
 <br>
 
-<div class="_formfield required">
+<div class="form-group required">
 	<p>I rate this decision as:</p>
 	<div class="controls  field-personal_terrible">
 	  <div id="id_personal_terrible" class="form-row">
@@ -128,7 +128,7 @@ Suppose {{ player.name }} indicated that {{ player.pronoun_possessive }} perform
 
 <br>
 
-<div class="_formfield required">
+<div class="form-group required">
 	<p>I rate this decision as:</p>
 	<div class="controls  field-personal_very_poor">
 	  <div id="id_personal_very_poor" class="form-row">
@@ -177,7 +177,7 @@ Suppose {{ player.name }} indicated that {{ player.pronoun_possessive }} perform
 
 <br>
 
-<div class="_formfield required">
+<div class="form-group required">
 	<p>I rate this decision as:</p>
 	<div class="controls  field-personal_neutral">
 	  <div id="id_personal_neutral" class="form-row">
@@ -226,7 +226,7 @@ Suppose {{ player.name }} indicated that {{ player.pronoun_possessive }} perform
 
 <br>
 
-<div class="_formfield required">
+<div class="form-group required">
 	<p>I rate this decision as:</p>
 	<div class="controls  field-personal_good">
 	  <div id="id_personal_good" class="form-row">
@@ -275,7 +275,7 @@ Suppose {{ player.name }} indicated that {{ player.pronoun_possessive }} perform
 
 <br>
 
-<div class="_formfield required">
+<div class="form-group required">
 	<p>I rate this decision as:</p>
 	<div class="controls  field-personal_very_good">
 	  <div id="id_personal_very_good" class="form-row">
@@ -324,7 +324,7 @@ Suppose {{ player.name }} indicated that {{ player.pronoun_possessive }} perform
 
 <br>
 
-<div class="_formfield required">
+<div class="form-group required">
 	<p>I rate this decision as:</p>
 	<div class="controls  field-personal_exceptional">
 	  <div id="id_personal_exceptional" class="form-row">
@@ -369,12 +369,12 @@ Suppose {{ player.name }} indicated that {{ player.pronoun_possessive }} perform
 
 </div>
 
-
-
-
-
-
-
+{{ form.personal_terrible.errors }}
+{{ form.personal_very_poor.errors }}
+{{ form.personal_neutral.errors }}
+{{ form.personal_good.errors }}
+{{ form.personal_very_good.errors }}
+{{ form.personal_exceptional.errors }}
 
 {% endblock %}
 

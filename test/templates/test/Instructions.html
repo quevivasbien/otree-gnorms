@@ -29,6 +29,7 @@
 {% formfield player.understanding2 label="Your bonus payment" %}
 <div style="display:none" id="understanding-attempts-display">{{ player.understanding2_attempts }}</div>
 <input type="hidden" name="understanding2_attempts" id="understanding-attempts-submit">
+{{ form.understanding2_attempts.errors }}
 
 <p>Once you correctly answer this question, you can continue to the ASVAB questions.</p>
 

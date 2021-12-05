@@ -10,7 +10,7 @@ body {
     font-family: Helvetica, sans-serif;
     font-size: 11pt;
 }
-._formfield {
+.form-group {
     background-color: #e1e1ea;
     margin: 10px 30px 10px 20px;
     padding: 20px 20px;
@@ -42,7 +42,7 @@ label {
 input.form-control {
   width: 100px;
   display: inline-block;
-  outline: 0; border: 1px; padding: 0px; margin: 0; padding-left: 10px;
+  outline: 0; border: 1px; padding: 0; margin: 0;
   text-align: center;
 }
 .slider-container {
@@ -54,7 +54,7 @@ input.form-control {
   width: 80%;
   height: 25px;
   outline: none;
-  text-align: center;
+  align: center;
 }
 
 table, th, td {

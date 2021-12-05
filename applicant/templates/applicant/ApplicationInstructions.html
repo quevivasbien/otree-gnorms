@@ -36,6 +36,7 @@
 	{% formfield player.understanding3 label="Employers will use my job application portfolio to decide how much they'd be willing to pay in exchange for" %}
 	<div style="display:none" id="understanding-attempts-display">{{ player.understanding3_attempts }}</div>
 	<input type="hidden" name="understanding3_attempts" id="understanding-attempts-submit">
+	{{ form.understanding3_attempts.errors }}
 
 	<button type="button" class="btn-primary btn back" onclick="show('page2', 'page3')" style="display:block">Back</button>
 	<button class="btn-primary btn next" style="display:block">Next</button>

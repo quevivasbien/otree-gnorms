@@ -68,7 +68,7 @@ class Player(BasePlayer):
     ability = models.IntegerField()
     ability_comp = models.IntegerField()
     ability_score = models.IntegerField()
-    # captcha = models.CharField(blank=True)
+    captcha = models.CharField(blank=True)
     understanding1a = models.StringField()
     understanding1b = models.StringField()
     understanding1c = models.StringField()

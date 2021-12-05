@@ -55,6 +55,7 @@
 			<p><span id="amount1" style="font-weight:bold">--</span> out of 10</p>
 	</div>
 	<div id="no-response-message1" style="display: none; color: red;">Please use the slider to select a value before moving on.</div>
+	{{ form.perform_guess1.errors }}
 
 	<button type="button" class="btn-primary btn back" onclick="backMyProfile(1)">Back</button>
 	<button type="button" class="btn-primary btn next" onclick="nextMyProfile(1)">Next</button>
@@ -82,6 +83,7 @@
 			<p><span id="amount2" style="font-weight:bold">--</span> out of 10</p>
 	</div>
 	<div id="no-response-message2" style="display: none; color: red;">Please use the slider to select a value before moving on.</div>
+	{{ form.perform_guess2.errors }}
 
 	<button type="button" class="btn-primary btn back" onclick="backMyProfile(2)">Back</button>
 	<button type="button" class="btn-primary btn next" onclick="nextMyProfile(2)">Next</button>
@@ -108,6 +110,7 @@
 			<p><span id="amount3" style="font-weight:bold">--</span> out of 10</p>
 	</div>
 	<div id="no-response-message3" style="display: none; color: red;">Please use the slider to select a value before moving on.</div>
+	{{ form.perform_guess3.errors }}
 
 	<button type="button" class="btn-primary btn back" onclick="backMyProfile(3)">Back</button>
 	<button type="button" class="btn-primary btn next" onclick="nextMyProfile(3)">Next</button>
@@ -159,6 +162,7 @@
 	<div id="no-response-message" style="display: none; color: red;">Please use the slider to select a value before moving on.</div>
 	<div id="default-range-val" style="display:none">5</div>
 	<input id="hidden-input" type="hidden" name="perform_guess_other">
+	{{ form.perform_guess_other.errors }}
 
 	<button type="button" class="btn-primary btn back" onclick="backQuestion()">Back</button>
 	<button type="button" class="btn-primary btn next" onclick="nextQuestion()">Next</button>

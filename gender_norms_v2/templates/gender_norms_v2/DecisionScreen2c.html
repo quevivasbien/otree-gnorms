@@ -77,7 +77,7 @@ Suppose that on a scale from 0 (entirely disagree) to 100 (entirely agree), {{ p
 
 <br>
 
-<div class="_formfield required">
+<div class="form-group required">
 	<p>I rate this decision as:</p>
 	<div class="controls  field-personal_succeed5">
 	  <div id="id_personal_succeed5" class="form-row">
@@ -125,7 +125,7 @@ Suppose that on a scale from 0 (entirely disagree) to 100 (entirely agree), {{ p
 
 <br>
 
-<div class="_formfield required">
+<div class="form-group required">
 	<p>I rate this decision as:</p>
 	<div class="controls  field-personal_succeed25">
 	  <div id="id_personal_succeed25" class="form-row">
@@ -174,7 +174,7 @@ Suppose that on a scale from 0 (entirely disagree) to 100 (entirely agree), {{ p
 
 <br>
 
-<div class="_formfield required">
+<div class="form-group required">
 	<p>I rate this decision as:</p>
 	<div class="controls  field-personal_succeed55">
 	  <div id="id_personal_succeed55" class="form-row">
@@ -223,7 +223,7 @@ Suppose that on a scale from 0 (entirely disagree) to 100 (entirely agree), {{ p
 
 <br>
 
-<div class="_formfield required">
+<div class="form-group required">
 	<p>I rate this decision as:</p>
 	<div class="controls  field-personal_succeed75">
 	  <div id="id_personal_succeed75" class="form-row">
@@ -272,7 +272,7 @@ Suppose that on a scale from 0 (entirely disagree) to 100 (entirely agree), {{ p
 
 <br>
 
-<div class="_formfield required">
+<div class="form-group required">
 	<p>I rate this decision as:</p>
 	<div class="controls  field-personal_succeed95">
 	  <div id="id_personal_succeed95" class="form-row">
@@ -317,11 +317,11 @@ Suppose that on a scale from 0 (entirely disagree) to 100 (entirely agree), {{ p
 
 </div>
 
-
-
-
-
-
+{{ form.personal_succeed5.errors }}
+{{ form.personal_succeed25.errors }}
+{{ form.personal_succeed55.errors }}
+{{ form.personal_succeed75.errors }}
+{{ form.personal_succeed95.errors }}
 
 {% endblock %}
 

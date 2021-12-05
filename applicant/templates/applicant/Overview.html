@@ -39,6 +39,7 @@
 	<button class="btn-primary btn next" style="display:block">Next</button>
 	<div style="display:none" id="understanding-attempts-display">{{ player.understanding1_attempts }}</div>
 	<input type="hidden" name="understanding1_attempts" id="understanding-attempts-submit">
+	{{ form.understanding1_attempts.errors }}
 </div>
 
 {% endblock %}

@@ -77,7 +77,7 @@
 
 	<h4 id="question-indicator">Applicant <span id="question-number">1</span> of {{ participant.vars.apps_per_emp }}:</h4>
 
-	<div class="_formfield" style="text-align:center">
+	<div class="form-group" style="text-align:center">
 		<img id="avatar" src="" alt="Applicant avatar" style="display:block; margin-left: auto; margin-right: auto; width: 30%; max-width: 150px;">
 
 		<div id="display-eval-correct" style="font-style: italic"><p>The applicant correctly answered <span id="eval-correct"></span> out of 10 application questions, which is as good as or better than <span id="eval-correct-percentile"></span>% of other MTurkers who took a similar test.</p></div>
@@ -89,7 +89,7 @@
 	</div>
 
 	<p>Choose one of the options below to indicate how socially appropriate you think this application portfolio is:</p>
-	<div class="_formfield required">
+	<div class="form-group required">
 		<div class="controls field-soc_approp_ratings">
 			<ul id="id_soc_approp_ratings">
 				<li>
@@ -133,7 +133,7 @@
 	</div>
 	<div id="no-response-message" style="display: none; color: red;">Please choose one of the options above before moving on.</div>
 	<input id="player-bids" type="hidden" name="soc_approp_ratings">
-
+	{{ form.soc_approp_ratings.errors }}
 
 	<br>
 	<button type="button" class="btn-primary btn back" onclick="back()">Back</button>

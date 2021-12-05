@@ -23,7 +23,7 @@
 {% formfield player.understanding5 label="My bonus for this part of the study depends on whether I" %}
 <div style="display:none" id="understanding-attempts-display">{{ player.understanding5_attempts }}</div>
 <input type="hidden" name="understanding5_attempts" id="understanding-attempts-submit">
-
+{{ form.understanding5_attempts.errors }}
 
 <button class="btn-primary btn next">Next</button>
 

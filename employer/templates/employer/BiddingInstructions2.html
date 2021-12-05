@@ -19,7 +19,7 @@
 
 <p>The box below contains more information about how to choose a switching point for each applicant.</p>
 
-<div class="_formfield" style="font-size:10pt">
+<div class="form-group" style="font-size:10pt">
 	<p>Consider the following list of questions for each applicant:</p>
 
 	<table>
@@ -150,7 +150,7 @@
 {% formfield player.understanding3 label="I can receive a bonus payment of up to $2.00 for this part. To maximize my payoff, I should choose a switching point equal to"%}
 <div style="display:none" id="understanding-attempts-display">{{ player.understanding3_attempts }}</div>
 <input type="hidden" name="understanding3_attempts" id="understanding-attempts-submit">
-
+{{ form.understanding3_attempts.errors }}
 
 <button class="btn-primary btn next">Next</button>
 
