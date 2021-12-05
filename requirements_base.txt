@@ -1,1 +1,1 @@
-otree[mturk]>=5
+otree[mturk]
