@@ -61,11 +61,8 @@ class MTurkHandler:
         num_workers.send_keys(str(EXPERIMENT_SIZE))
         create_button = self.browser.find_element_by_id('btn-create-session')
         create_button.click()
-        print(ENDPOINT, type(ENDPOINT))
         if ENDPOINT is None:
-            use_sandbox = WebDriverWait(self.browser, 20).until(
-                EC.presence_of_element_located((By.NAME, 'use_sandbox'))
-            )
+            use_sandbox = self.browser.find_element_by_name('use_sandbox')
             use_sandbox.click()
         WebDriverWait(self.browser, 1)
         publish_button = WebDriverWait(self.browser, 20).until(
