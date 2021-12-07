@@ -57,5 +57,8 @@
   "q29": ["It is the only element with no neutrons.", "It is the lightest element.", "It is an inert gas and rarely reacts.", "It sometimes behaves like an alkali metal."],
   "q30": ["0.9 kPa", "1.6 kPa", "1.8 kPa", "2.4 kPa"],
   "q31": ["10 m/s", "15 m/s", "20 m/s", "30 m/s"],
-  "q32": ["20 N", "200 N", "1000 N", "2000 N"]
+  "q32": ["20 N", "200 N", "1000 N", "2000 N"],
+  "credibility_of_100": ["credible", "somewhat credible", "somewhat not credible", "not credible"],
+  "exit_survey_agree": ["disagree strongly", "disagree", "agree", "strongly agree"],
+  "exit_survey_confidence": ["not confident", "somewhat confident", "appropriately confident", "overly confident"]
 }

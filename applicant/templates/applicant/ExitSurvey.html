@@ -10,18 +10,44 @@
   <p>Thank you for your participation!</p>
   <p>Before getting your completion code, please take some time to answer the following questions:</p>
   
-  <p>In a few words, what do you think this study is about?</p>
-
+  
   <div class="form-group required">
+    <p>In a few words, what do you think this study is about?</p>
     <div class="controls  field-study_topic_guess">
-        <input type="text" name="study_topic_guess" maxlength="100" required="" id="id_study_topic_guess" class="form-control" style="width: 100ch; max-width: 100%;">
+        <input type="text" name="study_topic_guess" maxlength="100" required="" id="id_study_topic_guess" class="form-control free-response">
     </div>
   </div>
 
   {{ form.study_topic_guess.errors }}
 
+  <div class="form-group required">
+    <p>You described your performance on the application questions in the test as “{{ player.self_eval }}.” In a few words, explain why you {% if player.self_eval != "exceptional" %}didn't choose the highest level of self-evaluation, i.e., “exceptional?”{% else %}chose this level of self-evaluation?{% endif %}</p>
+    <div class="controls  field-self_promote_reason">
+        <input type="text" name="self_promote_reason" maxlength="100" required="" id="id_self_promote_reason" class="form-control  free-response">
+    </div>
+  </div>
+
+  {{ form.self_promote_reason.errors }}
+
+  <p id="counterfactual-promote-label">You described your performance on the application questions in the test as “{{ player.self_eval }}.” How would you have described your performance on the application questions if {% if player.treatment == 0 %}your gender was revealed to employers using your avatar?{% else %}your gendered avatar was not revealed to the employer?{% endif %}</div>
+  {% formfield player.counterfactual_promote label=""%}
+
+  {% formfield player.credibility_of_100 label="If an applicant chooses 100 (out of 100) as the level of agreement to the statement, “I performed well on the application questions in Part 1,” how credible do you think an employer would see that as?" %}
+
+  {% formfield player.male_avg_answers_guess label="How many job performance questions (out of 10) do you think that the average <em>male</em> participant in this study will answer correctly?" %}
+
+  {% formfield player.female_avg_answers_guess label="How many job performance questions (out of 10) do you think that the average <em>female</em> participant in this study will answer correctly?" %}
+
   <br>
   <button class="btn-primary btn next">Next</button>
 
 
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+  let form = document.getElementById('id_counterfactual_promote').parentNode;
+  let label = document.getElementById('counterfactual-promote-label');
+  form.prepend(label);
+</script>
 {% endblock %}

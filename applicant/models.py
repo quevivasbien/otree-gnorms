@@ -208,6 +208,16 @@ class Player(BasePlayer):
     understanding4_attempts = models.IntegerField(initial=0)
 
     study_topic_guess = models.StringField()
+    male_avg_answers_guess = models.FloatField(min=0, max=10)
+    female_avg_answers_guess = models.FloatField(min=0, max=10)
+    credibility_of_100 = models.StringField(
+        choices=qtext['credibility_of_100'], widget=widgets.RadioSelect
+    )
+    counterfactual_promote = models.StringField(
+        choices=qtext["self_eval"], widget=widgets.RadioSelect
+    )
+    self_promote_reason = models.StringField()
+
 
     def check_q(self, value, correct):
         if value != correct:

@@ -239,7 +239,14 @@ class SocAppropGuess(Page):
 
 class ExitSurvey(Page):
     form_model = "player"
-    form_fields = ["study_topic_guess"]
+    form_fields = [
+        'study_topic_guess',
+        'male_avg_answers_guess',
+        'female_avg_answers_guess',
+        'self_promote_reason',
+        'counterfactual_promote',
+        'credibility_of_100'
+    ]
 
 
 class CompletionCode(Page):

@@ -14,14 +14,96 @@
 
   <div class="form-group required">
     <div class="controls  field-study_topic_guess">
-        <input type="text" name="study_topic_guess" maxlength="100" required="" id="id_study_topic_guess" class="form-control" style="width: 100ch; max-width: 100%;">
+        <input type="text" name="study_topic_guess" maxlength="100" required="" id="id_study_topic_guess" class="form-control free-response">
     </div>
   </div>
 
   {{ form.study_topic_guess.errors }}
 
+  {% if participant.vars.treatment != 0 %}
+  <br><br>
+  <p>The next few questions will be about this applicant portfolio:</p>
+  <div class="form-group" style="text-align:center">
+		<img src="/static/applicant/female{{ player.exit_survey_female_avatar }}.jpg" alt="Applicant avatar" style="display:block; margin-left: auto; margin-right: auto; width: 30%; max-width: 150px;">
+
+    {% if participant.vars.treatment == 2 %}
+		<div style="font-style: italic">
+      <p>The applicant correctly answered {{ player.exit_survey_perform }} out of 10 application questions, which is as good as or better than {{ perform_percentile }}% of other MTurkers who took a similar test.</p>
+    </div>
+    {% endif %}
+
+		<div>
+      {% if player.exit_survey_promote != 2 %}
+        <p>The applicant chose the following statement to accompany her application:</p>
+        {% if player.exit_survey_promote == 0 %}
+          <p>“Usually I am the best at what I do, and therefore I would succeed in a job that required me to perform well in tasks similar to the application questions.”</p>
+        {% else %}
+          <p>“I conduct all tasks assigned to me with the needed attention, and therefore I would work hard in a job that required me to perform well in tasks similar to the application questions.”</p>
+        {% endif %}
+      {% else %}
+        <p>The applicant chose to not include any statement with her application.</p>
+      {% endif %}
+    </div>
+	</div>
+
+  <div>
+    <p>For the applicant from the above profile, please indicate your level of agreement with each of the statements below:</p>
+    {% formfield player.female_enjoy_agree label="I would enjoy working with her." %}
+    {% formfield player.female_respect_agree label="She would treat me with respect." %}
+    {% formfield player.female_approachable_agree label="She would be approachable for an issue that bothered me." %}
+    {% formfield player.female_interpersonal_agree label="She has strong interpersonal skills." %}
+    {% formfield player.female_recommend_agree label="I would recommend her as a colleague to others." %}
+
+    <br>
+    {% formfield player.female_confident_describe label="How would you describe the confidence of the applicant in the above portfolio?" %}
+  </div>
+
+  <br><br>
+  <p>The next few questions will be about this applicant portfolio:</p>
+  <div class="form-group" style="text-align:center">
+		<img src="/static/applicant/male{{ player.exit_survey_male_avatar }}.jpg" alt="Applicant avatar" style="display:block; margin-left: auto; margin-right: auto; width: 30%; max-width: 150px;">
+
+    {% if participant.vars.treatment == 2 %}
+		<div style="font-style: italic">
+      <p>The applicant correctly answered {{ player.exit_survey_perform }} out of 10 application questions, which is as good as or better than {{ perform_percentile }}% of other MTurkers who took a similar test.</p>
+    </div>
+    {% endif %}
+
+		<div>
+      {% if player.exit_survey_promote != 2 %}
+        <p>The applicant chose the following statement to accompany his application:</p>
+        {% if player.exit_survey_promote == 0 %}
+          <p>“Usually I am the best at what I do, and therefore I would succeed in a job that required me to perform well in tasks similar to the application questions.”</p>
+        {% else %}
+          <p>“I conduct all tasks assigned to me with the needed attention, and therefore I would work hard in a job that required me to perform well in tasks similar to the application questions.”</p>
+        {% endif %}
+      {% else %}
+        <p>The applicant chose to not include any statement with his application.</p>
+      {% endif %}
+    </div>
+	</div>
+
+  <div>
+    <p>For the applicant from the above profile, please indicate your level of agreement with each of the statements below:</p>
+    {% formfield player.male_enjoy_agree label="I would enjoy working with him." %}
+    {% formfield player.male_respect_agree label="He would treat me with respect." %}
+    {% formfield player.male_approachable_agree label="He would be approachable for an issue that bothered me." %}
+    {% formfield player.male_interpersonal_agree label="He has strong interpersonal skills." %}
+    {% formfield player.male_recommend_agree label="I would recommend him as a colleague to others." %}
+
+    <br>
+    {% formfield player.male_confident_describe label="How would you describe the confidence of the applicant in the above portfolio?" %}
+  </div>
+
+  <br><br>
+  {% endif %}
+
+  {% formfield player.male_avg_answers_guess label="How many job performance questions (out of 10) do you think that the average <em>male</em> participant in this study will answer correctly?" %}
+
+  {% formfield player.female_avg_answers_guess label="How many job performance questions (out of 10) do you think that the average <em>female</em> participant in this study will answer correctly?" %}
+
   <br>
-  <button class="btn-primary btn next">Next</button>
+  <button class="btn-primary btn next">Finish</button>
 
 
 {% endblock %}

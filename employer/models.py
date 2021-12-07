@@ -9,6 +9,7 @@ from otree.api import (
     # currency_range,
 )
 import json
+import random
 
 
 # load question text
@@ -71,6 +72,13 @@ class Subsession(BaseSubsession):
 
         self.session.vars["applicant_start_idxs"] = {i: 0 for i in range(3)}
 
+        # generate data for dummy profiles in exit survey
+        for p in players:
+            p.exit_survey_perform = random.randint(0, 10)
+            p.exit_survey_promote = random.randint(0, 2)
+            p.exit_survey_male_avatar = random.randint(1, 4)
+            p.exit_survey_female_avatar = random.randint(1, 4)
+
         # everything else happens in pages.py, after demographic survey
 
 
@@ -128,6 +136,50 @@ class Player(BasePlayer):
     understanding6_attempts = models.IntegerField(initial=0)
 
     study_topic_guess = models.StringField()
+    male_avg_answers_guess = models.FloatField(min=0, max=10)
+    female_avg_answers_guess = models.FloatField(min=0, max=10)
+
+    exit_survey_perform = models.IntegerField()
+    exit_survey_promote = models.IntegerField()
+    exit_survey_male_avatar = models.IntegerField()
+    exit_survey_female_avatar = models.IntegerField()
+
+    male_enjoy_agree = models.StringField(
+        choices=qtext['exit_survey_agree'], widget=widgets.RadioSelect
+    )
+    male_respect_agree = models.StringField(
+        choices=qtext['exit_survey_agree'], widget=widgets.RadioSelect
+    )
+    male_approachable_agree = models.StringField(
+        choices=qtext['exit_survey_agree'], widget=widgets.RadioSelect
+    )
+    male_interpersonal_agree = models.StringField(
+        choices=qtext['exit_survey_agree'], widget=widgets.RadioSelect
+    )
+    male_recommend_agree = models.StringField(
+        choices=qtext['exit_survey_agree'], widget=widgets.RadioSelect
+    )
+    male_confident_describe = models.StringField(
+        choices=qtext['exit_survey_confidence'], widget=widgets.RadioSelect
+    )
+    female_enjoy_agree = models.StringField(
+        choices=qtext['exit_survey_agree'], widget=widgets.RadioSelect
+    )
+    female_respect_agree = models.StringField(
+        choices=qtext['exit_survey_agree'], widget=widgets.RadioSelect
+    )
+    female_approachable_agree = models.StringField(
+        choices=qtext['exit_survey_agree'], widget=widgets.RadioSelect
+    )
+    female_interpersonal_agree = models.StringField(
+        choices=qtext['exit_survey_agree'], widget=widgets.RadioSelect
+    )
+    female_recommend_agree = models.StringField(
+        choices=qtext['exit_survey_agree'], widget=widgets.RadioSelect
+    )
+    female_confident_describe = models.StringField(
+        choices=qtext['exit_survey_confidence'], widget=widgets.RadioSelect
+    )
 
     def check_q(self, value, correct):
         if value != correct:

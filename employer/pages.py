@@ -152,7 +152,34 @@ class SocAppropPage(Page):
 
 class ExitSurvey(Page):
     form_model = "player"
-    form_fields = ["study_topic_guess"]
+
+    def vars_for_template(self):
+        return {
+            'perform_percentile': int(constants['perform_cdf'][self.player.exit_survey_perform] * 100)
+        }
+
+    def get_form_fields(self):
+        fields = [
+            'study_topic_guess',
+            'male_avg_answers_guess',
+            'female_avg_answers_guess'
+        ]
+        if self.participant.vars['treatment'] != 0:
+            fields += [
+                'male_enjoy_agree',
+                'male_respect_agree',
+                'male_approachable_agree',
+                'male_interpersonal_agree',
+                'male_recommend_agree',
+                'male_confident_describe',
+                'female_enjoy_agree',
+                'female_respect_agree',
+                'female_approachable_agree',
+                'female_interpersonal_agree',
+                'female_recommend_agree',
+                'female_confident_describe'
+            ]
+        return fields
 
 
 class CompletionCode(Page):
