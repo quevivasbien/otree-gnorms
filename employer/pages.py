@@ -5,6 +5,7 @@ from ._builtin import Page
 from captcha.fields import ReCaptchaField
 
 import json
+import time
 from random import randint, shuffle
 
 # load question text
@@ -28,6 +29,9 @@ class Captcha(Page):
         frm = super().get_form(data, files, **kwargs)
         frm.fields["captcha"] = ReCaptchaField(label="")
         return frm
+    
+    def before_next_page(self):
+        self.player.time_start = int(time.time())
 
 
 class ConsentForm(Page):
@@ -180,6 +184,9 @@ class ExitSurvey(Page):
                 'female_confident_describe'
             ]
         return fields
+    
+    def before_next_page(self):
+        self.player.time_end = int(time.time())
 
 
 class CompletionCode(Page):

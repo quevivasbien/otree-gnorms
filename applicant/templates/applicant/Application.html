@@ -28,9 +28,9 @@
 
 	<p>Your job application portfolio is the <em>only</em> information about you that the employers will see.</p>
 
-	{% if player.treatment != 2 %}<p>Your application portfolio consists of {% if player.treatment == 1 %}(1) your avatar and (2) {% endif %}your evaluation of your performance on the test you completed in Part 1. The employers <em>do not</em> see {% if player.treatment == 0 %}your avatar or {% endif %}how many questions you answered correctly in Part 1, but they do see the average number of <em>application</em> questions answered correctly by all applicants.</p>
+	{% if player.treatment != 2 %}<p>Your application portfolio consists of {% if player.treatment == 1 %}(1) your avatar and (2) {% endif %}your evaluation of your performance on the <em>application</em> questions you completed in Part 1. The employers <em>do not</em> see {% if player.treatment == 0 %}your avatar or {% endif %}how many questions you answered correctly in Part 1, but they do see the average number of <em>application</em> questions correctly answered by a group of MTurk workers who took the ASVAB test previously.</p>
 
-	{% else %}<p>Your application portfolio consists of (1) your avatar, (2) your evaluation of your performance on the test you completed in Part 1, (3) your performance on the ten <em>application</em> questions from Part 1, and (4) the average number of <em>application</em> questions answered correctly by all applicants.</p>{% endif %}
+	{% else %}<p>Your application portfolio consists of (1) your avatar, (2) your evaluation of your performance on the test you completed in Part 1, (3) your performance on the ten <em>application</em> questions from Part 1, and (4) the average number of <em>application</em> questions correctly answered by a group of MTurk workers who took the ASVAB test previously.</p>{% endif %}
 
 	<p>A quick reminder: in Part 1, you correctly answered {{ player.eval_correct }} out of the 10 <em>application</em> questions.<p>
 
@@ -45,7 +45,7 @@
 
 	<p>Answer the following questions, which will be shown to employers as {% if player.treatment != 0 %}part of {% endif %}your application portfolio. Each portfolio shown to employers will only include your response to <em>one</em> of the following three questions.</p>
 
-	{% formfield player.self_eval label="Based on the information you received about other applicants' performance on the task, please indicate how well you think you performed on the <em>application</em> questions in the cognitive ability test" %}
+	{% formfield player.self_eval label="Based on the information you received about other MTurkers' performance on the <em>application</em> questions, please indicate how well you think you performed on the <em>application</em> questions in the cognitive ability test" %}
 	<p id="not-complete-error1" style="color:red; display:none">Select one of the choices to continue.</p>
 	<br>
 	<div class="form-group required">

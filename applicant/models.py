@@ -218,6 +218,9 @@ class Player(BasePlayer):
     )
     self_promote_reason = models.StringField()
 
+    time_start = models.IntegerField()
+    time_end = models.IntegerField()
+
 
     def check_q(self, value, correct):
         if value != correct:

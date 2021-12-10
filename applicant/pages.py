@@ -6,6 +6,7 @@ from captcha.fields import ReCaptchaField
 
 import json
 import random
+import time
 
 
 # load question text
@@ -24,6 +25,9 @@ class Captcha(Page):
         frm = super().get_form(data, files, **kwargs)
         frm.fields["captcha"] = ReCaptchaField(label="")
         return frm
+    
+    def before_next_page(self):
+        self.player.time_start = int(time.time())
 
 
 class ConsentForm(Page):
@@ -247,6 +251,9 @@ class ExitSurvey(Page):
         'counterfactual_promote',
         'credibility_of_100'
     ]
+
+    def before_next_page(self):
+        self.player.time_end = int(time.time())
 
 
 class CompletionCode(Page):

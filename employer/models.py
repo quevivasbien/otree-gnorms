@@ -181,6 +181,9 @@ class Player(BasePlayer):
         choices=qtext['exit_survey_confidence'], widget=widgets.RadioSelect
     )
 
+    time_start = models.IntegerField()
+    time_end = models.IntegerField()
+
     def check_q(self, value, correct):
         if value != correct:
             return "Sorry. Your answer is incorrect. Please choose the correct answer to proceed."
