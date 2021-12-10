@@ -97,12 +97,12 @@ function setUpQuestion(n) {
     let message = document.getElementById('app-self-eval');
     if (promote_type == '0') {
       let promote1 = getVals('wg-promote1')[n];
-      message.innerHTML = '<p>The applicant rated ' + pronoun + ' performance as ' + promote1_dict[promote1] + '.</p>';
+      message.innerHTML = '<p>The applicant rated ' + pronoun + ' performance in the application questions as ' + promote1_dict[promote1] + '.</p>';
     }
     else if (promote_type == '1') {
       let promote2 = getVals('wg-promote2')[n];
       message.innerHTML = '<p>When asked to rate ' + pronoun + ' level of agreement with the statement</p>'
-          + '<p>"I performed well on the test I took in Part 1."</p>'
+          + '<p>"I performed well on the application questions."</p>'
           + '<p>on a scale from 0 (entirely disagree) to 100 (entirely agree), the applicant gave the following rating:</p>'
           + '<p><b>' + promote2 + ' out of 100</b></p>';
     }

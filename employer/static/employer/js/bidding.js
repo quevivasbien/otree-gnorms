@@ -51,12 +51,12 @@ function setSelfEvalVisible(currentPart) {
 function setSelfEval(self_eval) {
   let div = document.getElementById('self-eval');
   div.innerHTML = '<p>The applicant rated ' + getPronoun()
-                    + ' performance as <em>' + self_eval + '</em>.</p>';
+                    + ' performance in the application questions as <em>' + self_eval + '</em>.</p>';
 }
 
 function setSelfEvalAgree(agree) {
   let div = document.getElementById('self-eval-agree');
-  div.innerHTML = '<p>When asked to rate ' + getPronoun() + ' level of agreement with the statement</p><p>"I performed well on the test I took in Part 1,"</p><p>on a scale from 0 (entirely disagree) to 100 (entirely agree), the applicant gave the following rating:</p>'
+  div.innerHTML = '<p>When asked to rate ' + getPronoun() + ' level of agreement with the statement</p><p>"I performed well on the application questions,"</p><p>on a scale from 0 (entirely disagree) to 100 (entirely agree), the applicant gave the following rating:</p>'
       + '<p><b>' + parseInt(agree) + ' out of 100</b></p>';
 }
 
