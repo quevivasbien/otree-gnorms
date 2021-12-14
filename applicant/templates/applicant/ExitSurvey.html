@@ -2,7 +2,7 @@
 {% load otree static %}
 
 {% block title %}
-  Finished!
+  Exit survey
 {% endblock %}
 
 {% block content %}
@@ -10,44 +10,60 @@
   <p>Thank you for your participation!</p>
   <p>Before getting your completion code, please take some time to answer the following questions:</p>
   
+  <div id="page1">
+    <div class="form-group required">
+      <p>In a few words, what do you think this study is about?</p>
+      <div class="controls  field-study_topic_guess">
+          <input type="text" name="study_topic_guess" maxlength="100" required="" id="id_study_topic_guess" class="form-control free-response">
+      </div>
+    </div>
+
+    {{ form.study_topic_guess.errors }}
+    <button type="button" class="btn-primary btn next" onclick="show('page2', 'page1')">Next</button>
+  </div>
   
-  <div class="form-group required">
-    <p>In a few words, what do you think this study is about?</p>
-    <div class="controls  field-study_topic_guess">
-        <input type="text" name="study_topic_guess" maxlength="100" required="" id="id_study_topic_guess" class="form-control free-response">
+  <div id="page2" style="display:none">
+    <div class="form-group required">
+      <p>You described your performance on the application questions in the test as “{{ player.self_eval }}.” In a few words, explain why you {% if player.self_eval != "exceptional" %}didn't choose the highest level of self-evaluation, i.e., “exceptional?”{% else %}chose this level of self-evaluation?{% endif %}</p>
+      <div class="controls  field-self_promote_reason">
+          <input type="text" name="self_promote_reason" maxlength="100" required="" id="id_self_promote_reason" class="form-control  free-response">
+      </div>
     </div>
+
+    {{ form.self_promote_reason.errors }}
+
+    <p id="counterfactual-promote-label">You described your performance on the application questions in the test as “{{ player.self_eval }}.” How would you have described your performance on the application questions if {% if player.treatment == 0 %}your gender was revealed to employers using your avatar?{% else %}your gendered avatar was not revealed to the employer?{% endif %}
+    {% formfield player.counterfactual_promote label=""%}
+
+    {% formfield player.credibility_of_100 label="If an applicant chooses 100 (out of 100) as the level of agreement to the statement, “I performed well on the application questions in Part 1,” how credible do you think an employer would see that as?" %}
+
+    {% formfield player.male_avg_answers_guess label="How many job performance questions (out of 10) do you think that the average <em>male</em> job applicant in this study will answer correctly?" %}
+
+    {% formfield player.female_avg_answers_guess label="How many job performance questions (out of 10) do you think that the average <em>female</em> job applicant in this study will answer correctly?" %}
+
+    <br>
+    <button type="button" class="btn-primary btn back" onclick="show('page1', 'page2')">Back</button>
+    <button class="btn-primary btn next" onclick="init_page()">Finish</button>
   </div>
-
-  {{ form.study_topic_guess.errors }}
-
-  <div class="form-group required">
-    <p>You described your performance on the application questions in the test as “{{ player.self_eval }}.” In a few words, explain why you {% if player.self_eval != "exceptional" %}didn't choose the highest level of self-evaluation, i.e., “exceptional?”{% else %}chose this level of self-evaluation?{% endif %}</p>
-    <div class="controls  field-self_promote_reason">
-        <input type="text" name="self_promote_reason" maxlength="100" required="" id="id_self_promote_reason" class="form-control  free-response">
-    </div>
-  </div>
-
-  {{ form.self_promote_reason.errors }}
-
-  <p id="counterfactual-promote-label">You described your performance on the application questions in the test as “{{ player.self_eval }}.” How would you have described your performance on the application questions if {% if player.treatment == 0 %}your gender was revealed to employers using your avatar?{% else %}your gendered avatar was not revealed to the employer?{% endif %}</div>
-  {% formfield player.counterfactual_promote label=""%}
-
-  {% formfield player.credibility_of_100 label="If an applicant chooses 100 (out of 100) as the level of agreement to the statement, “I performed well on the application questions in Part 1,” how credible do you think an employer would see that as?" %}
-
-  {% formfield player.male_avg_answers_guess label="How many job performance questions (out of 10) do you think that the average <em>male</em> job applicant in this study will answer correctly?" %}
-
-  {% formfield player.female_avg_answers_guess label="How many job performance questions (out of 10) do you think that the average <em>female</em> job applicant in this study will answer correctly?" %}
-
-  <br>
-  <button class="btn-primary btn next">Next</button>
-
 
 {% endblock %}
 
 {% block scripts %}
+<script src='/static/global/js/show.js'></script>
 <script type="text/javascript">
+  function init_page() {
+    if (document.getElementById('id_study_topic_guess').value == '') {
+      show('page1', 'page2');
+    }
+    else {
+      show('page2', 'page1');
+    }
+  }
+
   let form = document.getElementById('id_counterfactual_promote').parentNode;
   let label = document.getElementById('counterfactual-promote-label');
   form.prepend(label);
+
+  init_page();
 </script>
 {% endblock %}

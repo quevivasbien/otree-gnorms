@@ -53,7 +53,7 @@
   "q25": ["A", "B", "C", "D"],
   "q26": ["Triangle ABC is an equilateral right triangle.", "Triangle ABC is an isosceles right triangle.", "Triangle ABC has three acute interior angles.", "Triangle ABC has an interior angle greater than 170 degrees."],
   "q27": ["-$72", "-$36", "$36", "$72"],
-  "q28": ["The molecules will group together to form large crystals.", "The molecules will separate into Na and Cl molecules.", "The molecules will separate into negatively charged sodium ions and positively charged chlorine ions.", "The molecules will separate into positively charged sodium ions and negatively charged chlorine ions."],
+  "q28": ["The molecules will group together to form large crystals.", "The molecules will separate into K and Cl molecules.", "The molecules will separate into negatively charged potassium ions and positively charged chlorine ions.", "The molecules will separate into positively charged potassium ions and negatively charged chlorine ions."],
   "q29": ["It is the only element with no neutrons.", "It is the lightest element.", "It is an inert gas and rarely reacts.", "It sometimes behaves like an alkali metal."],
   "q30": ["0.9 kPa", "1.6 kPa", "1.8 kPa", "2.4 kPa"],
   "q31": ["10 m/s", "15 m/s", "20 m/s", "30 m/s"],

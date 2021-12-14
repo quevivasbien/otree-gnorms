@@ -30,7 +30,7 @@
 
 	{% if player.treatment != 2 %}<p>Your application portfolio consists of {% if player.treatment == 1 %}(1) your avatar and (2) {% endif %}your evaluation of your performance on the <em>application</em> questions you completed in Part 1. The employers <em>do not</em> see {% if player.treatment == 0 %}your avatar or {% endif %}how many questions you answered correctly in Part 1, but they do see the average number of <em>application</em> questions correctly answered by a group of MTurk workers who took the ASVAB test previously.</p>
 
-	{% else %}<p>Your application portfolio consists of (1) your avatar, (2) your evaluation of your performance on the test you completed in Part 1, (3) your performance on the ten <em>application</em> questions from Part 1, and (4) the average number of <em>application</em> questions correctly answered by a group of MTurk workers who took the ASVAB test previously.</p>{% endif %}
+	{% else %}<p>Your application portfolio consists of (1) your avatar, (2) your evaluation of your performance on the test you completed in Part 1, and (3) your performance on the ten <em>application</em> questions from Part 1. Employers will also see the average number of <em>application</em> questions correctly answered by a group of MTurk workers who took the ASVAB test previously.</p>{% endif %}
 
 	<p>A quick reminder: in Part 1, you correctly answered {{ player.eval_correct }} out of the 10 <em>application</em> questions.<p>
 
