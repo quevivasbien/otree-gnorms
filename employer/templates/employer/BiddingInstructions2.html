@@ -13,9 +13,9 @@
 
 {% block content %}
 
-<p>Each applicant portfolio you see will consist of {% if participant.vars.treatment != 0 %}(1) {% endif %}the applicant's evaluation of their own performance{% if participant.vars.treatment == 1 %} and (2) an avatar representing them{% elif participant.vars.treatment == 2 %}, (2) an avatar representing them, and (3) the number of <em>application</em> questions that they answered correctly{% endif %}.</p>
+<p>Each applicant portfolio you see will consist of {% if participant.vars.treatment != 0 %}(1) {% endif %}the applicant's evaluation of their own performance on the 10 <em>application</em> questions{% if participant.vars.treatment == 1 %} and (2) an avatar representing them{% elif participant.vars.treatment == 2 %}, (2) an avatar representing them, and (3) the number of <em>application</em> questions that they answered correctly (out of 10){% endif %}.</p>
 
-<p>Using that information, you will choose a "switching point" for each applicant, which is the maximum amount you would be willing to exchange in order to receive {{ Constants.bonus_per_question }} cents for each <em>job performance</em> question that the applicant answered correctly.</p>
+<p>Using that information, you will choose a "switching point" for each applicant, which is the maximum amount you would be willing to exchange in order to receive {{ Constants.bonus_per_question }} cents for each of the 10 <em>job performance</em> questions that the applicant answered correctly.</p>
 
 <p>The box below contains more information about how to choose a switching point for each applicant.</p>
 
@@ -33,21 +33,21 @@
 		<tr>
 			<td>1</td>
 			<td>Would you rather have:</td>
-			<td>{{ Constants.bonus_per_question }} cents for each <em>job performance</em> question that the applicant answered correctly.</td>
+			<td>{{ Constants.bonus_per_question }} cents for each of the 10 <em>job performance</em> questions that the applicant answered correctly.</td>
 			<td>or</td>
 			<td>1 cent</td>
 		</tr>
 		<tr>
 			<td>2</td>
 			<td>Would you rather have:</td>
-			<td>{{ Constants.bonus_per_question }} cents for each <em>job performance</em> question that the applicant answered correctly.</td>
+			<td>{{ Constants.bonus_per_question }} cents for each of the 10 <em>job performance</em> questions that the applicant answered correctly.</td>
 			<td>or</td>
 			<td>2 cents</td>
 		</tr>
 		<tr>
 			<td>3</td>
 			<td>Would you rather have:</td>
-			<td>{{ Constants.bonus_per_question }} cents for each <em>job performance</em> question that the applicant answered correctly.</td>
+			<td>{{ Constants.bonus_per_question }} cents for each of the 10 <em>job performance</em> questions that the applicant answered correctly.</td>
 			<td>or</td>
 			<td>3 cents</td>
 		</tr>
@@ -61,14 +61,14 @@
 		<tr>
 			<td>199</td>
 			<td>Would you rather have:</td>
-			<td>{{ Constants.bonus_per_question }} cents for each <em>job performance</em> question that the applicant answered correctly.</td>
+			<td>{{ Constants.bonus_per_question }} cents for each of the 10 <em>job performance</em> questions that the applicant answered correctly.</td>
 			<td>or</td>
 			<td>199 cents</td>
 		</tr>
 		<tr>
 			<td>200</td>
 			<td>Would you rather have:</td>
-			<td>{{ Constants.bonus_per_question }} cents for each <em>job performance</em> question that the applicant answered correctly.</td>
+			<td>{{ Constants.bonus_per_question }} cents for each of the 10 <em>job performance</em> questions that the applicant answered correctly.</td>
 			<td>or</td>
 			<td>200 cents</td>
 		</tr>
@@ -92,7 +92,7 @@
 		<tr>
 			<td>1</td>
 			<td>Would you rather have:</td>
-			<td class="highlight">{{ Constants.bonus_per_question }} cents for each <em>job performance</em> question that the applicant answered correctly.</td>
+			<td class="highlight">{{ Constants.bonus_per_question }} cents for each of the 10 <em>job performance</em> questions that the applicant answered correctly.</td>
 			<td>or</td>
 			<td>1 cent</td>
 		</tr>
@@ -106,21 +106,21 @@
 		<tr>
 			<td>59</td>
 			<td>Would you rather have:</td>
-			<td class="highlight">{{ Constants.bonus_per_question }} cents for each <em>job performance</em> question that the applicant answered correctly.</td>
+			<td class="highlight">{{ Constants.bonus_per_question }} cents for each of the 10 <em>job performance</em> questions that the applicant answered correctly.</td>
 			<td>or</td>
 			<td>59 cents</td>
 		</tr>
 		<tr>
 			<td>60</td>
 			<td>Would you rather have:</td>
-			<td>{{ Constants.bonus_per_question }} cents for each <em>job performance</em> question that the applicant answered correctly.</td>
+			<td>{{ Constants.bonus_per_question }} cents for each of the 10 <em>job performance</em> questions that the applicant answered correctly.</td>
 			<td>or</td>
 			<td class="highlight">60 cents</td>
 		</tr>
 		<tr>
 			<td>61</td>
 			<td>Would you rather have:</td>
-			<td>{{ Constants.bonus_per_question }} cents for each <em>job performance</em> question that the applicant answered correctly.</td>
+			<td>{{ Constants.bonus_per_question }} cents for each of the 10 <em>job performance</em> questions that the applicant answered correctly.</td>
 			<td>or</td>
 			<td class="highlight">61 cents</td>
 		</tr>
@@ -134,7 +134,7 @@
 		<tr>
 			<td>200</td>
 			<td>Would you rather have:</td>
-			<td>{{ Constants.bonus_per_question }} cents for each <em>job performance</em> question that the applicant answered correctly.</td>
+			<td>{{ Constants.bonus_per_question }} cents for each of the 10 <em>job performance</em> questions that the applicant answered correctly.</td>
 			<td>or</td>
 			<td class="highlight">200 cents</td>
 		</tr>
@@ -142,7 +142,7 @@
 </div>
 
 <br>
-<p>The key thing to keep in mind is that it is in your best interest to <u>choose a switching point equal to the maximum amount you would be willing to exchange in order to receive {{ Constants.bonus_per_question }} cents for each <em>job performance</em> question that the applicant answered correctly</u>.</p>
+<p>The key thing to keep in mind is that it is in your best interest to <u>choose a switching point equal to the maximum amount you would be willing to exchange in order to receive {{ Constants.bonus_per_question }} cents for each of the 10 <em>job performance</em> questions that the applicant answered correctly</u>.</p>
 
 <p>To help you with your answers, keep in mind that the average number of <em>application</em> questions correctly answered by a group of MTurk workers who took the ASVAB test previously is {{ Constants.mean_performance }} out of 10.</p>
 

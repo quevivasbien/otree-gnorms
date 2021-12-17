@@ -10,8 +10,9 @@
   <p>Thank you for your participation!</p>
   <p>Before getting your completion code, please take some time to answer the following questions:</p>
   
+  <div id="page1">
+  
   <p>In a few words, what do you think this study is about?</p>
-
   <div class="form-group required">
     <div class="controls  field-study_topic_guess">
         <input type="text" name="study_topic_guess" maxlength="100" required="" id="id_study_topic_guess" class="form-control free-response">
@@ -19,7 +20,10 @@
   </div>
 
   {{ form.study_topic_guess.errors }}
+  <button type="button" class="btn-primary btn next" onclick="show('page2', 'page1')">Next</button>
+</div>
 
+<div id="page2" style="display: none;">
   {% if participant.vars.treatment != 0 %}
   <br><br>
   <p>The next few questions will be about this applicant portfolio:</p>
@@ -98,12 +102,30 @@
   <br><br>
   {% endif %}
 
-  {% formfield player.male_avg_answers_guess label="How many job performance questions (out of 10) do you think that the average <em>male</em> job applicant in this study will answer correctly?" %}
+  {% formfield player.male_avg_answers_guess label="How many job performance questions (out of 10) do you think that the average <em>male</em> job applicant in this study answered correctly?" %}
 
-  {% formfield player.female_avg_answers_guess label="How many job performance questions (out of 10) do you think that the average <em>female</em> job applicant in this study will answer correctly?" %}
+  {% formfield player.female_avg_answers_guess label="How many job performance questions (out of 10) do you think that the average <em>female</em> job applicant in this study answered correctly?" %}
 
   <br>
-  <button class="btn-primary btn next">Finish</button>
+  <button type="button" class="btn-primary btn back" onclick="show('page1', 'page2')">Back</button>
+  <button class="btn-primary btn next" onclick="init_page()">Finish</button>
+</div>
 
 
+{% endblock %}
+
+{% block scripts %}
+<script src='/static/global/js/show.js'></script>
+<script type="text/javascript">
+  function init_page() {
+    if (document.getElementById('id_study_topic_guess').value == '') {
+      show('page1', 'page2');
+    }
+    else {
+      show('page2', 'page1');
+    }
+  }
+
+  init_page();
+</script>
 {% endblock %}
