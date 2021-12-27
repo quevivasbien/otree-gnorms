@@ -4,17 +4,9 @@ Change _templates/global/mturk_template.html to reflect correct payment amount A
 ! ALSO: Change participation fee in settings.py
 
 Change AWS access keys on Heroku and on personal computer(s) to Pavitra's AWS credentials
-Set OTREE_PRODUCTION variable to 1
-Create credential with Pavitra's account for preventing retakes (or just use the previously created one?)
+Set OTREE_PRODUCTION variable to 1  
 change ENDPOINT and EXPERIMENT_SIZE in config.json
-
-go through and set correct performance distributions for both applicant and employer
-go through and set correct payment amounts for everything in instructions
-go through and set correct time estimates in consent forms and in mturk previews
-^ I'm working on handling the above in constants.json
 
 
 Temporarily upgrade Heroku server
 Make sure to be logged into the right AWS locally before launching interface.py
-
-add interface and bonus code for test app

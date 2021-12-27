@@ -6,7 +6,7 @@ from os import environ
 # e.g. self.session.config['participation_fee']
 
 SESSION_CONFIG_DEFAULTS = dict(
-    real_world_currency_per_point=1.00, participation_fee=1.50, doc="",
+    real_world_currency_per_point=1.00, participation_fee=2.50, doc="",
     mturk_hit_settings=dict(
         keywords='bonus, study, decisions',
         title='Decision-making study',
@@ -14,7 +14,7 @@ SESSION_CONFIG_DEFAULTS = dict(
                     ' the University of Chicago, and the University of Utah',
         frame_height=500,
         template='global/mturk_template.html',
-        minutes_allotted_per_assignment=60,
+        minutes_allotted_per_assignment=12*60,
         expiration_hours=7 * 24,
         qualification_requirements=[
             # Completed at least 100 HITs
