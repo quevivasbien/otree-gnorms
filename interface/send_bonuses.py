@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import posixpath
 import pandas as pd
 import boto3
 import random
@@ -27,15 +28,15 @@ with open(os.path.join(FILE_DIR, "../_static/global/question_text.json"), "r", e
 # set up boto3 api client
 with open(os.path.join(FILE_DIR, "config.json"), "r") as fh:
     # TODO: Change endpoint to None before deploying
-    ENDPOINT = json.load(fh)["endpoint"]
+    config = json.load(fh)
+    ENDPOINT = config['endpoint'] if config['endpoint'] != 'None' else None
 client = boto3.client("mturk", endpoint_url=ENDPOINT, region_name="us-east-1")
-
 
 def send_bonus(
     worker_id, amount, assignment_id, reason="", max_retry=1, dry_run=DRY_RUN
 ):
-    if dry_run:
-        print(f"Sending bonus of ${amount} to {worker_id}")
+    print(f"Sending bonus of ${amount} to {worker_id}")
+    if dry_run or amount <= 0:
         return
     try:
         client.send_bonus(
@@ -61,29 +62,22 @@ def split_to_float(val):
     return [float(x) for x in val.split("-")]
 
 
-def get_apps_by_type(applicants_str):
-    applicants = applicants_str.split("-")
-    return {
-        "bids": applicants[:NBIDS],
-        "perform_guesses": applicants[:NBIDS_GUESSES],
-        "soc_approp_ratings": applicants[NBIDS_GUESSES:],
-    }
-
-
 class BonusResolver:
     def __init__(
         self, applicant_csv="applicant_data.csv", employer_csv="employer_data.csv"
     ):
+        self.applicant_csv = os.path.join(FILE_DIR, applicant_csv)
         self.app_df = pd.read_csv(
-            os.path.join(FILE_DIR, applicant_csv),
+            self.applicant_csv,
             index_col=0,
         )
+        self.employer_csv = os.path.join(FILE_DIR, employer_csv)
         self.emp_df = pd.read_csv(
-            os.path.join(FILE_DIR, employer_csv),
+            employer_csv,
             index_col=0,
         )
         # emp_app_cwalk is the applicants evaluated by each employer
-        self.emp_app_cwalk = dict(self.emp_df["applicants"].apply(get_apps_by_type))
+        self.emp_app_cwalk = dict(self.emp_df["applicants"].apply(lambda x: x.split('-')))
         # emp_bid_cwalk is the bids from each employer
         self.emp_bid_cwalk = dict(self.emp_df["bids"].apply(split_to_float))
         # etc.
@@ -131,31 +125,42 @@ class BonusResolver:
         # For each employer, loop through applicants and bids
         for employer in self.emp_df.index:
             # choose a random applicants for each bonus
-            app_for_bid_bonus = random.choice(self.emp_app_cwalk["bids"])
-            app_for_guess_bonus = random.choice(self.emp_app_cwalk["perform_guesses"])
-            app_for_soc_approp_bonus = random.choice(
-                self.emp_app_cwalk["soc_approp_ratings"]
-            )
+            n_apps = len(self.emp_app_cwalk[employer])
+            app_for_bid_bonus_idx = random.randrange(n_apps)
+            app_for_guess_bonus_idx = random.randrange(n_apps)
+            app_for_soc_approp_bonus_idx = random.randrange(n_apps)
             # compute bid bonus
-            bid = self.emp_bid_cwalk[employer][app_for_bid_bonus]
+            bid = self.emp_bid_cwalk[employer][app_for_bid_bonus_idx]
             p = random.randint(0, constants["bonus_per_question"] * 10) / 100
             if p < bid:
                 # "option A"
                 bonuses[employer] += (
                     BONUS_PER_QUESTION
-                    * self.app_df.at[app_for_bid_bonus, "noneval_correct"]
+                    * self.app_df.at[
+                        self.emp_app_cwalk[employer][app_for_bid_bonus_idx],
+                        "noneval_correct"
+                    ]
                 )
             else:
                 # "option B"
                 bonuses[employer] += p
             # compute perform guess bonus
-            guess = self.emp_perform_guess_cwalk[employer][app_for_guess_bonus]
-            if abs(guess - self.app_df.at[app_for_guess_bonus, "noneval_correct"]) <= 1:
+            guess = self.emp_perform_guess_cwalk[employer][app_for_guess_bonus_idx]
+            if abs(guess - self.app_df.at[
+                self.emp_app_cwalk[employer][app_for_guess_bonus_idx],
+                "noneval_correct"
+            ]) <= 1:
                 bonuses[employer] += constants["bonus_per_part"]
             # compute social appropriateness guess bonus
-            guess = self.emp_soc_approp_cwalk[employer][app_for_soc_approp_bonus]
-            other_employer_guess = random.choice(self.emp_df["soc_approp_ratings"])
-            if guess == other_employer_guess:
+            guess = self.emp_soc_approp_cwalk[employer][app_for_soc_approp_bonus_idx]
+            promote_type = 0 if app_for_soc_approp_bonus_idx < NBIDS \
+                else 1 if app_for_soc_approp_bonus_idx < NBIDS_GUESSES \
+                else 2
+            soc_approp_ratings = self.app_approp_cwalk[
+                self.emp_app_cwalk[employer][app_for_soc_approp_bonus_idx]
+            ][promote_type]
+            proba_same = (sum(x == guess for x in soc_approp_ratings) - 1) / len(soc_approp_ratings)
+            if random.random() <= proba_same:
                 bonuses[employer] += constants["bonus_per_part"]
         # record bonuses in dataframe
         self.emp_df["bonus"] = pd.Series(bonuses)
@@ -170,7 +175,7 @@ class BonusResolver:
         if random.random() <= n_other / (n_other + 3):
             # try other guess
             gender = self.app_df.at[applicant, "wage_guess_gender"].split("-")
-            treatment = split_to_int(self.app_df.at[applicant, "wage_guess_treatment"])
+            treatment = int(self.app_df.at[applicant, "treatment"])
             promote1 = split_to_int(self.app_df.at[applicant, "wage_guess_promote1"])
             promote2 = split_to_int(self.app_df.at[applicant, "wage_guess_promote2"])
             promote3 = self.app_df.at[applicant, "wage_guess_promote3"].split("-")
@@ -203,6 +208,11 @@ class BonusResolver:
                     f"{guess_type}_guess3",
                 )[promote_type],
             ]
+        if (guess_type == 'wage' and not self.app_bid_cwalk[other_applicant][promote_type]) \
+            or (guess_type == 'perform' and not self.app_perform_cwalk[other_applicant][promote_type]) \
+            or (guess_type == 'approp' and not self.app_approp_cwalk[other_applicant][promote_type]):
+            # try again
+            return self.get_guess_to_compare(applicant, guess_type)
         return guess, other_applicant, promote_type
 
     def get_wage_guess_bonus(self, applicant):
@@ -261,7 +271,7 @@ class BonusResolver:
                 bonus += self.get_approp_guess_bonus(applicant)
             self.app_df.at[applicant, "bonus"] = bonus
 
-    def send_bonuses(self):
+    def send_bonuses(self, save=False):
         for _, row in self.app_df.iterrows():
             send_bonus(
                 row["mturk_worker_id"],
@@ -276,10 +286,13 @@ class BonusResolver:
                 row["mturk_assignment_id"],
                 "Participation bonus",
             )
+        if save:
+            self.app_df.to_csv(self.applicant_csv)
+            self.emp_df.to_csv(self.employer_csv)
 
 
 if __name__ == "__main__":
     br = BonusResolver()
     br.get_employer_bonuses()
     br.get_applicant_bonuses()
-    br.send_bonuses()
+    br.send_bonuses(save=True)
