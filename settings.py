@@ -14,7 +14,7 @@ SESSION_CONFIG_DEFAULTS = dict(
                     ' the University of Chicago, and the University of Utah',
         frame_height=500,
         template='global/mturk_template.html',
-        minutes_allotted_per_assignment=12*60,
+        minutes_allotted_per_assignment=24*60,
         expiration_hours=7 * 24,
         qualification_requirements=[
             # Completed at least 100 HITs
